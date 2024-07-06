@@ -1,0 +1,9 @@
+services:
+  main_react:
+    container_name: main_react
+    build: ./none-step
+    ports:
+      - "3000:3000"
+    volumes:
+      - /react:/image
+    restart: on-failure
