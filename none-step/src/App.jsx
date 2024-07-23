@@ -1,9 +1,13 @@
+import { ThemeProvider } from "styled-components";
 import AppRoutes from "./routes/AppRoutes";
+import { theme } from "./styles/Theme";
 
 function App() {
     return (
         <>
-            <AppRoutes />
+            <ThemeProvider theme={theme}>
+                <AppRoutes />
+            </ThemeProvider>
         </>
     );
 }
