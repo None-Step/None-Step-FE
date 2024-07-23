@@ -1,10 +1,25 @@
 import React from 'react'
+import styled from 'styled-components'
 
-const Button = () => {
+const Btn = styled.button`
+  width: 100%;
+  padding-block: 1.6rem;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.white};
+
+  // 버튼이 비활성화 상태일 때
+  &:disabled {
+    background-color: ${(props) => props.theme.colors.gray02};
+  }
+`;
+
+const Button = ({submitMessage, disabled}) => {
   return (
-    <button>
-      확인
-    </button>
+    <Btn disabled={disabled}>{submitMessage}</Btn>
   )
 }
 
