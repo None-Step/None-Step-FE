@@ -5,6 +5,7 @@ import Button from '../components/Button'
 import SocialButton from '../components/SocialButton'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Logo from '../components/Logo'
 
 const LoginWrap = styled.div`
   position: absolute;
@@ -22,11 +23,6 @@ const LoginWrap = styled.div`
   /* background-color: ${(props) => props.theme.colors.gray06}; */
 `;
 
-const Logo = styled.h1`
-  font-family: 'PyeongChangPeace-Bold';
-  font-size: 3.5rem;
-  margin-bottom: 2rem;
-`;
 
 const HrWrap = styled.div`
   width: 100%;
@@ -93,7 +89,7 @@ const Login = () => {
 
   return (
     <LoginWrap>
-      <Logo>이호선</Logo>
+      <Logo/>
       <InputForm
         label="아이디"
         type="text" 
