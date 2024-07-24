@@ -55,4 +55,9 @@ export const theme = {
     gwangjuLines: {
         one: "#3DB449",
     },
+    social: {
+        kakao: "#fae500",
+        naver:"#03c75a",
+    }
+
 };
