@@ -117,14 +117,38 @@ const SignUpForm = () => {
     };
 
     try {
-      const response = await axios.post('/nonestep/member/signup', requestBody);
+      const response = await axios.post('http://localhost:5173/nonestep/member/signup', requestBody);
       console.log('회원가입 성공:', response.data);
-      // 회원 가입 완료 안내 페이지로 리디렉션 하기
+      // 회원가입 완료 안내 페이지로 리디렉션 하기
     } catch (error) {
       console.error('회원가입 에러:', error.response ? error.response.data : 'API 서버 오류');
-      alert('회원 가입 중 에러가 발생했습니다. 다시 시도해 주세요.');
+      alert('회원가입 중 에러가 발생했습니다. 다시 시도해 주세요.');
     }
 
+  };
+
+  const handlePhoneChange = (e) => {
+    const newValue = e.target.value;
+    setMemberPhone(newValue);
+    // 휴대폰 번호 유효성 검사
+    const isValid = /^\d{11}$/.test(newValue);
+    setPhoneNumberValid(isValid);
+  };
+
+  // 휴대폰 인증번호 함수
+  const sendVerificationCode = async () => {
+    try {
+      if (phoneNumberValid) {
+        const response = await axios.post('http://localhost:5173/nonestep/member/phone', { memberPhone });
+        setPhoneCodeSent(true);
+        alert('인증번호가 전송되었습니다.');
+      } else {
+        alert('유효한 휴대폰 번호를 입력해주세요.');
+      }
+    } catch (error) {
+      console.error('휴대폰 인증 에러:', error);
+      alert('휴대폰 인증 중 문제가 발생했습니다.');
+    }
   };
 
   return (
@@ -188,7 +212,7 @@ const SignUpForm = () => {
           placeholder="휴대폰 번호"
           onValidationChange={setPhoneNumberValid} // 유효성 검사 함수로 수정 필요
         />
-        <SubmitBut>인증</SubmitBut>
+        <SubmitBut onClick={sendVerificationCode} disabled={!phoneNumberValid || phoneCodeSent}>인증</SubmitBut>
       </InputWrap>
       <MarginInputForm
         label="인증번호 확인" 
