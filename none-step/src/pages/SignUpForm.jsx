@@ -58,12 +58,20 @@ const SignUpForm = () => {
   const [memberName, setMemberName] = useState('');
   const [memberMail, setMemberMail] = useState('');
   const [memberPhone, setMemberPhone] = useState('');
-  
 
+  // 아이디 사용 가능 여부 체크
+  const [idCheckPassed, setIdCheckPassed] = useState(false);
+
+  // 인증번호
+  const [phoneVerificationCode, setPhoneVerificationCode] = useState('');
+  const [phoneCodeSent, setPhoneCodeSent] = useState(false);
+  
+  // 비밀번호 && 비밀번호 확인
   useEffect(() => {
     setPasswordConfirmValid(password === confirmPassword && password.length > 0); // 비밀번호 일치 여부 검증
   }, [password, confirmPassword]);
   
+  // 유효성 검사 모두 pass되면 버튼 활성화하기
   useEffect(() => {
     if (idValid && emailValid && passwordValid && nameValid && phoneNumberValid) {
       setButtonDisabled(false);
@@ -72,8 +80,55 @@ const SignUpForm = () => {
     }
   }, [idValid, emailValid, passwordValid, nameValid, phoneNumberValid]);
 
+  // 아이디 중복 여부 검사 함수
+  const checkID = async () => {
+    try {
+      const response = await axios.get(`/nonestep/member/idcheck?memberID=${memberID}`);
+      if (response.data) { // 응답이 true일 경우 (사용 가능)
+        setIdCheckPassed(true);
+        alert('사용 가능한 아이디입니다.');
+      } else { // 응답이 false일 경우 (사용 불가능)
+        setIdCheckPassed(false);
+        alert('이미 사용 중인 아이디입니다.');
+      }
+    } catch (error) {
+      console.error('아이디 중복 검사 에러:', error);
+      alert('아이디 중복 검사 중 문제가 발생했습니다.');
+    }
+  };
+
+  // 아이디 필드 값이 4글자 이상 & 유효성 검사
+  const validateID = (id) => {
+    // 예: 아이디 길이가 4자 이상이어야 하고, 특수 문자를 포함하지 않아야 함
+    const isValid = id.length >= 4 && /^[a-zA-Z0-9]+$/.test(id);
+    setIdValid(isValid); // 상태 업데이트
+  };
+
+  // 폼 제출 함수
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // 폼 기본 제출 동작 방지
+
+    const requestBody = {
+      memberID,
+      memberPass,
+      memberName,
+      memberMail,
+      memberPhone
+    };
+
+    try {
+      const response = await axios.post('/nonestep/member/signup', requestBody);
+      console.log('회원가입 성공:', response.data);
+      // 회원 가입 완료 안내 페이지로 리디렉션 하기
+    } catch (error) {
+      console.error('회원가입 에러:', error.response ? error.response.data : 'API 서버 오류');
+      alert('회원 가입 중 에러가 발생했습니다. 다시 시도해 주세요.');
+    }
+
+  };
+
   return (
-    <LoginWrap>
+    <LoginWrap onSubmit={handleSubmit}>
       <Logo/>
       <PageTitle>회원가입</PageTitle>
 
@@ -83,9 +138,13 @@ const SignUpForm = () => {
           type="text"
           placeholder="아이디"
           value={memberID}
+          onChange={(e) => {
+            setMemberID(e.target.value);
+            validateID(e.target.value); // 입력할 때마다 유효성 검사 수행
+          }}
           onValidationChange={setIdValid}
         />
-        <SubmitBut>확인</SubmitBut>
+        <SubmitBut onClick={checkID} disabled={!idValid}>확인</SubmitBut>
       </InputWrap>
 
       <InputForm 
@@ -131,6 +190,12 @@ const SignUpForm = () => {
         />
         <SubmitBut>인증</SubmitBut>
       </InputWrap>
+      <MarginInputForm
+        label="인증번호 확인" 
+        type="text" 
+        placeholder="인증번호 확인"
+        value={Number}
+      />
 
       <Button disabled={buttonDisabled} submitMessage="회원가입" ></Button>
     </LoginWrap>

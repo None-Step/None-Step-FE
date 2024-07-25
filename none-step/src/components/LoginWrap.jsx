@@ -16,9 +16,9 @@ const Wrap = styled.form`
   box-sizing: border-box;
 `;
 
-const LoginWrap = ({ children }) => {
+const LoginWrap = ({ children, onSubmit }) => {
   return (
-    <Wrap>
+    <Wrap onSubmit={onSubmit}>
       {children}
     </Wrap>
   )
