@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Wrap = styled.div`
+const Wrap = styled.form`
   position: absolute;
   top: 0; bottom: 0;
   left: 50%;

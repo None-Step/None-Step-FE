@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import Button from './Button';
+import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
-import Logo from './Logo';
+import Logo from '../components/Logo';
 
 const TermsWrap = styled.div`
   position: absolute;
@@ -109,7 +109,7 @@ const TermsOfService = () => {
 
   // 다음 버튼 클릭시 페이지 이동
   const handleButtonClick = () => {
-    navigate('/login');
+    navigate('/signUp');
   };
 
   return (

@@ -78,14 +78,14 @@ const Login = () => {
         type="text" 
         placeholder="아이디를 입력하세요"
         onValidationChange={setEmailValid} // 유효성 결과 전달
-      ></InputForm>
+      />
       <InputForm 
         label="비밀번호" 
         type="password" 
         placeholder="대/소문자, 특수문자, 숫자 포함 8자리 이상"
         onValidationChange={setPasswordValid} // 유효성 결과 전달
-        ></InputForm>
-      <Button disabled={buttonDisabled} submitMessage="로그인"></Button>
+        />
+      <Button disabled={buttonDisabled} submitMessage="로그인"/>
 
       <HrWrap>
         <Hr></Hr>
