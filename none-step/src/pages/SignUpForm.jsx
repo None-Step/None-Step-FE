@@ -5,6 +5,7 @@ import LoginWrap from '../components/LoginWrap';
 import InputForm from '../components/InputForm';
 import Button from '../components/Button';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PageTitle = styled.span`
   font-size: 1.4rem;
@@ -58,6 +59,8 @@ const SignUpForm = () => {
   const [memberName, setMemberName] = useState('');
   const [memberMail, setMemberMail] = useState('');
   const [memberPhone, setMemberPhone] = useState('');
+
+  const navigate = useNavigate();
 
   // 아이디 사용 가능 여부 체크
   const [idCheckPassed, setIdCheckPassed] = useState(false);
@@ -119,7 +122,8 @@ const SignUpForm = () => {
     try {
       const response = await axios.post('http://localhost:5173/nonestep/member/signup', requestBody);
       console.log('회원가입 성공:', response.data);
-      // 회원가입 완료 안내 페이지로 리디렉션 하기
+      // 회원가입 성공 후 로그인 페이지로 리디렉션 하기
+      navigate('/login');
     } catch (error) {
       console.error('회원가입 에러:', error.response ? error.response.data : 'API 서버 오류');
       alert('회원가입 중 에러가 발생했습니다. 다시 시도해 주세요.');
