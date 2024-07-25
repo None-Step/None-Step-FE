@@ -4,25 +4,8 @@ import InputForm from '../components/InputForm'
 import Button from '../components/Button'
 import SocialButton from '../components/SocialButton'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Logo from '../components/Logo'
-
-const LoginWrap = styled.div`
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 340px;
-  padding: 3.6rem 1.8rem;
-  box-sizing: border-box;
-  /* background-color: ${(props) => props.theme.colors.gray06}; */
-`;
-
+import LoginWrap from '../components/LoginWrap'
 
 const HrWrap = styled.div`
   width: 100%;

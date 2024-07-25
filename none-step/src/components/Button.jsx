@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useState } from 'react';
 
 const Btn = styled.button`
   width: 100%;
@@ -19,10 +18,10 @@ const Btn = styled.button`
   }
 `;
 
-const Button = ({submitMessage, disabled}) => {
+const Button = ({submitMessage, disabled, onClick}) => {
 
   return (
-    <Btn disabled={disabled}>{submitMessage}</Btn>
+    <Btn disabled={disabled} onClick={onClick}> {submitMessage} </Btn>
   )
 }
 

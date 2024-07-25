@@ -23,7 +23,7 @@ const SocialButton = ({type}) => {
 
   return (
     <SocialBtnWrap type={type}>
-      <SocialImg src = {imagePath} />
+      <SocialImg src = {imagePath} alt={type} />
     </SocialBtnWrap>
   )
 }
