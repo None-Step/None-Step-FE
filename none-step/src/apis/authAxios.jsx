@@ -3,6 +3,8 @@ import axios from 'axios';
 export const getAuthAxios = (token) => {
   const authAxios = axios.create({
     baseURL: 'http://nonstep.site',
+    // axios에 withCredentials를 true로 설정해줘야 refreshToken cookie를 주고받을 수 있음
+    withCredentials: true,
     headers: {
       //authAxios.get으로 보낸 모든 요청에 대해 heder에 accessToken이 있도록 함
       Authorization: token,

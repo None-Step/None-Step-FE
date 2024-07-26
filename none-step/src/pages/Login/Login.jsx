@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import InputForm from '../../components/InputForm'
 import Button from '../../components/Button'
 import SocialButton from '../../components/SocialButton'
@@ -8,53 +7,7 @@ import Logo from '../../components/Logo'
 import LoginWrap from '../../components/LoginWrap'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../apis/login'
-
-const HrWrap = styled.div`
-  width: 100%;
-  height: 5rem;
-  position: relative;
-  margin-block : 1rem .8rem;
-`;
-
-const Hr = styled.hr`
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: ${(props) => props.theme.colors.gray05};
-  position: absolute;
-  top: 50%;
-  border: none;
-`;
-
-const Span = styled.span`
-  color: ${(props) => props.theme.colors.gray02};
-  background-color: ${(props) => props.theme.colors.white};
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-inline: 0.5rem;
-  font-size: 1.2rem;
-
-`;
-
-const SignAction = styled.p`
-  width: 200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size : 1.2rem;
-  color: ${(props) => props.theme.colors.gray01};
-  margin-top: 2rem;
-`;
-
-const SignActionSpan = styled.span`
-  margin-inline : 0.5rem;
-  cursor: pointer;
-`;
+import { HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
 
 
 const Login = () => {
@@ -77,11 +30,10 @@ const Login = () => {
       }
     }, [emailValid, passwordValid]);
 
-    const handleLogin = async () => {
+    const handleLogin = async (event) => {
+      event.preventDefault();  // 기본 동작 방지
       try {
-        const result = await login(memberID, memberPass);
-        console.log(result);
-        const { accessToken, refreshToken } = result;
+        const { accessToken, refreshToken } = await login(memberID, memberPass);
         localStorage.setItem('access', accessToken);
         localStorage.setItem('refresh', refreshToken);
         navigate('/main');
