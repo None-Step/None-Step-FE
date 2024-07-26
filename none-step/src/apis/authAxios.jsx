@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getAuthAxios = (token) => {
   const authAxios = axios.create({
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://nonstep.site',
     headers: {
       //authAxios.get으로 보낸 모든 요청에 대해 heder에 accessToken이 있도록 함
       Authorization: token,

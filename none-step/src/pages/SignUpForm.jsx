@@ -6,6 +6,7 @@ import InputForm from '../components/InputForm';
 import Button from '../components/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { signup } from '../apis/signup';
 
 const PageTitle = styled.span`
   font-size: 1.4rem;
@@ -86,7 +87,7 @@ const SignUpForm = () => {
   // 아이디 중복 여부 검사 함수
   const checkID = async () => {
     try {
-      const response = await axios.get(`/nonestep/member/idcheck?memberID=${memberID}`);
+      const response = await axios.get(`http://nonstep.site/nonestep/member/idcheck?memberID=${memberID}`);
       if (response.data) { // 응답이 true일 경우 (사용 가능)
         setIdCheckPassed(true);
         alert('사용 가능한 아이디입니다.');
@@ -120,7 +121,7 @@ const SignUpForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5173/nonestep/member/signup', requestBody);
+      const response = await axios.post('http://nonstep.site/nonestep/member/signup', requestBody);
       console.log('회원가입 성공:', response.data);
       // 회원가입 성공 후 로그인 페이지로 리디렉션 하기
       navigate('/login');
@@ -225,7 +226,7 @@ const SignUpForm = () => {
         value={Number}
       />
 
-      <Button disabled={buttonDisabled} submitMessage="회원가입" ></Button>
+      <Button onClick={onClick} disabled={buttonDisabled} submitMessage="회원가입" ></Button>
     </LoginWrap>
   );
 }

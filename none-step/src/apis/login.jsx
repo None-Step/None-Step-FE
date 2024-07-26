@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const login = async (memberID,memberPass) => {
   try {
-    const response = await axios.post('http://localhost:5173/nonestep/member/login', {
+    const response = await axios.post('http://nonstep.site/nonestep/member/login', {
       memberID,
       memberPass
     });

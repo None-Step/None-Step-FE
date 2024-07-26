@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import InputForm from '../components/InputForm'
-import Button from '../components/Button'
-import SocialButton from '../components/SocialButton'
+import InputForm from '../../components/InputForm'
+import Button from '../../components/Button'
+import SocialButton from '../../components/SocialButton'
 import { useEffect, useState } from 'react'
-import Logo from '../components/Logo'
-import LoginWrap from '../components/LoginWrap'
+import Logo from '../../components/Logo'
+import LoginWrap from '../../components/LoginWrap'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../apis/login'
+import { login } from '../../apis/login'
 
 const HrWrap = styled.div`
   width: 100%;

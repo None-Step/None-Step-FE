@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import AppRoutes from "./routes/AppRoutes";
 import { theme } from "./styles/Theme";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 import SignUpForm from "./pages/SignUpForm";
 
 function App() {

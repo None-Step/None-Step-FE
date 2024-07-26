@@ -10,6 +10,12 @@ export const theme = {
         gray05: "#E5E5EA",
         gray06: "#F2F2F7",
         white: "#FFFFFF",
+        shadow100: "0 1px 4px rgba(12, 12, 13, 0.05)",
+        shadow200:
+            "0 1px 4px rgba(12, 12, 13, 0.1), 0 1px 4px rgba(12, 12, 13, 0.05)",
+        shadow300: "4px 4px 15px 6px rgba(12, 12, 13, 0.4)",
+        shadow400:
+            "4px 16px 32px -4px rgba(12, 12, 13, 0.1), 4px 4px 4px -4px rgba(12, 12, 13, 0.05)", 
     },
     capitalLines: {
         one: "#263C96",
