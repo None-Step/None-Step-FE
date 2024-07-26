@@ -6,6 +6,8 @@ import SocialButton from '../components/SocialButton'
 import { useEffect, useState } from 'react'
 import Logo from '../components/Logo'
 import LoginWrap from '../components/LoginWrap'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../apis/login'
 
 const HrWrap = styled.div`
   width: 100%;
@@ -56,10 +58,15 @@ const SignActionSpan = styled.span`
 
 
 const Login = () => {
+    const [memberID, setMemberID] = useState('');
+    const [memberPass, setMemberPass] = useState('');
+
     // useEffect 훅으로 valid값이 변경될 때마다 버튼 활성화 여부 결정
     const [emailValid, setEmailValid] = useState(false);
     const [passwordValid, setPasswordValid] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    const navigate = useNavigate();
   
     useEffect(() => {
       if (emailValid && passwordValid) {
@@ -69,6 +76,20 @@ const Login = () => {
         setButtonDisabled(true);
       }
     }, [emailValid, passwordValid]);
+
+    const handleLogin = async () => {
+      try {
+        const result = await login(memberID, memberPass);
+        console.log(result);
+        const { accessToken, refreshToken } = result;
+        localStorage.setItem('access', accessToken);
+        localStorage.setItem('refresh', refreshToken);
+        navigate('/main');
+      } catch (error) {
+        console.error('Login error:', error.response ? error.response.data : 'API 서버 오류');
+        alert('로그인 중 문제가 발생했습니다. 다시 시도해주세요.');
+      }
+    };
 
   return (
     <LoginWrap>
@@ -85,7 +106,7 @@ const Login = () => {
         placeholder="대/소문자, 특수문자, 숫자 포함 8자리 이상"
         onValidationChange={setPasswordValid} // 유효성 결과 전달
         />
-      <Button disabled={buttonDisabled} submitMessage="로그인"/>
+      <Button onClick={handleLogin} disabled={buttonDisabled} submitMessage="로그인"/>
 
       <HrWrap>
         <Hr></Hr>

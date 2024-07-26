@@ -8,7 +8,8 @@ function App() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <AppRoutes />
+                {/* <AppRoutes /> */}
+                <Login></Login>
             </ThemeProvider>
         </>
     );
