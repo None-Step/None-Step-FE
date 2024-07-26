@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Logo from '../components/Logo';
-import LoginWrap from '../components/LoginWrap';
-import InputForm from '../components/InputForm';
-import Button from '../components/Button';
+import Logo from '../../components/Logo';
+import LoginWrap from '../../components/LoginWrap';
+import InputForm from '../../components/InputForm';
+import Button from '../../components/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../apis/signup';
+import { signup } from '../../apis/signup';
 
 const PageTitle = styled.span`
   font-size: 1.4rem;
@@ -85,7 +85,9 @@ const SignUpForm = () => {
   }, [idValid, emailValid, passwordValid, nameValid, phoneNumberValid]);
 
   // 아이디 중복 여부 검사 함수
-  const checkID = async () => {
+  const checkID = async (event) => {
+    event.preventDefault();
+
     try {
       const response = await axios.get(`http://nonstep.site/nonestep/member/idcheck?memberID=${memberID}`);
       if (response.data) { // 응답이 true일 경우 (사용 가능)
@@ -110,26 +112,23 @@ const SignUpForm = () => {
 
   // 폼 제출 함수
   const handleSubmit = async (event) => {
-    event.preventDefault(); // 폼 기본 제출 동작 방지
-
-    const requestBody = {
-      memberID,
-      memberPass,
-      memberName,
-      memberMail,
-      memberPhone
-    };
-
-    try {
-      const response = await axios.post('http://nonstep.site/nonestep/member/signup', requestBody);
-      console.log('회원가입 성공:', response.data);
-      // 회원가입 성공 후 로그인 페이지로 리디렉션 하기
-      navigate('/login');
-    } catch (error) {
-      console.error('회원가입 에러:', error.response ? error.response.data : 'API 서버 오류');
-      alert('회원가입 중 에러가 발생했습니다. 다시 시도해 주세요.');
+    event.preventDefault();  // 폼 기본 제출 동작 방지
+  
+    // 모든 필드의 유효성 검사가 통과했는지 확인
+    if (idCheckPassed && emailValid && passwordValid && passwordConfirmValid && nameValid && phoneNumberValid) {
+      try {
+        // API 호출 - 회원가입 시도
+        const result = await signup(memberID, memberPass, memberName, memberMail, memberPhone);
+        console.log('회원가입 성공:', result);
+        // 회원가입 성공 후 로그인 페이지로 리디렉션
+        navigate('/login');
+      } catch (error) {
+        console.error('회원가입 에러:', error.response ? error.response.data : 'API 서버 오류');
+        alert('회원가입 중 에러가 발생했습니다. 다시 시도해 주세요.');
+      }
+    } else {
+      alert('모든 필드의 정보를 올바르게 입력해주세요.');
     }
-
   };
 
   const handlePhoneChange = (e) => {
@@ -141,10 +140,12 @@ const SignUpForm = () => {
   };
 
   // 휴대폰 인증번호 함수
-  const sendVerificationCode = async () => {
+  const sendVerificationCode = async (event) => {
+    event.preventDefault();
+
     try {
       if (phoneNumberValid) {
-        const response = await axios.post('http://localhost:5173/nonestep/member/phone', { memberPhone });
+        const response = await axios.post('http://nonestep.site/nonestep/member/phone', { memberPhone });
         setPhoneCodeSent(true);
         alert('인증번호가 전송되었습니다.');
       } else {
@@ -157,7 +158,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <LoginWrap onSubmit={handleSubmit}>
+    <LoginWrap>
       <Logo/>
       <PageTitle>회원가입</PageTitle>
 
@@ -226,7 +227,7 @@ const SignUpForm = () => {
         value={Number}
       />
 
-      <Button onClick={onClick} disabled={buttonDisabled} submitMessage="회원가입" ></Button>
+      <Button onClick={handleSubmit} disabled={buttonDisabled} submitMessage="회원가입" ></Button>
     </LoginWrap>
   );
 }

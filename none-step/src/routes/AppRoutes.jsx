@@ -1,7 +1,7 @@
 import { Route, Router, Routes } from "react-router-dom";
 import Login from "../pages/Login/Login";
-import TermsOfService from "../pages/TermsOfService";
-import SignUpForm from "../pages/SignUpForm";
+import TermsOfService from "../pages/Terms/TermsOfService";
+import SignUpForm from "../pages/SignUp/SignUpForm";
 import MyPage from "../pages/MyPage";
 
 function AppRoutes() {
