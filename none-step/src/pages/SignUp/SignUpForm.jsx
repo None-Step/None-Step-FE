@@ -7,39 +7,11 @@ import Button from '../../components/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../apis/signup';
+import { PageTitle,
+  InputWrap,
+  SubmitBut,
+  MarginInputForm } from './SignUpForm.style';
 
-const PageTitle = styled.span`
-  font-size: 1.4rem;
-  color: ${(props) => props.theme.colors.gray01};
-  margin-bottom: 3rem;
-`;
-
-const InputWrap = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const SubmitBut = styled.button`
-  width: 80px;
-  padding: 1.7rem 2rem;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.white};
-  margin-left: 0.5rem;
-
-  &:disabled {
-    background-color: ${(props) => props.theme.colors.gray02};
-  }
-`;
-
-const MarginInputForm = styled(InputForm)`
-  margin-bottom: 1.5rem;
-`;
 
 const SignUpForm = () => {
   //유효성 검사
