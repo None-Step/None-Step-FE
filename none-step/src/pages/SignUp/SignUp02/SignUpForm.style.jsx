@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import InputForm from "../../components/InputForm";
+import InputForm from "../../../components/InputForm";
 
 export const PageTitle = styled.span`
   font-size: 1.4rem;

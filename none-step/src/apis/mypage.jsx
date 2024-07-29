@@ -1,4 +1,4 @@
-import { getAuthAxios } from "./authAxios";
+import { getAuthAxios } from "./axiosInstance";
 
 export const getMyPage = async () => {
   const access = localStorage.getItem('access');

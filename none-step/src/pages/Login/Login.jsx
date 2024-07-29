@@ -30,18 +30,6 @@ const Login = () => {
       }
     }, [emailValid, passwordValid]);
 
-    const handleLogin = async (event) => {
-      event.preventDefault();  // 기본 동작 방지
-      try {
-        const { accessToken, refreshToken } = await login(memberID, memberPass);
-        localStorage.setItem('access', accessToken);
-        localStorage.setItem('refresh', refreshToken);
-        navigate('/main');
-      } catch (error) {
-        console.error('Login error:', error.response ? error.response.data : 'API 서버 오류');
-        alert('로그인 중 문제가 발생했습니다. 다시 시도해주세요.');
-      }
-    };
 
   return (
     <LoginWrap>

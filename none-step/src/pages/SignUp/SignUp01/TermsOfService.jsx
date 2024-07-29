@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import Button from '../../components/Button';
+import Button from '../../../components/Button';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../components/Logo';
+import Logo from '../../../components/Logo';
 import { TermsWrap, TermsTitleWrap, Title, Strong, Success, TermsTextBox, TermsText } from './TermsOfService.style';
 
 
