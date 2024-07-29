@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios';
-import LoginWrap from '../components/LoginWrap'
-import Logo from '../components/Logo'
-import { PageTitle, InputWrap, MarginInputForm, SubmitBut } from './SignUp/SignUp02/SignUpForm.style'
-import InputForm from '../components/InputForm'
-import Button from '../components/Button'
+import LoginWrap from '../../components/LoginWrap'
+import Logo from '../../components/Logo'
+import { PageTitle, InputWrap, MarginInputForm, SubmitBut } from '../SignUp/SignUp02/SignUpForm.style'
+import InputForm from '../../components/InputForm'
+import Button from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
 
 const FindID = () => {

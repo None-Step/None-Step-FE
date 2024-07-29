@@ -4,26 +4,9 @@ import Logo from '../../components/Logo';
 import { SignActionSpan } from '../Login/Login.style';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
+import { Container } from '../../components/CommonStyles';
+import { Description } from '../../components/CommonStyles';
 
-
-const Container = styled.div`
-position: absolute;
-  top: 0; bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 100%;
-  max-width: 304px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Description = styled(SignActionSpan)`
-  font-size: 1.4rem;
-  color: ${(props) => props.theme.colors.gray01};
-  cursor: auto;
-`;
 
 const SignUpSuccess = () => {
   const navigate = useNavigate();
