@@ -6,17 +6,21 @@ import FindID from "../pages/FindID/FindID";
 import SignUpSuccess from "../pages/SignUp/SignUpSuccess";
 import FindIDSuccess from "../pages/FindID/FindIDSuccess";
 import FindPW from "../pages/FindPW/FindPW";
+import FindPWResetting from "../pages/FindPW/FindPWResetting";
+import FindPWSuccess from "../pages/FindPW/FindPWSuccess";
 
 function AppRoutes() {
     return (
         <Routes>
-            <Route index element={<TermsOfService />}/>
+            <Route path="/terms" element={<TermsOfService />}/>
             <Route path="/signUp" element={<SignUpForm />}/>
             <Route path="/signUpSuccess" element={<SignUpSuccess />} />
             <Route path="/login" element={<Login />} />
             <Route path="/findID" element={<FindID />} />
             <Route path="/findIDSuccess" element={<FindIDSuccess />} />
             <Route path="/findPW" element={<FindPW />} />
+            <Route path="/findPWResetting" element={<FindPWResetting />} />
+            <Route path="/findPWSuccess" element={<FindPWSuccess />} />
 
         </Routes>
     );

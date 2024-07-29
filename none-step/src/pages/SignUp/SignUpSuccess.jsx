@@ -1,11 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 import Logo from '../../components/Logo';
-import { SignActionSpan } from '../Login/Login.style';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { Container } from '../../components/CommonStyles';
-import { Description } from '../../components/CommonStyles';
+import { Container, Description } from '../../components/CommonStyles';
 
 
 const SignUpSuccess = () => {

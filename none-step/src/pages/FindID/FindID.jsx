@@ -8,8 +8,9 @@ import Button from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
 
 const FindID = () => {
-  const [nameValid, setNameValid] = useState(false);
+  const [idValid, setIdValid] = useState(false);
   const [phoneNumberValid, setPhoneNumberValid] = useState(false);
+  
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const [phoneCodeSent, setPhoneCodeSent] = useState(false);
@@ -18,12 +19,12 @@ const FindID = () => {
 
   // 유효성 검사 모두 pass되면 버튼 활성화하기
   useEffect(() => {
-  if (nameValid && phoneNumberValid) {
+  if (idValid && phoneNumberValid) {
     setButtonDisabled(false);
   } else {
     setButtonDisabled(true);
   }
-}, [nameValid, phoneNumberValid]);
+}, [idValid, phoneNumberValid]);
 
   // 휴대폰 인증번호 함수
   const sendVerificationCode = async (event) => {
@@ -50,7 +51,7 @@ const FindID = () => {
         label="이름" 
         type="text" 
         placeholder="이름"
-        onValidationChange={setNameValid}
+        onValidationChange={setIdValid}
       />
       <InputWrap>
         <InputForm

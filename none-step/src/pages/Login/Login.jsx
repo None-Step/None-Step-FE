@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import Logo from '../../components/Logo'
 import LoginWrap from '../../components/LoginWrap'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../../apis/login'
 import { HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
 
 
@@ -46,7 +45,7 @@ const Login = () => {
         placeholder="대/소문자, 특수문자, 숫자 포함 8자리 이상"
         onValidationChange={setPasswordValid} // 유효성 결과 전달
         />
-      <Button onClick={handleLogin} disabled={buttonDisabled} submitMessage="로그인"/>
+      <Button disabled={buttonDisabled} submitMessage="로그인"/>
 
       <HrWrap>
         <Hr></Hr>
@@ -57,16 +56,16 @@ const Login = () => {
       <SocialButton type='naver'/>
       
       <SignAction>
-        <SignActionSpan>아이디 찾기</SignActionSpan>
+        <SignActionSpan to="/findID">아이디 찾기</SignActionSpan>
         |
-        <SignActionSpan>비밀번호 찾기</SignActionSpan>
+        <SignActionSpan to="/findPW">비밀번호 찾기</SignActionSpan>
         |
-        <SignActionSpan>회원가입</SignActionSpan>
+        <SignActionSpan to="/signUp">회원가입</SignActionSpan>
       </SignAction>
 
       <SignAction>
-        <SignActionSpan>이용약관안내</SignActionSpan>
-        <SignActionSpan>개인정보처리방침</SignActionSpan>
+        <SignActionSpan to="/terms">이용약관안내</SignActionSpan>
+        <SignActionSpan to='/terms'>개인정보처리방침</SignActionSpan>
       </SignAction>
       
     </LoginWrap>

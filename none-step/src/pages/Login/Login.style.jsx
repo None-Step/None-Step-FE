@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const HrWrap = styled.div`
   width: 100%;
@@ -42,7 +43,8 @@ export const SignAction = styled.p`
   margin-top: 2rem;
 `;
 
-export const SignActionSpan = styled.span`
+export const SignActionSpan = styled(Link)`
   margin-inline : 0.5rem;
   cursor: pointer;
+  color: inherit;
 `;
