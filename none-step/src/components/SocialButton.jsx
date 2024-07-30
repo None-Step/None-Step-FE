@@ -17,12 +17,12 @@ const SocialImg = styled.img`
   object-fit: contain;
 `;
 
-const SocialButton = ({type}) => {
+const SocialButton = ({onClick, type}) => {
   // type에 따라 이미지 경로 결정
   const imagePath = type === 'kakao' ? 'src/assets/img/kakao_login.png' : 'src/assets/img/naver_login.png';
 
   return (
-    <SocialBtnWrap type={type}>
+    <SocialBtnWrap onClick={onClick} type={type}>
       <SocialImg src = {imagePath} alt={type} />
     </SocialBtnWrap>
   )

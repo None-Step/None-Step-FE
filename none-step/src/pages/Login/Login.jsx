@@ -35,7 +35,8 @@ const Login = () => {
     }, [emailValid, passwordValid]);
 
 
-    const KAKAOloginHandler = () => {
+    const KAKAOloginHandler = (event) => {
+      event.preventDefault();
       window.location.href = KAKAO_link;
     };
 

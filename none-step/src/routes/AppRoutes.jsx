@@ -8,10 +8,13 @@ import FindIDSuccess from "../pages/FindID/FindIDSuccess";
 import FindPW from "../pages/FindPW/FindPW";
 import FindPWResetting from "../pages/FindPW/FindPWResetting";
 import FindPWSuccess from "../pages/FindPW/FindPWSuccess";
+import KakaoCallback from "../pages/KakaoCallback";
+import Main from "../pages/Main";
 
 function AppRoutes() {
     return (
         <Routes>
+            <Route path="/" element={<Main />} />
             <Route path="/terms" element={<TermsOfService />}/>
             <Route path="/signUp" element={<SignUpForm />}/>
             <Route path="/signUpSuccess" element={<SignUpSuccess />} />
@@ -21,7 +24,7 @@ function AppRoutes() {
             <Route path="/findPW" element={<FindPW />} />
             <Route path="/findPWResetting" element={<FindPWResetting />} />
             <Route path="/findPWSuccess" element={<FindPWSuccess />} />
-
+            <Route path="/nonestep/member/login/callback/kakao" element={<KakaoCallback />} />
         </Routes>
     );
 }

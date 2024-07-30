@@ -1,7 +1,7 @@
 // KakaoCallback.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../apis/axiosInstance';
+import axiosInstance from '../apis/axiosInstance';
 
 const KakaoCallback = () => {
   const navigate = useNavigate();
