@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "https://nonstep.site",
-    withCredentials: true,
+  baseURL: "https://nonestep.site",
+  withCredentials: true,
 });
 
-export default axiosInstance;
+export default axiosInstance
