@@ -145,11 +145,11 @@ const SignUpForm = () => {
   }, [verificationSent]);
 
 
-  // 회원가입 폼 제출 함수
+  // 회원가입 폼 제출
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isFormValid() && idCheckPassed && verificationPassed) {
-      // API에 맞는 데이터 구조 생성
+
       const apiFormData = {
         memberID: formData.memberID,
         memberPass: formData.memberPass,
@@ -162,8 +162,7 @@ const SignUpForm = () => {
       axiosInstance
         .post('/nonestep/member/signup', apiFormData)
         .then((response) => {
-          if (response.data.memberID) {  // API 응답 구조에 맞게 수정
-            // 회원가입 성공 시 '/signUpSuccess' 페이지로 이동
+          if (response.data.memberID) {
             navigate('/signUpSuccess');
           } else {
             alert('회원가입에 실패했습니다. 다시 시도해주세요.');
@@ -213,17 +212,19 @@ const SignUpForm = () => {
           {verificationSent ? '재발송' : '인증'}
         </SubmitBut>
       </InputWrap>
+
       <InputForm label="인증번호" type="text" 
       placeholder="인증번호 입력" value={verificationCode} 
-      onValidationChange={handleVerificationCodeChange} />
+      onValidationChange={handleVerificationCodeChange}
+      />
       { showVerificationMessage &&
         <SignActionSpan>
           인증번호가 발송되었습니다. 3분 이내로 인증번호를 입력해주세요.
         </SignActionSpan>
       }
+      {verificationMessage && <SignActionSpan>{verificationMessage}</SignActionSpan>}
 
       <Button onClick={handleSubmit} disabled={!isFormValid()} submitMessage="회원가입"></Button>
-      {verificationMessage && <p>{verificationMessage}</p>}
     </LoginWrap>
   );
 };
