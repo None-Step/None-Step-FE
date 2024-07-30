@@ -14,6 +14,7 @@ const FindID = () => {
   const [idValid, setIdValid] = useState(false);
   const [phoneNumberValid, setPhoneNumberValid] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  
   const [verificationSent, setVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [checkVerificationCode, setCheckVerificationCode] = useState('');
