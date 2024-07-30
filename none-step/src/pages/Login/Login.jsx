@@ -10,6 +10,11 @@ import { HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
 
 
 const Login = () => {
+  // kakao 앱 키
+    const KAKAO_REST_API_KEY = '6dae53e627b023224f6da7d08b32b28f';
+    const KAKAO_REDIRECT_URI = `${window.location.origin}/nonestep/member/login/callback/kakao`;
+    const KAKAO_link = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+
     const [memberID, setMemberID] = useState('');
     const [memberPass, setMemberPass] = useState('');
 
@@ -29,8 +34,10 @@ const Login = () => {
       }
     }, [emailValid, passwordValid]);
 
-    
 
+    const KAKAOloginHandler = () => {
+      window.location.href = KAKAO_link;
+    };
 
   return (
     <LoginWrap>
@@ -54,7 +61,9 @@ const Login = () => {
         <Span>또는</Span>
       </HrWrap>
 
-      <SocialButton type='kakao'/>
+      <SocialButton type='kakao'
+      onClick={KAKAOloginHandler}
+      />
       <SocialButton type='naver'/>
       
       <SignAction>
