@@ -10,6 +10,7 @@ import FindPWResetting from "../pages/FindPW/FindPWResetting";
 import FindPWSuccess from "../pages/FindPW/FindPWSuccess";
 import KakaoCallback from "../pages/KakaoCallback";
 import Main from "../pages/Main";
+import NaverCallback from "../pages/NaverCallback";
 
 function AppRoutes() {
     return (
@@ -25,6 +26,7 @@ function AppRoutes() {
             <Route path="/findPWResetting" element={<FindPWResetting />} />
             <Route path="/findPWSuccess" element={<FindPWSuccess />} />
             <Route path="/nonestep/member/login/callback/kakao" element={<KakaoCallback />} />
+            <Route path="/nonestep/member/login/callback/naver" element={<NaverCallback />} />
         </Routes>
     );
 }
