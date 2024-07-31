@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../apis/axiosInstance';
+import axiosInstance from '../../apis/axiosInstance';
+import { AuthContext } from '../../apis/AuthContext';
 
 const NaverCallback = () => {
   const navigate = useNavigate();
+  // AuthContext에서 setAccessToken 함수 가져오기
+  const { setAccessToken } = useContext(AuthContext);
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
@@ -12,8 +15,12 @@ const NaverCallback = () => {
     if (code) {
       axiosInstance.get(`/nonestep/member/login/callback/naver?code=${code}`)
         .then(response => {
-          // 로그인 성공 처리
-          localStorage.setItem('token', response.data.token);
+          // 액세스 토큰을 메모리(Context)에 저장
+          setAccessToken(response.data.accessToken);
+
+          // axios 인스턴스의 기본 헤더 설정
+          axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
+
           navigate('/'); // 로그인 성공시 메인으로 리디렉트
         })
         .catch(error => {
@@ -26,7 +33,7 @@ const NaverCallback = () => {
       alert('로그인 정보가 올바르지 않습니다. 다시 시도해 주세요.');
       navigate('/login');
     }
-  }, [navigate]);
+  }, [navigate, setAccessToken]);
 
   return <span>네이버 로그인 처리 중...</span>;
 };

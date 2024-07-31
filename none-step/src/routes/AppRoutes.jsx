@@ -8,9 +8,9 @@ import FindIDSuccess from "../pages/FindID/FindIDSuccess";
 import FindPW from "../pages/FindPW/FindPW";
 import FindPWResetting from "../pages/FindPW/FindPWResetting";
 import FindPWSuccess from "../pages/FindPW/FindPWSuccess";
-import KakaoCallback from "../pages/KakaoCallback";
+import KakaoCallback from "../pages/Login/KakaoCallback";
 import Main from "../pages/Main";
-import NaverCallback from "../pages/NaverCallback";
+import NaverCallback from "../pages/Login/NaverCallback";
 
 function AppRoutes() {
     return (
