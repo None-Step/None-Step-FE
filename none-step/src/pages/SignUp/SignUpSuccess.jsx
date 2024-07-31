@@ -9,7 +9,7 @@ const SignUpSuccess = () => {
   const navigate = useNavigate();
 
   const handleLoginRedirect = () => {
-    navigate('/');
+    navigate('/login');
   };
 
   return (

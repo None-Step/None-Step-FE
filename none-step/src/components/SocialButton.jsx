@@ -5,7 +5,7 @@ const SocialBtnWrap = styled.button`
   width: 100%;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
+  /* cursor: pointer; */
   background-color: ${(props) => props.theme.social[props.type]} !important;
   margin-top: 1rem;
 `;

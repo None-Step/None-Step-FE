@@ -6,6 +6,9 @@ import Logo from '../../components/Logo'
 import LoginWrap from '../../components/LoginWrap'
 import { useNavigate } from 'react-router-dom'
 import { HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
+import { useAuth } from '../../apis/AuthContext' // 추가
+import axiosInstance from '../../apis/axiosInstance'
+
 
 const Login = () => {
   const [memberID, setMemberID] = useState('');
@@ -14,21 +17,9 @@ const Login = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-
+  const { login } = useAuth(); // 추가
   const navigate = useNavigate();
 
-  // kakao 앱 키
-  const KAKAO_REST_API_KEY = '6dae53e627b023224f6da7d08b32b28f';
-  const KAKAO_REDIRECT_URI = `${window.location.origin}/nonestep/member/login/callback/kakao`;
-  const KAKAO_link = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
-
-  // naver
-  const NAVER_CLIENT_ID = 'L8N2PCUks8mKvhH2QoZB';
-  const NAVER_REDIRECT_URI = `${window.location.origin}/nonestep/member/login/callback/naver`;
-  const STATE = false;
-  // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${NAVER_REDIRECT_URI}`;
-  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${(NAVER_REDIRECT_URI)}&state=${STATE}&scope=name%20email`;
-  
 
   useEffect(() => {
     if (emailValid && passwordValid) {
@@ -39,15 +30,55 @@ const Login = () => {
     }
   }, [emailValid, passwordValid]);
 
-  const KAKAOloginHandler = (event) => {
-    event.preventDefault();
-    window.location.href = KAKAO_link;
+  // const KAKAOloginHandler = (event) => {
+  //   event.preventDefault();
+  //   axiosInstance
+  //     .get('/nonestep/member/login/kakao')
+  //     .then((response) =>  {
+  //       console.log(response.message);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  // };
+
+  const socialLoginHandler = (params) => {
+    const authURL = `https://nonestep.site/nonestep/member/login/${params}`
+    window.location.href = authURL
+
   };
 
-  const NAVERloginHandler = (event) => {
+  const kakaohandle = (event) => {
     event.preventDefault();
-    window.location.href = NAVER_AUTH_URL;
+
+    const authURL = `https://nonestep.site/nonestep/member/login/kakao`
+    window.location.href = authURL
+  }
+
+  const naverhandle = (event) => {
+    event.preventDefault();
+
+    const authURL = `https://nonestep.site/nonestep/member/login/naver`
+    window.location.href = authURL
+  }
+
+  // 일반 로그인 핸들러
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      // AuthContext의 login 함수 사용
+      const success = await login(memberID, memberPass);
+      if (success) {
+        navigate('/'); // 메인 페이지로 이동
+      } else {
+        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error('로그인 실패:', error);
+      alert('로그인 중 오류가 발생했습니다.');
+    }
   };
+
 
   return (
     <LoginWrap>
@@ -57,23 +88,29 @@ const Login = () => {
         type="text"
         placeholder="아이디를 입력하세요"
         onValidationChange={setEmailValid} // 유효성 결과 전달
+        onChange={(e) => setMemberID(e.target.value)} // 아이디 상태 업데이트
       />
       <InputForm
         label="비밀번호"
         type="password"
         placeholder="대/소문자, 특수문자, 숫자 포함 8자리 이상"
         onValidationChange={setPasswordValid} // 유효성 결과 전달
+        onChange={(e) => setMemberPass(e.target.value)} // 비밀번호 상태 업데이트
       />
-      <Button disabled={buttonDisabled} submitMessage="로그인"/>
+      <Button 
+        disabled={buttonDisabled} 
+        submitMessage="로그인"
+        onClick={handleLogin} // 로그인 핸들러 연결
+      />
       <HrWrap>
         <Hr></Hr>
         <Span>또는</Span>
       </HrWrap>
       <SocialButton type='kakao'
-        onClick={KAKAOloginHandler}
+        onClick={kakaohandle}
       />
       <SocialButton type='naver'
-        onClick={NAVERloginHandler}/>
+        onClick={naverhandle}/>
       <SignAction>
         <SignActionSpan to="/findID">아이디 찾기</SignActionSpan>
         |
