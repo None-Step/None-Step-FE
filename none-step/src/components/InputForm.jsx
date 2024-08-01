@@ -59,7 +59,7 @@ const ErrorMessageWrap = styled.div`
   font-size: 1.2rem;
 `;
 
-const InputForm = ({ label, type, placeholder, onValidationChange, className, password }) => {
+const InputForm = ({ label, type, placeholder, onValidationChange, onChange, className, password }) => {
   const [val, setVal] = useState('');
   const [isValid, setIsValid] = useState(true);
 
@@ -93,6 +93,7 @@ const InputForm = ({ label, type, placeholder, onValidationChange, className, pa
 
     setIsValid(valid);
     onValidationChange(valid, newValue);
+    onChange(newValue);
   };
 
   const errorMessage = (() => {
@@ -113,6 +114,7 @@ const InputForm = ({ label, type, placeholder, onValidationChange, className, pa
         return "";
     }
   })();
+
   
   return (
     <Wrap>
