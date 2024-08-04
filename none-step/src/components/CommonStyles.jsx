@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { SignActionSpan } from "../pages/Login/Login.style";
-import Button from "./Button";
 
 export const Container = styled.div`
 position: absolute;
@@ -21,8 +20,3 @@ color: ${(props) => props.theme.colors.gray01};
 cursor: auto;
 `;
 
-export const SecondaryButton = styled(Button)`
-  background-color: ${(props) => props.theme.colors.white};
-  color : ${(props) => props.theme.colors.primaty};
-  border: 1px solid ${(props) => props.theme.colors.primaty};
-`;

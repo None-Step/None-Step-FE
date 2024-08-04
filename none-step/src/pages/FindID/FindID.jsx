@@ -100,15 +100,15 @@ const FindID = () => {
     axiosInstance
       .post('/nonestep/member/idfind', apiFormData)
       .then((response) => {
-        if(response.data.memberID) {
-          navigate('/findIDSuccess');
+        if(response.data.length > 0) {
+          navigate('/findIDSuccess', { state: { foundIDs: response.data } });
         } else {
           alert('본 개인정보와 일치하는 가입정보가 없습니다.');
         }
       })
       .catch((error) => {
         console.log('아이디 찾기 오류:', error);
-        alert('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+        alert('아이디 찾기 중 오류가 발생했습니다. 다시 시도해주세요.');
       })
   };
 

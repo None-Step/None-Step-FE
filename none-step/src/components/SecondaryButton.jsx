@@ -5,11 +5,11 @@ const Btn = styled.button`
   width: 100%;
   padding-block: 1.6rem;
   box-sizing: border-box;
-  border: none;
   border-radius: 6px;
   cursor: pointer;
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.primary};
+  border: 1px solid ${(props) => props.theme.colors.primary};
   margin-top: 1.5rem;
   font-size: 1.6rem;
 
@@ -19,11 +19,11 @@ const Btn = styled.button`
   }
 `;
 
-const Button = ({submitMessage, disabled, onClick, children}) => {
+const SecondaryButton = ({submitMessage, disabled, onClick, children}) => {
 
   return (
     <Btn disabled={disabled} onClick={onClick}> {submitMessage || children} </Btn>
   )
 }
 
-export default Button
+export default SecondaryButton

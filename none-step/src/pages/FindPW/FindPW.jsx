@@ -16,8 +16,8 @@ const PrimaryLink = styled(Link)`
 const FindPW = () => {
   const navigate = useNavigate();  // navigation 추가
   const [formData, setFormData] = useState({
-    memberName: '',
     memberID: '',
+    memberName: '',
     memberPhone: ''
   });
   const [nameValid, setNameValid] = useState(false);
@@ -112,14 +112,19 @@ const FindPW = () => {
   const handleInputChange = (name, value, isValid) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     switch(name) {
-      case 'memberName':
-        setNameValid(isValid);
-        break;
       case 'memberID':
         setIdValid(isValid);
+        console.log(`id:${formData.memberID}`)
         break;
+
+      case 'memberName':
+        setNameValid(isValid);
+        console.log(`이름:${formData.memberName}`)
+        break;
+
       case 'memberPhone':
         setPhoneNumberValid(isValid);
+        console.log(`전화번호:${formData.memberPhone}`)
         break;
       default:
         break;
@@ -129,19 +134,20 @@ const FindPW = () => {
   // 비밀번호 찾기 요청 함수
   const handleFindPassword = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axiosInstance.post('/nonestep/member/pwfind', formData);
-      if (response.data.memberPass) {
-        alert(`새로운 비밀번호: ${response.data.memberPass}`);
-        // 비밀번호 찾기 성공 후 로그인 페이지로 이동
-        navigate('/login');
+    
+    axiosInstance.post('/nonestep/member/pwfind', formData)
+    .then(response => {
+      if (response.data && response.data.message === "success") {
+        // 비밀번호 찾기 성공 후 비밀번호 재설정 페이지로 이동
+        navigate('/findPWResetting');
       } else {
         alert('비밀번호 찾기에 실패했습니다.');
       }
-    } catch (error) {
+    })
+    .catch(error => {
       console.error('비밀번호 찾기 오류:', error);
       alert('비밀번호 찾기 중 오류가 발생했습니다.');
-    }
+    });
   };
 
   return (
@@ -192,7 +198,7 @@ const FindPW = () => {
       />
       <SignAction>
         <SignActionSpan>아이디를 잊으셨나요?</SignActionSpan>
-        <PrimaryLink to="/">아이디 찾기</PrimaryLink>
+        <PrimaryLink to="/findID">아이디 찾기</PrimaryLink>
       </SignAction>
     </LoginWrap>
   )

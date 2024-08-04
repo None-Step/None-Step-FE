@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
 import axiosInstance from '../../apis/axiosInstance'
 import { useDispatch } from 'react-redux'
+import { login } from '../../store/slices/memberSlice'
 
 const Login = () => {
     const [memberID, setMemberID] = useState('');
@@ -57,7 +58,6 @@ const Login = () => {
     // 일반 로그인 핸들러
     const handleLogin = async (event) => {
       event.preventDefault();
-      console.log("로그인 시도:", { memberID, memberPass });
 
       try {
           const loginResponse = await axiosInstance
@@ -65,24 +65,19 @@ const Login = () => {
               { memberID : memberID, 
                 memberPass : memberPass});
             // 1. 응답 받은 액세스 토큰 저장
-            const { accessToken } = loginResponse.data;
+            const { accessToken, ...userInfo } = loginResponse.data;
             // 2. 헤더에 토큰 보내주기 (디폴트값으로 저장, 추후에 따로 요청하지 않아도 됨)
-            axiosInstance.defaults.headers.common['Authorization'] =  accessToken;
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   
-          // const infoResponse = await axiosInstance
-          //   .get("/nonestep/member/info");
-          // const data = infoResponse.data;
-  
-          // const payload = {
-          //     isAuthorized: true,
-          //     memberID: memberID,
-          //     memberNickName: data.memberNickName || "",
-          //     memberRandom: data.memberRandom || "",
-          //     memberFile: data.memberFile || "",
-          //     memberIntroduce: data.memberIntroduce || "",
-          // };
-  
-          // dispatch(login(payload));
+          // Redux store에 사용자 정보 저장
+          dispatch(login({
+            isAuthorized: true,
+            memberID: userInfo.memberID,
+            memberNickName: userInfo.memberNickName || "",
+            memberRandom: userInfo.memberRandom || "",
+            memberFile: userInfo.memberFile || "",
+            memberIntroduce: userInfo.memberIntroduce || "",
+          }));
           navigate('/');
       } catch (error) {
           console.error('Login error:', error);
@@ -105,7 +100,6 @@ const Login = () => {
 
     const handlePW = (value) => {
       setMemberPass(value);
-
     }
 
     return (

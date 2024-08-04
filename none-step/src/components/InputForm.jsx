@@ -93,7 +93,10 @@ const InputForm = ({ label, type, placeholder, onValidationChange, onChange, cla
 
     setIsValid(valid);
     onValidationChange(valid, newValue);
-    onChange(newValue);
+    // onChange 함수를 사용하는 경우에만 값 반환하기
+    if (onChange && typeof onChange === 'function') {
+      onChange(newValue);
+    }
   };
 
   const errorMessage = (() => {
