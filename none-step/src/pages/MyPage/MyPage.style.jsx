@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { SignActionSpan } from "../Login/Login.style";
-import { Description } from "../../components/CommonStyles";
-import { BsDisplay } from "react-icons/bs";
-import Button from "../../components/Button";
-import SecondaryButton from "../../components/SecondaryButton";
+import { FaChevronRight } from 'react-icons/fa';
+
+export const RightIcon = styled(FaChevronRight)`
+  cursor: pointer;
+`;
 
 export const PageContainer = styled.div`
   width: 100%;

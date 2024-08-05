@@ -114,17 +114,14 @@ const FindPW = () => {
     switch(name) {
       case 'memberID':
         setIdValid(isValid);
-        console.log(`id:${formData.memberID}`)
         break;
 
       case 'memberName':
         setNameValid(isValid);
-        console.log(`이름:${formData.memberName}`)
         break;
 
       case 'memberPhone':
         setPhoneNumberValid(isValid);
-        console.log(`전화번호:${formData.memberPhone}`)
         break;
       default:
         break;
@@ -132,14 +129,21 @@ const FindPW = () => {
   };
 
   // 비밀번호 찾기 요청 함수
-  const handleFindPassword = async (event) => {
+  const handleFindPassword = (event) => {
     event.preventDefault();
     
     axiosInstance.post('/nonestep/member/pwfind', formData)
     .then(response => {
       if (response.data && response.data.message === "success") {
         // 비밀번호 찾기 성공 후 비밀번호 재설정 페이지로 이동
-        navigate('/findPWResetting');
+        navigate('/findPWResetting', {
+          state: { 
+            memberID: formData.memberID,
+            memberName: formData.memberName,
+            memberPhone: formData.memberPhone
+          } 
+          });
+        
       } else {
         alert('비밀번호 찾기에 실패했습니다.');
       }

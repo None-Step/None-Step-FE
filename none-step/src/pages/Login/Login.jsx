@@ -35,19 +35,19 @@ const Login = () => {
         window.location.href = authURL
 
         try {
-            // const response = await axiosInstance.get("/nonestep/member/info");
-            // const data = response.data;
+            const response = await axiosInstance.get("/nonestep/member/info");
+            const data = response.data;
 
-            // const payload = {
-            //     isAuthorized: true,
-            //     memberID: data.memberID,
-            //     memberNickName: data.memberNickName || "",
-            //     memberRandom: data.memberRandom || "",
-            //     memberFile: data.memberFile || "",
-            //     memberIntroduce: data.memberIntroduce || "",
-            // };
+            const payload = {
+                isAuthorized: true,
+                memberID: data.memberID,
+                memberNickName: data.memberNickName || "",
+                memberRandom: data.memberRandom || "",
+                memberFile: data.memberFile || "",
+                memberIntroduce: data.memberIntroduce || "",
+            };
 
-            // dispatch(login(payload));
+            dispatch(login(payload));
             navigate("/");
         } catch (error) {
             console.error(error);
