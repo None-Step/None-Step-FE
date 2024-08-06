@@ -44,14 +44,20 @@ const MyPage = () => {
   const [editType, setEditType] = useState(''); // 프로필 변경 항목 구분
   const [selectedImage, setSelectedImage] = useState(null); // 이미지 업로드 상태
 
+  const [newEmail, setNewEmail] = useState('');
+  const [newPhone, setNewPhone] = useState('');
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMemberInfo = async () => {
       try {
         const response = await axiosInstance.get('/nonestep/member/info');
+        console.log('불러온 회원 정보:', response.data);
         setMemberInfo(response.data);
-        setNicknameInput(response.data.memberNickName); // 프로필편집 창의 Input 필드 value값 설정용 초기 닉네임 설정
+        setNicknameInput(response.data.memberNickName);
+        setNewEmail(response.data.memberMail);
+        setNewPhone(response.data.memberPhone);
       } catch (error) {
         console.error('회원 정보 불러오기 실패:', error);
         alert('회원 정보를 불러오는데 실패했습니다. 다시 시도해주세요.');
@@ -60,7 +66,7 @@ const MyPage = () => {
     };
   
     fetchMemberInfo();
-  }, []);
+  }, []); // 의존성 배열을 비워두어 컴포넌트 마운트 시에만 실행되도록 합니다.
 
     const handleModalOpen = useCallback(() => {
     setIsModalOpen(true);
@@ -96,7 +102,6 @@ const MyPage = () => {
 
 // 프로필 저장 핸들러
 const handleSaveProfile = useCallback(() => {
-  // 변경사항이 없으면 함수를 종료합니다.
   if (!isNicknameEdited && !selectedImage) {
     handleModalClose();
     return;
@@ -105,29 +110,15 @@ const handleSaveProfile = useCallback(() => {
   if (isNicknameValid) {
     const formData = new FormData();
     
-    // 닉네임이 변경된 경우에만 formData에 추가
     if (isNicknameEdited) {
       formData.append('memberNickName', nicknameInput);
     }
     
     if (selectedImage) {
-      // 파일 크기 재확인
-      if (selectedImage.size > MAX_FILE_SIZE) {
-        alert('파일 크기는 10MB를 초과할 수 없습니다.');
-        return;
-      }
-      
-      // 파일 확장자 재확인
-      const fileExtension = '.' + selectedImage.name.split('.').pop().toLowerCase();
-      if (!ALLOWED_EXTENSIONS.includes(fileExtension)) {
-        alert('허용되지 않는 파일 형식입니다. PNG, JPG, JPEG, BMP, GIF 파일만 업로드 가능합니다.');
-        return;
-      }
-      
+      // 파일 크기와 확장자 검사 로직 (생략)
       formData.append('memberIMG', selectedImage);
     }
 
-    // formData가 비어있지 않은 경우에만 API 요청을 보냅니다.
     if (formData.has('memberNickName') || formData.has('memberIMG')) {
       axiosInstance.put('/nonestep/member/modify-nickname', formData, {
         headers: {
@@ -135,13 +126,20 @@ const handleSaveProfile = useCallback(() => {
         },
       })
       .then(response => {
-        setMemberInfo(prevInfo => ({
-          ...prevInfo,
-          memberNickName: response.data.memberNickName,
-          memberIMG: response.data.memberIMG
-        }));
+        console.log('API 응답:', response.data);
+        setMemberInfo(prevInfo => {
+          const updatedInfo = {
+            ...prevInfo,
+            memberNickName: response.data.memberNickName || prevInfo.memberNickName,
+            memberIMG: response.data.memberIMG || prevInfo.memberIMG
+          };
+          console.log('업데이트된 memberInfo:', updatedInfo);
+          return updatedInfo;
+        });
+        setNicknameInput(response.data.memberNickName || nicknameInput);
+        setIsNicknameEdited(false);
         handleModalClose();
-        setSelectedImage(null); // 선택된 이미지 초기화
+        setSelectedImage(null);
         alert('프로필이 성공적으로 업데이트되었습니다.');
       })
       .catch(error => {
@@ -155,6 +153,7 @@ const handleSaveProfile = useCallback(() => {
     alert('올바른 닉네임을 입력해주세요.');
   }
 }, [isNicknameEdited, isNicknameValid, nicknameInput, selectedImage, handleModalClose]);
+
 // 이미지 선택 핸들러
 const handleImageChange = useCallback((event) => {
   if (event.target.files && event.target.files[0]) {
@@ -179,12 +178,60 @@ const handleImageChange = useCallback((event) => {
   }
 }, []);
 
+// 모달 닫고 수정 항목 초기화
+const handleEditModalClose = useCallback(() => {
+  setEditModalOpen(false);
+  setEditType('');
+}, []);
+
+
+// 이메일 변경 핸들러
+const handleEmailChange = useCallback(() => {
+  axiosInstance
+    .put('/nonestep/member/modify-mail', {
+    memberMail: newEmail,
+  })
+  .then(response => {
+    console.log('서버 응답:', response.data);
+    console.log('이메일 : ', newEmail);
+    if (response.data.message.toLowerCase() === 'success') {
+      setMemberInfo(prevInfo => ({...prevInfo, memberMail: newEmail}));
+      alert('이메일이 성공적으로 변경되었습니다.');
+      handleEditModalClose();
+      setEditModalOpen(false);
+    }
+  })
+  .catch(error => {
+    console.error('이메일 변경 실패:', error);
+    alert('이메일 변경에 실패했습니다. 다시 시도해주세요.');
+  });
+}, [newEmail, handleEditModalClose]);
+
+// 휴대폰 번호 변경 핸들러
+const handlePhoneChange = useCallback(() => {
+  axiosInstance.put('/nonestep/member/modify-phone', {
+    memberPhone: newPhone
+  })
+  .then(response => {
+    if (response.data.message.toLowerCase() === 'success') {
+      setMemberInfo(prevInfo => ({...prevInfo, memberPhone: newPhone}));
+      alert('휴대폰 번호가 성공적으로 변경되었습니다.');
+      handleEditModalClose();
+      setEditModalOpen(false);
+    }
+  })
+  .catch(error => {
+    console.error('휴대폰 번호 변경 실패:', error);
+    alert('휴대폰 번호 변경에 실패했습니다. 다시 시도해주세요.');
+  });
+}, [newPhone]);
+
 
   const handleWithdraw = useCallback(() => {
     axiosInstance
       .post('/nonestep/member/delete')
       .then((response) => {
-        if (response.data.message === 'success') {
+        if (response.data.message.toLowerCase() === 'success') {
           setIsWithdrawOpen(false); // 1. 회원 탈퇴하기 모달 닫기
           setIsWithdrawCompleteOpen(true); // 2. 회원 탈퇴 완료 모달 열기
         }
@@ -208,22 +255,36 @@ const handleImageChange = useCallback((event) => {
     } else {
       setEditType(type);
       setEditModalOpen(true);
+      // 모달이 열릴 때 현재 값으로 상태 초기화
+      if (type === '이메일') {
+        setNewEmail(memberInfo.memberMail);
+      } else if (type === '휴대폰 번호') {
+        setNewPhone(memberInfo.memberPhone);
+      }
     }
-  }, [navigate]);
-
-  // 모달 닫고 수정 항목 초기화
-  const handleEditModalClose = useCallback(() => {
-    setEditModalOpen(false);
-    setEditType('');
-  }, []);
+  }, [navigate, memberInfo]);
 
 
   // 수정 내용 저장
   const handleEditSave = useCallback(() => {
-    // To-Do : 여기에 각 타입별 저장 로직 구현
-    console.log(`Save ${editType}`);
-    handleEditModalClose();
-  }, [editType]);
+    switch(editType) {
+      case '비밀번호':
+        console.log('Navigating to password change page');
+        navigate('/findPW');
+        break;
+      case '이메일':
+        console.log('Saving email:', newEmail);
+        handleEmailChange();
+        break;
+      case '휴대폰 번호':
+        console.log('Saving phone number:', newPhone);
+        handlePhoneChange();
+        break;
+      default:
+        console.error('알 수 없는 수정 타입:', editType);
+    }
+  }, [editType, navigate, handleEmailChange, handlePhoneChange, newEmail, newPhone]);
+
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 이미지 업로드 용량 10MB로 제한하기
   const ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.bmp', '.gif']; // 파일 확장자 제한
@@ -312,7 +373,7 @@ const handleImageChange = useCallback((event) => {
           label="닉네임"
           type="text"
           placeholder="닉네임"
-          value={isNicknameEdited ? nicknameInput : memberInfo?.memberNickName}
+          value={nicknameInput}
           onChange={handleNicknameChange}
           onValidationChange={handleNicknameValidation}
         />
@@ -327,23 +388,35 @@ const handleImageChange = useCallback((event) => {
       {/* 프로필 편집(비밀번호, 메일, 휴대폰번호 수정) 모달 */}
       {editModalOpen && (
         <>
-          <ModalBG onClick={handleEditModalClose} />
-          <ModalContainer>
-            <ActionTitle>{editType} 수정</ActionTitle>
-            <InputForm
-              label={editType}
-              type={editType === '비밀번호' ? 'password' : 'text'}
-              placeholder={`새 ${editType}를 입력하세요`}
-              // onChange={() => {}} // 실제 구현시 적절한 onChange 핸들러 추가
-              // onValidationChange={() => {}} // 실제 구현시 적절한 validation 핸들러 추가
-            />
-            <Button onClick={handleEditSave} submitMessage="저장하기" />
-            <Close onClick={handleEditModalClose}>
-              닫기
-            </Close>
-          </ModalContainer>
-        </>
-      )}
+        <ModalBG onClick={handleEditModalClose} />
+        <ModalContainer>
+          <ActionTitle>{editType} 수정</ActionTitle>
+          <InputForm
+            label={editType}
+            type={editType === '비밀번호' ? 'password' : 'text'}
+            placeholder={`새 ${editType}를 입력하세요`}
+            value={
+              editType === '이메일' ? newEmail :
+              editType === '휴대폰 번호' ? newPhone : ''
+            }
+            onChange={(value) => {
+              switch(editType) {
+                case '이메일':
+                  setNewEmail(value);
+                  break;
+                case '휴대폰 번호':
+                  setNewPhone(value);
+                  break;
+              }
+            }}
+          />
+          <Button onClick={handleEditSave} submitMessage="저장하기" />
+          <Close onClick={handleEditModalClose}>
+            닫기
+          </Close>
+        </ModalContainer>
+      </>
+    )}
 
       {/* 회원 탈퇴 step.1 팝업 */}
       { isWithdrawOpen && <>

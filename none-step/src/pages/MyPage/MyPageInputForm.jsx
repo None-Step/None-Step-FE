@@ -63,7 +63,9 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
   const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
-    setInternalValue(value || '');
+    if (value !== undefined) {
+      setInternalValue(value);
+    }
   }, [value]);
 
   const handleChange = (e) => {
