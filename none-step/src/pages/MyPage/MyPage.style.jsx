@@ -44,6 +44,8 @@ export const ProfileInfo = styled.div`
 export const ProfileName = styled.h2`
   margin: 0;
   font-size: 18px;
+  display : flex;
+  align-items: center;
 `;
 
 export const ProfileTag = styled.span`
@@ -154,8 +156,8 @@ export const EditIcon = styled.svg.attrs({
   width: 30px;
   height: 30px;
   position: absolute;
-  top: 60px;
-  right: 0;
+  top: -30px;
+  right: 18px;
   cursor: pointer;
 
   circle {
@@ -262,3 +264,8 @@ export const SeconBut = styled(But)`
 export const SubmitBut = styled(But)`
   width: 100%;
 `
+
+export const EditIconWrapper = styled.div`
+position: relative;
+cursor: pointer;
+`;

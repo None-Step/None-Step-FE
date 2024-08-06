@@ -25,7 +25,8 @@ import Close, { PageContainer,
   SeconBut,
   But,
   SubmitBut,
-  RightIcon} from './MyPage.style'
+  RightIcon,
+  EditIconWrapper} from './MyPage.style'
 import Button from '../../components/Button';
 import InputForm from './MyPageInputForm';
 import useLogout from '../../hooks/logout';
@@ -61,6 +62,27 @@ const MyPage = () => {
     fetchMemberInfo();
   }, []);
 
+    const handleModalOpen = useCallback(() => {
+    setIsModalOpen(true);
+    setNicknameInput(memberInfo?.memberNickName || '');
+    setIsNicknameEdited(false);
+  }, [memberInfo]);
+
+  const handleModalClose = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  const handleWithdrawOpen = useCallback(() => {
+    setIsWithdrawOpen(true);
+  }, []);
+
+  const handleWithdrawClose = useCallback(() => {
+    setIsWithdrawOpen(false);
+  }, []);
+
+  const handleLogout = useLogout();
+
+
   // 닉네임 변경 핸들러
   const handleNicknameChange = useCallback((value) => {
     setNicknameInput(value);
@@ -74,9 +96,19 @@ const MyPage = () => {
 
 // 프로필 저장 핸들러
 const handleSaveProfile = useCallback(() => {
-  if (!isNicknameEdited || isNicknameValid) {
+  // 변경사항이 없으면 함수를 종료합니다.
+  if (!isNicknameEdited && !selectedImage) {
+    handleModalClose();
+    return;
+  }
+
+  if (isNicknameValid) {
     const formData = new FormData();
-    formData.append('memberNickName', nicknameInput);
+    
+    // 닉네임이 변경된 경우에만 formData에 추가
+    if (isNicknameEdited) {
+      formData.append('memberNickName', nicknameInput);
+    }
     
     if (selectedImage) {
       // 파일 크기 재확인
@@ -95,30 +127,34 @@ const handleSaveProfile = useCallback(() => {
       formData.append('memberIMG', selectedImage);
     }
 
-    axiosInstance.put('/nonestep/member/modify-nickname', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    .then(response => {
-      setMemberInfo(prevInfo => ({
-        ...prevInfo,
-        memberNickName: response.data.memberNickName,
-        memberIMG: response.data.memberIMG
-      }));
+    // formData가 비어있지 않은 경우에만 API 요청을 보냅니다.
+    if (formData.has('memberNickName') || formData.has('memberIMG')) {
+      axiosInstance.put('/nonestep/member/modify-nickname', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        setMemberInfo(prevInfo => ({
+          ...prevInfo,
+          memberNickName: response.data.memberNickName,
+          memberIMG: response.data.memberIMG
+        }));
+        handleModalClose();
+        setSelectedImage(null); // 선택된 이미지 초기화
+        alert('프로필이 성공적으로 업데이트되었습니다.');
+      })
+      .catch(error => {
+        console.error('프로필 업데이트 실패:', error);
+        alert('프로필 업데이트에 실패했습니다. 다시 시도해주세요.');
+      });
+    } else {
       handleModalClose();
-      setSelectedImage(null); // 선택된 이미지 초기화
-      alert('프로필이 성공적으로 업데이트되었습니다.');
-    })
-    .catch(error => {
-      console.error('프로필 업데이트 실패:', error);
-      alert('프로필 업데이트에 실패했습니다. 다시 시도해주세요.');
-    });
+    }
   } else {
     alert('올바른 닉네임을 입력해주세요.');
   }
-}, [isNicknameEdited, isNicknameValid, nicknameInput, selectedImage]);
-
+}, [isNicknameEdited, isNicknameValid, nicknameInput, selectedImage, handleModalClose]);
 // 이미지 선택 핸들러
 const handleImageChange = useCallback((event) => {
   if (event.target.files && event.target.files[0]) {
@@ -143,25 +179,6 @@ const handleImageChange = useCallback((event) => {
   }
 }, []);
 
-  const handleModalOpen = useCallback(() => {
-    setIsModalOpen(true);
-    setNicknameInput(memberInfo?.memberNickName || '');
-    setIsNicknameEdited(false);
-  }, [memberInfo]);
-
-  const handleModalClose = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
-
-  const handleWithdrawOpen = useCallback(() => {
-    setIsWithdrawOpen(true);
-  }, []);
-
-  const handleWithdrawClose = useCallback(() => {
-    setIsWithdrawOpen(false);
-  }, []);
-
-  const handleLogout = useLogout();
 
   const handleWithdraw = useCallback(() => {
     axiosInstance
@@ -269,20 +286,25 @@ const handleImageChange = useCallback((event) => {
         <ActionTitle>프로필편집</ActionTitle>
 
         <ProfileImgContainer>
-          <ProfileImageLagrge src={memberInfo.memberIMG} alt="Profile" />
-          <EditIcon>
+        <ProfileImageLagrge 
+          src={selectedImage ? URL.createObjectURL(selectedImage) : memberInfo.memberIMG} 
+          alt="Profile" 
+        />          
+        <EditIconWrapper>
             <input
               type="file"
               id="profileImageInput"
-              accept="image/*"
+              accept="image/png, image/jpeg, image/gif, image/bmp"
               onChange={handleImageChange}
               style={{ display: 'none' }}
             />
             <label htmlFor="profileImageInput">
-              <circle cx="15.5" cy="15" r="15" />
-              <path d="M20.5 14H16.5V10C16.5 9.73478 16.3946 9.48043 16.2071 9.29289C16.0196 9.10536 15.7652 9 15.5 9C15.2348 9 14.9804 9.10536 14.7929 9.29289C14.6054 9.48043 14.5 9.73478 14.5 10V14H10.5C10.2348 14 9.98043 14.1054 9.79289 14.2929C9.60536 14.4804 9.5 14.7348 9.5 15C9.5 15.2652 9.60536 15.5196 9.79289 15.7071C9.98043 15.8946 10.2348 16 10.5 16H14.5V20C14.5 20.2652 14.6054 20.5196 14.7929 20.7071C14.9804 20.8946 15.2348 21 15.5 21C15.7652 21 16.0196 20.8946 16.2071 20.7071C16.3946 20.5196 16.5 20.2652 16.5 20V16H20.5C20.7652 16 21.0196 15.8946 21.2071 15.7071C21.3946 15.5196 21.5 15.2652 21.5 15C21.5 14.7348 21.3946 14.4804 21.2071 14.2929C21.0196 14.1054 20.7652 14 20.5 14Z" />
+              <EditIcon>
+                <circle cx="15.5" cy="15" r="15" />
+                <path d="M20.5 14H16.5V10C16.5 9.73478 16.3946 9.48043 16.2071 9.29289C16.0196 9.10536 15.7652 9 15.5 9C15.2348 9 14.9804 9.10536 14.7929 9.29289C14.6054 9.48043 14.5 9.73478 14.5 10V14H10.5C10.2348 14 9.98043 14.1054 9.79289 14.2929C9.60536 14.4804 9.5 14.7348 9.5 15C9.5 15.2652 9.60536 15.5196 9.79289 15.7071C9.98043 15.8946 10.2348 16 10.5 16H14.5V20C14.5 20.2652 14.6054 20.5196 14.7929 20.7071C14.9804 20.8946 15.2348 21 15.5 21C15.7652 21 16.0196 20.8946 16.2071 20.7071C16.3946 20.5196 16.5 20.2652 16.5 20V16H20.5C20.7652 16 21.0196 15.8946 21.2071 15.7071C21.3946 15.5196 21.5 15.2652 21.5 15C21.5 14.7348 21.3946 14.4804 21.2071 14.2929C21.0196 14.1054 20.7652 14 20.5 14Z" />
+              </EditIcon>
             </label>
-          </EditIcon>
+          </EditIconWrapper>
           <Span>프로필 사진 수정</Span>
         </ProfileImgContainer>
 
