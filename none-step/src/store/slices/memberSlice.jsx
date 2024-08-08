@@ -2,11 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isAuthorized: false,
-  memberID: '',
-  memberNickName: '',
-  memberRandom: '',
-  memberFile: '',
-  memberIntroduce: '',
+  memberID : "",
+  memberMail : "",
+  memberName : "",
+  memberPhone : "",
+  memberIMG : "",
+  memberNickName : "",
+  memberRandom : "",
+  memberJoinDate : ""
 };
 
 const memberSlice = createSlice({

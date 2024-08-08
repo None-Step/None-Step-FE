@@ -31,29 +31,13 @@ const Login = () => {
         }
     }, [emailValid, passwordValid]);
 
-    const socialLogin = async (provider) => {
-        const authURL = `https://nonestep.site/nonestep/member/login/${provider}`
-        window.location.href = authURL
+    const socialLogin =  (event, provider) => {
+      event.preventDefault();
 
-        try {
-            const response = await axiosInstance.get("/nonestep/member/info");
-            const data = response.data;
-
-            const payload = {
-                isAuthorized: true,
-                memberID: data.memberID,
-                memberNickName: data.memberNickName || "",
-                memberRandom: data.memberRandom || "",
-                memberFile: data.memberFile || "",
-                memberIntroduce: data.memberIntroduce || "",
-            };
-
-            dispatch(login(payload));
-            navigate("/");
-        } catch (error) {
-            console.error(error);
-            alert("소셜 로그인에 실패했습니다. 다시 시도해주세요.");
-        }
+       console.log(`${provider} 로그인 시도 중`);
+        const authURL = `https://nonestep.site/nonestep/member/login/${provider}`;
+        console.log(`다음 URL로 리다이렉트 중: ${authURL}`);
+        window.location.href = authURL;
     };
 
     // 일반 로그인 핸들러
@@ -76,13 +60,30 @@ const Login = () => {
               // axiosInstance의 기본 헤더에 토큰 설정
               axiosInstance.defaults.headers.common['Authorization'] = accessToken;
       
-              // 최소한의 사용자 정보로 Redux store 업데이트
-              dispatch(login({
-                isAuthorized: true,
-                memberID: memberID, // 로그인 시 사용한 ID
-              }));
+              axiosInstance
+                .get('/nonestep/member/info')
+                .then((response) => {
+                  const data = response.data;
+
+                  const payload = {
+                    isAuthorized: true,
+                    memberID: data.memberID || "",
+                    memberMail: data.memberMail || "",
+                    memberName: data.memberName || "",
+                    memberPhone: data.memberPhone || "",
+                    memberIMG: data.memberIMG || "",
+                    memberNickName: data.memberNickName || "",
+                    memberRandom: data.memberRandom || "",
+                    memberJoinDate: data.memberJoinDate || ""
+                  };
+
+                  dispatch((login(payload)));
+                  navigate('/');
+                })
+                .catch(error => {
+                  console.error('사용자 정보 가져오기 실패 :', error);
+                });
             
-              navigate('/');
             } else {
               throw new Error('No access token found in response');
             }
@@ -141,8 +142,8 @@ const Login = () => {
                 <Hr></Hr>
                 <Span>또는</Span>
             </HrWrap>
-            <SocialButton type='kakao' onClick={() => socialLogin('kakao')} />
-            <SocialButton type='naver' onClick={() => socialLogin('naver')} />
+            <SocialButton type='kakao' onClick={(event) => socialLogin(event,'kakao')} />
+            <SocialButton type='naver' onClick={(event) => socialLogin(event,'naver')} />
             <SignAction>
                 <SignActionSpan to="/findID">아이디 찾기</SignActionSpan>
                 |
