@@ -5,9 +5,10 @@ import { InputWrap, PageTitle, SubmitBut } from '../SignUp/SignUp02/SignUpForm.s
 import InputForm from '../../components/InputForm'
 import Logo from '../../components/Logo'
 import Button from '../../components/Button'
-import { SignAction, SignActionSpan } from '../Login/Login.style'
+import { SignAction, SignActionSpan, Wrapper } from '../Login/Login.style'
 import { Link, useNavigate } from 'react-router-dom'  // useNavigate 추가
 import styled from 'styled-components'
+import MenuBar from '../../components/menuBar/MenuBar'
 
 const PrimaryLink = styled(Link)`
  color: ${(props) => props.theme.colors.primary};
@@ -16,8 +17,8 @@ const PrimaryLink = styled(Link)`
 const FindPW = () => {
   const navigate = useNavigate();  // navigation 추가
   const [formData, setFormData] = useState({
-    memberName: '',
     memberID: '',
+    memberName: '',
     memberPhone: ''
   });
   const [nameValid, setNameValid] = useState(false);
@@ -112,12 +113,14 @@ const FindPW = () => {
   const handleInputChange = (name, value, isValid) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     switch(name) {
-      case 'memberName':
-        setNameValid(isValid);
-        break;
       case 'memberID':
         setIdValid(isValid);
         break;
+
+      case 'memberName':
+        setNameValid(isValid);
+        break;
+
       case 'memberPhone':
         setPhoneNumberValid(isValid);
         break;
@@ -127,25 +130,34 @@ const FindPW = () => {
   };
 
   // 비밀번호 찾기 요청 함수
-  const handleFindPassword = async (event) => {
+  const handleFindPassword = (event) => {
     event.preventDefault();
-    try {
-      const response = await axiosInstance.post('/nonestep/member/pwfind', formData);
-      if (response.data.memberPass) {
-        alert(`새로운 비밀번호: ${response.data.memberPass}`);
-        // 비밀번호 찾기 성공 후 로그인 페이지로 이동
-        navigate('/login');
+    
+    axiosInstance.post('/nonestep/member/pwfind', formData)
+    .then(response => {
+      if (response.data && response.data.message === "success") {
+        // 비밀번호 찾기 성공 후 비밀번호 재설정 페이지로 이동
+        navigate('/findPWResetting', {
+          state: { 
+            memberID: formData.memberID,
+            memberName: formData.memberName,
+            memberPhone: formData.memberPhone
+          } 
+          });
+        
       } else {
         alert('비밀번호 찾기에 실패했습니다.');
       }
-    } catch (error) {
+    })
+    .catch(error => {
       console.error('비밀번호 찾기 오류:', error);
       alert('비밀번호 찾기 중 오류가 발생했습니다.');
-    }
+    });
   };
 
   return (
-    <LoginWrap>
+    <Wrapper>
+          <LoginWrap>
       <Logo/>
       <PageTitle>비밀번호 재설정하기</PageTitle>
       <InputForm
@@ -192,9 +204,13 @@ const FindPW = () => {
       />
       <SignAction>
         <SignActionSpan>아이디를 잊으셨나요?</SignActionSpan>
-        <PrimaryLink to="/">아이디 찾기</PrimaryLink>
+        <PrimaryLink to="/findID">아이디 찾기</PrimaryLink>
       </SignAction>
     </LoginWrap>
+
+    <MenuBar/>
+
+    </Wrapper>
   )
 }
 

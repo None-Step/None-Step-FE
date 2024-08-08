@@ -5,8 +5,9 @@ import { PageTitle, InputWrap, MarginInputForm, SubmitBut } from '../SignUp/Sign
 import InputForm from '../../components/InputForm'
 import Button from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
-import { SignActionSpan } from '../Login/Login.style'
+import { SignActionSpan, Wrapper } from '../Login/Login.style'
 import axiosInstance from '../../apis/axiosInstance'
+import MenuBar from '../../components/menuBar/MenuBar'
 
 const FindID = () => {
   const [name, setName] = useState('');
@@ -100,61 +101,66 @@ const FindID = () => {
     axiosInstance
       .post('/nonestep/member/idfind', apiFormData)
       .then((response) => {
-        if(response.data.memberID) {
-          navigate('/findIDSuccess');
+        if(response.data.length > 0) {
+          navigate('/findIDSuccess', { state: { foundIDs: response.data } });
         } else {
           alert('본 개인정보와 일치하는 가입정보가 없습니다.');
         }
       })
       .catch((error) => {
         console.log('아이디 찾기 오류:', error);
-        alert('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+        alert('아이디 찾기 중 오류가 발생했습니다. 다시 시도해주세요.');
       })
   };
 
   return (
-    <LoginWrap>
-      <Logo/>
-      <PageTitle>아이디 찾기</PageTitle>
-      <MarginInputForm
-        label="이름" 
-        type="text" 
-        placeholder="이름"
-        onValidationChange={(isValid, value) => {
-          setIdValid(isValid);
-          setName(value);
-        }}
-      />
-      <InputWrap>
-        <InputForm
-          label="휴대폰 번호"
+    <Wrapper>
+      <LoginWrap>
+        <Logo/>
+        <PageTitle>아이디 찾기</PageTitle>
+        <MarginInputForm
+          label="이름" 
           type="text" 
-          placeholder="휴대폰 번호"
+          placeholder="이름"
           onValidationChange={(isValid, value) => {
-            setPhoneNumberValid(isValid);
-            setPhoneNumber(value);
+            setIdValid(isValid);
+            setName(value);
           }}
         />
-        <SubmitBut onClick={sendVerificationCode}
-        disabled={!phoneNumberValid || verificationSent}>인증</SubmitBut>
-      </InputWrap>
-      
-      <MarginInputForm
-        label="인증번호" 
-        type="text" 
-        placeholder="인증번호 입력"
-        value={verificationCode}
-        onValidationChange={handleVerificationCodeChange}
-      />
-      { showVerificationMessage &&
-        <SignActionSpan>
-          인증번호가 발송되었습니다. 3분 이내로 인증번호를 입력해주세요.
-        </SignActionSpan>
-      }
-      {verificationMessage && <SignActionSpan>{verificationMessage}</SignActionSpan>}
+        <InputWrap>
+          <InputForm
+            label="휴대폰 번호"
+            type="text" 
+            placeholder="휴대폰 번호"
+            onValidationChange={(isValid, value) => {
+              setPhoneNumberValid(isValid);
+              setPhoneNumber(value);
+            }}
+          />
+          <SubmitBut onClick={sendVerificationCode}
+          disabled={!phoneNumberValid || verificationSent}>인증</SubmitBut>
+        </InputWrap>
+        
+        <MarginInputForm
+          label="인증번호" 
+          type="text" 
+          placeholder="인증번호 입력"
+          value={verificationCode}
+          onValidationChange={handleVerificationCodeChange}
+        />
+        { showVerificationMessage &&
+          <SignActionSpan>
+            인증번호가 발송되었습니다. 3분 이내로 인증번호를 입력해주세요.
+          </SignActionSpan>
+        }
+        {verificationMessage && <SignActionSpan>{verificationMessage}</SignActionSpan>}
 
-      <Button onClick={handleSubmit} disabled={buttonDisabled} submitMessage="아이디 찾기"></Button>
-    </LoginWrap>
+        <Button onClick={handleSubmit} disabled={buttonDisabled} submitMessage="아이디 찾기"></Button>
+      </LoginWrap>
+
+      <MenuBar/>
+
+    </Wrapper>
   )
 }
 

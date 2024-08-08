@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const Wrapper = styled.div`
+  width: 100%;
+  max-width: 600px;
+  min-height: 100vh;
+  position: absolute;
+`;
+
 export const HrWrap = styled.div`
   width: 100%;
   height: 5rem;

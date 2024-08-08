@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
 
 const Wrap = styled.div`
   width: 100%;
@@ -59,13 +58,19 @@ const ErrorMessageWrap = styled.div`
   font-size: 1.2rem;
 `;
 
-const InputForm = ({ label, type, placeholder, onValidationChange, onChange, className, password }) => {
-  const [val, setVal] = useState('');
+const InputForm = React.memo(({ label, type, placeholder, value, onValidationChange, onChange, className, password }) => {
+  const [internalValue, setInternalValue] = useState(value || '');
   const [isValid, setIsValid] = useState(true);
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setInternalValue(value);
+    }
+  }, [value]);
 
   const handleChange = (e) => {
     const newValue = e.target.value;
-    setVal(newValue);
+    setInternalValue(newValue);
     let valid = false;
 
     switch (label) {
@@ -79,7 +84,7 @@ const InputForm = ({ label, type, placeholder, onValidationChange, onChange, cla
         valid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[$`~!@$!%*#^?&\-_=+]).{8,20}$/.test(newValue);
         break;
       case "비밀번호 확인":
-        valid = newValue === password; // `password`는 현재 비밀번호 상태값
+        valid = newValue === password;
         break;
       case "이름":
         valid = newValue.trim().length >= 2;
@@ -87,14 +92,20 @@ const InputForm = ({ label, type, placeholder, onValidationChange, onChange, cla
       case "휴대폰 번호":
         valid = /^\d{11}$/.test(newValue);
         break;
+      case "닉네임":
+        valid = newValue.length <= 8 && !/\s/.test(newValue);
+        break;
       default:
-        valid = false;
+        valid = true;
     }
 
     setIsValid(valid);
-    onValidationChange(valid, newValue);
-    // onChange 함수를 사용하는 경우에만 값 반환하기
-    if (onChange && typeof onChange === 'function') {
+
+    if (typeof onValidationChange === 'function') {
+      onValidationChange(valid);
+    }
+
+    if (typeof onChange === 'function') {
       onChange(newValue);
     }
   };
@@ -113,12 +124,13 @@ const InputForm = ({ label, type, placeholder, onValidationChange, onChange, cla
         return "이름은 최소 2글자 이상이어야 합니다.";
       case "휴대폰 번호":
         return "휴대폰 번호는 숫자 11자리를 입력해주세요.";
+      case "닉네임":
+        return "닉네임은 8글자 이하로 입력해주세요. 공백은 사용할 수 없습니다.";
       default:
         return "";
     }
   })();
 
-  
   return (
     <Wrap>
       <InputWrap className={className}>
@@ -126,19 +138,17 @@ const InputForm = ({ label, type, placeholder, onValidationChange, onChange, cla
         <InputText
           type={type}
           placeholder={placeholder}
-          value={val}
-          onChange={handleChange}/>
+          value={internalValue}
+          onChange={handleChange}
+        />
       </InputWrap>
       <ErrorMessageWrap>
-        {
-          // 유효성 검사를 통과하지 못하거나, 값이 없는 경우에만 오류 메시지 띄우기
-          !isValid && val.length > 0 && (
-            <div>{errorMessage}</div>
-          )
-        }
+        {!isValid && internalValue.length > 0 && (
+          <div>{errorMessage}</div>
+        )}
       </ErrorMessageWrap>
     </Wrap>
-  )
-}
+  );
+});
 
-export default InputForm
+export default InputForm;

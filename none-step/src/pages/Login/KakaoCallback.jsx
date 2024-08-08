@@ -13,7 +13,7 @@ const KakaoCallback = () => {
     if (code) {
       axiosInstance.get(`/nonestep/member/login/callback/kakao?code=${code}`)
         .then(response => {
-          // 액세스 토큰을 메모리(Context)에 저장
+          // 액세스 토큰을 메모리에 저장
           setAccessToken(response.data.accessToken);
 
           // axios 인스턴스의 기본 헤더 설정
