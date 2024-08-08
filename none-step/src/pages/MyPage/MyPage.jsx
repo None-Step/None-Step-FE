@@ -31,6 +31,8 @@ import Button from '../../components/Button';
 import InputForm from './MyPageInputForm';
 import useLogout from '../../hooks/logout';
 import axiosInstance from '../../apis/axiosInstance';
+import MenuBar from '../../components/menuBar/MenuBar'
+import { PageHeader } from '../../components/header/Headers';
 
 const MyPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 토스트 모달
@@ -50,23 +52,43 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMemberInfo = async () => {
-      try {
-        const response = await axiosInstance.get('/nonestep/member/info');
-        console.log('불러온 회원 정보:', response.data);
-        setMemberInfo(response.data);
-        setNicknameInput(response.data.memberNickName);
-        setNewEmail(response.data.memberMail);
-        setNewPhone(response.data.memberPhone);
-      } catch (error) {
-        console.error('회원 정보 불러오기 실패:', error);
-        alert('회원 정보를 불러오는데 실패했습니다. 다시 시도해주세요.');
+    const fetchMemberInfo = () => {
+      const token = sessionStorage.getItem('accessToken');
+      if (token) {
+        axiosInstance
+          .get('/nonestep/member/info', {
+            headers: { 'Authorization': token }
+          })
+          .then(response => {
+            // console.log('불러온 회원 정보:', response.data);
+            setMemberInfo(response.data);
+            setNicknameInput(response.data.memberNickName);
+            setNewEmail(response.data.memberMail);
+            setNewPhone(response.data.memberPhone);
+          })
+          .catch(error => {
+            console.error('회원 정보 불러오기 실패:', error);
+            if (error.response) {
+              console.error('응답 데이터:', error.response.data);
+              console.error('응답 상태:', error.response.status);
+              console.error('응답 헤더:', error.response.headers);
+            } else if (error.request) {
+              console.error('요청 정보:', error.request);
+            } else {
+              console.error('에러 메시지:', error.message);
+            }
+            alert('회원 정보를 불러오는데 실패했습니다. 다시 시도해주세요.');
+            // navigate('/login');
+          });
+      } else {
+        // 토큰이 없는 경우 처리
+        console.error('액세스 토큰이 없습니다.');
         navigate('/login');
       }
     };
   
     fetchMemberInfo();
-  }, []); // 의존성 배열을 비워두어 컴포넌트 마운트 시에만 실행되도록 합니다.
+  }, []);
 
     const handleModalOpen = useCallback(() => {
     setIsModalOpen(true);
@@ -91,12 +113,14 @@ const MyPage = () => {
 
   // 닉네임 변경 핸들러
   const handleNicknameChange = useCallback((value) => {
+    console.log('handleNicknameChange 닉네임 변경 핸들러 :', value);
     setNicknameInput(value);
     setIsNicknameEdited(true);
   }, []);
 
   // 닉네임 유효성 변경 핸들러
   const handleNicknameValidation = useCallback((isValid) => {
+    console.log('handleNicknameValidation 닉네임 유효성 핸들러 :', isValid)
     setIsNicknameValid(isValid);
   }, []);
 
@@ -111,29 +135,36 @@ const handleSaveProfile = useCallback(() => {
     const formData = new FormData();
     
     if (isNicknameEdited) {
+      console.log('FormData에 닉네임 추가:', nicknameInput);
       formData.append('memberNickName', nicknameInput);
     }
     
     if (selectedImage) {
-      // 파일 크기와 확장자 검사 로직 (생략)
+      console.log('FormData에 이미지 추가');
       formData.append('memberIMG', selectedImage);
     }
 
+    // console.log('FormData 항목:');
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
     if (formData.has('memberNickName') || formData.has('memberIMG')) {
-      axiosInstance.put('/nonestep/member/modify-nickname', formData, {
+      axiosInstance
+      .put('/nonestep/member/modify-nickname', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then(response => {
-        console.log('API 응답:', response.data);
+        // console.log('API 응답:', response.data);
         setMemberInfo(prevInfo => {
           const updatedInfo = {
             ...prevInfo,
-            memberNickName: response.data.memberNickName || prevInfo.memberNickName,
+            memberNickName: response.data.memberNickName || response.data.memberNickname || nicknameInput,
             memberIMG: response.data.memberIMG || prevInfo.memberIMG
           };
-          console.log('업데이트된 memberInfo:', updatedInfo);
+          // console.log('업데이트된 memberInfo:', updatedInfo);
           return updatedInfo;
         });
         setNicknameInput(response.data.memberNickName || nicknameInput);
@@ -192,8 +223,6 @@ const handleEmailChange = useCallback(() => {
     memberMail: newEmail,
   })
   .then(response => {
-    console.log('서버 응답:', response.data);
-    console.log('이메일 : ', newEmail);
     if (response.data.message.toLowerCase() === 'success') {
       setMemberInfo(prevInfo => ({...prevInfo, memberMail: newEmail}));
       alert('이메일이 성공적으로 변경되었습니다.');
@@ -269,15 +298,12 @@ const handlePhoneChange = useCallback(() => {
   const handleEditSave = useCallback(() => {
     switch(editType) {
       case '비밀번호':
-        console.log('Navigating to password change page');
         navigate('/findPW');
         break;
       case '이메일':
-        console.log('Saving email:', newEmail);
         handleEmailChange();
         break;
       case '휴대폰 번호':
-        console.log('Saving phone number:', newPhone);
         handlePhoneChange();
         break;
       default:
@@ -291,6 +317,8 @@ const handlePhoneChange = useCallback(() => {
 
   return (
     <PageContainer>
+      <PageHeader/>
+
       {memberInfo &&
           <ProfileSection>
           <ProfileInfoWrap>
@@ -357,7 +385,7 @@ const handlePhoneChange = useCallback(() => {
               id="profileImageInput"
               accept="image/png, image/jpeg, image/gif, image/bmp"
               onChange={handleImageChange}
-              style={{ display: 'none' }}
+              style={{ display: 'none', position: 'relative' }}
             />
             <label htmlFor="profileImageInput">
               <EditIcon>
@@ -448,6 +476,8 @@ const handlePhoneChange = useCallback(() => {
           </ButWrap>
         </WithdrawContainer>
       }
+
+      <MenuBar/>
 
     </PageContainer>
   );

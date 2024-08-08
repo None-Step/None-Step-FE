@@ -93,7 +93,7 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
         valid = /^\d{11}$/.test(newValue);
         break;
       case "닉네임":
-        valid = newValue.length <= 8;
+        valid = newValue.length <= 8 && !/\s/.test(newValue);
         break;
       default:
         valid = true;
@@ -125,7 +125,7 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
       case "휴대폰 번호":
         return "휴대폰 번호는 숫자 11자리를 입력해주세요.";
       case "닉네임":
-        return "닉네임은 8글자 이하로 입력해주세요.";
+        return "닉네임은 8글자 이하로 입력해주세요. 공백은 사용할 수 없습니다.";
       default:
         return "";
     }

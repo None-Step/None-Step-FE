@@ -6,6 +6,8 @@ import Button from '../../components/Button'
 import SecondaryButton from '../../components/SecondaryButton'
 import { InputWrap } from '../SignUp/SignUp02/SignUpForm.style'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Wrapper } from '../Login/Login.style'
+import MenuBar from '../../components/menuBar/MenuBar'
 
 const IdWrap = styled.div`
   width: 100%;
@@ -31,22 +33,27 @@ const FindIDSuccess = () => {
   };
 
   return (
-    <Container>
-      <Logo/>
-      <Description>
-        입력한 정보와 일치하는 아이디입니다.
-      </Description>
-      <IdWrap>
-        {foundIDs.map((item, index) => (
-          <InputWrap key={index}>
-            <Description>아이디</Description>
-            <Description>{item.memberID}</Description>
-          </InputWrap>
-        ))}
-      </IdWrap>
-      <SecondaryButton submitMessage="비밀번호 재설정하기" onClick={handleResetPassword} />
-      <Button submitMessage="로그인하기" onClick={handleLogin} />
-    </Container>
+    <Wrapper>
+      <Container>
+        <Logo/>
+        <Description>
+          입력한 정보와 일치하는 아이디입니다.
+        </Description>
+        <IdWrap>
+          {foundIDs.map((item, index) => (
+            <InputWrap key={index}>
+              <Description>아이디</Description>
+              <Description>{item.memberID}</Description>
+            </InputWrap>
+          ))}
+        </IdWrap>
+        <SecondaryButton submitMessage="비밀번호 재설정하기" onClick={handleResetPassword} />
+        <Button submitMessage="로그인하기" onClick={handleLogin} />
+      </Container>
+
+      <MenuBar/>
+
+    </Wrapper>
   )
 }
 

@@ -5,10 +5,11 @@ import SocialButton from '../../components/SocialButton'
 import Logo from '../../components/Logo'
 import LoginWrap from '../../components/LoginWrap'
 import { useNavigate } from 'react-router-dom'
-import { HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
+import { Wrapper, HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
 import axiosInstance from '../../apis/axiosInstance'
 import { useDispatch } from 'react-redux'
 import { login } from '../../store/slices/memberSlice'
+import MenuBar from '../../components/menuBar/MenuBar'
 
 const Login = () => {
     const [memberID, setMemberID] = useState('');
@@ -56,45 +57,56 @@ const Login = () => {
     };
 
     // 일반 로그인 핸들러
-    const handleLogin = async (event) => {
-      event.preventDefault();
-
-      try {
-          const loginResponse = await axiosInstance
-            .post('/nonestep/member/login',
-              { memberID : memberID, 
-                memberPass : memberPass});
-            // 1. 응답 받은 액세스 토큰 저장
-            const { accessToken, ...userInfo } = loginResponse.data;
-            // 2. 헤더에 토큰 보내주기 (디폴트값으로 저장, 추후에 따로 요청하지 않아도 됨)
-            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  
-          // Redux store에 사용자 정보 저장
-          dispatch(login({
-            isAuthorized: true,
-            memberID: userInfo.memberID,
-            memberNickName: userInfo.memberNickName || "",
-            memberRandom: userInfo.memberRandom || "",
-            memberFile: userInfo.memberFile || "",
-            memberIntroduce: userInfo.memberIntroduce || "",
-          }));
-          navigate('/');
-      } catch (error) {
-          console.error('Login error:', error);
-          if (error.response) {
-              console.error('Error response:', error.response.data);
-              console.error('Error status:', error.response.status);
-              console.error('Error headers:', error.response.headers);
-          } else if (error.request) {
-              console.error('Error request:', error.request);
+    const handleLogin = (event) => {
+        event.preventDefault();
+      
+        axiosInstance.post('/nonestep/member/login', { 
+          memberID: memberID, 
+          memberPass: memberPass 
+        })
+        .then(response => {
+          if (response.data.message.toLowerCase() === 'success') {
+            // Authorization 헤더에서 액세스 토큰 추출
+            const accessToken = response.headers['authorization'];
+            
+            if (accessToken) {
+              // 액세스 토큰을 세션 스토리지에 저장
+              sessionStorage.setItem('accessToken', accessToken);
+              
+              // axiosInstance의 기본 헤더에 토큰 설정
+              axiosInstance.defaults.headers.common['Authorization'] = accessToken;
+      
+              // 최소한의 사용자 정보로 Redux store 업데이트
+              dispatch(login({
+                isAuthorized: true,
+                memberID: memberID, // 로그인 시 사용한 ID
+              }));
+            
+              navigate('/');
+            } else {
+              throw new Error('No access token found in response');
+            }
           } else {
-              console.error('Error message:', error.message);
+            throw new Error('Login failed');
           }
-          alert("로그인에 실패했습니다. 다시 시도해주세요.");
+        })
+        .catch(error => {
+          console.error('Login error:', error);
+          let errorMessage = "로그인에 실패했습니다. 다시 시도해주세요.";
+          
+          if (error.response) {
+            console.error('Error response:', error.response.data);
+            console.error('Error status:', error.response.status);
+            if (error.response.status === 401) {
+              errorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
+            }
+          }
+          
+          alert(errorMessage);
+        });
       }
-  }
-
-    const handleID = (value) => {
+      
+          const handleID = (value) => {
       setMemberID(value);
     }
 
@@ -103,6 +115,7 @@ const Login = () => {
     }
 
     return (
+      <Wrapper>
         <LoginWrap>
             <Logo/>
             <InputForm
@@ -141,7 +154,11 @@ const Login = () => {
                 <SignActionSpan to="/terms">이용약관안내</SignActionSpan>
                 <SignActionSpan to='/terms'>개인정보처리방침</SignActionSpan>
             </SignAction>
+
         </LoginWrap>
+        <MenuBar/>
+
+      </Wrapper>
     )
 }
 

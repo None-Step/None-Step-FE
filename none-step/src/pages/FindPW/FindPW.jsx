@@ -5,9 +5,10 @@ import { InputWrap, PageTitle, SubmitBut } from '../SignUp/SignUp02/SignUpForm.s
 import InputForm from '../../components/InputForm'
 import Logo from '../../components/Logo'
 import Button from '../../components/Button'
-import { SignAction, SignActionSpan } from '../Login/Login.style'
+import { SignAction, SignActionSpan, Wrapper } from '../Login/Login.style'
 import { Link, useNavigate } from 'react-router-dom'  // useNavigate 추가
 import styled from 'styled-components'
+import MenuBar from '../../components/menuBar/MenuBar'
 
 const PrimaryLink = styled(Link)`
  color: ${(props) => props.theme.colors.primary};
@@ -155,7 +156,8 @@ const FindPW = () => {
   };
 
   return (
-    <LoginWrap>
+    <Wrapper>
+          <LoginWrap>
       <Logo/>
       <PageTitle>비밀번호 재설정하기</PageTitle>
       <InputForm
@@ -205,6 +207,10 @@ const FindPW = () => {
         <PrimaryLink to="/findID">아이디 찾기</PrimaryLink>
       </SignAction>
     </LoginWrap>
+
+    <MenuBar/>
+
+    </Wrapper>
   )
 }
 

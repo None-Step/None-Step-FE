@@ -27,13 +27,14 @@ export const ProfileImage = styled.img`
   height: 60px;
   border-radius: 50%;
   margin-right: 15px;
-  object-fit: cover 50% 50%;
+  object-fit: cover;
 `;
 
 export const ProfileInfoWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const ProfileInfo = styled.div`

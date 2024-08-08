@@ -4,6 +4,8 @@ import Button from '../../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../../components/Logo';
 import { TermsWrap, TermsTitleWrap, Title, Strong, Success, TermsTextBox, TermsTitle, TermsStrong } from './TermsOfService.style';
+import { Wrapper } from '../../Login/Login.style';
+import MenuBar from '../../../components/menuBar/MenuBar';
 
 const TermsOfService = () => {
   const theme = useContext(ThemeContext);  // theme 객체를 불러옵니다
@@ -42,7 +44,8 @@ const TermsOfService = () => {
   };
 
   return (
-    <TermsWrap>
+    <Wrapper>
+          <TermsWrap>
       <Logo/>
       
       <TermsTitleWrap>
@@ -221,6 +224,10 @@ const TermsOfService = () => {
 
 
     </TermsWrap>
+
+    <MenuBar/>
+
+    </Wrapper>
   )
 }
 
