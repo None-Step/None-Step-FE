@@ -31,4 +31,9 @@ export default defineConfig({
             { find: "@/hooks", replacement: "/src/hooks" },
         ],
     },
+    build: {
+        rollupOptions: {
+          external: ['redux-persist', 'redux-persist/integration/react']
+        }
+    }
 });
