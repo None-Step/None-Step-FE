@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import InputForm from '../../components/InputForm'
-import Button from '../../components/Button'
-import SocialButton from '../../components/SocialButton'
-import Logo from '../../components/Logo'
-import LoginWrap from '../../components/LoginWrap'
+import InputForm from '@/components/InputForm'
+import Button from '@/components/Button'
+import SocialButton from '@/components/SocialButton'
+import Logo from '@/components/Logo'
+import LoginWrap from '@/components/LoginWrap'
 import { useNavigate } from 'react-router-dom'
 import { Wrapper, HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
-import axiosInstance from '../../apis/axiosInstance'
+import axiosInstance from '@/apis/axiosInstance'
 import { useDispatch } from 'react-redux'
-import { login } from '../../store/slices/memberSlice'
-import MenuBar from '../../components/menuBar/MenuBar'
+import { login } from '@/store/slices/memberSlice'
+import MenuBar from '@/components/menuBar/MenuBar'
 
 const Login = () => {
     const [memberID, setMemberID] = useState('');
@@ -149,7 +149,7 @@ const Login = () => {
                 |
                 <SignActionSpan to="/findPW">비밀번호 찾기</SignActionSpan>
                 |
-                <SignActionSpan to="/signUp">회원가입</SignActionSpan>
+                <SignActionSpan to="/terms">회원가입</SignActionSpan>
             </SignAction>
             <SignAction>
                 <SignActionSpan to="/terms">이용약관안내</SignActionSpan>

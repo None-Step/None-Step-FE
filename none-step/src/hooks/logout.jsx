@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../store/slices/memberSlice';
-import axiosInstance from '../apis/axiosInstance';
+import { logout } from '@/store/slices/memberSlice';
+import axiosInstance from '@/apis/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const useLogout = () => {
