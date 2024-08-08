@@ -1,13 +1,13 @@
 import React, { useState, useEffect, act } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { InputWrap, PageTitle, SubmitBut } from './SignUpForm.style';
-import LoginWrap from '../../../components/LoginWrap';
-import Logo from '../../../components/Logo';
-import InputForm from '../../../components/InputForm';
-import Button from '../../../components/Button';
-import axiosInstance from '../../../apis/axiosInstance';
+import LoginWrap from '@/components/LoginWrap';
+import Logo from '@/components/Logo';
+import InputForm from '@/components/InputForm';
+import Button from '@/components/Button';
+import axiosInstance from '@/apis/axiosInstance';
 import { SignActionSpan, Wrapper } from '../../Login/Login.style';
-import MenuBar from '../../../components/menuBar/MenuBar';
+import MenuBar from '@/components/menuBar/MenuBar';
 
 const SignUpForm = () => {
   const navigate = useNavigate();

@@ -27,12 +27,12 @@ import Close, { PageContainer,
   SubmitBut,
   RightIcon,
   EditIconWrapper} from './MyPage.style'
-import Button from '../../components/Button';
+import Button from '@/components/Button';
 import InputForm from './MyPageInputForm';
-import useLogout from '../../hooks/logout';
-import axiosInstance from '../../apis/axiosInstance';
-import MenuBar from '../../components/menuBar/MenuBar'
-import { PageHeader } from '../../components/header/Headers';
+import useLogout from '@/hooks/logout';
+import axiosInstance from '@/apis/axiosInstance';
+import MenuBar from '@/components/menuBar/MenuBar'
+import { PageHeader } from '@/components/header/Headers';
 
 const MyPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 토스트 모달

@@ -66,8 +66,8 @@
 // export default axiosInstance;
 
 import axios from "axios";
-import { store } from "../store";
-import { logout } from "../store/slices/memberSlice";
+import { store } from "@/store";
+import { logout } from "@/store/slices/memberSlice";
 
 // 추가: 토큰 만료 시간 관련 상수
 const ACCESS_TOKEN_EXPIRY = 60 * 60 * 1000; // 1시간

@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Container, Description } from '../../components/CommonStyles'
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
-import SecondaryButton from '../../components/SecondaryButton'
+import { Container, Description } from '@/components/CommonStyles'
+import Logo from '@/components/Logo'
+import Button from '@/components/Button'
+import SecondaryButton from '@/components/SecondaryButton'
 import { InputWrap } from '../SignUp/SignUp02/SignUpForm.style'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Wrapper } from '../Login/Login.style'
-import MenuBar from '../../components/menuBar/MenuBar'
+import MenuBar from '@/components/menuBar/MenuBar'
 
 const IdWrap = styled.div`
   width: 100%;

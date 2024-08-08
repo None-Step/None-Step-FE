@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../apis/axiosInstance';
-import { AuthContext } from '../../apis/AuthContext';
+import axiosInstance from '@/apis/axiosInstance';
+import { AuthContext } from '@/apis/AuthContext';
 
 const NaverCallback = () => {
   const navigate = useNavigate();

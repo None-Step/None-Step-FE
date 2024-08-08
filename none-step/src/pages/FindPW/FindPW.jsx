@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import axiosInstance from '../../apis/axiosInstance'  // axiosInstance import 추가
-import LoginWrap from '../../components/LoginWrap'
+import axiosInstance from '@/apis/axiosInstance'  // axiosInstance import 추가
+import LoginWrap from '@/components/LoginWrap'
 import { InputWrap, PageTitle, SubmitBut } from '../SignUp/SignUp02/SignUpForm.style'
-import InputForm from '../../components/InputForm'
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
+import InputForm from '@/components/InputForm'
+import Logo from '@/components/Logo'
+import Button from '@/components/Button'
 import { SignAction, SignActionSpan, Wrapper } from '../Login/Login.style'
 import { Link, useNavigate } from 'react-router-dom'  // useNavigate 추가
 import styled from 'styled-components'
-import MenuBar from '../../components/menuBar/MenuBar'
+import MenuBar from '@/components/menuBar/MenuBar'
 
 const PrimaryLink = styled(Link)`
  color: ${(props) => props.theme.colors.primary};

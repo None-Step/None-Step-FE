@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import LoginWrap from '../../components/LoginWrap'
-import Logo from '../../components/Logo'
+import LoginWrap from '@/components/LoginWrap'
+import Logo from '@/components/Logo'
 import { PageTitle, InputWrap, MarginInputForm, SubmitBut } from '../SignUp/SignUp02/SignUpForm.style'
-import InputForm from '../../components/InputForm'
-import Button from '../../components/Button'
+import InputForm from '@/components/InputForm'
+import Button from '@/components/Button'
 import { useNavigate } from 'react-router-dom'
 import { SignActionSpan, Wrapper } from '../Login/Login.style'
-import axiosInstance from '../../apis/axiosInstance'
-import MenuBar from '../../components/menuBar/MenuBar'
+import axiosInstance from '@/apis/axiosInstance'
+import MenuBar from '@/components/menuBar/MenuBar'
 
 const FindID = () => {
   const [name, setName] = useState('');

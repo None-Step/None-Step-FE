@@ -1,10 +1,10 @@
 import React from 'react'
-import Logo from '../../components/Logo';
-import Button from '../../components/Button';
+import Logo from '@/components/Logo';
+import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
-import { Container, Description } from '../../components/CommonStyles';
+import { Container, Description } from '@/components/CommonStyles';
 import { Wrapper } from '../Login/Login.style';
-import MenuBar from '../../components/menuBar/MenuBar';
+import MenuBar from '@/components/menuBar/MenuBar';
 
 
 const SignUpSuccess = () => {

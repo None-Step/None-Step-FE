@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import LoginWrap from '../../components/LoginWrap'
-import Logo from '../../components/Logo'
-import { Description } from '../../components/CommonStyles'
-import InputForm from '../../components/InputForm'
-import Button from '../../components/Button'
+import LoginWrap from '@/components/LoginWrap'
+import Logo from '@/components/Logo'
+import { Description } from '@/components/CommonStyles'
+import InputForm from '@/components/InputForm'
+import Button from '@/components/Button'
 import styled from 'styled-components'
-import axiosInstance from '../../apis/axiosInstance'
+import axiosInstance from '@/apis/axiosInstance'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Wrapper } from '../Login/Login.style'
-import MenuBar from '../../components/menuBar/MenuBar'
+import MenuBar from '@/components/menuBar/MenuBar'
 
 const MarginDescription = styled(Description)`
   margin-bottom: 3rem;
