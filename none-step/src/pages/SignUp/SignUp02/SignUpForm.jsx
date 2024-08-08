@@ -6,7 +6,8 @@ import Logo from '../../../components/Logo';
 import InputForm from '../../../components/InputForm';
 import Button from '../../../components/Button';
 import axiosInstance from '../../../apis/axiosInstance';
-import { SignActionSpan } from '../../Login/Login.style';
+import { SignActionSpan, Wrapper } from '../../Login/Login.style';
+import MenuBar from '../../../components/menuBar/MenuBar';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -104,23 +105,21 @@ const SignUpForm = () => {
 
   // 인증 코드 검증
   useEffect(() => {
-    if (verificationSent && // 인증번호가 실제로 발송되었는지 확인
-        verificationCode.length === verificationCodeLength && // 입력된 코드 길이가 올바른지 확인
-        !verificationPassed && // 아직 인증이 완료되지 않았는지 확인
-        verificationCode !== '' && // 입력된 코드가 비어있지 않은지 확인
-        checkVerificationCode !== '') { // 서버에서 받은 코드가 비어있지 않은지 확인
+    if (verificationSent && 
+        verificationCode.length === verificationCodeLength && 
+        !verificationPassed && 
+        verificationCode !== '' && 
+        checkVerificationCode !== '') {
       
-      // 입력된 코드와 서버에서 받은 코드 비교
-      if (verificationCode === checkVerificationCode) {
-        setVerificationPassed(true); // 인증 성공 상태로 설정
-        alert("인증이 완료되었습니다.");
-      } else {
-        setVerificationPassed(false); // 인증 실패 상태로 설정
-        alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
-      }
+      const isVerified = verificationCode === checkVerificationCode;
+      setVerificationPassed(isVerified);
+      
+      // 상태 업데이트 후 비동기적으로 알림 표시
+      setTimeout(() => {
+        alert(isVerified ? "인증이 완료되었습니다." : "인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+      }, 0);
     }
   }, [verificationCode, checkVerificationCode, verificationPassed, verificationCodeLength, verificationSent]);
-
   
   // 인증 코드 입력 처리 함수
   const handleVerificationCodeChange = (isValid, value) => {
@@ -178,6 +177,7 @@ const SignUpForm = () => {
   };
 
   return (
+    <Wrapper>
     <LoginWrap>
       <Logo />
       <PageTitle>회원가입</PageTitle>
@@ -226,6 +226,10 @@ const SignUpForm = () => {
 
       <Button onClick={handleSubmit} disabled={!isFormValid()} submitMessage="회원가입"></Button>
     </LoginWrap>
+
+    <MenuBar/>
+    </Wrapper>
+
   );
 };
 

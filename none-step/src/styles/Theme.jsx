@@ -16,6 +16,7 @@ export const theme = {
         shadow300: "4px 4px 15px 6px rgba(12, 12, 13, 0.4)",
         shadow400:
             "4px 16px 32px -4px rgba(12, 12, 13, 0.1), 4px 4px 4px -4px rgba(12, 12, 13, 0.05)", 
+        modalLayer : "rgba(55, 56, 60, 0.6)"
     },
     capitalLines: {
         one: "#263C96",

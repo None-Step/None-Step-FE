@@ -1,15 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import logoImage from '../assets/img/logo.svg';
 
 const LogoCustom = styled.h1`
-  font-family: 'PyeongChangPeace-Bold';
-  font-size: 3.5rem;
   margin-bottom: 2rem;
 `;
 
 const Logo = () => {
   return (
-    <LogoCustom>이호선</LogoCustom>
+    <LogoCustom>
+      <Link to='/'>
+        <img src={logoImage} alt='로고'/>
+      </Link>
+    </LogoCustom>
   )
 }
 
