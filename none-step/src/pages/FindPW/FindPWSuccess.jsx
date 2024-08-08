@@ -1,10 +1,10 @@
 import React from 'react'
-import { Container, Description } from '../../components/CommonStyles'
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
+import { Container, Description } from '@/components/CommonStyles'
+import Logo from '@/components/Logo'
+import Button from '@/components/Button'
 import { useNavigate } from 'react-router-dom';
 import { Wrapper } from '../Login/Login.style';
-import MenuBar from '../../components/menuBar/MenuBar';
+import MenuBar from '@/components/menuBar/MenuBar';
 
 const FindPWSuccess = () => {
   const navigate = useNavigate();

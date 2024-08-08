@@ -1,17 +1,17 @@
 import { Route, Router, Routes } from "react-router-dom";
-import Login from "../pages/Login/Login";
-import TermsOfService from "../pages/SignUp/SignUp01/TermsOfService";
-import SignUpForm from "../pages/SignUp/SignUp02/SignUpForm";
-import FindID from "../pages/FindID/FindID";
-import SignUpSuccess from "../pages/SignUp/SignUpSuccess";
-import FindIDSuccess from "../pages/FindID/FindIDSuccess";
-import FindPW from "../pages/FindPW/FindPW";
-import FindPWResetting from "../pages/FindPW/FindPWResetting";
-import FindPWSuccess from "../pages/FindPW/FindPWSuccess";
-import KakaoCallback from "../pages/Login/KakaoCallback";
-import NaverCallback from "../pages/Login/NaverCallback";
-import Home from "../pages/Home";
-import MyPage from "../pages/MyPage/MyPage";
+import Login from "@/pages/Login/Login";
+import TermsOfService from "@/pages/SignUp/SignUp01/TermsOfService";
+import SignUpForm from "@/pages/SignUp/SignUp02/SignUpForm";
+import FindID from "@/pages/FindID/FindID";
+import SignUpSuccess from "@/pages/SignUp/SignUpSuccess";
+import FindIDSuccess from "@/pages/FindID/FindIDSuccess";
+import FindPW from "@/pages/FindPW/FindPW";
+import FindPWResetting from "@/pages/FindPW/FindPWResetting";
+import FindPWSuccess from "@/pages/FindPW/FindPWSuccess";
+import KakaoCallback from "@/pages/Login/KakaoCallback";
+import NaverCallback from "@/pages/Login/NaverCallback";
+import Home from "@/pages/Home";
+import MyPage from "@/pages/MyPage/MyPage";
 
 function AppRoutes() {
     return (
