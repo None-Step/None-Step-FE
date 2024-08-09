@@ -8,7 +8,8 @@ export const RightIcon = styled(FaChevronRight)`
 
 export const PageContainer = styled.div`
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: scroll;
   background-color: ${(props) => props.theme.colors.gray06};
   position: relative;
   top: 0;
@@ -16,7 +17,7 @@ export const PageContainer = styled.div`
 `;
 
 export const ProfileSection = styled.section`
-  margin-top: 106px;
+  margin-top: 70px;
   padding: 20px;
   background-color: white;
   margin-bottom: 20px;
