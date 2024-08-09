@@ -37,25 +37,55 @@ const FindPW = () => {
     // 휴대폰 인증번호 요청
     const sendVerificationCode = (event) => {
       event.preventDefault();
-  
+    
       if(formData.memberPhone) {
+        // 재발송 시 기존 타이머 제거
+        if (window.verificationTimer) {
+          clearTimeout(window.verificationTimer);
+        }
+    
         axiosInstance
           .post(`/nonestep/member/phone`, {
             memberPhone : formData.memberPhone
           })
           .then((response) => {
-            setCheckVerificationCode(response.data.authenticationNumber);
-            setVerificationCodeLength(response.data.authenticationNumber.length); // 인증 코드 길이 설정
-            setShowVerificationMessage(true);
-            setVerificationSent(true);
-            setVerificationPassed(false); // 새로운 인증 코드 발급 => 인증 상태 초기화
+            if (response.data && response.data.authenticationNumber) {
+              setCheckVerificationCode(response.data.authenticationNumber);
+              setVerificationCodeLength(response.data.authenticationNumber.length);
+              setShowVerificationMessage(true);
+              setVerificationPassed(false);
+              setVerificationMessage('');
+    
+              // 새 타이머 설정
+              window.verificationTimer = setTimeout(() => {
+                setVerificationMessage('인증번호 유효 시간이 초과되었습니다. 다시 시도해주세요');
+                setVerificationSent(false);
+                setShowVerificationMessage(false);
+              }, 180000);
+    
+              // 성공 상태를 마지막에 설정
+              setVerificationSent(true);
+              
+              console.log("인증번호가 성공적으로 발송되었습니다.");
+            } else {
+              throw new Error("서버 응답에 인증번호가 없습니다.");
+            }
           })
           .catch((error) => {
-            console.log(error);
-            alert("인증번호 발송에 실패했습니다.");
-          })
+            console.error("인증번호 발송 오류:", error);
+            alert("인증번호 발송에 실패했습니다. 다시 시도해 주세요.");
+            setVerificationSent(false);
+          });
       }
-    }
+    };
+
+    useEffect(() => {
+      return () => {
+        if (window.verificationTimer) {
+          clearTimeout(window.verificationTimer);
+        }
+      };
+    }, []);
   
     // 인증 코드 검증
     useEffect(() => {
@@ -183,7 +213,9 @@ const FindPW = () => {
           onValidationChange={(isValid, value) => handleInputChange('memberPhone', value, isValid)}
         />
         <SubmitBut onClick={sendVerificationCode}
-        disabled={!phoneNumberValid || verificationSent}>인증</SubmitBut>
+        disabled={!phoneNumberValid}>
+          {verificationSent ? '재발송' : '인증'}
+        </SubmitBut>
       </InputWrap>
 
       <InputForm label="인증번호" type="text" 
