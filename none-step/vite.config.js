@@ -10,13 +10,13 @@ export default defineConfig({
     plugins: [
         react(),
         // mkcert({
-        //     certFileName: "./localhost+1.pem",
-        //     keyFileName: "./localhost+1-key.pem",
+        //   certFile: "/Users/seul/Library/Application Support/mkcert/localhost.pem",
+        //   keyFile: "/Users/seul/Library/Application Support/mkcert/localhost-key.pem",
         // }),
-    ],
-    server: {
-        https: true,
-    },
+      ],
+    // server: {
+    //     https: true,
+    // },
     resolve: {
         alias: [
             { find: "@", replacement: resolve(__dirname, "src") },
