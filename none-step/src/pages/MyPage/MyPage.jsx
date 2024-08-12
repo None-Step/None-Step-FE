@@ -33,6 +33,7 @@ import useLogout from '@/hooks/logout';
 import axiosInstance from '@/apis/axiosInstance';
 import MenuBar from '@/components/menuBar/MenuBar'
 import { PageHeader } from '@/components/header/Headers';
+import DefaultProfile from '@/assets/img/profile.png'
 
 const MyPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 토스트 모달
@@ -323,7 +324,7 @@ const handlePhoneChange = useCallback(() => {
           <ProfileSection>
           <ProfileInfoWrap>
             <ProfileInfo>
-              <ProfileImage src={memberInfo.memberIMG} alt="Profile" />
+              <ProfileImage src={memberInfo.memberIMG || DefaultProfile} alt="Profile" />
               <ProfileName>{memberInfo.memberNickName}</ProfileName>
             </ProfileInfo>
             <ProfileTag>{memberInfo.memberRandom}</ProfileTag>
@@ -376,7 +377,7 @@ const handlePhoneChange = useCallback(() => {
 
         <ProfileImgContainer>
         <ProfileImageLagrge 
-          src={selectedImage ? URL.createObjectURL(selectedImage) : memberInfo.memberIMG} 
+          src={selectedImage ? URL.createObjectURL(selectedImage) : memberInfo.memberIMG || DefaultProfile} 
           alt="Profile" 
         />          
         <EditIconWrapper>

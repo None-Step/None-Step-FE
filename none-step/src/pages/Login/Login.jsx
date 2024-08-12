@@ -85,7 +85,7 @@ const Login = () => {
                 });
             
             } else {
-              throw new Error('No access token found in response');
+              throw new Error('응답에서 액세스 토큰을 찾을 수 없음');
             }
           } else {
             throw new Error('Login failed');

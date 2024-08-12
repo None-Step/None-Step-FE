@@ -204,9 +204,9 @@ const SignUpForm = () => {
         name="memberMail" placeholder="이메일"
         onValidationChange={(isValid, value) => handleValidationChange(isValid, value, 'memberMail')} />
       <InputWrap>
-      <InputForm label="휴대폰 번호" type="text" 
-        name="memberPhone" placeholder="휴대폰 번호"
-        onValidationChange={(isValid, value) => handleValidationChange(isValid, value, 'memberPhone')} />
+        <InputForm label="휴대폰 번호" type="text" 
+          name="memberPhone" placeholder="휴대폰 번호"
+          onValidationChange={(isValid, value) => handleValidationChange(isValid, value, 'memberPhone')} />
         <SubmitBut onClick={sendVerificationCode}
           disabled={!formValidations.memberPhone || verificationSent}>
           {verificationSent ? '재발송' : '인증'}

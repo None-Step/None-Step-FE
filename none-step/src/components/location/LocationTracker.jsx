@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Title } from '@/pages/MyPage/MyPage.style'
-import { AccuracyMessage, HomeContainer, InBox, Location, LocationBut, Notice, ThisStop } from './LocationTracker.style'
+import { AccuracyMessage, Br, HomeContainer, InBox, Location, LocationBut, Notice, Strong, ThisStop } from './LocationTracker.style'
 import LocationIcon from '@/assets/img/MapPin.svg'
 import axiosInstance from '@/apis/axiosInstance'
+import { RxDotFilled } from "react-icons/rx";
 
 const LocationTracker = () => {
   // 상태 관리를 위한 useState 훅 사용
@@ -12,9 +13,8 @@ const LocationTracker = () => {
   const [hasSearched, setHasSearched] = useState(false); // 검색 시도 여부
   const [accuracy, setAccuracy] = useState(null); // 위치 정확도
   const timeoutRef = useRef(null); // 타임아웃 참조를 위한 useRef 훅
-  const TIMEOUT_DURATION = 30000; // 타임아웃 시간 설정 (30초)
+  const TIMEOUT_DURATION = 20000; // 타임아웃 시간 설정 (20초)
 
-  // 컴포넌트 언마운트 시 타임아웃 정리
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -49,7 +49,7 @@ const LocationTracker = () => {
     const options = {
       enableHighAccuracy: true, // 높은 정확도 요청
       timeout: TIMEOUT_DURATION,
-      maximumAge: 0 // 캐시된 위치 정보를 사용하지 않음
+      maximumAge: 0 // 캐시된 위치 정보를 사용하지 않음(= 새로 불러오기)
     };
 
     // geolocation API 사용해서 사용자의 위치 가져오기
@@ -112,15 +112,12 @@ const LocationTracker = () => {
   };
 
   // 위치 정확도
-  const getAccuracyMessage = (accuracy) => {
-
-    if (accuracy <= 10) return "높음";
-    if (accuracy <= 100) return "보통";
-    if (accuracy <= 1000) return "낮음";
-  
-    return "매우 낮음";
-  
-  };
+  // const getAccuracyInfo = (accuracy) => {
+  //   if (accuracy <= 500) return { message: "높음", color: "#28a745" };
+  //   if (accuracy <= 1000) return { message: "보통", color: "#ffa500" };
+  //   if (accuracy <= 2000) return { message: "낮음", color: "#dc3545" };
+  //   return { message: "매우 낮음", color: "#800020" };
+  // };
 
   // 컴포넌트 렌더링
   return (
@@ -134,15 +131,18 @@ const LocationTracker = () => {
       <Location>
         {renderLocationMessage()}
       </Location>
-      {accuracy && 
+      {/* {accuracy && 
         <AccuracyMessage>
-          위치 정확도 : {getAccuracyMessage(accuracy)}
+          위치 정확도 : &nbsp; <Strong color={getAccuracyInfo(accuracy).color}>{getAccuracyInfo(accuracy).message}</Strong> 
         </AccuracyMessage>
-      }
+      } */}
 
-      <Notice>회원님의 위치에서 가장 가까운 역을 조회한 결과이므로 실제 역과 차이가 발생할 수 있습니다.</Notice>
+      <Notice><RxDotFilled /> 회원님의 위치에서 가장 가까운 역을 조회한 결과이므로 <Br/> 실제 역과 차이가 발생할 수 있습니다.</Notice>
       <br/>
-      <Notice>시스템 설정에서 해당 브라우저에 위치 권한을 허용해주세요.</Notice>
+      <Notice><RxDotFilled /> 시스템 설정에서 해당 브라우저에 위치 권한을 허용해주세요.</Notice>
+      <br/>
+      <Notice>(<strong>iOS</strong> 설정 &gt; 개인정보 보호 및 보안 &gt; 위치 &gt; 사용할 브라우저의 '나의 위치 공유' 허용)</Notice>
+
     </HomeContainer>
   )
 }

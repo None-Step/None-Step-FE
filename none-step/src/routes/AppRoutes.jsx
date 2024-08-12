@@ -12,11 +12,14 @@ import KakaoCallback from "@/pages/Login/KakaoCallback";
 import NaverCallback from "@/pages/Login/NaverCallback";
 import Home from "@/pages/Home";
 import MyPage from "@/pages/MyPage/MyPage";
+import FindWay from "@/pages/FindWay/FindWay";
 
 function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
+
+            <Route path="/findWay" element={<FindWay />} />
 
             <Route path="/terms" element={<TermsOfService />}/>
             <Route path="/signUp" element={<SignUpForm />}/>

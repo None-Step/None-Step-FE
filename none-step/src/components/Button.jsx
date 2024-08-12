@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const Btn = styled.button`
   width: 100%;
+  height: 50px;
   padding-block: 1.6rem;
   box-sizing: border-box;
   border: none;
