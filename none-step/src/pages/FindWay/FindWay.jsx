@@ -14,11 +14,12 @@ import KakaoMapPlaceSearch from './KakaoMapPlaceSearch';
 import ReloadIcon from '@/assets/img/current.svg'
 
 const TIMEOUT_DURATION = 20000; // 20초
+const DEFAULT_CENTER = { lat: 37.506320759000715, lng: 127.05368251210247 };
 
 const FindWay = () => {
-  const [center, setCenter] = useState({ lat: 37.506320759000715, lng: 127.05368251210247 });
+  const [center, setCenter] = useState(DEFAULT_CENTER);
   const [userLocation, setUserLocation] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isUserLocationLoading, setIsUserLocationLoading] = useState(true);
   const [destination, setDestination] = useState(null);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -54,7 +55,7 @@ const FindWay = () => {
   }, []);
 
   const updateUserLocation = useCallback(async () => {
-    setIsLoading(true);
+    setIsUserLocationLoading(true);
     try {
       const position = await getCurrentPosition();
       const newLocation = {
@@ -63,10 +64,10 @@ const FindWay = () => {
       };
       setUserLocation(newLocation);
       setCenter(newLocation);
-      setIsLoading(false);
     } catch (error) {
       console.error("위치 정보를 가져오는 중 오류 발생:", error.message);
-      setIsLoading(false);
+    } finally {
+      setIsUserLocationLoading(false);
     }
   }, [getCurrentPosition]);
 
@@ -92,8 +93,8 @@ const FindWay = () => {
     updateUserLocation();
   };
 
-  if (isLoading || !mapLoaded) {
-    return <div>위치 정보를 불러오는 중...</div>;
+  if (!mapLoaded) {
+    return <div>지도를 불러오는 중...</div>;
   }
 
   return (
@@ -134,6 +135,7 @@ const FindWay = () => {
           <img src={ReloadIcon} alt='현재위치 새로고침'/>
         </Reload>
       </Map>
+      {isUserLocationLoading && <div>사용자 위치를 불러오는 중...</div>}
       <MenuBar />
     </PageWrapper>
   )

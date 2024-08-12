@@ -21,6 +21,7 @@ export const IconBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   svg path {
     fill: ${(props) => props.$isActive ? props.theme.colors.primary : '#333333'};
