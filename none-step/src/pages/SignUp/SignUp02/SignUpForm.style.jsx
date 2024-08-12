@@ -16,6 +16,7 @@ export const InputWrap = styled.div`
 
 export const SubmitBut = styled.button`
   width: 90px;
+  height: 50px;
   padding: 1.7rem 2rem;
   box-sizing: border-box;
   border: none;

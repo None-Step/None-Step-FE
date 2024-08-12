@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const SocialBtnWrap = styled.button`
   width: 100%;
+  height: 50px;
   border: none;
   border-radius: 6px;
   /* cursor: pointer; */

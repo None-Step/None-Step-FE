@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { SubmitBut } from "../../pages/MyPage/MyPage.style";
 
 export const HomeContainer = styled.div`
-  margin-top: 30rem;
+  margin-top: 20rem;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   padding: 1.6rem 2rem;
@@ -36,11 +36,24 @@ export const ThisStop = styled.strong`
 
 export const Notice = styled.span`
   font-size: 1.2rem;
-  color: ${(props) => props.theme.colors.gray02};
+  color: ${(props) => props.theme.colors.gray01};
 
 `;
 
 export const AccuracyMessage = styled(Location)`
   font-size: 1.4rem;
   padding: 0 0 2rem 0;
-`
+  color: #666666;
+`;
+
+export const Br = styled.br`
+  display : none;
+
+  @media (max-width: 400px) {
+    display: block;
+  }
+`;
+
+export const Strong = styled.strong`
+  color: ${props => props.color};
+`;

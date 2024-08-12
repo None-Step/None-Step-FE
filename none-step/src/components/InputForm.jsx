@@ -8,6 +8,7 @@ const Wrap = styled.div`
 
 const InputWrap = styled.div`
   width: 100%;
+  height: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
