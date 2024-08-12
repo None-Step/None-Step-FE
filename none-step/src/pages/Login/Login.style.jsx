@@ -41,7 +41,8 @@ export const Span = styled.span`
 `;
 
 export const SignAction = styled.p`
-  width: 200px;
+  width: fit-content;
+  min-width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,7 +52,10 @@ export const SignAction = styled.p`
 `;
 
 export const SignActionSpan = styled(Link)`
+  display: inline-block;
   margin-inline : 0.5rem;
   cursor: pointer;
   color: inherit;
+  word-break: keep-all;
 `;
+
