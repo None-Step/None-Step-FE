@@ -1,23 +1,24 @@
-import { Route, Router, Routes } from "react-router-dom";
-import Login from "@/pages/Login/Login";
-import TermsOfService from "@/pages/SignUp/SignUp01/TermsOfService";
-import SignUpForm from "@/pages/SignUp/SignUp02/SignUpForm";
-import FindID from "@/pages/FindID/FindID";
-import SignUpSuccess from "@/pages/SignUp/SignUpSuccess";
-import FindIDSuccess from "@/pages/FindID/FindIDSuccess";
-import FindPW from "@/pages/FindPW/FindPW";
-import FindPWResetting from "@/pages/FindPW/FindPWResetting";
-import FindPWSuccess from "@/pages/FindPW/FindPWSuccess";
-import KakaoCallback from "@/pages/Login/KakaoCallback";
-import NaverCallback from "@/pages/Login/NaverCallback";
-import Home from "@/pages/Home";
-import MyPage from "@/pages/MyPage/MyPage";
-import FindWay from "@/pages/FindWay/FindWay";
 
-function AppRoutes() {
+import { Route, Routes } from "react-router-dom";
+import MapPage from "@pages/MapPage/MapPage";
+import MainPage from "@pages/MainPage/MainPage";
+import Login from "@pages/Login/Login";
+import TermsOfService from "@pages/SignUp/SignUp01/TermsOfService";
+import SignUpForm from "@pages/SignUp/SignUp02/SignUpForm";
+import FindID from "@pages/FindID/FindID";
+import SignUpSuccess from "@pages/SignUp/SignUpSuccess";
+import FindIDSuccess from "@pages/FindID/FindIDSuccess";
+import FindPW from "@pages/FindPW/FindPW";
+import FindPWResetting from "@pages/FindPW/FindPWResetting";
+import FindPWSuccess from "@pages/FindPW/FindPWSuccess";
+import KakaoCallback from "@pages/Login/KakaoCallback";
+import NaverCallback from "@pages/Login/NaverCallback";
+import MyPage from "@/pages/MyPage/MyPage";
+
+const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<MainPage />} />
 
             <Route path="/findWay" element={<FindWay />} />
 
@@ -35,11 +36,11 @@ function AppRoutes() {
             <Route path="/findPW" element={<FindPW />} />
             <Route path="/findPWResetting" element={<FindPWResetting />} />
             <Route path="/findPWSuccess" element={<FindPWSuccess />} />
-
+              
+            <Route path="/map" element={<MapPage />} />
             <Route path="/mypage" element={<MyPage />} />
-
         </Routes>
     );
-}
+};
 
 export default AppRoutes;

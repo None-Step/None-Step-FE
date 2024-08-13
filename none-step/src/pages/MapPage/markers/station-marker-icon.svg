@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 35">
+  <defs>
+    <radialGradient id="radial-gradient" cx="12.5" cy="77.84" fx="12.5" fy="77.84" r="6.17" gradientTransform="translate(-12.35 .9) scale(1.99 .41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c0c0d" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="12.5" y1="0" x2="12.5" y2="33" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <ellipse cx="12.5" cy="33" rx="12.5" ry="2" style="fill: url(#radial-gradient);"/>
+  <g>
+    <path d="M12.5,0C5.99,0,.71,5.28.71,11.79c0,.87.1,1.71.28,2.52,1.33,6.89,11.51,18.7,11.51,18.7,0,0,10.17-11.8,11.51-18.7.18-.81.28-1.65.28-2.52C24.29,5.28,19.01,0,12.5,0Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-1);"/>
+    <circle cx="12.5" cy="11.53" r="8.49" style="fill: #fff;"/>
+    <path d="M17.21,13.66v-4.39c0-1.88-1.52-3.4-3.4-3.4h-2.63c-1.88,0-3.4,1.52-3.4,3.4v4.39c0,.84.64,1.54,1.46,1.63l-1.4,1.88c-.11.14-.08.34.07.45.14.11.34.08.45-.07l.53-.71h7.22l.53.71c.11.14.31.17.45.07.14-.11.17-.31.07-.45l-1.4-1.88c.82-.09,1.46-.78,1.46-1.63ZM10.83,7.54c0-.15.12-.27.27-.27h2.79c.15,0,.27.12.27.27h0c0,.15-.12.27-.27.27h-2.79c-.15,0-.27-.12-.27-.27h0ZM8.7,13.33c0-.37.3-.67.67-.67s.67.3.67.67-.3.67-.67.67-.67-.3-.67-.67ZM9.37,16.2l.67-.9h4.93l.67.9h-6.27ZM15.63,14c-.37,0-.67-.3-.67-.67s.3-.67.67-.67.67.3.67.67-.3.67-.67.67ZM16.3,11.37c0,.15-.12.27-.27.27h-7.06c-.15,0-.27-.12-.27-.27v-2.45c0-.15.12-.27.27-.27h7.06c.15,0,.27.12.27.27v2.45Z" style="fill: #007aff;"/>
+  </g>
+</svg>

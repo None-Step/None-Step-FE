@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 35">
+  <defs>
+    <radialGradient id="radial-gradient" cx="12.5" cy="77.84" fx="12.5" fy="77.84" r="6.17" gradientTransform="translate(-12.35 .9) scale(1.99 .41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c0c0d" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="12.5" y1="0" x2="12.5" y2="33" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <ellipse cx="12.5" cy="33" rx="12.5" ry="2" style="fill: url(#radial-gradient);"/>
+  <path d="M12.5,0C5.99,0,.71,5.28.71,11.79c0,.87.1,1.71.28,2.52,1.33,6.89,11.51,18.7,11.51,18.7,0,0,10.17-11.8,11.51-18.7.18-.81.28-1.65.28-2.52C24.29,5.28,19.01,0,12.5,0Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-1);"/>
+  <circle cx="12.5" cy="11.53" r="8.49" style="fill: #fff;"/>
+  <g>
+    <path d="M18.87,10.82c-.02-.08-.05-.16-.09-.23-.02-.05-.05-.1-.08-.14-.14-.23-.34-.43-.57-.57-.05-.03-.09-.05-.14-.08-.07-.04-.15-.07-.23-.09-.16-.05-.33-.08-.5-.08h-1.49s-.08,0-.11,0c-.3-.03-.61.06-.87.27l-4.76,4h-.91s0,0,0,0,0,0,0,0c-.93,0-1.69.76-1.69,1.69s.76,1.69,1.69,1.69c0,0,0,0,0,0s0,0,0,0h1.5s.07,0,.11,0c.3.02.61-.07.86-.27l4.76-4h.91c.17,0,.34-.03.5-.08.08-.02.16-.05.23-.09.07-.04.14-.08.21-.12.09-.06.17-.13.25-.21.31-.31.49-.73.49-1.19h0c0-.17-.03-.34-.08-.5Z" style="fill: #ffca28;"/>
+    <path d="M13.66,9.69c-.2-.7-.85-1.22-1.62-1.22h0c-.93,0-1.69.76-1.69,1.69v2.31l3.31-2.78Z" style="fill: #ffca28;"/>
+    <circle cx="12.04" cy="6.89" r="1.12" style="fill: #ffca28;"/>
+  </g>
+</svg>
