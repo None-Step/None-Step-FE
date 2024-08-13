@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 35">
+  <defs>
+    <radialGradient id="radial-gradient" cx="12.5" cy="77.84" fx="12.5" fy="77.84" r="6.17" gradientTransform="translate(-12.35 .9) scale(1.99 .41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c0c0d" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="12.5" y1="0" x2="12.5" y2="33" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-5" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <ellipse cx="12.5" cy="33" rx="12.5" ry="2" style="fill: url(#radial-gradient);"/>
+  <path d="M12.5,0C5.99,0,.71,5.28.71,11.79c0,.87.1,1.71.28,2.52,1.33,6.89,11.51,18.7,11.51,18.7,0,0,10.17-11.8,11.51-18.7.18-.81.28-1.65.28-2.52C24.29,5.28,19.01,0,12.5,0Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-5);"/>
+  <circle cx="12.5" cy="11.53" r="8.49" style="fill: #fff;"/>
+  <g>
+    <path d="M17.36,9.04h-1.02c-.14,0-.25-.11-.25-.25v-2.45c0-.14-.2-.18-.25-.04l-1.26,3.49c-.06.16.06.33.23.33h1.02c.14,0,.25.11.25.25v2.45c0,.14.2.18.25.04l1.26-3.49c.06-.16-.06-.33-.23-.33Z" style="fill: #1ed45a;"/>
+    <path d="M13.55,11.39h-2.29l-.12-.68h2.19c.19,0,.34-.15.34-.34s-.15-.34-.34-.34h-.34v-.28c0-.09-.08-.17-.17-.17s-.17.08-.17.17v.28h-1.63l-.56-3.17c-.08-.43-.49-.72-.92-.65h0c-.43.08-.72.49-.65.92l.91,5.15c0,.05.02.11.04.16.11.31.4.54.75.54h2.95c.44,0,.8-.36.8-.8h0c0-.44-.36-.8-.8-.8Z" style="fill: #40a4ff;"/>
+    <path d="M12.96,15.71c-.05-.18-.08-.37-.08-.57,0-.69.33-1.31.84-1.7h-3.31c.51.4.84,1.01.84,1.7,0,.2-.03.39-.08.57h1.79Z" style="fill: #40a4ff;"/>
+    <path d="M9.09,13.44c-.94,0-1.7.76-1.7,1.7s.76,1.7,1.7,1.7,1.7-.76,1.7-1.7-.76-1.7-1.7-1.7ZM9.09,16.01c-.48,0-.87-.39-.87-.87s.39-.87.87-.87.87.39.87.87-.39.87-.87.87Z" style="fill: #5b5b5b;"/>
+    <path d="M15.05,13.44c-.94,0-1.7.76-1.7,1.7s.76,1.7,1.7,1.7,1.7-.76,1.7-1.7-.76-1.7-1.7-1.7ZM15.05,16.01c-.48,0-.87-.39-.87-.87s.39-.87.87-.87.87.39.87.87-.39.87-.87.87Z" style="fill: #5b5b5b;"/>
+  </g>
+</svg>
