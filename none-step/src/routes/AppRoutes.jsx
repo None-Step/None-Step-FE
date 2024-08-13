@@ -1,3 +1,4 @@
+
 import { Route, Routes } from "react-router-dom";
 import MapPage from "@pages/MapPage/MapPage";
 import MainPage from "@pages/MainPage/MainPage";
@@ -18,19 +19,16 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/signUp" element={<SignUpForm />} />
+
+            <Route path="/findWay" element={<FindWay />} />
+
+            <Route path="/terms" element={<TermsOfService />}/>
+            <Route path="/signUp" element={<SignUpForm />}/>
             <Route path="/signUpSuccess" element={<SignUpSuccess />} />
 
             <Route path="/login" element={<Login />} />
-            <Route
-                path="/nonestep/member/login/callback/kakao"
-                element={<KakaoCallback />}
-            />
-            <Route
-                path="/nonestep/member/login/callback/naver"
-                element={<NaverCallback />}
-            />
+            <Route path="/nonestep/member/login/callback/kakao" element={<KakaoCallback />} />
+            <Route path="/nonestep/member/login/callback/naver" element={<NaverCallback />} />
 
             <Route path="/findID" element={<FindID />} />
             <Route path="/findIDSuccess" element={<FindIDSuccess />} />
@@ -38,7 +36,7 @@ const AppRoutes = () => {
             <Route path="/findPW" element={<FindPW />} />
             <Route path="/findPWResetting" element={<FindPWResetting />} />
             <Route path="/findPWSuccess" element={<FindPWSuccess />} />
-
+              
             <Route path="/map" element={<MapPage />} />
             <Route path="/mypage" element={<MyPage />} />
         </Routes>
