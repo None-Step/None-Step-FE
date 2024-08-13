@@ -19,7 +19,6 @@ export const LocationBut = styled(SubmitBut)`
     width: fit-content;
     padding: 0.8rem 1.2rem;
     box-sizing: border-box;
-    cursor: pointer;
 `;
 
 export const Location = styled.p`
@@ -36,10 +35,23 @@ export const ThisStop = styled.strong`
 
 export const Notice = styled.span`
     font-size: 1.2rem;
-    color: ${(props) => props.theme.colors.gray02};
+    color: ${(props) => props.theme.colors.gray01};
 `;
 
 export const AccuracyMessage = styled(Location)`
     font-size: 1.4rem;
     padding: 0 0 2rem 0;
+    color: #666666;
+`;
+
+export const Br = styled.br`
+    display: none;
+
+    @media (max-width: 400px) {
+        display: block;
+    }
+`;
+
+export const Strong = styled.strong`
+    color: ${(props) => props.color};
 `;
