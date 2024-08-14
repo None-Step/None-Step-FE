@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 35">
+  <defs>
+    <radialGradient id="radial-gradient" cx="12.5" cy="77.84" fx="12.5" fy="77.84" r="6.17" gradientTransform="translate(-12.35 .9) scale(1.99 .41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c0c0d" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="12.5" y1="0" x2="12.5" y2="33" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <ellipse cx="12.5" cy="33" rx="12.5" ry="2" style="fill: url(#radial-gradient);"/>
+  <path d="M12.5,0C5.99,0,.71,5.28.71,11.79c0,.87.1,1.71.28,2.52,1.33,6.89,11.51,18.7,11.51,18.7,0,0,10.17-11.8,11.51-18.7.18-.81.28-1.65.28-2.52C24.29,5.28,19.01,0,12.5,0Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-1);"/>
+  <circle cx="12.53" cy="11.36" r="8.49" style="fill: #fff;"/>
+  <g>
+    <rect x="6.77" y="5.6" width="11.52" height="11.52" rx="1.57" ry="1.57" style="fill: #40a4ff;"/>
+    <g>
+      <path d="M10.87,12.75l-1.02-2.97c-.02-.05-.05-.09-.09-.13,0,0,0,0,0,0,0,0,0,0-.01,0,0,0-.01,0-.02-.01,0,0,0,0,0,0-.04-.03-.09-.04-.15-.04h-.37c-.09,0-.17.04-.23.11,0,0,0,0,0,0,0,0,0,0,0,.01,0,0,0,0,0,.01,0,0,0,0,0,0,0,0,0,.01,0,.02,0,0,0,0,0,0,0,0,0,.01,0,.02l-1.02,2.97c-.05.15.03.31.17.36.15.05.31-.03.36-.17l.2-.58h1.49l.2.58c.05.15.21.22.36.17h0c.15-.05.22-.21.17-.36ZM8.85,11.79l.55-1.59.55,1.59h-1.1Z" style="fill: #fff;"/>
+      <path d="M13.2,9.59h-2.09c-.16,0-.28.13-.28.28h0c0,.16.13.28.28.28h.77v2.68c0,.16.13.28.28.28s.28-.13.28-.28v-2.68h.77c.16,0,.28-.13.28-.28h0c0-.16-.13-.28-.28-.28Z" style="fill: #fff;"/>
+      <path d="M17.13,9.74c-.05-.09-.14-.15-.25-.15h-.19c-.14,0-.25.1-.28.23l-.86,2.5-.88-2.54c-.02-.05-.05-.09-.09-.12,0,0,0,0,0,0,0,0,0,0,0,0-.05-.03-.1-.05-.17-.05h-.19c-.11,0-.2.06-.25.15-.02.04-.03.09-.03.13v2.96c0,.16.13.28.28.28s.28-.13.28-.28v-1.85l.67,1.95c.04.12.16.19.28.19,0,0,0,0,0,0h.19s0,0,0,0c.12,0,.24-.07.28-.19l.67-1.93v1.83c0,.16.13.28.28.28s.28-.13.28-.28v-2.96s-.01-.09-.03-.13Z" style="fill: #fff;"/>
+    </g>
+  </g>
+</svg>

@@ -1,22 +1,12 @@
-// 깃허브 업로드시 mkcert 빼고 올려야 함
 
+/* eslint-disable no-undef */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// import mkcert from "vite-plugin-mkcert";
 import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        react(),
-        // mkcert({
-        //   certFile: "/Users/seul/Library/Application Support/mkcert/localhost.pem",
-        //   keyFile: "/Users/seul/Library/Application Support/mkcert/localhost-key.pem",
-        // }),
-      ],
-    // server: {
-    //     https: true,
-    // },
+    plugins: [react()],
     resolve: {
         alias: [
             { find: "@", replacement: resolve(__dirname, "src") },
@@ -28,6 +18,10 @@ export default defineConfig({
             {
                 find: "@components",
                 replacement: resolve(__dirname, "src/components"),
+            },
+            {
+                find: "@hooks",
+                replacement: resolve(__dirname, "src/hooks"),
             },
             {
                 find: "@layout",
@@ -51,4 +45,3 @@ export default defineConfig({
         }
     }
 });
-

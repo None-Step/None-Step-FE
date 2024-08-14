@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 35">
+  <defs>
+    <radialGradient id="radial-gradient" cx="12.5" cy="77.84" fx="12.5" fy="77.84" r="6.17" gradientTransform="translate(-12.35 .9) scale(1.99 .41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c0c0d" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="12.5" y1="0" x2="12.5" y2="33" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-5" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <ellipse cx="12.5" cy="33" rx="12.5" ry="2" style="fill: url(#radial-gradient);"/>
+  <path d="M12.5,0C5.99,0,.71,5.28.71,11.79c0,.87.1,1.71.28,2.52,1.33,6.89,11.51,18.7,11.51,18.7,0,0,10.17-11.8,11.51-18.7.18-.81.28-1.65.28-2.52C24.29,5.28,19.01,0,12.5,0Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-5);"/>
+  <circle cx="12.5" cy="11.53" r="8.49" style="fill: #fff;"/>
+  <g>
+    <g>
+      <circle cx="13.16" cy="6.56" r="1.14" style="fill: #ff9500;"/>
+      <path d="M17.4,13.77h-.57l-.68-2.21c-.07-.24-.3-.4-.55-.4h-1.88v-.94h1.7c.32,0,.57-.26.57-.57s-.26-.57-.57-.57h-1.7v-.43c0-.32-.26-.57-.57-.57s-.57.26-.57.57v3.09c0,.32.26.57.57.57h.7c-.25.99-1.15,1.72-2.22,1.72-1.26,0-2.29-1.03-2.29-2.29s1.03-2.29,2.29-2.29c.32,0,.57-.26.57-.57s-.26-.57-.57-.57c-1.89,0-3.43,1.54-3.43,3.43s1.54,3.43,3.43,3.43c1.7,0,3.11-1.24,3.38-2.86h.16l.68,2.21c.07.24.3.4.55.4h.99c.32,0,.57-.26.57-.57s-.26-.57-.57-.57Z" style="fill: #ff9500;"/>
+    </g>
+    <g>
+      <path d="M9.54,15.13c-.26-.16-.49-.35-.71-.56l-.61.35v.27h1.21l.11-.06Z" style="fill: #ff9500;"/>
+      <path d="M11.64,13.47c.53,0,1.01-.24,1.33-.62-.24-.04-.45-.15-.61-.31l-1.38.8c.21.09.43.13.67.13Z" style="fill: #ff9500;"/>
+      <path d="M13.16,12.31h.7c-.04.15-.09.28-.15.42l2.34-1.35c-.11-.13-.27-.21-.44-.21h-.87l-1.86,1.07c.08.05.18.07.28.07Z" style="fill: #ff9500;"/>
+      <path d="M15.94,10.66c.24.07.45.23.59.44l1.52-.88c.2-.12.27-.37.15-.57h0c-.12-.2-.37-.27-.57-.15l-1.21.7c-.11.2-.28.36-.48.47Z" style="fill: #ff9500;"/>
+      <path d="M10.1,14.81l1.36-.79c-.39-.03-.75-.16-1.06-.36l-1.07.62c.23.21.49.38.76.53Z" style="fill: #ff9500;"/>
+      <path d="M7.42,15.87c.12.2.37.27.57.15l.48-.28h-.8v-.5l-.09.05c-.2.12-.27.37-.15.57Z" style="fill: #ff9500;"/>
+    </g>
+    <path d="M17.8,15.75H7.68v-3.79c0-.25-.2-.45-.45-.45h-.03c-.25,0-.45.2-.45.45v4.27h0c0,.26.2.46.45.46h10.61c.25,0,.46-.21.46-.46v-.02c0-.25-.21-.46-.46-.46Z" style="fill: #ff9500;"/>
+  </g>
+</svg>
