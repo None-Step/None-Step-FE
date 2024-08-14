@@ -37,8 +37,8 @@ function AppRoutes() {
             <Route path="/findID/success" element={<FindIDSuccess />} />
 
             <Route path="/findPW" element={<FindPW />} />
-            <Route path="/findPWResetting" element={<FindPWResetting />} />
-            <Route path="/findPWSuccess" element={<FindPWSuccess />} />
+            <Route path="/findPW/resetting" element={<FindPWResetting />} />
+            <Route path="/findPW/success" element={<FindPWSuccess />} />
 
             <Route path="/mypage" element={<MyPage />} />
 
