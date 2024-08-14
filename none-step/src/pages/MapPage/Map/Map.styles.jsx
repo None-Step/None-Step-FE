@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const MapWrapper = styled.div`
     position: relative;
-    top: 60px;
+    top: 64px;
     width: 100%;
     max-width: 100%;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 139px);
 `;
 
 export const SearchWrapper = styled.div`
@@ -13,7 +13,7 @@ export const SearchWrapper = styled.div`
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 85%;
+    width: 90%;
     max-width: 100%;
     z-index: 10;
 `;
@@ -73,15 +73,17 @@ export const CategoryContainer = styled.ul`
     }
 
     li:first-child {
-        margin-left: 8.5%;
+        margin-left: 5%;
     }
 
     li:last-child {
-        margin-right: 8.5%;
+        margin-right: 5%;
     }
 `;
 
 export const CategoryBtn = styled.button`
+    display: flex;
+    align-items: center;
     height: 32px;
     padding: 6px 12px;
     border: none;
