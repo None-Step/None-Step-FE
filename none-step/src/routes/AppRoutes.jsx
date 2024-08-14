@@ -14,6 +14,8 @@ import FindPWSuccess from "@pages/FindPW/FindPWSuccess";
 import KakaoCallback from "@pages/Login/KakaoCallback";
 import NaverCallback from "@pages/Login/NaverCallback";
 import MyPage from "@pages/MyPage/MyPage";
+import FindWayConfirm from "@pages/FindWay/FindWayConfirm";
+import FindWayNav from "@pages/FindWay/FindWayNav";
 
 const AppRoutes = () => {
     return (
