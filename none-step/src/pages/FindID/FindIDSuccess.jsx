@@ -32,6 +32,16 @@ const FindIDSuccess = () => {
     navigate('/login'); // 로그인 페이지로 이동
   };
 
+  const FindIDResult = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:not(:last-child){
+      margin-bottom: 0.8rem;
+    }
+  `
+
   return (
     <Wrapper>
       <Container>
@@ -42,8 +52,10 @@ const FindIDSuccess = () => {
         <IdWrap>
           {foundIDs.map((item, index) => (
             <InputWrap key={index}>
+              <FindIDResult>
               <Description>아이디</Description>
               <Description>{item.memberID}</Description>
+              </FindIDResult>
             </InputWrap>
           ))}
         </IdWrap>

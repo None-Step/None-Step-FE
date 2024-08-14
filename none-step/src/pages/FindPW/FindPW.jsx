@@ -167,7 +167,7 @@ const FindPW = () => {
     .then(response => {
       if (response.data && response.data.message === "success") {
         // 비밀번호 찾기 성공 후 비밀번호 재설정 페이지로 이동
-        navigate('/findPWResetting', {
+        navigate('/findPW/resetting', {
           state: { 
             memberID: formData.memberID,
             memberName: formData.memberName,
