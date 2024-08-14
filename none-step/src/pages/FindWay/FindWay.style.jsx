@@ -25,6 +25,11 @@ export const SearchBox = styled.div`
   box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
 
+export const LoadingMessage = styled(SearchBox)`
+  top: 120px;
+  font-size: 1.4rem;
+`
+
 export const SearchForm = styled.form`
   display: flex;
   justify-content: space-between;
@@ -33,6 +38,7 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchIndex = styled.input`
+  font-size: 1.4rem;
   width: calc(100% - 30px);
   height: 100%;
   outline: none;
@@ -72,7 +78,7 @@ export const Reload = styled.div`
   box-shadow: ${(props) => props.theme.colors.shadow200};
   cursor: pointer;
   position: absolute;
-  bottom: 100px;
+  top: calc(100vh - 140px);
   right: 1rem;
   z-index: 3;
 `;

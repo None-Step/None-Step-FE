@@ -74,7 +74,8 @@ const LocationTracker = () => {
   // 가장 가까운 역 찾기 함수
   const findNearestStation = (latitude, longitude) => {
     console.log(`가장 가까운 역 조회 시작 : ${latitude} ${longitude}`);
-    axiosInstance.get(`/nonestep/subway/now-station?latitude=${latitude}&longitude=${longitude}`)
+    axiosInstance
+      .get(`/nonestep/subway/now-station?latitude=${latitude}&longitude=${longitude}`)
       .then(response => {
         const { region, line, station } = response.data;
         setNearestStation({ region, line, station });

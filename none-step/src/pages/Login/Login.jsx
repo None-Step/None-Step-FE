@@ -149,11 +149,11 @@ const Login = () => {
                 |
                 <SignActionSpan to="/findPW">비밀번호 찾기</SignActionSpan>
                 |
-                <SignActionSpan to="/terms">회원가입</SignActionSpan>
+                <SignActionSpan to="/signUp/terms">회원가입</SignActionSpan>
             </SignAction>
             <SignAction>
-                <SignActionSpan to="/terms">이용약관안내</SignActionSpan>
-                <SignActionSpan to='/terms'>개인정보처리방침</SignActionSpan>
+                <SignActionSpan to="/signUp/terms">이용약관안내</SignActionSpan>
+                <SignActionSpan to='/signUp/terms'>개인정보처리방침</SignActionSpan>
             </SignAction>
 
         </LoginWrap>

@@ -14,6 +14,8 @@ import FindPWSuccess from "@pages/FindPW/FindPWSuccess";
 import KakaoCallback from "@pages/Login/KakaoCallback";
 import NaverCallback from "@pages/Login/NaverCallback";
 import MyPage from "@pages/MyPage/MyPage";
+import FindWayConfirm from "@pages/FindWay/FindWayConfirm";
+import FindWayNav from "@pages/FindWay/FindWayNav";
 
 const AppRoutes = () => {
     return (
@@ -21,10 +23,12 @@ const AppRoutes = () => {
             <Route path="/" element={<MainPage />} />
 
             <Route path="/findWay" element={<FindWay />} />
+            <Route path="/findWay/route" element={<FindWayConfirm />} />
+            <Route path="/findWay/navigate" element={<FindWayNav />} />
 
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/signUp" element={<SignUpForm />} />
-            <Route path="/signUpSuccess" element={<SignUpSuccess />} />
+            <Route path="/signUp/terms" element={<TermsOfService />}/>
+            <Route path="/signUp" element={<SignUpForm />}/>
+            <Route path="/signUp/success" element={<SignUpSuccess />} />
 
             <Route path="/login" element={<Login />} />
             <Route
@@ -37,11 +41,11 @@ const AppRoutes = () => {
             />
 
             <Route path="/findID" element={<FindID />} />
-            <Route path="/findIDSuccess" element={<FindIDSuccess />} />
+            <Route path="/findID/success" element={<FindIDSuccess />} />
 
             <Route path="/findPW" element={<FindPW />} />
-            <Route path="/findPWResetting" element={<FindPWResetting />} />
-            <Route path="/findPWSuccess" element={<FindPWSuccess />} />
+            <Route path="/findPW/resetting" element={<FindPWResetting />} />
+            <Route path="/findPW/success" element={<FindPWSuccess />} />
 
             <Route path="/map" element={<MapPage />} />
             <Route path="/mypage" element={<MyPage />} />
