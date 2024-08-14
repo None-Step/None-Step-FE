@@ -13,6 +13,8 @@ import NaverCallback from "@/pages/Login/NaverCallback";
 import Home from "@/pages/Home";
 import MyPage from "@/pages/MyPage/MyPage";
 import FindWay from "@/pages/FindWay/FindWay";
+import FindWayConfirm from "../pages/FindWay/FindWayConfirm";
+import FindWayNav from "../pages/FindWay/FindWayNav";
 
 function AppRoutes() {
     return (
@@ -20,17 +22,19 @@ function AppRoutes() {
             <Route path="/" element={<Home />} />
 
             <Route path="/findWay" element={<FindWay />} />
+            <Route path="/findWay/route" element={<FindWayConfirm />} />
+            <Route path="/findWay/navigate" element={<FindWayNav />} />
 
-            <Route path="/terms" element={<TermsOfService />}/>
+            <Route path="/signUp/terms" element={<TermsOfService />}/>
             <Route path="/signUp" element={<SignUpForm />}/>
-            <Route path="/signUpSuccess" element={<SignUpSuccess />} />
+            <Route path="/signUp/success" element={<SignUpSuccess />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/nonestep/member/login/callback/kakao" element={<KakaoCallback />} />
             <Route path="/nonestep/member/login/callback/naver" element={<NaverCallback />} />
 
             <Route path="/findID" element={<FindID />} />
-            <Route path="/findIDSuccess" element={<FindIDSuccess />} />
+            <Route path="/findID/success" element={<FindIDSuccess />} />
 
             <Route path="/findPW" element={<FindPW />} />
             <Route path="/findPWResetting" element={<FindPWResetting />} />

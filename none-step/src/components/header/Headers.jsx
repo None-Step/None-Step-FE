@@ -61,6 +61,10 @@ export const PageHeader = () => {
     switch(currentPath) {
       case '/findWay' :
         return '길찾기'
+      case '/findWay/route' :
+         return '경로 선택'
+      case '/findWay/navigate' :
+          return '길안내'
       case '/chat' :
         return '채팅';
       case '/mypage' :
