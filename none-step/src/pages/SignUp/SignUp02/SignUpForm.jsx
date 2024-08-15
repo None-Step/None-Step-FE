@@ -162,7 +162,7 @@ const SignUpForm = () => {
         .post('/nonestep/member/signup', apiFormData)
         .then((response) => {
           if (response.data.memberID) {
-            navigate('/signUp/success');
+            navigate('/signup/success');
           } else {
             alert('회원가입에 실패했습니다. 다시 시도해주세요.');
           }

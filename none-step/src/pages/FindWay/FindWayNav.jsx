@@ -2,31 +2,39 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { Map, MapMarker, Polyline } from 'react-kakao-maps-sdk'
 import { useLocation } from 'react-router-dom';
 import { PageWrapper } from './FindWay.style'
-import { PageHeader } from '../../components/header/Headers'
-import MenuBar from '../../components/menuBar/MenuBar'
+import { PageHeader } from '@/components/header/Headers'
+import MenuBar from '@/components/menuBar/MenuBar'
 import { LoadingMessage, Reload } from './FindWay.style';
 import ReloadIcon from '@/assets/img/current.svg'
 import styled from 'styled-components';
 
 const LoadMessage = styled(LoadingMessage)`
   top: 70px;
-`
+`;
 
 const TIMEOUT_DURATION = 20000; // 20초
-const DEFAULT_CENTER = { lat: 37.506320759000715, lng: 127.05368251210247 };
+const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 const DEFAULT_LEVEL = 3;
 
 const FindWayNav = () => {
-  const [center, setCenter] = useState(null);
+  const [center, setCenter] = useState(DEFAULT_CENTER);
   const [userLocation, setUserLocation] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMessage, setStatusMessage] = useState('지도를 불러오는 중...');
   const [mapLevel, setMapLevel] = useState(DEFAULT_LEVEL);
   const [destination, setDestination] = useState(null);
-  const [isUserLocationLoading, setIsUserLocationLoading] = useState(true);
+  const [isTracking, setIsTracking] = useState(true);  // 사용자 위치 추적 상태
   
   const location = useLocation();
   const { origin, routeData } = location.state || {};
+
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
+
+useEffect(() => {
+  const handleResize = () => setViewportHeight(window.innerHeight);
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
 
   // API 응답 데이터를 Polyline 경로 형식으로 그려주기 + 마지막 좌표를 목적지로 설정
   const { polylinePath, lastCoordinate } = useMemo(() => {
@@ -60,7 +68,6 @@ const FindWayNav = () => {
   const watchUserPosition = useCallback(() => {
     if ("geolocation" in navigator) {
       setStatusMessage('사용자 위치를 불러오는 중...');
-      setIsUserLocationLoading(true);
       const watchId = navigator.geolocation.watchPosition(
         (position) => {
           const newLocation = {
@@ -68,16 +75,14 @@ const FindWayNav = () => {
             lng: position.coords.longitude
           };
           setUserLocation(newLocation);
-          if (!center) {
+          if (isTracking) {
             setCenter(newLocation);
           }
           setStatusMessage('');
-          setIsUserLocationLoading(false);
         },
         (error) => {
           console.error("위치 추적 오류:", error.message);
           setStatusMessage('위치 추적에 실패했습니다.');
-          setIsUserLocationLoading(false);
         },
         {
           enableHighAccuracy: true,
@@ -88,9 +93,8 @@ const FindWayNav = () => {
       return () => navigator.geolocation.clearWatch(watchId);
     } else {
       setStatusMessage('이 브라우저에서는 위치 추적을 사용할 수 없습니다.');
-      setIsUserLocationLoading(false);
     }
-  }, [center]);
+  }, [isTracking]);
 
   // 카카오맵 스크립트 로드
   useEffect(() => {
@@ -114,17 +118,19 @@ const FindWayNav = () => {
 
   // 사용자 위치 추적 시작
   useEffect(() => {
-    const stopWatching = watchUserPosition();
-    return stopWatching; // 컴포넌트 언마운트 시 위치 추적 중지
-  }, [watchUserPosition]);
+    if (mapLoaded) {
+      const stopWatching = watchUserPosition();
+      return stopWatching; // 컴포넌트 언마운트 시 위치 추적 중지
+    }
+  }, [mapLoaded, watchUserPosition]);
 
   // 지도의 중심이 변경될 때 호출되는 핸들러
   const handleCenterChanged = (map) => {
-    setCenter({
-      lat: map.getCenter().getLat(),
-      lng: map.getCenter().getLng()
-    });
     setMapLevel(map.getLevel());
+    // 사용자가 지도를 수동으로 이동시킬 때 추적 모드 해제
+    if (isTracking) {
+      setIsTracking(false);
+    }
   };
 
   // 현재 위치로 지도 중심 이동 및 레벨 조정
@@ -132,47 +138,42 @@ const FindWayNav = () => {
     if (userLocation) {
       setCenter(userLocation);
       setMapLevel(DEFAULT_LEVEL);
-      setStatusMessage('현재 위치로 이동 중...');
-      setTimeout(() => setStatusMessage(''), 1000); // 1초 후 메시지 제거
-    } else {
-      setStatusMessage('현재 위치를 찾을 수 없습니다.');
+      setIsTracking(true);  // 현재 위치로 이동 시 추적 모드 활성화
     }
   };
 
-  // 지도 또는 사용자 위치 로딩 중일 때 보여줄 내용
-  if (!mapLoaded || isUserLocationLoading) {
+  // 지도 로딩 중일 때 보여줄 내용
+  if (!mapLoaded) {
     return <LoadMessage>{statusMessage}</LoadMessage>;
   }
 
   return (
     <PageWrapper>
       <PageHeader />
-      {center && (
-        <Map
-          center={center}
-          style={{
-            width: '100%',
-            height: '100vh',
-          }}
-          level={mapLevel}
-          onCenterChanged={handleCenterChanged}
-        >
-          {userLocation && <MapMarker position={userLocation} />}
-          {destination && <MapMarker position={destination} />}
-          {polylinePath.length > 0 && (
-            <Polyline
-              path={[polylinePath]}
-              strokeWeight={8}
-              strokeColor={"#007AFF"}
-              strokeOpacity={0.7}
-              strokeStyle={"solid"}
-            />
-          )}
-          <Reload onClick={handleReloadLocation}>
-            <img src={ReloadIcon} alt='현재위치 새로고침'/>
-          </Reload>
-        </Map>
-      )}
+      <Map
+        center={center}
+        style={{
+          width: '100%',
+          height: '100vh',
+        }}
+        level={mapLevel}
+        onCenterChanged={handleCenterChanged}
+      >
+        {userLocation && <MapMarker position={userLocation} />}
+        {destination && <MapMarker position={destination} />}
+        {polylinePath.length > 0 && (
+          <Polyline
+            path={[polylinePath]}
+            strokeWeight={8}
+            strokeColor={"#007AFF"}
+            strokeOpacity={0.7}
+            strokeStyle={"solid"}
+          />
+        )}
+        <Reload onClick={handleReloadLocation} $viewportHeight={viewportHeight}>
+          <img src={ReloadIcon} alt='현재위치 새로고침'/>
+        </Reload>
+      </Map>
       {statusMessage && <LoadMessage>{statusMessage}</LoadMessage>}
       <MenuBar />
     </PageWrapper>

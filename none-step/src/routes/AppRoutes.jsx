@@ -22,13 +22,13 @@ const AppRoutes = () => {
         <Routes>
             <Route path="/" element={<MainPage />} />
 
-            <Route path="/findWay" element={<FindWay />} />
-            <Route path="/findWay/route" element={<FindWayConfirm />} />
-            <Route path="/findWay/navigate" element={<FindWayNav />} />
+            <Route path="/findway" element={<FindWay />} />
+            <Route path="/findway/route" element={<FindWayConfirm />} />
+            <Route path="/findway/navigate" element={<FindWayNav />} />
 
-            <Route path="/signUp/terms" element={<TermsOfService />}/>
-            <Route path="/signUp" element={<SignUpForm />}/>
-            <Route path="/signUp/success" element={<SignUpSuccess />} />
+            <Route path="/signup/terms" element={<TermsOfService />}/>
+            <Route path="/signup" element={<SignUpForm />}/>
+            <Route path="/signup/success" element={<SignUpSuccess />} />
 
             <Route path="/login" element={<Login />} />
             <Route
@@ -40,14 +40,15 @@ const AppRoutes = () => {
                 element={<NaverCallback />}
             />
 
-            <Route path="/findID" element={<FindID />} />
-            <Route path="/findID/success" element={<FindIDSuccess />} />
+            <Route path="/findid" element={<FindID />} />
+            <Route path="/findid/success" element={<FindIDSuccess />} />
 
-            <Route path="/findPW" element={<FindPW />} />
-            <Route path="/findPW/resetting" element={<FindPWResetting />} />
-            <Route path="/findPW/success" element={<FindPWSuccess />} />
+            <Route path="/findpw" element={<FindPW />} />
+            <Route path="/findpw/resetting" element={<FindPWResetting />} />
+            <Route path="/findpw/success" element={<FindPWSuccess />} />
 
             <Route path="/map" element={<MapPage />} />
+
             <Route path="/mypage" element={<MyPage />} />
         </Routes>
     );

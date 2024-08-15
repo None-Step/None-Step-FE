@@ -34,15 +34,15 @@ const MenuBar = () => {
       </IconBox>
 
       <IconBox
-        $isActive={currentPath.startsWith('/findWay')}
-        onClick={() => handleNavigation('/findWay')}
+        $isActive={currentPath.startsWith('/findway')}
+        onClick={() => handleNavigation('/findway')}
       >
         <SvgIcon>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M16.281 14.617L20.564 18.899L19.149 20.314L14.867 16.031C13.2737 17.3082 11.292 18.0029 9.25 18C4.282 18 0.25 13.968 0.25 9C0.25 4.032 4.282 0 9.25 0C14.218 0 18.25 4.032 18.25 9C18.2529 11.042 17.5582 13.0237 16.281 14.617ZM14.275 13.875C15.5441 12.5699 16.2529 10.8204 16.25 9C16.25 5.132 13.117 2 9.25 2C5.382 2 2.25 5.132 2.25 9C2.25 12.867 5.382 16 9.25 16C11.0704 16.0029 12.8199 15.2941 14.125 14.025L14.275 13.875V13.875Z" fill="#333333"/>
         </svg>
         </SvgIcon>
-        <MenuName $isActive={currentPath.startsWith('/findWay')}>길찾기</MenuName>
+        <MenuName $isActive={currentPath.startsWith('/findway')}>길찾기</MenuName>
       </IconBox>
 
       <IconBox

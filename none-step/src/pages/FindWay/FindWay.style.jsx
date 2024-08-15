@@ -78,7 +78,7 @@ export const Reload = styled.div`
   box-shadow: ${(props) => props.theme.colors.shadow200};
   cursor: pointer;
   position: absolute;
-  top: calc(100vh - 140px);
+  top: ${props => `${props.$viewportHeight - (80 + 16 + 40)}px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이)
   right: 1rem;
   z-index: 3;
 `;

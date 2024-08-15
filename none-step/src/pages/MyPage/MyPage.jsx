@@ -281,7 +281,7 @@ const handlePhoneChange = useCallback(() => {
   // 프로필 변경 항목 중 수정할 항목 선택 => 모달 열기
   const handleEditClick = useCallback((type) => {
     if (type === '비밀번호') {
-      navigate('/findPW');
+      navigate('/findpw');
     } else {
       setEditType(type);
       setEditModalOpen(true);
@@ -299,7 +299,7 @@ const handlePhoneChange = useCallback(() => {
   const handleEditSave = useCallback(() => {
     switch(editType) {
       case '비밀번호':
-        navigate('/findPW');
+        navigate('/findpw');
         break;
       case '이메일':
         handleEmailChange();

@@ -145,15 +145,15 @@ const Login = () => {
             <SocialButton type='kakao' onClick={(event) => socialLogin(event,'kakao')} />
             <SocialButton type='naver' onClick={(event) => socialLogin(event,'naver')} />
             <SignAction>
-                <SignActionSpan to="/findID">아이디 찾기</SignActionSpan>
+                <SignActionSpan to="/findid">아이디 찾기</SignActionSpan>
                 |
-                <SignActionSpan to="/findPW">비밀번호 찾기</SignActionSpan>
+                <SignActionSpan to="/findpw">비밀번호 찾기</SignActionSpan>
                 |
-                <SignActionSpan to="/signUp/terms">회원가입</SignActionSpan>
+                <SignActionSpan to="/signup/terms">회원가입</SignActionSpan>
             </SignAction>
             <SignAction>
-                <SignActionSpan to="/signUp/terms">이용약관안내</SignActionSpan>
-                <SignActionSpan to='/signUp/terms'>개인정보처리방침</SignActionSpan>
+                <SignActionSpan to="/signup/terms">이용약관안내</SignActionSpan>
+                <SignActionSpan to='/signup/terms'>개인정보처리방침</SignActionSpan>
             </SignAction>
 
         </LoginWrap>
