@@ -62,7 +62,7 @@ const FindPWResetting = () => {
       })
       .then(response => {
         if (response.data && response.data.message.toLowerCase() === "success") {
-          navigate('/findPW/success'); // 비밀번호 찾기 완료 페이지로 이동
+          navigate('/findpw/success'); // 비밀번호 찾기 완료 페이지로 이동
         } else {
           alert('비밀번호 변경에 실패했습니다.');
         }

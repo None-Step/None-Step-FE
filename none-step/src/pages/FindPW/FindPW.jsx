@@ -167,7 +167,7 @@ const FindPW = () => {
     .then(response => {
       if (response.data && response.data.message === "success") {
         // 비밀번호 찾기 성공 후 비밀번호 재설정 페이지로 이동
-        navigate('/findPW/resetting', {
+        navigate('/findpw/resetting', {
           state: { 
             memberID: formData.memberID,
             memberName: formData.memberName,
@@ -236,7 +236,7 @@ const FindPW = () => {
       />
       <SignAction>
         <SignActionSpan>아이디를 잊으셨나요?</SignActionSpan>
-        <PrimaryLink to="/findID">아이디 찾기</PrimaryLink>
+        <PrimaryLink to="/findid">아이디 찾기</PrimaryLink>
       </SignAction>
     </LoginWrap>
 

@@ -17,7 +17,7 @@ import KakaoMapPlaceSearch from './KakaoMapPlaceSearch';
 import ReloadIcon from '@/assets/img/current.svg'
 
 const TIMEOUT_DURATION = 20000; // 20초
-const DEFAULT_CENTER = { lat: 37.506320759000715, lng: 127.05368251210247 };
+const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 
 const FindWay = () => {
   const [center, setCenter] = useState(DEFAULT_CENTER);
@@ -29,8 +29,18 @@ const FindWay = () => {
   const [origin, setOrigin] = useState(null);
   const [statusMessage, setStatusMessage] = useState('지도를 불러오는 중...');
   const [mapLevel, setMapLevel] = useState(3);
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight); // 뷰포트 길이(위치 새로고침 버튼 위치 맞추기)
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getCurrentPosition = useCallback(() => {
     return new Promise((resolve, reject) => {
@@ -49,24 +59,38 @@ const FindWay = () => {
   }, []);
 
   // 사용자 위치를 업데이트하는 함수
-  const updateUserLocation = useCallback(async () => {
-    setIsUserLocationLoading(true); // 로딩 시작
+  const updateUserLocation = useCallback(() => {
+    setIsUserLocationLoading(true);
     setStatusMessage('사용자 위치를 불러오는 중...');
-    try {
-      const position = await getCurrentPosition();
-      const newLocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      setUserLocation(newLocation); // 다음 페이지로 현재 위치 전달용
-      setCenter(newLocation); // 중심 좌표를 새 위치로 설정
-      setStatusMessage('');
-    } catch (error) {
-      console.error("위치 정보를 가져오는 중 오류 발생:", error.message);
-      setStatusMessage('위치 정보를 가져오는데 실패했습니다.'); 
-    } finally {
-      setIsUserLocationLoading(false); // 로딩 종료
-    }
+  
+    getCurrentPosition()
+      .then((position) => {
+        const newLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        setUserLocation(newLocation);
+        setCenter(newLocation);
+        setStatusMessage('');
+      })
+      .catch((error) => {
+        console.error("위치 정보를 가져오는 중 오류 발생:", error.message);
+        if (error.code === 1) {
+          // 사용자가 위치 정보 제공을 거부한 경우
+          setStatusMessage('위치 정보 접근이 거부되었습니다. 설정에서 위치 정보 접근을 허용해주세요.');
+        } else if (error.code === 2) {
+          // 위치를 가져올 수 없는 경우
+          setStatusMessage('위치를 가져올 수 없습니다. 네트워크 연결을 확인해주세요.');
+        } else {
+          // 기타 오류
+          setStatusMessage('위치 정보를 가져오는데 실패했습니다. 잠시 후 다시 시도해주세요.');
+        }
+        // 기본 위치로 설정 (예: 서울시청)
+        setCenter({ lat: 37.566535, lng: 126.977969 });
+      })
+      .finally(() => {
+        setIsUserLocationLoading(false);
+      });
   }, [getCurrentPosition]);
 
   // 장소 선택 핸들러(=목적지)
@@ -89,7 +113,7 @@ const FindWay = () => {
 // 목적지 설정 확인 핸들러
 const handleConfirm = () => {
   if (userLocation && destination) {
-    navigate('/findWay/route', { 
+    navigate('/findway/route', { 
       state: { 
         origin: {
           lat: userLocation.lat,
@@ -186,7 +210,7 @@ const handleConfirm = () => {
             )}
           </>
         )}
-        <Reload onClick={handleReload}>
+        <Reload onClick={handleReload} $viewportHeight={viewportHeight}>
           <img src={ReloadIcon} alt='현재위치 새로고침'/>
         </Reload>
       </Map>

@@ -68,7 +68,7 @@ const FindWayConfirm = () => {
   }, [destination, origin]);
 
   const handleRouteSelect = () => {
-    navigate('/findWay/navigate', { state: { origin, destination, routeData } });
+    navigate('/findway/navigate', { state: { origin, destination, routeData } });
   };
 
   if (isLoading) return <div>로딩 중...</div>;
