@@ -40,7 +40,7 @@ const TermsOfService = () => {
 
   // 다음 버튼 클릭시 페이지 이동
   const handleButtonClick = () => {
-    navigate('/signUp');
+    navigate('/signup');
   };
 
   return (

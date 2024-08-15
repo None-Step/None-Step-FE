@@ -102,7 +102,7 @@ const FindID = () => {
       .post('/nonestep/member/idfind', apiFormData)
       .then((response) => {
         if(response.data.length > 0) {
-          navigate('/findID/success', { state: { foundIDs: response.data } });
+          navigate('/findid/success', { state: { foundIDs: response.data } });
         } else {
           alert('본 개인정보와 일치하는 가입정보가 없습니다.');
         }
