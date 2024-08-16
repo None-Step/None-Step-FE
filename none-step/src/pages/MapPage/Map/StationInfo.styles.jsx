@@ -613,23 +613,26 @@ export const StationInfoContainer = styled.div`
 export const StationContainer = styled.div`
     .transfer_station {
         display: flex;
+        align-items: center;
         margin-top: 10px;
+        margin-bottom: 30px;
     }
 
     .transfer_station h2 {
         display: inline-block;
+        margin-bottom: 0;
     }
 
     .transfer_station_line {
-        display: inline-block;
-        min-width: 18px;
-        height: 18px;
-        line-height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 20px;
+        height: 20px;
         padding: 0 5px;
         margin-left: 8px;
-        border-radius: 15px;
+        border-radius: 10px;
         color: #fff;
-        text-align: center;
         font-size: 1.2rem;
     }
 

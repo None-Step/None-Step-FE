@@ -165,8 +165,6 @@ const KakaoMap = () => {
     };
 
     const handleSearch = () => {
-        if (!map) return;
-
         const ps = new kakao.maps.services.Places();
 
         ps.keywordSearch(
