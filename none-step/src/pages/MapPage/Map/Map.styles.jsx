@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const MapWrapper = styled.div`
     position: relative;
-    top: 64px;
+    top: 0;
     width: 100%;
     max-width: 100%;
     height: calc(100vh - 139px);
+    margin-top: 64px;
+    margin-bottom: 75px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -87,7 +89,7 @@ export const CategoryBtn = styled.button`
     height: 32px;
     padding: 6px 12px;
     border: none;
-    border-radius: 15px;
+    border-radius: 16px;
     background: ${(props) => props.theme.colors.white};
     box-shadow: ${(props) => props.theme.colors.shadow200};
     font-size: 1.4rem;

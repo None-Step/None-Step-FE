@@ -14,6 +14,8 @@ import FindPWSuccess from "@pages/FindPW/FindPWSuccess";
 import KakaoCallback from "@pages/Login/KakaoCallback";
 import NaverCallback from "@pages/Login/NaverCallback";
 import MyPage from "@pages/MyPage/MyPage";
+import ChattingMenu from "../pages/ChattingPage/ChattingMenu";
+import ChattingPage from "../pages/ChattingPage/ChattingPage";
 import FindWayConfirm from "@pages/FindWay/FindWayConfirm";
 import FindWayNav from "@pages/FindWay/FindWayNav";
 
@@ -48,7 +50,10 @@ const AppRoutes = () => {
             <Route path="/findpw/success" element={<FindPWSuccess />} />
 
             <Route path="/map" element={<MapPage />} />
-
+              
+            <Route path="/chat" element={<ChattingMenu />} />
+            <Route path="/chat/:region" element={<ChattingPage />} />
+              
             <Route path="/mypage" element={<MyPage />} />
         </Routes>
     );
