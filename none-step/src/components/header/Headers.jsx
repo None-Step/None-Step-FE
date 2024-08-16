@@ -45,6 +45,7 @@ export const PageHeader = () => {
     const currentPath = location.pathname;
     const handleLogout = useLogout();
 
+
     const handleNavigation = () => {
         navigate(-1);
     };

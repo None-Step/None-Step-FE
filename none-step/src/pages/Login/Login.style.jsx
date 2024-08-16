@@ -48,7 +48,14 @@ export const SignAction = styled.p`
   align-items: center;
   font-size : 1.2rem;
   color: ${(props) => props.theme.colors.gray01};
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+
+  @media screen and (max-height: 660px) {
+    &:last-of-type {
+      margin-bottom: 5vh;
+    }
+  }
+
 `;
 
 export const SignActionSpan = styled(Link)`

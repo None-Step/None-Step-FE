@@ -25,6 +25,11 @@ export const SearchBox = styled.div`
   box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
 
+export const LoadingMessage = styled(SearchBox)`
+  top: 120px;
+  font-size: 1.4rem;
+`
+
 export const SearchForm = styled.form`
   display: flex;
   justify-content: space-between;
@@ -33,6 +38,7 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchIndex = styled.input`
+  font-size: 1.4rem;
   width: calc(100% - 30px);
   height: 100%;
   outline: none;
@@ -72,7 +78,7 @@ export const Reload = styled.div`
   box-shadow: ${(props) => props.theme.colors.shadow200};
   cursor: pointer;
   position: absolute;
-  bottom: 100px;
+  top: ${props => `${props.$viewportHeight - (80 + 16 + 40)}px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이)
   right: 1rem;
   z-index: 3;
 `;

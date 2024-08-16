@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { SubmitBut } from "../../pages/MyPage/MyPage.style";
+import { Title } from '@/pages/MyPage/MyPage.style'
 
 export const HomeContainer = styled.div`
     width: 100%;
@@ -13,7 +14,12 @@ export const InBox = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 24px;
 `;
+
+export const LocationTitle = styled(Title)`
+    margin-bottom: 0 !important;
+`
 
 export const LocationBut = styled(SubmitBut)`
     width: fit-content;
@@ -41,7 +47,7 @@ export const Notice = styled.span`
 export const AccuracyMessage = styled(Location)`
     font-size: 1.4rem;
     padding: 0 0 2rem 0;
-    color: #666666;
+    color: ${(props) => props.theme.colors.gray01};
 `;
 
 export const Br = styled.br`
@@ -54,4 +60,18 @@ export const Br = styled.br`
 
 export const Strong = styled.strong`
     color: ${(props) => props.color};
+`;
+
+export const ToggleButton = styled.button`
+  background-color: ${props => props.$isActive ? props.theme.colors.primary : props.theme.colors.gray04};
+  color: ${props => props.$isActive ? props.theme.colors.white : props.theme.colors.black};
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
