@@ -11,10 +11,16 @@ const DaejeonCategory = () => {
     const category = useSelector((state) => state.category.value);
 
     useEffect(() => {
-        if (category.category === "") {
-            dispatch(selectedCategory({ category: "daejeon" }));
-        } else {
-            setSelected(category.category);
+        switch (category.category) {
+            case "daejeon":
+                setSelected("daejeon");
+                break;
+            case "line1":
+                setSelected("line1");
+                break;
+            default:
+                setSelected("daejeon");
+                dispatch(selectedCategory({ category: "daejeon" }));
         }
     }, [category.category]);
 

@@ -11,10 +11,31 @@ const BusanCategory = () => {
     const category = useSelector((state) => state.category.value);
 
     useEffect(() => {
-        if (category.category === "") {
-            dispatch(selectedCategory({ category: "busan" }));
-        } else {
-            setSelected(category.category);
+        switch (category.category) {
+            case "busan":
+                setSelected("busan");
+                break;
+            case "line1":
+                setSelected("line1");
+                break;
+            case "line2":
+                setSelected("line2");
+                break;
+            case "line3":
+                setSelected("line3");
+                break;
+            case "line4":
+                setSelected("line4");
+                break;
+            case "donghae":
+                setSelected("donghae");
+                break;
+            case "busan_gimhae":
+                setSelected("busan_gimhae");
+                break;
+            default:
+                setSelected("busan");
+                dispatch(selectedCategory({ category: "busan" }));
         }
     }, [category.category]);
 

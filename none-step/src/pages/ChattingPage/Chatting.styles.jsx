@@ -39,22 +39,21 @@ export const ChattingWrapper = styled.div`
     position: relative;
     width: 100%;
     max-width: 100%;
-    min-height: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
     margin-top: 64px;
 `;
 
 export const ChattingContainer = styled.div``;
 
 export const ChattingInputContainer = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    left: 0;
     display: flex;
     align-items: center;
     width: 100%;
+    max-width: 600px;
     height: 60px;
     padding: 10px;
-    /* border-top: 1px solid ${(props) => props.theme.colors.gray05}; */
     background: ${(props) => props.theme.colors.white};
     box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
