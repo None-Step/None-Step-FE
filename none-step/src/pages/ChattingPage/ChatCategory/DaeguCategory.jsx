@@ -11,10 +11,22 @@ const DaeguCategory = () => {
     const category = useSelector((state) => state.category.value);
 
     useEffect(() => {
-        if (category.category === "") {
-            dispatch(selectedCategory({ category: "daegu" }));
-        } else {
-            setSelected(category.category);
+        switch (category.category) {
+            case "daegu":
+                setSelected("daegu");
+                break;
+            case "line1":
+                setSelected("line1");
+                break;
+            case "line2":
+                setSelected("line2");
+                break;
+            case "line3":
+                setSelected("line3");
+                break;
+            default:
+                setSelected("daegu");
+                dispatch(selectedCategory({ category: "daegu" }));
         }
     }, [category.category]);
 

@@ -11,10 +11,82 @@ const CapitalCategory = () => {
     const category = useSelector((state) => state.category.value);
 
     useEffect(() => {
-        if (category.category === "") {
-            dispatch(selectedCategory({ category: "capital" }));
-        } else {
-            setSelected(category.category);
+        switch (category.category) {
+            case "capital":
+                setSelected("capital");
+                break;
+            case "line1":
+                setSelected("line1");
+                break;
+            case "line2":
+                setSelected("line2");
+                break;
+            case "line3":
+                setSelected("line3");
+                break;
+            case "line4":
+                setSelected("line4");
+                break;
+            case "line5":
+                setSelected("line5");
+                break;
+            case "line7":
+                setSelected("line7");
+                break;
+            case "line8":
+                setSelected("line8");
+                break;
+            case "line9":
+                setSelected("line9");
+                break;
+            case "airport":
+                setSelected("airport");
+                break;
+            case "gyeonguijungang":
+                setSelected("gyeonguijungang");
+                break;
+            case "gyeongchun":
+                setSelected("gyeongchun");
+                break;
+            case "suinbundang":
+                setSelected("suinbundang");
+                break;
+            case "shinbundang":
+                setSelected("shinbundang");
+                break;
+            case "gyeonggang":
+                setSelected("gyeonggang");
+                break;
+            case "seohae":
+                setSelected("seohae");
+                break;
+            case "incheon1":
+                setSelected("incheon1");
+                break;
+            case "incheon2":
+                setSelected("incheon2");
+                break;
+            case "everline":
+                setSelected("everline");
+                break;
+            case "uijeongbu":
+                setSelected("uijeongbu");
+                break;
+            case "wooyishinseol":
+                setSelected("wooyishinseol");
+                break;
+            case "gimpogold":
+                setSelected("gimpogold");
+                break;
+            case "sillim":
+                setSelected("sillim");
+                break;
+            case "GTX_A":
+                setSelected("GTX_A");
+                break;
+            default:
+                setSelected("capital");
+                dispatch(selectedCategory({ category: "capital" }));
         }
     }, [category.category]);
 

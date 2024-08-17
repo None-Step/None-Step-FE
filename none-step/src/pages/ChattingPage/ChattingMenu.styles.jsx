@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ChattingPageWrapper = styled.div`
+export const ChattingMenuWrapper = styled.div`
     width: 100%;
     max-width: 100%;
     min-height: calc(100vh - 139px);
@@ -9,7 +9,7 @@ export const ChattingPageWrapper = styled.div`
     background: #fafafa;
 `;
 
-export const ChattingPageContainer = styled.ul`
+export const ChattingMenuContainer = styled.ul`
     & > li:not(:first-child) > div {
         border-top: 1px solid ${(props) => props.theme.colors.gray06};
     }
@@ -22,8 +22,12 @@ export const ChattingPageContainer = styled.ul`
         height: 60px;
         padding: 0 25px;
         background: ${(props) => props.theme.colors.white};
-        font-size: 2.2rem;
         cursor: pointer;
+    }
+
+    & > li > div h3 {
+        font-size: 2.2rem;
+        font-weight: 500;
     }
 
     & > li > div svg {
@@ -81,8 +85,9 @@ export const ChattingLineContainer = styled.ul`
         display: flex;
         align-items: center;
         width: 100%;
-        height: 50px;
+        height: 46px;
         padding: 0 40px;
+        font-weight: 500;
         cursor: pointer;
     }
 
@@ -90,10 +95,10 @@ export const ChattingLineContainer = styled.ul`
         display: flex;
         justify-content: center;
         align-items: center;
-        min-width: 18px;
-        height: 18px;
-        margin-right: 8px;
-        padding: 0 5px;
+        min-width: 20px;
+        height: 20px;
+        margin-right: 7px;
+        padding: 0 6px;
         border-radius: 10px;
         color: #fff;
         font-size: 1.2rem;

@@ -11,10 +11,16 @@ const GwangjuCategory = () => {
     const category = useSelector((state) => state.category.value);
 
     useEffect(() => {
-        if (category.category === "") {
-            dispatch(selectedCategory({ category: "gwangju" }));
-        } else {
-            setSelected(category.category);
+        switch (category.category) {
+            case "gwangju":
+                setSelected("gwangju");
+                break;
+            case "line1":
+                setSelected("line1");
+                break;
+            default:
+                setSelected("gwangju");
+                dispatch(selectedCategory({ category: "gwangju" }));
         }
     }, [category.category]);
 

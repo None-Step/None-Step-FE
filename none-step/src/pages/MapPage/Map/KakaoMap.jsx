@@ -15,7 +15,9 @@ import {
     SearchInputContainer,
     SearchWrapper,
     ZoomControlBtn,
+    ZoomControlBtnContainer,
     ZoomControlContainer,
+    ZoomControlWrapper,
 } from "./Map.styles";
 import locationIcon from "../icons/location-icon.svg";
 import subwayIcon from "../icons/subway-icon.svg";
@@ -50,6 +52,7 @@ import { IoSearchOutline, IoTime } from "react-icons/io5";
 import { TbArrowAutofitHeight, TbArrowAutofitWidth } from "react-icons/tb";
 import axiosInstance from "@apis/axiosInstance";
 import StationInfo from "./StationInfo";
+import { useSelector } from "react-redux";
 
 const KakaoMap = () => {
     const { kakao } = window;
@@ -71,10 +74,46 @@ const KakaoMap = () => {
     });
     const [userLocation, setUserLocation] = useState();
 
+    const category = useSelector((state) => state.category.value);
+
     useEffect(() => {
         getLocation();
         getUserLocation();
-        setSelectedCategory("location");
+
+        switch (category.category) {
+            case "elevator":
+                setSelectedCategory("elevator");
+                break;
+            case "escal":
+                setSelectedCategory("escal");
+                break;
+            case "lift":
+                setSelectedCategory("lift");
+                break;
+            case "toilet":
+                setSelectedCategory("toilet");
+                break;
+            case "dif-toilet":
+                setSelectedCategory("dif-toilet");
+                break;
+            case "nursing-room":
+                setSelectedCategory("nursing-room");
+                break;
+            case "atm":
+                setSelectedCategory("atm");
+                break;
+            case "aed":
+                setSelectedCategory("aed");
+                break;
+            case "charger":
+                setSelectedCategory("charger");
+                break;
+            case "center":
+                setSelectedCategory("center");
+                break;
+            default:
+                setSelectedCategory("location");
+        }
     }, []);
 
     const getLocation = () => {
@@ -287,66 +326,8 @@ const KakaoMap = () => {
         }
     };
 
-    const handleClickStationInfo = () => {
-        setSelectedCategory("location");
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickElevator = () => {
-        setSelectedCategory("elevator");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickEscalator = () => {
-        setSelectedCategory("escal");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickWheelchairLift = () => {
-        setSelectedCategory("lift");
-        setIsStationInfoOpen(false);
-    };
-
-    const handleClickToliet = () => {
-        setSelectedCategory("toilet");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickDifToliet = () => {
-        setSelectedCategory("dif-toilet");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickNursing = () => {
-        setSelectedCategory("nursing-room");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickAtm = () => {
-        setSelectedCategory("atm");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickAed = () => {
-        setSelectedCategory("aed");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickWheelchairCharge = () => {
-        setSelectedCategory("charger");
-        setIsStationInfoOpen(false);
-        setIsLiftInfoOpen(false);
-    };
-
-    const handleClickServiceCenter = () => {
-        setSelectedCategory("center");
+    const handleClickCategory = (category) => {
+        setSelectedCategory(category);
         setIsStationInfoOpen(false);
         setIsLiftInfoOpen(false);
     };
@@ -446,10 +427,10 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickStationInfo}
+                                onClick={() => handleClickCategory("location")}
                             >
                                 <img src={subwayIcon} alt="elevator-icon" />
-                                <span>역 정보</span>
+                                <span>역정보</span>
                             </CategoryBtn>
                         </li>
                         <li className="elevator">
@@ -459,7 +440,7 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickElevator}
+                                onClick={() => handleClickCategory("elevator")}
                             >
                                 <img src={elevatorIcon} alt="elevator-icon" />
                                 <span>엘리베이터</span>
@@ -472,7 +453,7 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickEscalator}
+                                onClick={() => handleClickCategory("escal")}
                             >
                                 <img src={escalatorIcon} alt="elevator-icon" />
                                 <span>에스컬레이터</span>
@@ -485,7 +466,7 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickWheelchairLift}
+                                onClick={() => handleClickCategory("lift")}
                             >
                                 <img
                                     src={wheelchairLiftIcon}
@@ -501,7 +482,7 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickToliet}
+                                onClick={() => handleClickCategory("toilet")}
                             >
                                 <img src={toiletIcon} alt="elevator-icon" />
                                 <span>화장실</span>
@@ -514,7 +495,9 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickDifToliet}
+                                onClick={() =>
+                                    handleClickCategory("dif-toilet")
+                                }
                             >
                                 <img src={difToiletIcon} alt="elevator-icon" />
                                 <span>장애인 화장실</span>
@@ -527,7 +510,9 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickNursing}
+                                onClick={() =>
+                                    handleClickCategory("nursing-room")
+                                }
                             >
                                 <img
                                     src={nursingRoomIcon}
@@ -541,7 +526,7 @@ const KakaoMap = () => {
                                 className={
                                     selectedCategory === "atm" ? "selected" : ""
                                 }
-                                onClick={handleClickAtm}
+                                onClick={() => handleClickCategory("atm")}
                             >
                                 <img src={atmIcon} alt="elevator-icon" />
                                 <span>ATM</span>
@@ -552,7 +537,7 @@ const KakaoMap = () => {
                                 className={
                                     selectedCategory === "aed" ? "selected" : ""
                                 }
-                                onClick={handleClickAed}
+                                onClick={() => handleClickCategory("aed")}
                             >
                                 <img src={aedIcon} alt="elevator-icon" />
                                 <span>제세동기</span>
@@ -565,7 +550,7 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickWheelchairCharge}
+                                onClick={() => handleClickCategory("charger")}
                             >
                                 <img
                                     src={wheelchairChargerIcon}
@@ -581,7 +566,7 @@ const KakaoMap = () => {
                                         ? "selected"
                                         : ""
                                 }
-                                onClick={handleClickServiceCenter}
+                                onClick={() => handleClickCategory("center")}
                             >
                                 <img
                                     src={customerServiceIcon}
@@ -1162,19 +1147,23 @@ const KakaoMap = () => {
                         position={userLocation}
                     />
                 )}
-                <ZoomControlContainer>
-                    <ZoomControlBtn onClick={handleZoomIn}>
-                        <FaPlus />
-                    </ZoomControlBtn>
-                    <ZoomControlBtn onClick={handleZoomOut}>
-                        <FaMinus />
-                    </ZoomControlBtn>
-                </ZoomControlContainer>
                 <MapTypeControl position={"BOTTOMLEFT"} />
             </Map>
-            <LocationBtn onClick={handleMovecenter}>
-                <img src={locationIcon} alt="location-icon" />
-            </LocationBtn>
+            <ZoomControlWrapper>
+                <ZoomControlContainer>
+                    <ZoomControlBtnContainer>
+                        <ZoomControlBtn onClick={handleZoomIn}>
+                            <FaPlus />
+                        </ZoomControlBtn>
+                        <ZoomControlBtn onClick={handleZoomOut}>
+                            <FaMinus />
+                        </ZoomControlBtn>
+                    </ZoomControlBtnContainer>
+                    <LocationBtn onClick={handleMovecenter}>
+                        <img src={locationIcon} alt="location-icon" />
+                    </LocationBtn>
+                </ZoomControlContainer>
+            </ZoomControlWrapper>
         </MapWrapper>
     );
 };

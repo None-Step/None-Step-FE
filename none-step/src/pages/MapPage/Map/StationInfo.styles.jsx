@@ -790,12 +790,6 @@ export const StationContainer = styled.div`
         margin-bottom: 15px;
     }
 
-    .info > span:nth-child(1),
-    span:nth-child(2) {
-        display: inline-flex;
-        align-items: center;
-    }
-
     .info span,
     p {
         font-size: 1.5rem;
@@ -809,8 +803,8 @@ export const StationContainer = styled.div`
 
     .info span svg,
     img {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         margin-right: 5px;
         color: #9ca3af;
         vertical-align: top;
