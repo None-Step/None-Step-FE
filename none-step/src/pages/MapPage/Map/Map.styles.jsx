@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 export const MapWrapper = styled.div`
     position: relative;
-    top: 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 600px;
     height: calc(100vh - 139px);
     margin-top: 64px;
     margin-bottom: 75px;
@@ -103,8 +102,8 @@ export const CategoryBtn = styled.button`
 
     svg,
     img {
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
     }
 
     span {
@@ -152,13 +151,26 @@ export const OverlayContainer = styled.div`
     }
 `;
 
-export const ZoomControlContainer = styled.div`
-    position: absolute;
-    bottom: 80px;
-    right: 12px;
-    width: 36px;
-    box-shadow: ${(props) => props.theme.colors.shadow200};
+export const ZoomControlWrapper = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 600px;
     z-index: 10;
+`;
+
+export const ZoomControlContainer = styled.div`
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin: 0 10px;
+`;
+
+export const ZoomControlBtnContainer = styled.div`
+    position: fixed;
+    bottom: 155px;
+    width: 36px;
+    margin-right: 2px;
+    box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
 
 export const ZoomControlBtn = styled.button`
@@ -187,9 +199,8 @@ export const ZoomControlBtn = styled.button`
 `;
 
 export const LocationBtn = styled.button`
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
+    position: fixed;
+    bottom: 95px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,7 +213,6 @@ export const LocationBtn = styled.button`
     outline: none;
     transition: all 0.2s ease;
     cursor: pointer;
-    z-index: 10;
 
     &:active {
         background: ${(props) => props.theme.colors.gray06};
