@@ -10,24 +10,25 @@ export const PageWrapper = styled.div`
 // 검색 바
 export const SearchBox = styled.div`
   position: absolute;
-  top: 74px;
+  top: 70px;
   z-index: 3;
-  width: calc(100% - 2rem);
-  height: 40px;
-  border-radius: 4px;
-  margin-inline: 1rem;
+  width: 100%;
   background-color: ${(props) => props.theme.colors.white};
-  padding: 1rem 0.8rem;
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray05};
+  padding: 0.5rem 0.8rem;
   box-sizing: border-box;
+
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
 
 export const LoadingMessage = styled(SearchBox)`
-  top: 120px;
+  top: 170px;
   font-size: 1.4rem;
+  margin-inline: 1rem;
+  width: calc(100% - 2rem);
 `
 
 export const SearchForm = styled.form`
@@ -43,7 +44,14 @@ export const SearchIndex = styled.input`
   height: 100%;
   outline: none;
   border: none;
+  padding: 1rem 0.8rem;
 `;
+
+export const Hr = styled.hr`
+  width: 100%;
+  border: none;
+  border-top: 1px solid ${(props => props.theme.colors.gray06)} ;
+`
 
 const SVGWrapper = styled.svg`
   cursor: pointer;

@@ -1,98 +1,99 @@
 import React, { useState } from 'react';
-import { SearchIndex, SearchIcon, SearchBox, SearchForm } from './FindWay.style';
-import styled from 'styled-components';
+import { SearchIndex, SearchIcon, SearchBox, SearchForm, Hr } from './FindWay.style';
 
-const ResultList = styled.ul`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  border: 1px solid ${props => props.theme.colors.gray04};
-  border-top: none;
-  max-height: 200px;
-  overflow-y: auto;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  z-index: 10;
-`;
+const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination }) => {
+  const [originKeyword, setOriginKeyword] = useState('');
+  const [destinationKeyword, setDestinationKeyword] = useState('');
+  const [isOriginStation, setIsOriginStation] = useState(false);
+  const [isDestinationStation, setIsDestinationStation] = useState(false);
 
-const ResultItem = styled.li`
-  padding: 1rem;
-  font-size: 1.4rem;
-  cursor: pointer;
-  &:hover {
-    background-color: ${props => props.theme.colors.gray06};
-  }
-`;
-
-const KakaoMapPlaceSearch = ({ onSelectPlace }) => {
-  const [keyword, setKeyword] = useState('');
-  const [places, setPlaces] = useState([]);
-
-  // 역 이름에서 호선 정보를 제거하는 함수
+  // 역 이름에서 호선 정보를 제거하기
   const cleanStationName = (name) => {
-    // '역' 다음에 오는 모든 문자 제거
-    return name.split('역')[0] + '역';
+    // '역' 이후의 모든 문자 제거 및 앞뒤 공백 제거
+    return name.split('역')[0].trim() + '역';
   };
 
-  const searchPlaces = (e) => {
-    e.preventDefault();
+  // 키워드가 지하철역인지 확인하기
+  const isSubwayStation = (keyword) => {
+    return keyword.includes('역');
+  };
+
+  // 장소 검색하기
+  const searchPlaces = (keyword, isOrigin) => {
     if (!keyword.trim()) {
-      alert('역명을 입력해주세요.');
+      alert('장소를 입력해주세요.');
       return;
     }
 
-    let searchKeyword = keyword;
-    if (keyword.slice(-1) !== '역') {
-      searchKeyword = keyword + '역';
-    }
-
     const ps = new kakao.maps.services.Places();
-    ps.keywordSearch(searchKeyword, (data, status) => {
+    ps.keywordSearch(keyword, (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
-        // 검색 결과의 place_name 가공하기 (-역까지만 반환)
-        const cleanedData = data.map(place => ({
+        const place = data[0];
+        const isStation = isSubwayStation(place.place_name);
+        const cleanedName = isStation ? cleanStationName(place.place_name) : place.place_name;
+
+        const placeInfo = {
           ...place,
-          place_name: cleanStationName(place.place_name)
-        }));
-        setPlaces(cleanedData);
-        if (cleanedData.length > 0) {
-          onSelectPlace(cleanedData[0]);
+          place_name: cleanedName
+        };
+
+        if (isOrigin) {
+          setIsOriginStation(isStation);
+          onSelectOrigin(placeInfo);
+        } else {
+          setIsDestinationStation(isStation);
+          onSelectDestination(placeInfo);
+        }
+
+        // 출발지와 도착지 중 하나가 역인지 확인하기
+        if (!isOriginStation && !isDestinationStation && !isStation) {
+          alert('출발지와 도착지 중 하나는 지하철역이어야 합니다.');
         }
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색 결과가 존재하지 않습니다.');
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.');
+        alert('검색 중 오류가 발생했습니다.');
       }
     });
   };
 
+  // 출발지 검색 제출하기
+  const handleOriginSubmit = (e) => {
+    e.preventDefault();
+    searchPlaces(originKeyword, true);
+  };
+
+  // 도착지 검색 제출하기
+  const handleDestinationSubmit = (e) => {
+    e.preventDefault();
+    searchPlaces(destinationKeyword, false);
+  };
+
   return (
     <SearchBox>
-      <SearchForm onSubmit={searchPlaces}>
+      <SearchForm onSubmit={handleOriginSubmit}>
         <SearchIndex
           type="text"
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          placeholder="도착역을 입력하세요"
+          value={originKeyword}
+          onChange={(e) => setOriginKeyword(e.target.value)}
+          placeholder="출발지를 입력하세요"
         />
         <button type="submit" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
           <SearchIcon />
         </button>
       </SearchForm>
-      {/* 결과 리스트를 표시하려면 아래 주석을 해제하세요
-      {places.length > 0 && (
-        <ResultList>
-          {places.map((place) => (
-            <ResultItem key={place.id} onClick={() => onSelectPlace(place)}>
-              {place.place_name} ({place.address_name})
-            </ResultItem>
-          ))}
-        </ResultList>
-      )}
-      */}
+      <Hr/>
+      <SearchForm onSubmit={handleDestinationSubmit}>
+        <SearchIndex
+          type="text"
+          value={destinationKeyword}
+          onChange={(e) => setDestinationKeyword(e.target.value)}
+          placeholder="도착지를 입력하세요"
+        />
+        <button type="submit" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+          <SearchIcon />
+        </button>
+      </SearchForm>
     </SearchBox>
   );
 };

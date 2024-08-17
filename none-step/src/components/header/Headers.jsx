@@ -65,6 +65,8 @@ export const PageHeader = () => {
          return '경로 선택'
       case '/findway/navigate' :
           return '길안내'
+      case '/findway/map' :
+          return '지도'
       case '/chat' :
         return '채팅';
       case '/mypage' :

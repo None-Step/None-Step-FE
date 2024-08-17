@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk'
 import { useNavigate } from 'react-router-dom';
 import MenuBar from '@/components/menuBar/MenuBar';
-import { PageHeader } from '../../components/header/Headers';
+import { PageHeader } from '@/components/header/Headers';
 import { 
   PageWrapper,
   CustomOverlay,
@@ -11,10 +11,11 @@ import {
   Confirm,
   Reload,
   SearchBox,
-  LoadingMessage
+  LoadingMessage,
 } from './FindWay.style';
 import KakaoMapPlaceSearch from './KakaoMapPlaceSearch';
 import ReloadIcon from '@/assets/img/current.svg'
+import QuickRoute from './QuickRoute';
 
 const TIMEOUT_DURATION = 20000; // 20초
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -27,7 +28,7 @@ const FindWay = () => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [origin, setOrigin] = useState(null);
-  const [statusMessage, setStatusMessage] = useState('지도를 불러오는 중...');
+  const [statusMessage, setStatusMessage] = useState('');
   const [mapLevel, setMapLevel] = useState(3);
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight); // 뷰포트 길이(위치 새로고침 버튼 위치 맞추기)
   
@@ -85,7 +86,7 @@ const FindWay = () => {
           // 기타 오류
           setStatusMessage('위치 정보를 가져오는데 실패했습니다. 잠시 후 다시 시도해주세요.');
         }
-        // 기본 위치로 설정 (예: 서울시청)
+        // 기본 위치로 설정 (현: 서울시청)
         setCenter({ lat: 37.566535, lng: 126.977969 });
       })
       .finally(() => {
@@ -112,16 +113,15 @@ const FindWay = () => {
 
 // 목적지 설정 확인 핸들러
 const handleConfirm = () => {
-  if (userLocation && destination) {
+  if (origin && destination) {
     navigate('/findway/route', { 
       state: { 
-        origin: {
-          lat: userLocation.lat,
-          lng: userLocation.lng,
-          name: "현재 위치",
-          address: "현재 위치"
-        }, 
-        destination: destination  //
+        origin: origin,
+        destination: destination,
+        selectedDestination: {
+          name: destination.name,
+          address: destination.address
+        }
       } 
     });
   } else {
@@ -174,11 +174,47 @@ const handleConfirm = () => {
     return <LoadingMessage>{statusMessage}</LoadingMessage>;
   }
 
-  // 메인 렌더링
+  /// 출발지 선택 핸들러
+  const handleSelectOrigin = (place) => {
+    const newOrigin = {
+      lat: parseFloat(place.y),
+      lng: parseFloat(place.x),
+      name: place.place_name,
+      address: place.address_name
+    };
+    setOrigin(newOrigin);
+    setCenter({
+      lat: parseFloat(place.y),
+      lng: parseFloat(place.x)
+    });
+    setIsOverlayVisible(true);  // 오버레이 표시
+  };
+
+  // 도착지 선택 핸들러
+  const handleSelectDestination = (place) => {
+    const newDestination = {
+      lat: parseFloat(place.y),
+      lng: parseFloat(place.x),
+      name: place.place_name,
+      address: place.address_name
+    };
+    setDestination(newDestination);
+    setCenter({
+      lat: parseFloat(place.y),
+      lng: parseFloat(place.x)
+    });
+    setIsOverlayVisible(true);  // 오버레이 표시
+  };
+
+
   return (
     <PageWrapper>
       <PageHeader />
-      <KakaoMapPlaceSearch onSelectPlace={handleSelectPlace} />
+      <KakaoMapPlaceSearch
+        onSelectOrigin={handleSelectOrigin}
+        onSelectDestination={handleSelectDestination}
+      />
+      {userLocation && <QuickRoute userLocation={userLocation} />}
       <Map
         center={center}
         style={{
@@ -189,26 +225,33 @@ const handleConfirm = () => {
         onCenterChanged={handleCenterChanged}
       >
         {userLocation && <MapMarker position={userLocation} />}
+        {origin && (
+          <MapMarker
+            position={origin}
+            clickable={true}
+            onClick={() => setIsOverlayVisible(!isOverlayVisible)}
+          />
+        )}
         {destination && (
-          <>
-            <MapMarker
-              position={destination}
-              clickable={true}
-              onClick={() => setIsOverlayVisible(!isOverlayVisible)}
-            />
-            {isOverlayVisible && (
-              <CustomOverlayMap
-                position={destination}
-                yAnchor={1.55}
-              >
-                <CustomOverlay>
-                  <StationName>{destination.name}</StationName>
-                  <StationAddress>{destination.address}</StationAddress>
-                  <Confirm onClick={handleConfirm}>목적지로 설정하기</Confirm>
-                </CustomOverlay>
-              </CustomOverlayMap>
-            )}
-          </>
+          <MapMarker
+            position={destination}
+            clickable={true}
+            onClick={() => setIsOverlayVisible(!isOverlayVisible)}
+          />
+        )}
+        {isOverlayVisible && (origin || destination) && (
+          <CustomOverlayMap
+            position={origin || destination}
+            yAnchor={1.55}
+          >
+            <CustomOverlay>
+              <StationName>{(origin || destination).name}</StationName>
+              <StationAddress>{(origin || destination).address}</StationAddress>
+              <Confirm onClick={handleConfirm}>
+                {origin ? "출발지로 설정하기" : "목적지로 설정하기"}
+              </Confirm>
+            </CustomOverlay>
+          </CustomOverlayMap>
         )}
         <Reload onClick={handleReload} $viewportHeight={viewportHeight}>
           <img src={ReloadIcon} alt='현재위치 새로고침'/>
@@ -217,7 +260,7 @@ const handleConfirm = () => {
       {statusMessage && <LoadingMessage>{statusMessage}</LoadingMessage>}
       <MenuBar />
     </PageWrapper>
-  )
+  );
 }
 
 export default FindWay

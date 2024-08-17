@@ -6,10 +6,36 @@ import { PageHeader } from '@/components/header/Headers'
 import MenuBar from '@/components/menuBar/MenuBar'
 import { LoadingMessage, Reload } from './FindWay.style';
 import ReloadIcon from '@/assets/img/current.svg'
+import { FaArrowRight } from 'react-icons/fa';
 import styled from 'styled-components';
 
 const LoadMessage = styled(LoadingMessage)`
   top: 70px;
+`;
+
+const RouteInfoBar = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+`;
+
+const LocationText = styled.span`
+  font-size: 14px;
+  color: #333;
+`;
+
+const ArrowIcon = styled(FaArrowRight)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #333;
 `;
 
 const TIMEOUT_DURATION = 20000; // 20초
@@ -22,47 +48,50 @@ const FindWayNav = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMessage, setStatusMessage] = useState('지도를 불러오는 중...');
   const [mapLevel, setMapLevel] = useState(DEFAULT_LEVEL);
-  const [destination, setDestination] = useState(null);
   const [isTracking, setIsTracking] = useState(true);  // 사용자 위치 추적 상태
+  const [origin, setOrigin] = useState(null);
+  const [destination, setDestination] = useState(null);
+  const [originName, setOriginName] = useState('출발지 미설정');
+  const [destinationName, setDestinationName] = useState('도착지 미설정');
   
   const location = useLocation();
-  const { origin, routeData } = location.state || {};
+  const { routeData, origin: routeOrigin, destination: routeDestination } = location.state || {};
 
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
 
-useEffect(() => {
-  const handleResize = () => setViewportHeight(window.innerHeight);
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, []);
+  useEffect(() => {
+    const handleResize = () => setViewportHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  // API 응답 데이터를 Polyline 경로 형식으로 그려주기 + 마지막 좌표를 목적지로 설정
-  const { polylinePath, lastCoordinate } = useMemo(() => {
+  useEffect(() => {
+    if (routeOrigin) {
+      setOrigin(routeOrigin);
+      setOriginName(routeOrigin.name || '현재 위치');
+    }
+  }, [routeOrigin]);
+
+  useEffect(() => {
+    if (routeDestination) {
+      setDestination(routeDestination);
+      setDestinationName(routeDestination.name || '도착지 미설정');
+    }
+  }, [routeDestination]);
+
+  // API 응답 데이터를 Polyline 경로 형식으로 그려주기
+  const polylinePath = useMemo(() => {
     if (!routeData || !routeData.features || routeData.features.length === 0) {
-      return { polylinePath: [], lastCoordinate: null };
+      return [];
     }
     
-    const allCoordinates = routeData.features.flatMap(feature => 
+    return routeData.features.flatMap(feature => 
       feature.geometry.coordinates.map(coord => ({
         lat: coord[1],
         lng: coord[0]
       }))
     );
-
-    const lastCoord = allCoordinates[allCoordinates.length - 1];
-    
-    return { 
-      polylinePath: allCoordinates,
-      lastCoordinate: lastCoord
-    };
   }, [routeData]);
-
-  // 목적지 설정
-  useEffect(() => {
-    if (lastCoordinate) {
-      setDestination(lastCoordinate);
-    }
-  }, [lastCoordinate]);
 
   // 사용자 위치 추적 함수
   const watchUserPosition = useCallback(() => {
@@ -150,6 +179,11 @@ useEffect(() => {
   return (
     <PageWrapper>
       <PageHeader />
+      <RouteInfoBar>
+        <LocationText>{originName}</LocationText>
+        <ArrowIcon />
+        <LocationText>{destinationName}</LocationText>
+      </RouteInfoBar>
       <Map
         center={center}
         style={{
@@ -159,7 +193,7 @@ useEffect(() => {
         level={mapLevel}
         onCenterChanged={handleCenterChanged}
       >
-        {userLocation && <MapMarker position={userLocation} />}
+        {origin && <MapMarker position={origin} />}
         {destination && <MapMarker position={destination} />}
         {polylinePath.length > 0 && (
           <Polyline

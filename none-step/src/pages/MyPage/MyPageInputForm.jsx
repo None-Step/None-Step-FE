@@ -16,11 +16,9 @@ const InputWrap = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   transition: border .4s;
   margin-top: 0.5rem;
-
   &:focus-within {
     border: 1px solid ${(props) => props.theme.colors.gray01};
   }
-
   &:focus-within Label {
     opacity: 1;
     transform: translate(0, 0);
@@ -42,11 +40,9 @@ const InputText = styled.input`
   color: ${(props) => props.theme.colors.black};
   transform: translate(0, -25%);
   transition: all .4s;
-
   &:focus {
     transform: translate(0, 0%);
   }
-
   &::placeholder {
     color: ${(props) => props.theme.colors.gray02};
   }
@@ -69,10 +65,10 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
   }, [value]);
 
   const handleChange = (e) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value || ''; // 빈 문자열을 기본값으로 사용
     setInternalValue(newValue);
-    let valid = false;
 
+    let valid = false;
     switch (label) {
       case "아이디":
         valid = /^[A-Za-z0-9]{4,12}$/.test(newValue);
@@ -95,6 +91,9 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
       case "닉네임":
         valid = newValue.length <= 8 && !/\s/.test(newValue);
         break;
+      case "인증번호":
+        valid = newValue.length > 0; // 인증번호는 비어있지 않으면 유효
+        break;
       default:
         valid = true;
     }
@@ -102,7 +101,7 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
     setIsValid(valid);
 
     if (typeof onValidationChange === 'function') {
-      onValidationChange(valid);
+      onValidationChange(valid, newValue); // isValid와 newValue 모두 전달
     }
 
     if (typeof onChange === 'function') {
