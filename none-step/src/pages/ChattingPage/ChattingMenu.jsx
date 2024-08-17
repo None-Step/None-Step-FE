@@ -1,9 +1,9 @@
 import { PageHeader } from "@components/header/Headers";
 import MenuBar from "@components/menuBar/MenuBar";
 import {
+    ChattingMenuContainer,
+    ChattingMenuWrapper,
     ChattingLineContainer,
-    ChattingPageContainer,
-    ChattingPageWrapper,
 } from "./ChattingMenu.styles";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
@@ -41,8 +41,8 @@ const ChattingMenu = () => {
     return (
         <>
             <PageHeader />
-            <ChattingPageWrapper>
-                <ChattingPageContainer>
+            <ChattingMenuWrapper>
+                <ChattingMenuContainer>
                     {regionChat.map((chat, index) => (
                         <li key={index} className="capital_chat">
                             <div
@@ -52,7 +52,7 @@ const ChattingMenu = () => {
                                 }
                                 onClick={(e) => handleMenuClick(e, index)}
                             >
-                                <span>{chat.region}</span>
+                                <h3>{chat.region}</h3>
                                 <IoIosArrowDown />
                             </div>
                             <ChattingLineContainer
@@ -62,8 +62,8 @@ const ChattingMenu = () => {
                             </ChattingLineContainer>
                         </li>
                     ))}
-                </ChattingPageContainer>
-            </ChattingPageWrapper>
+                </ChattingMenuContainer>
+            </ChattingMenuWrapper>
             <MenuBar />
         </>
     );

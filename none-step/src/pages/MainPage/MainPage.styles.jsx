@@ -11,7 +11,7 @@ export const MainWrapper = styled.div`
     background: #fafafa;
 
     h3 {
-        margin-bottom: 24px;
+        margin-bottom: 30px;
         font-size: 1.8rem;
     }
 `;
@@ -51,6 +51,7 @@ export const CategoryContainer = styled.ul`
 
 export const CategoryBtn = styled.button`
     width: 100px;
+    height: 100px;
     border: none;
     background: none;
     outline: none;

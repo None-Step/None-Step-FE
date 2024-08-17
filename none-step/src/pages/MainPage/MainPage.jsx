@@ -53,6 +53,11 @@ const MainPage = () => {
         }
     };
 
+    const handleClickMap = (category) => {
+        navigate("/map");
+        dispatch(selectedCategory({ category: category }));
+    };
+
     const handleClickChat = (region) => {
         navigate(`/chat/${region}`);
         dispatch(selectedCategory({ category: region }));
@@ -70,19 +75,23 @@ const MainPage = () => {
                         onWheel={handleScrollCategory}
                     >
                         <li className="elevator">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("elevator")}
+                            >
                                 <img src={elevatorIcon} alt="elevator-icon" />
                                 <span>엘리베이터</span>
                             </CategoryBtn>
                         </li>
                         <li className="escalator">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("escal")}
+                            >
                                 <img src={escalatorIcon} alt="escalator-icon" />
                                 <span>에스컬레이터</span>
                             </CategoryBtn>
                         </li>
                         <li className="wheelchair_lift">
-                            <CategoryBtn>
+                            <CategoryBtn onClick={() => handleClickMap("lift")}>
                                 <img
                                     src={wheelchairLiftIcon}
                                     alt="wheelchair-lift-icon"
@@ -91,13 +100,17 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="toilet">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("toilet")}
+                            >
                                 <img src={toiletIcon} alt="toilet-icon" />
                                 <span>화장실</span>
                             </CategoryBtn>
                         </li>
                         <li className="dif_toilet">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("dif-toilet")}
+                            >
                                 <img
                                     src={difToiletIcon}
                                     alt="dif-toilet-icon"
@@ -106,7 +119,9 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="nursing_room">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("nursing-room")}
+                            >
                                 <img
                                     src={nursingRoomIcon}
                                     alt="nursing-room-icon"
@@ -115,19 +130,21 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="atm">
-                            <CategoryBtn>
+                            <CategoryBtn onClick={() => handleClickMap("atm")}>
                                 <img src={atmIcon} alt="atm-icon" />
                                 <span>ATM</span>
                             </CategoryBtn>
                         </li>
                         <li className="aed">
-                            <CategoryBtn>
+                            <CategoryBtn onClick={() => handleClickMap("aed")}>
                                 <img src={aedIcon} alt="aed-icon" />
                                 <span>제세동기</span>
                             </CategoryBtn>
                         </li>
                         <li className="wheelchair_charger">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("charger")}
+                            >
                                 <img
                                     src={wheelchairChargerIcon}
                                     alt="wheelchair-charger-icon"
@@ -136,7 +153,9 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="customer_service">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("center")}
+                            >
                                 <img
                                     src={customerServiceIcon}
                                     alt="customer-service-icon"
