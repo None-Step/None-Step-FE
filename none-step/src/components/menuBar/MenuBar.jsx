@@ -50,7 +50,7 @@ const MenuBar = () => {
 
             <IconBox
                 $isActive={currentPath === "/findWay"}
-                onClick={() => handleNavigation("/findWay")}
+                onClick={() => handleNavigation("/findway")}
             >
                 <SvgIcon>
                     <svg
@@ -66,7 +66,7 @@ const MenuBar = () => {
                         />
                     </svg>
                 </SvgIcon>
-                <MenuName $isActive={currentPath === "/findWay"}>
+                <MenuName $isActive={currentPath === "/findway"}>
                     길찾기
                 </MenuName>
             </IconBox>
