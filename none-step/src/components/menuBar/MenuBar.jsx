@@ -49,7 +49,7 @@ const MenuBar = () => {
             </IconBox>
 
             <IconBox
-                $isActive={currentPath === "/findWay"}
+                $isActive={currentPath === "/findway"}
                 onClick={() => handleNavigation("/findway")}
             >
                 <SvgIcon>
