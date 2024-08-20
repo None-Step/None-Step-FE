@@ -38,9 +38,8 @@ export const SvgIcon = styled.div`
 `;
 
 export const MenuName = styled.span`
-    font-size: 1.6rem;
-    text-align: center;
-    margin-top: 0.8rem;
-    color: ${(props) =>
-        props.$isActive ? props.theme.colors.primary : "#333333"};
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 0.8rem;
+  color: ${(props) => props.$isActive ? props.theme.colors.primary : '#333333'};
 `;

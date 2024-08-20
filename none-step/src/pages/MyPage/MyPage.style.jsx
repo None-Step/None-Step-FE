@@ -6,14 +6,29 @@ export const RightIcon = styled(FaChevronRight)`
   cursor: pointer;
 `;
 
-export const PageContainer = styled.div`
+export const BG = styled.div`
   width: 100%;
   height: 100vh;
-  overflow: scroll;
   background-color: ${(props) => props.theme.colors.gray06};
+
+`;
+
+export const PageContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow: scroll;
   position: relative;
   top: 0;
   left: 0;
+
+  /* Firefox용 스크롤바 숨기기 */
+  scrollbar-width: none;
+  /* IE and Edge용 스크롤바 숨기기 */
+  -ms-overflow-style: none;
+  /* Chrome, Safari, Opera용 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ProfileSection = styled.section`
@@ -113,7 +128,7 @@ export const Withdraw = styled(SignActionSpan)`
 
 export const ModalBG = styled.div`
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.modalLayer};
   position: absolute;
   top: 0;
@@ -123,7 +138,7 @@ export const ModalBG = styled.div`
 
 export const ModalContainer = styled.div`
   width: 100%;
-  height: 490px;
+  height: fit-content;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: ${(props) => props.theme.colors.white};
@@ -263,7 +278,7 @@ export const SeconBut = styled(But)`
   border: 1px solid ${(props) => props.theme.colors.primary};
 
 `
-export const SubmitBut = styled(But)`
+export const SubmitButton = styled(But)`
   width: 100%;
 `
 
