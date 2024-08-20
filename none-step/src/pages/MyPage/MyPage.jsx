@@ -35,7 +35,7 @@ import useLogout from '@/hooks/logout';
 import axiosInstance from '@/apis/axiosInstance';
 import MenuBar from '@/components/menuBar/MenuBar'
 import { PageHeader } from '@/components/header/Headers';
-import DefaultProfile from '@/assets/img/profile.png'
+import DefaultProfile from '@/assets/img/profile-img.svg'
 import { SignAction, SignActionSpan } from '../Login/Login.style'
 import { InputWrap, SubmitBut } from '@/pages/SignUp/SignUp02/SignUpForm.style'
 import SimpleInputForm from './SimpleInputForm';

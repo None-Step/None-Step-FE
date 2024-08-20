@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import logoImage from '@/assets/img/logo.svg'
-import LogInIcon from '@/assets/img/login.svg'
+import logoImage from '@/assets/img/header-logo.svg'
+import LogInIcon from '@/assets/img/user.svg'
 import LogOutIcon from '@/assets/img/logout.svg'
 import LeftArrow from '@/assets/img/LeftArrow.svg'
 import { HeaderWrapper, Icon, IconAuthState, MainWrapper, PageName } from './Headers.style'
@@ -25,7 +25,7 @@ export const MainHeader = () => {
 
   return (
     <MainWrapper>
-      <img src={logoImage} alt="로고" />
+      <img src={logoImage} width="130px" alt="로고" />
       <IconAuthState
         src={isAuthorized ? LogOutIcon : LogInIcon}
         alt={isAuthorized ? "로그아웃 아이콘" : "로그인 아이콘"}

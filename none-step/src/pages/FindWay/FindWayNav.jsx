@@ -38,7 +38,7 @@ const ArrowIcon = styled(FaArrowRight)`
   color: #333;
 `;
 
-const TIMEOUT_DURATION = 20000; // 20초
+const TIMEOUT_DURATION = 8000; // 8초
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 const DEFAULT_LEVEL = 3;
 
@@ -96,7 +96,6 @@ const FindWayNav = () => {
   // 사용자 위치 추적 함수
   const watchUserPosition = useCallback(() => {
     if ("geolocation" in navigator) {
-      setStatusMessage('사용자 위치를 불러오는 중...');
       const watchId = navigator.geolocation.watchPosition(
         (position) => {
           const newLocation = {
@@ -198,7 +197,7 @@ const FindWayNav = () => {
         {polylinePath.length > 0 && (
           <Polyline
             path={[polylinePath]}
-            strokeWeight={8}
+            strokeWeight={7}
             strokeColor={"#007AFF"}
             strokeOpacity={0.7}
             strokeStyle={"solid"}
