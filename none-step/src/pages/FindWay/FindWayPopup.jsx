@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaArrowRight } from 'react-icons/fa';
-import Close from '@/assets/img/Close.svg'
+import { FaArrowRight, FaWalking, FaBicycle, FaSubway } from 'react-icons/fa';
+import Close from '@/assets/img/Close.svg';
 
 const PopupContainer = styled.div`
   position: absolute;
-  top: calc(70px + 86px); // 헤더 높이
+  top: calc(70px + 86px);
   left: 0;
   right: 0;
-  bottom: 80px; // 메뉴바 높이
+  bottom: 80px;
   background-color: white;
   padding: 20px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 `;
 
 const CloseButton = styled.button`
@@ -36,9 +37,9 @@ const Tab = styled.button`
   padding: 10px;
   background: none;
   border: none;
-  border-bottom: 2px solid ${props => props.$active ? props.theme.colors.primary : props.theme.colors.gray06};
-  color: ${props => props.$active ? props.theme.colors.primary : props.theme.colors.gray02};
-  font-weight: ${props => props.$active ? 'bold' : 'normal'};
+  border-bottom: 2px solid ${(props) => props.$active ? props.theme.colors.primary : props.theme.colors.gray06};
+  color: ${(props) => props.$active ? props.theme.colors.primary : props.theme.colors.gray02};
+  font-weight: ${(props) => props.$active ? 'bold' : 'normal'};
   cursor: pointer;
 `;
 
@@ -50,7 +51,12 @@ const RouteOption = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.gray06};
 `;
 
-const RouteInfo = styled.div`
+const RouteInfo = styled.div``;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 const RouteType = styled.h4`
@@ -77,70 +83,94 @@ const Button = styled.button`
   justify-content: center;
 `;
 
-const SubwayRouteInfo = styled.div`
-  margin-top: 20px;
+const TabContent = styled.div`
+  display: ${(props) => props.$active ? 'block' : 'none'};
 `;
 
-const StationList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
+const formatTime = (minutes) => {
+  if (minutes < 60) return `${minutes}분`;
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours}시간 ${remainingMinutes}분`;
+};
 
-const StationItem = styled.li`
-  margin-bottom: 10px;
-`;
+const formatDistance = (meters) => {
+  if (meters < 1000) return `${meters}m`;
+  return `${(meters / 1000).toFixed(2)}km`;
+};
 
-const FindWayPopup = ({ routeInfo, onClose, onNavigate, origin, destination, isSubwayRoute }) => {
-  const [activeTab, setActiveTab] = useState('도보');
 
-  useEffect(() => {
-    if (isSubwayRoute) {
-      setActiveTab('지하철');
-    }
-  }, [isSubwayRoute]);
+const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
+  const [activeTab, setActiveTab] = useState('도보 및 자전거');
+
+    // 자전거 메시지 설정
+    const bikeMessage = routeInfo.bikeTime > 0 
+    ? `거리 ${routeInfo.bikeDistance}m` 
+    : routeInfo.bikeMessage || "근처에 자전거 보관소가 없습니다.";
+
 
   return (
     <PopupContainer>
       <CloseButton onClick={onClose}>
-        <img src={Close} alt='닫기 버튼'/>
+        <img src={Close} alt="닫기 버튼" />
       </CloseButton>
       <TabContainer>
-        <Tab $active={activeTab === '도보'} onClick={() => setActiveTab('도보')}>
-          도보 및 지하철
+        <Tab $active={activeTab === '도보 및 자전거'} onClick={() => setActiveTab('도보 및 자전거')}>
+          도보 및 자전거
         </Tab>
-        <Tab $active={activeTab === '지하철'} onClick={() => setActiveTab('지하철')}>
-          지하철 노선
+        <Tab $active={activeTab === '지하철 코스'} onClick={() => setActiveTab('지하철 코스')}>
+          지하철 코스
         </Tab>
       </TabContainer>
-      {activeTab === '도보' && (
+      <TabContent $active={activeTab === '도보 및 자전거'}>
         <RouteOption>
           <RouteInfo>
-            <RouteType>도보 {routeInfo.time}분</RouteType>
-            <RouteDetail>도보 길이 {routeInfo.distance}m</RouteDetail>
+            <IconContainer>
+              <FaWalking />
+              <RouteType>도보 {routeInfo.walkTime}</RouteType>
+            </IconContainer>
+            <RouteDetail>거리 {routeInfo.walkDistance}</RouteDetail>
           </RouteInfo>
-          <Button onClick={onNavigate}>
+          <Button onClick={() => onNavigate('walk')}>
             <FaArrowRight />
           </Button>
         </RouteOption>
-      )}
-      {activeTab === '지하철' && (
-        <SubwayRouteInfo>
-          <RouteType>{origin} → {destination}</RouteType>
-          <RouteDetail>총 {routeInfo.time}분 | {routeInfo.distance}km | {routeInfo.fare}원</RouteDetail>
-          <StationList>
-            {routeInfo.stations.map((station, index) => (
-              <StationItem key={index}>
-                {station.startName} → {station.endName} ({station.travelTime}분)
-              </StationItem>
-            ))}
-          </StationList>
-          {routeInfo.exChangeInfo.map((exchange, index) => (
-            <RouteDetail key={index}>
-              환승: {exchange.startName}역에서 {exchange.laneName}으로 환승 (도보 {exchange.exWalkTime}초)
-            </RouteDetail>
-          ))}
-        </SubwayRouteInfo>
-      )}
+        <RouteOption>
+          <RouteInfo>
+            <IconContainer>
+              <FaWalking />
+              <FaBicycle />
+              <RouteType>
+                도보 + 자전거 {routeInfo.totalTime}
+              </RouteType>
+            </IconContainer>
+            <RouteDetail>도보 {routeInfo.walkDistance} + 자전거 {routeInfo.bikeDistance}</RouteDetail>
+            {routeInfo.bikeMessage && <RouteDetail>{routeInfo.bikeMessage}</RouteDetail>}
+          </RouteInfo>
+            <Button onClick={() => onNavigate('bike')}>
+              <FaArrowRight />
+            </Button>
+        </RouteOption>
+      </TabContent>
+      <TabContent $active={activeTab === '지하철 코스'}>
+        {routeInfo.subwayRoute ? (
+          <RouteOption>
+            <RouteInfo>
+              <IconContainer>
+                <FaSubway />
+                <RouteType>지하철 {formatTime(routeInfo.subwayRoute.globalTravelTime)}</RouteType>
+              </IconContainer>
+              <RouteDetail>총 거리 {formatDistance(routeInfo.subwayRoute.globalDistance * 1000)}</RouteDetail>
+              <RouteDetail>요금 {routeInfo.subwayRoute.fare}원</RouteDetail>
+            </RouteInfo>
+            <Button onClick={() => onNavigate('subway')}>
+              <FaArrowRight />
+            </Button>
+          </RouteOption>
+        ) : (
+          <RouteDetail>이용 가능한 지하철 경로가 없습니다.</RouteDetail>
+        )}
+      </TabContent>
     </PopupContainer>
   );
 };
