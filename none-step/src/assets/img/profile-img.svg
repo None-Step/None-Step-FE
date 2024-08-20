@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_레이어_1" data-name="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
+  <defs>
+    <radialGradient id="radial-gradient" cx="422.01" cy="280.59" fx="422.01" fy="280.59" r="98.66" gradientTransform="translate(-229.45 205.84) scale(1.14 .27)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007aff"/>
+      <stop offset="1" stop-color="#007aff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="250" y1="63.09" x2="250" y2="279.87" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-3" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect x="-7.35" y="-5.32" width="514.69" height="514.69" style="fill: #fff;"/>
+  <text transform="translate(82 413.14)" style="fill: #007aff; font-family: Partial-Sans-KR, &apos;Partial Sans KR&apos;; font-size: 100px;"><tspan x="0" y="0">이번역</tspan></text>
+  <ellipse cx="250" cy="280.59" rx="120.07" ry="28.5" style="fill: url(#radial-gradient); opacity: .5;"/>
+  <g>
+    <path d="M250,63.09c-42.76,0-77.42,34.66-77.42,77.42,0,5.69.65,11.21,1.82,16.55,8.77,45.29,75.6,122.81,75.6,122.81,0,0,66.84-77.52,75.6-122.81,1.16-5.34,1.82-10.86,1.82-16.55,0-42.76-34.66-77.42-77.42-77.42Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-3);"/>
+    <circle cx="250" cy="138.81" r="49.83" style="fill: #fff;"/>
+  </g>
+</svg>

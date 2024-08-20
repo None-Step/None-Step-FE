@@ -38,8 +38,9 @@ const SignUpForm = () => {
   const [idCheckPassed, setIdCheckPassed] = useState(false);
   const [showVerificationMessage, setShowVerificationMessage] = useState(false);
   const [verificationCodeLength, setVerificationCodeLength] = useState(0);  // 인증번호 일치 확인용 verificationCode 길이 상태
+  const [verificationButtonDisabled, setVerificationButtonDisabled] = useState(true);
 
-
+  // 입력값의 유효성을 검사하고 폼 데이터를 업데이트하기
   const handleValidationChange = (isValid, value, name) => {
     // 유효성 상태 갱신
     setFormValidations(prev => ({ ...prev, [name]: isValid }));
@@ -56,7 +57,7 @@ const SignUpForm = () => {
   // 모든 필드가 유효한지 검사하고 모든 원소가 조건을 만족하면 true 반환하기
   const isFormValid = () => Object.values(formValidations).every(Boolean);
 
-  // 아이디 중복 검사
+  // 아이디 중복 검사하기
   const checkIdAvailability = (event) => {
     event.preventDefault();
 
@@ -80,7 +81,7 @@ const SignUpForm = () => {
     }
   }
 
-  // 휴대폰 인증번호 요청
+  // 휴대폰 인증번호 요청하기
   const sendVerificationCode = (event) => {
     event.preventDefault();
 
@@ -103,29 +104,24 @@ const SignUpForm = () => {
     }
   }
 
-  // 인증 코드 검증
-  useEffect(() => {
-    if (verificationSent && 
-        verificationCode.length === verificationCodeLength && 
-        !verificationPassed && 
-        verificationCode !== '' && 
-        checkVerificationCode !== '') {
-      
-      const isVerified = verificationCode === checkVerificationCode;
-      setVerificationPassed(isVerified);
-      
-      // 상태 업데이트 후 비동기적으로 알림 표시
-      setTimeout(() => {
-        alert(isVerified ? "인증이 완료되었습니다." : "인증번호가 일치하지 않습니다. 다시 확인해주세요.");
-      }, 0);
-    }
-  }, [verificationCode, checkVerificationCode, verificationPassed, verificationCodeLength, verificationSent]);
-  
-  // 인증 코드 입력 처리 함수
+  // 인증 코드 입력값 변경 처리하기
   const handleVerificationCodeChange = (isValid, value) => {
     setVerificationCode(value);
+    setVerificationButtonDisabled(value.length === 0);
   };
 
+  // 인증번호 확인하기
+  const verifyCode = () => {
+    if (verificationCode === checkVerificationCode) {
+      setVerificationPassed(true);
+      alert("인증이 완료되었습니다.");
+    } else {
+      setVerificationPassed(false);
+      alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+    }
+  };
+
+  // 인증번호 유효 시간 체크하기
   useEffect(() => {
     // 인증번호가 전송된 경우 실행되고, 3분 후 타임아웃 되기
     if (verificationSent) {
@@ -133,7 +129,6 @@ const SignUpForm = () => {
         setVerificationMessage('인증번호 유효 시간이 초과되었습니다. 다시 시도해주세요');
         setVerificationTimeout(true);
         // 인증번호 전송 상태 false로 변경
-        setVerificationSent(false);
         setVerificationSent(false);
         setShowVerificationMessage(false); // 메시지 숨기기
       }, 180000);
@@ -143,8 +138,7 @@ const SignUpForm = () => {
     }
   }, [verificationSent]);
 
-
-  // 회원가입 폼 제출
+  // 회원가입 폼 제출하기
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isFormValid() && idCheckPassed && verificationPassed) {
@@ -213,10 +207,19 @@ const SignUpForm = () => {
         </SubmitBut>
       </InputWrap>
 
-      <InputForm label="인증번호" type="text" 
-      placeholder="인증번호 입력" value={verificationCode} 
-      onValidationChange={handleVerificationCodeChange}
-      />
+      <InputWrap>
+        <InputForm label="인증번호" type="text" 
+        placeholder="인증번호 입력" value={verificationCode} 
+        onValidationChange={handleVerificationCodeChange}
+        />
+        <SubmitBut 
+          onClick={verifyCode} 
+          disabled={verificationButtonDisabled || !verificationSent || verificationPassed}
+        >
+          확인
+        </SubmitBut>
+      </InputWrap>
+
       { showVerificationMessage &&
         <SignActionSpan>
           인증번호가 발송되었습니다. 3분 이내로 인증번호를 입력해주세요.

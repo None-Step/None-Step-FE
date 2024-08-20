@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SubmitBut } from "../../pages/MyPage/MyPage.style";
+import { SubmitButton } from "@/pages/MyPage/MyPage.style";
 import { Title } from '@/pages/MyPage/MyPage.style'
 
 export const HomeContainer = styled.div`
@@ -21,7 +21,7 @@ export const LocationTitle = styled(Title)`
     margin-bottom: 0 !important;
 `
 
-export const LocationBut = styled(SubmitBut)`
+export const LocationBut = styled(SubmitButton)`
     width: fit-content;
     padding: 0.8rem 1.2rem;
     box-sizing: border-box;

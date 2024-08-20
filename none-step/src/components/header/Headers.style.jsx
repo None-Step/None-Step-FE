@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const HeaderWrapper = styled.div`
   width: 100%;
   max-width: 600px;
+  height: 70px;
   padding: 2rem;
   box-sizing: border-box;
   background-color: ${(props) => props.theme.colors.white};
