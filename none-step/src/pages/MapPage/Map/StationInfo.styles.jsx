@@ -21,7 +21,7 @@ export const StationInfoWrapper = styled.div`
         transform: translateX(0);
         width: 100%;
         height: 100%;
-        border: 1px solid ${(props) => props.theme.colors.gray05};
+        border: none;
         border-radius: 0;
     }
 `;
@@ -211,7 +211,7 @@ export const StationNameContainer = styled.div`
     padding: 7px;
     padding-right: 14px;
     border: 3px solid;
-    border-radius: 22px;
+    border-radius: 25px;
     background: ${(props) => props.theme.colors.white};
     box-shadow: 0 1px 6px rgba(12, 12, 13, 0.12),
         0 1px 6px rgba(12, 12, 13, 0.06);
@@ -591,17 +591,6 @@ export const StationScheduleContainer = styled.div`
     td {
         text-align: center;
     }
-
-    @media screen and (max-width: 500px) {
-        table {
-            font-size: 1.4rem;
-        }
-
-        th,
-        td {
-            height: 35px;
-        }
-    }
 `;
 
 export const StationInfoContainer = styled.div`
@@ -624,23 +613,26 @@ export const StationInfoContainer = styled.div`
 export const StationContainer = styled.div`
     .transfer_station {
         display: flex;
+        align-items: center;
         margin-top: 10px;
+        margin-bottom: 30px;
     }
 
     .transfer_station h2 {
         display: inline-block;
+        margin-bottom: 0;
     }
 
     .transfer_station_line {
-        display: inline-block;
-        min-width: 18px;
-        height: 18px;
-        line-height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 20px;
+        height: 20px;
         padding: 0 5px;
         margin-left: 8px;
-        border-radius: 15px;
+        border-radius: 10px;
         color: #fff;
-        text-align: center;
         font-size: 1.2rem;
     }
 
@@ -798,14 +790,9 @@ export const StationContainer = styled.div`
         margin-bottom: 15px;
     }
 
-    .info > span:nth-child(1),
-    span:nth-child(2) {
-        vertical-align: top;
-    }
-
     .info span,
     p {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         color: #4f4f4f;
     }
 
@@ -816,9 +803,9 @@ export const StationContainer = styled.div`
 
     .info span svg,
     img {
-        width: 16px;
-        height: 16px;
-        margin-right: 7px;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
         color: #9ca3af;
         vertical-align: top;
     }

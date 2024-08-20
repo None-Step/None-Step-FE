@@ -531,7 +531,7 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                             <h2 className="info_title">환승역</h2>
                             {transferLine.map((transfer, index) => (
                                 <div
-                                    key={`line${transfer}`}
+                                    key={`line_${transfer}`}
                                     className={`transfer_station_line ${transferLineColor[index]}`}
                                 >
                                     <span>{transfer}</span>

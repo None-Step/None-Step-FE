@@ -27,9 +27,15 @@ import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
 import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectedCategory } from "@store/slices/categorySlice";
 
 const MainPage = () => {
     const scrollRef = useRef(null);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleScrollCategory = () => {
         const el = scrollRef.current;
@@ -47,6 +53,16 @@ const MainPage = () => {
         }
     };
 
+    const handleClickMap = (category) => {
+        navigate("/map");
+        dispatch(selectedCategory({ category: category }));
+    };
+
+    const handleClickChat = (region) => {
+        navigate(`/chat/${region}`);
+        dispatch(selectedCategory({ category: region }));
+    };
+
     return (
         <>
             <MainHeader />
@@ -59,19 +75,23 @@ const MainPage = () => {
                         onWheel={handleScrollCategory}
                     >
                         <li className="elevator">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("elevator")}
+                            >
                                 <img src={elevatorIcon} alt="elevator-icon" />
                                 <span>엘리베이터</span>
                             </CategoryBtn>
                         </li>
                         <li className="escalator">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("escal")}
+                            >
                                 <img src={escalatorIcon} alt="escalator-icon" />
                                 <span>에스컬레이터</span>
                             </CategoryBtn>
                         </li>
                         <li className="wheelchair_lift">
-                            <CategoryBtn>
+                            <CategoryBtn onClick={() => handleClickMap("lift")}>
                                 <img
                                     src={wheelchairLiftIcon}
                                     alt="wheelchair-lift-icon"
@@ -80,13 +100,17 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="toilet">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("toilet")}
+                            >
                                 <img src={toiletIcon} alt="toilet-icon" />
                                 <span>화장실</span>
                             </CategoryBtn>
                         </li>
                         <li className="dif_toilet">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("dif-toilet")}
+                            >
                                 <img
                                     src={difToiletIcon}
                                     alt="dif-toilet-icon"
@@ -95,7 +119,9 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="nursing_room">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("nursing-room")}
+                            >
                                 <img
                                     src={nursingRoomIcon}
                                     alt="nursing-room-icon"
@@ -104,29 +130,32 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                         <li className="atm">
-                            <CategoryBtn>
+                            <CategoryBtn onClick={() => handleClickMap("atm")}>
                                 <img src={atmIcon} alt="atm-icon" />
                                 <span>ATM</span>
                             </CategoryBtn>
                         </li>
                         <li className="aed">
-                            <CategoryBtn>
+                            <CategoryBtn onClick={() => handleClickMap("aed")}>
                                 <img src={aedIcon} alt="aed-icon" />
                                 <span>제세동기</span>
                             </CategoryBtn>
                         </li>
                         <li className="wheelchair_charger">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("charger")}
+                            >
                                 <img
                                     src={wheelchairChargerIcon}
                                     alt="wheelchair-charger-icon"
                                 />
-                                <span>전동 휠체어</span>
-                                <span>충전</span>
+                                <span>전동휠체어 충전</span>
                             </CategoryBtn>
                         </li>
                         <li className="customer_service">
-                            <CategoryBtn>
+                            <CategoryBtn
+                                onClick={() => handleClickMap("center")}
+                            >
                                 <img
                                     src={customerServiceIcon}
                                     alt="customer-service-icon"
@@ -140,7 +169,7 @@ const MainPage = () => {
                     <h3>채팅 바로가기</h3>
                     <ChatContainer>
                         <li className="capital_chat">
-                            <ChatBtn>
+                            <ChatBtn onClick={() => handleClickChat("capital")}>
                                 <span>수도권</span>
                                 <img
                                     src={seoulMetroIcon}
@@ -149,7 +178,7 @@ const MainPage = () => {
                             </ChatBtn>
                         </li>
                         <li className="busan_chat">
-                            <ChatBtn>
+                            <ChatBtn onClick={() => handleClickChat("busan")}>
                                 <span>부산</span>
                                 <img
                                     src={busanMetroIcon}
@@ -158,7 +187,7 @@ const MainPage = () => {
                             </ChatBtn>
                         </li>
                         <li className="daejeon_chat">
-                            <ChatBtn>
+                            <ChatBtn onClick={() => handleClickChat("daejeon")}>
                                 <span>대전</span>
                                 <img
                                     src={daejeonMetroIcon}
@@ -167,7 +196,7 @@ const MainPage = () => {
                             </ChatBtn>
                         </li>
                         <li className="daegu_chat">
-                            <ChatBtn>
+                            <ChatBtn onClick={() => handleClickChat("daegu")}>
                                 <span>대구</span>
                                 <img
                                     src={daeguMetroIcon}
@@ -176,7 +205,7 @@ const MainPage = () => {
                             </ChatBtn>
                         </li>
                         <li className="gwangju_chat">
-                            <ChatBtn>
+                            <ChatBtn onClick={() => handleClickChat("gwangju")}>
                                 <span>광주</span>
                                 <img
                                     src={gwangjuMetroIcon}

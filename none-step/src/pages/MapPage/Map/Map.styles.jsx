@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const MapWrapper = styled.div`
     position: relative;
-    top: 60px;
     width: 100%;
-    max-width: 100%;
-    height: calc(100vh - 120px);
+    max-width: 600px;
+    height: calc(100vh - 139px);
+    margin-top: 64px;
+    margin-bottom: 75px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -13,7 +14,7 @@ export const SearchWrapper = styled.div`
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 85%;
+    width: 90%;
     max-width: 100%;
     z-index: 10;
 `;
@@ -73,19 +74,21 @@ export const CategoryContainer = styled.ul`
     }
 
     li:first-child {
-        margin-left: 8.5%;
+        margin-left: 5%;
     }
 
     li:last-child {
-        margin-right: 8.5%;
+        margin-right: 5%;
     }
 `;
 
 export const CategoryBtn = styled.button`
+    display: flex;
+    align-items: center;
     height: 32px;
     padding: 6px 12px;
     border: none;
-    border-radius: 15px;
+    border-radius: 16px;
     background: ${(props) => props.theme.colors.white};
     box-shadow: ${(props) => props.theme.colors.shadow200};
     font-size: 1.4rem;
@@ -99,8 +102,8 @@ export const CategoryBtn = styled.button`
 
     svg,
     img {
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
     }
 
     span {
@@ -148,13 +151,26 @@ export const OverlayContainer = styled.div`
     }
 `;
 
-export const ZoomControlContainer = styled.div`
-    position: absolute;
-    bottom: 80px;
-    right: 12px;
-    width: 36px;
-    box-shadow: ${(props) => props.theme.colors.shadow200};
+export const ZoomControlWrapper = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 600px;
     z-index: 10;
+`;
+
+export const ZoomControlContainer = styled.div`
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin: 0 10px;
+`;
+
+export const ZoomControlBtnContainer = styled.div`
+    position: fixed;
+    bottom: 155px;
+    width: 36px;
+    margin-right: 2px;
+    box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
 
 export const ZoomControlBtn = styled.button`
@@ -183,9 +199,8 @@ export const ZoomControlBtn = styled.button`
 `;
 
 export const LocationBtn = styled.button`
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
+    position: fixed;
+    bottom: 95px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +213,6 @@ export const LocationBtn = styled.button`
     outline: none;
     transition: all 0.2s ease;
     cursor: pointer;
-    z-index: 10;
 
     &:active {
         background: ${(props) => props.theme.colors.gray06};

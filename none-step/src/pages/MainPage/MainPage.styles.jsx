@@ -11,7 +11,7 @@ export const MainWrapper = styled.div`
     background: #fafafa;
 
     h3 {
-        margin-bottom: 24px;
+        margin-bottom: 30px;
         font-size: 1.8rem;
     }
 `;
@@ -27,14 +27,14 @@ export const MainSection = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
-    padding: 20px;
+    padding: 20px 20px 25px;
     background: ${(props) => props.theme.colors.white};
 `;
 
 export const CategoryContainer = styled.ul`
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 8px;
     padding: 0 10px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -50,21 +50,22 @@ export const CategoryContainer = styled.ul`
 `;
 
 export const CategoryBtn = styled.button`
-    width: 70px;
+    width: 100px;
+    height: 100px;
     border: none;
     background: none;
     outline: none;
     cursor: pointer;
 
     img {
-        width: 32px;
-        height: 32px;
-        margin-bottom: 10px;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 15px;
     }
 
     span {
         display: block;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: 500;
         word-break: keep-all;
     }
@@ -80,17 +81,17 @@ export const ChatContainer = styled.ul`
 
     li {
         float: left;
-        width: calc(50% - 5px);
+        width: calc(50% - 7.5px);
         height: 80px;
     }
 
     li:nth-child(odd) {
-        margin-right: 10px;
-        margin-bottom: 10px;
+        margin-right: 15px;
+        margin-bottom: 15px;
     }
 
     li:nth-child(even) {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 `;
 
@@ -99,6 +100,7 @@ export const ChatBtn = styled.button`
     width: 100%;
     height: 100%;
     border: none;
+    border-radius: 5px;
     background: none;
     box-shadow: ${(props) => props.theme.colors.shadow200};
     outline: none;
@@ -116,7 +118,7 @@ export const ChatBtn = styled.button`
         position: absolute;
         top: 10px;
         left: 10px;
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         font-weight: 600;
     }
 `;
