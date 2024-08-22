@@ -1,9 +1,5 @@
-// KakaoMapPlaceSearch.jsx
-
 import React from 'react';
 import { SearchIndex, SearchIcon, SearchBox, SearchForm, Hr, InputReload } from './FindWay.style';
-import ReloadIcon from '@/assets/img/current.svg'
-import Search from '@/assets/img/search.svg'
 
 const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, destinationName, setOriginName, setDestinationName }) => {
   // 키워드가 지하철역인지 확인하기
