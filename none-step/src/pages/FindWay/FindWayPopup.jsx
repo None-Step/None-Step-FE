@@ -103,12 +103,31 @@ const OverviewValue = styled.p`
 const StationList = styled.ul`
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  position: relative;
+  padding-left: 20px;
 `;
 
 const StationItem = styled.li`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;
   margin-bottom: 15px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 4px; /* 점의 중앙에 맞추기 위해 조정 */
+    bottom: -15px;
+    width: 2px;
+    background-color: ${(props) => props.color || props.theme.colors.gray03};
+    z-index: 0;
+  }
+
+  &:last-child:before {
+    display: none; /* 마지막 역에서는 선을 표시하지 않음 */
+  }
 `;
 
 const StationDot = styled.div`
@@ -117,6 +136,7 @@ const StationDot = styled.div`
   border-radius: 50%;
   background-color: ${props => props.color || props.theme.colors.gray03};
   margin-right: 10px;
+  z-index: 1; /* 선 위에 점을 표시하기 위해 z-index 조정 */
 `;
 
 const StationInfo = styled.div`
@@ -159,6 +179,7 @@ const RouteOverview = styled.div`
 
 // 호선 색상을 가져오기
 const getLineColor = (lineName) => {
+  if (!lineName) return theme.colors.gray03; // 기본 색상 반환
   const lineNumber = lineName.replace(/[^0-9]/g, '');
   return theme.capitalLines[`${lineNumber}`] || theme.colors.gray03;
 };
@@ -177,7 +198,7 @@ const formatDistance = (meters) => {
 
 
 const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
-  console.log('받은 routeInfo 데이터: ', routeInfo);
+  // console.log('받은 routeInfo 데이터: ', routeInfo);
   const [activeTab, setActiveTab] = useState('도보 및 자전거');
 
   // 자전거 메시지 설정
@@ -265,18 +286,32 @@ const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
             </RouteOverview>
 
             <StationList>
-              {subwayRoute.stationSet?.stations?.map((station, index) => {
+              {subwayRoute.stationSet?.stations?.map((station, index, stations) => {
                 const isTransfer = subwayRoute.exChangeInfoSet?.exChangeInfo?.find(
                   transfer => transfer.exName === station.endName
                 );
-                const lineColor = getLineColor(subwayRoute.driveInfoSet?.driveInfo[0]?.laneName);
+                const currentLine = subwayRoute.driveInfoSet?.driveInfo.find(
+                  info => info.startName === station.startName
+                );
+                const isFirstStationOfLine = index === 0 || 
+                  currentLine?.startName !== subwayRoute.driveInfoSet?.driveInfo.find(
+                    info => info.startName === stations[index - 1].startName
+                  )?.laneName;
+                const lineColor = getLineColor(currentLine?.laneName);
 
                 return (
                   <React.Fragment key={index}>
                     <StationItem>
                       <StationDot color={lineColor} />
                       <StationInfo>
-                        <StationName>{station.startName}</StationName>
+                        <StationName>
+                          {station.startName}
+                          {isFirstStationOfLine && currentLine && (
+                            <span style={{ marginLeft: '5px', fontSize: '1.2rem', color: lineColor }}>
+                              {currentLine.laneName}
+                            </span>
+                          )}
+                        </StationName>
                         {index === 0 && <TransferInfo>출발</TransferInfo>}
                       </StationInfo>
                     </StationItem>
@@ -288,7 +323,7 @@ const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
                           <StationName>{station.endName}</StationName>
                           <TransferInfo>
                             <FaExchangeAlt /> {isTransfer.laneName}으로 환승
-                            (열차 {isTransfer.fastTrain}-{isTransfer.fastDoor}, 도보 {isTransfer.exWalkTime}초)
+                            (빠른환승 {isTransfer.fastTrain}-{isTransfer.fastDoor}, 도보 {isTransfer.exWalkTime}초)
                           </TransferInfo>
                         </StationInfo>
                       </StationItem>
@@ -306,9 +341,6 @@ const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
                 );
               })}
             </StationList>
-            <Button onClick={() => onNavigate('subway')}>
-              <FaArrowRight />
-            </Button>
           </SubwayRouteInfo>
         ) : (
           <RouteDetail>이용 가능한 지하철 경로가 없습니다.</RouteDetail>

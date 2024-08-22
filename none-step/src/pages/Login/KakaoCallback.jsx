@@ -16,7 +16,7 @@ const KakaoCallback = () => {
         .then(response => {
           if (response.data.message.toLowerCase() === 'success') {
             // 응답 헤더에서 액세스 토큰 추출
-            const accessToken = response.headers['Authorization'];
+            const accessToken = response.headers['authorization'];
             
             if (accessToken) {
               // 액세스 토큰을 세션 스토리지에 저장
