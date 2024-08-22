@@ -435,15 +435,8 @@ const FindWay = () => {
         {/* 사용자 위치 마커 및 오버레이 */}
         {userLocation && (
           <>
-            <Circle
-              center={userLocation}
-              radius={8}
-              strokeWeight={4}
-              strokeColor="#ffffff"
-              strokeOpacity={1}
-              strokeStyle="solid"
-              fillColor="#007AFF"
-              fillOpacity={1}
+            <MapMarker 
+              position={userLocation} 
               onClick={() => handleMarkerClick('userLocation')}
             />
             {showUserLocationOverlay && !origin && !destination && !isNavigating && (
