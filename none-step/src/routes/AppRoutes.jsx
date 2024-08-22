@@ -9,7 +9,6 @@ import SignUpSuccess from "@pages/SignUp/SignUpSuccess";
 import FindIDSuccess from "@pages/FindID/FindIDSuccess";
 import FindPW from "@pages/FindPW/FindPW";
 import FindWay from "@pages/FindWay/FindWay";
-import FindWayConfirm from "@pages/FindWay/FindWayConfirm";
 import FindWayNav from "@pages/FindWay/FindWayNav";
 import FindPWResetting from "@pages/FindPW/FindPWResetting";
 import FindPWSuccess from "@pages/FindPW/FindPWSuccess";
@@ -25,7 +24,6 @@ const AppRoutes = () => {
             <Route path="/" element={<MainPage />} />
 
             <Route path="/findway" element={<FindWay />} />
-            <Route path="/findway/route" element={<FindWayConfirm />} />
             <Route path="/findway/navigate" element={<FindWayNav />} />
 
             <Route path="/signup/terms" element={<TermsOfService />} />
