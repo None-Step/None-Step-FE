@@ -12,7 +12,7 @@ export const PageWrapper = styled.div`
 export const SearchBox = styled.div`
   position: absolute;
   top: 70px;
-  z-index: 3;
+  z-index: 4;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   border-bottom: 1px solid ${(props) => props.theme.colors.gray05};
@@ -173,3 +173,7 @@ export const ArrowIcon = styled(FaArrowRight)`
   height: 1.5rem;
   color: #333;
 `;
+
+export const UserLocationStart = styled(LocationText)`
+  color: ${props => props.theme.colors.primary};
+`
