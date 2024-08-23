@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '@/apis/axiosInstance';
 import styled from 'styled-components';
+import { 
+  ModalBG, 
+  WithdrawContainer, 
+  Title, 
+  Notice, 
+  ButWrap, 
+  SeconBut, 
+  But 
+} from '../MyPage/MyPage.style'; // 경로는 실제 파일 위치에 맞게 조정해주세요
 
-// 인풋 아래 퀵버튼
 const QuickRouteButton = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 50px;
@@ -24,6 +32,7 @@ const QuickRouteButton = styled.div`
 
 const QuickRoute = ({ userLocation }) => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   // 가장 가까운 지하철역 찾기
   const findNearestStation = (lat, lng) => {
@@ -55,6 +64,12 @@ const QuickRoute = ({ userLocation }) => {
       alert('현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.');
       return;
     }
+
+    setShowModal(true); // 모달 표시
+  };
+
+  const handleConfirm = () => {
+    setShowModal(false); // 모달 닫기
 
     // 1. 가장 가까운 지하철역 찾기
     findNearestStation(userLocation.lat, userLocation.lng)
@@ -91,10 +106,34 @@ const QuickRoute = ({ userLocation }) => {
       });
   };
 
+  const handleCancel = () => {
+    setShowModal(false); // 모달 닫기
+  };
+
   return (
-    <QuickRouteButton onClick={handleQuickRoute}>
-      빠른 경로
-    </QuickRouteButton>
+    <>
+      <QuickRouteButton onClick={handleQuickRoute}>
+        빠른 경로
+      </QuickRouteButton>
+
+      {showModal && (
+        <>
+          <ModalBG onClick={handleCancel} />
+          <WithdrawContainer>
+            <Title>빠른 경로 안내</Title>
+            <Notice>
+              <span>회원님이 검색하신 역의 가장 가까운</span>
+              <span>엘리베이터, 에스컬레이터의 위치로</span>
+              <span>길 안내를 시작합니다.</span>
+            </Notice>
+            <ButWrap>
+              <SeconBut onClick={handleCancel}>취소</SeconBut>
+              <But onClick={handleConfirm}>확인</But>
+            </ButWrap>
+          </WithdrawContainer>
+        </>
+      )}
+    </>
   );
 };
 
