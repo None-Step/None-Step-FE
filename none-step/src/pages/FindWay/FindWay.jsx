@@ -54,13 +54,13 @@ const FindWay = () => {
   const getStationInfo = useCallback(async (lat, lng) => {
     try {
       const requestData = { latitude: lat, longitude: lng };
-      console.log('getStationInfo 요청 데이터:', requestData);
+      console.log('now-station 요청 데이터:', requestData);
       const response = await axiosInstance.get(`/nonestep/subway/now-station`, { params: requestData });
-      console.log('getStationInfo 응답 데이터:', response.data);
+      console.log('now-station 응답 데이터:', response.data);
       return response.data;
     } catch (error) {
       console.error('역 정보 조회 실패:', error);
-      console.log('getStationInfo 오류 응답:', error.response?.data);
+      console.log('now-station 오류 응답:', error.response?.data);
       throw error;
     }
   }, []);
@@ -208,119 +208,112 @@ const FindWay = () => {
       let isStationToStation = originStation.station && destinationStation.station;
   
       // 도보 경로 계산
-      if (!isStationToStation) {
-        try {
-          const walkRequestData = {
+      try {
+        const walkRequestData = {
             currentLatitude: origin.lat,
             currentLongitude: origin.lng,
             goRegion: destinationStation.region,
             goStation: destinationStation.station
-          };
-          walkResponse = await axiosInstance.post('/nonestep/road/go-station', walkRequestData);
-          
-          if (walkResponse.data && walkResponse.data.features) {
+        };
+
+        console.log('도보 경로 계산 요청 데이터 :', walkRequestData);
+        
+        walkResponse = await axiosInstance.post('/nonestep/road/go-station', walkRequestData);
+        
+        console.log('도보 경로 계산 응답 데이터 :', walkResponse.data);
+
+        if (walkResponse.data && walkResponse.data.features) {
             walkRouteInfo = walkResponse.data.features.reduce((acc, feature) => {
-              acc.time += feature.properties.time || 0;
-              acc.distance += feature.properties.distance || 0;
-              return acc;
+                acc.time += feature.properties.time || 0;
+                acc.distance += feature.properties.distance || 0;
+                return acc;
             }, { time: 0, distance: 0 });
-          }
-        } catch (error) {
-          if (error.response && error.response.status === 400) {
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
             console.log('도보 경로 조회 실패:', error.response.data);
-            walkRouteInfo = { time: 0, distance: 0, isOverDistance: true, errorMessage: error.response.data };
-          } else {
+            walkRouteInfo = { time: 0, distance: 0, isOverDistance: true };
+        } else {
             throw error;
-          }
         }
-      }
-  
+      }  
+
       // 자전거 경로 계산
-      if (!isStationToStation && !walkRouteInfo.isOverDistance) {
-        if (originStation.region === '수도권' || originStation.region === '대전') {
-          const bikeApiEndpoint = originStation.region === '수도권' ? '/nonestep/road/seoul-bike' : '/nonestep/road/daejeon-bike';
-          const bikeRequestData = {
-            currentLatitude: origin.lat,
-            currentLongitude: origin.lng,
-            goRegion: destinationStation.region,
-            goStation: destinationStation.station
-          };
-    
-          console.log('자전거 경로 요청 데이터:', bikeRequestData);
-          const bikeResponse = await axiosInstance.post(bikeApiEndpoint, bikeRequestData);
-          console.log('자전거 경로 응답 데이터:', bikeResponse.data);
-    
-          if (bikeResponse.data && bikeResponse.data.features && bikeResponse.data.features.length > 0) {
-            // 1. 출발지에서 자전거 보관소까지의 도보 경로
-            const walkToBikeFeature = bikeResponse.data.features[0];
-            const walkToBikeInfo = {
-              time: walkToBikeFeature.properties.time || 0,
-              distance: walkToBikeFeature.properties.distance || 0
-            };
-    
-            // 2. 자전거 보관소에서 목적지까지의 자전거 경로
-            const bikeStation = walkToBikeFeature.geometry.coordinates[walkToBikeFeature.geometry.coordinates.length - 1];
-            let bikeToDestinationInfo;
-    
-            if (destination.isStation) {
-              // 목적지가 역인 경우
+      try {
+        if (destination.isStation && !walkRouteInfo.isOverDistance) {
+          if (originStation.region === '수도권' || originStation.region === '대전') {
+              const bikeApiEndpoint = originStation.region === '수도권' ? '/nonestep/road/seoul-bike' : '/nonestep/road/daejeon-bike';
+              const bikeRequestData = {
+                  currentLatitude: origin.lat,
+                  currentLongitude: origin.lng,
+                  goRegion: destinationStation.region,
+                  goStation: destinationStation.station
+              };
   
-              const goStationResponse = await axiosInstance.post('/nonestep/road/go-station', {
-                currentLatitude: bikeStation[1],
-                currentLongitude: bikeStation[0],
-                goRegion: destinationStation.region,
-                goStation: destinationStation.station
-              });
-              
-              bikeToDestinationInfo = goStationResponse.data.features.reduce((acc, feature) => {
-                acc.time += feature.properties.time || 0;
-                acc.distance += feature.properties.distance || 0;
-                return acc;
-              }, { time: 0, distance: 0 });
-            } else {
-              // 목적지가 역이 아닌 경우
-              const goRoadResponse = await axiosInstance.post('/nonestep/road/go-road', {
-                currentLatitude: bikeStation[1],
-                currentLongitude: bikeStation[0],
-                goLatitude: destination.lat,
-                goLongitude: destination.lng
-              });
-              bikeToDestinationInfo = goRoadResponse.data.features.reduce((acc, feature) => {
-                acc.time += feature.properties.time || 0;
-                acc.distance += feature.properties.distance || 0;
-                return acc;
-              }, { time: 0, distance: 0 });
-            }
-    
-            // 자전거 이동 시간 조정 (도보 속도의 1.5배로 가정)
-            bikeToDestinationInfo.time = Math.round(bikeToDestinationInfo.time * 0.67);
-    
-            bikeRouteInfo = {
-              bikeStation: { lat: bikeStation[1], lng: bikeStation[0] }, // 자전거 보관소 위치 저장 (마커 표시용)
-              walkTime: walkToBikeInfo.time,
-              walkDistance: walkToBikeInfo.distance,
-              bikeTime: bikeToDestinationInfo.time,
-              bikeDistance: bikeToDestinationInfo.distance,
-              totalTime: walkToBikeInfo.time + bikeToDestinationInfo.time,
-              totalDistance: walkToBikeInfo.distance + bikeToDestinationInfo.distance,
-              message: `출발지에서 ${formatDistance(walkToBikeInfo.distance)} 걸어서 자전거 보관소로 이동 후, ${formatDistance(bikeToDestinationInfo.distance)} 자전거 이용`
-            };
-          } else {
-            bikeRouteInfo = { 
-              bikeStation: null, // 자전거 보관소가 없는 경우 (마커 표시용)
-              walkTime: 0, 
-              walkDistance: 0, 
-              bikeTime: 0, 
-              bikeDistance: 0, 
-              totalTime: 0,
-              totalDistance: 0,
-              message: "가까운 거리에 이용 가능한 자전거 보관소가 없습니다." 
-            };
+              console.log('자전거 경로 요청 데이터:', bikeRequestData);
+              const bikeResponse = await axiosInstance.post(bikeApiEndpoint, bikeRequestData);
+              console.log('자전거 경로 응답 데이터:', bikeResponse.data);
+  
+              if (bikeResponse.data && bikeResponse.data.features && bikeResponse.data.features.length > 0) {
+                  // 1. 출발지에서 자전거 보관소까지의 도보 경로
+                  const walkToBikeFeature = bikeResponse.data.features[0];
+                  const walkToBikeInfo = {
+                      time: walkToBikeFeature.properties.time || 0,
+                      distance: walkToBikeFeature.properties.distance || 0
+                  };
+  
+                  // 2. 자전거 보관소에서 목적지까지의 자전거 경로
+                  const bikeStation = walkToBikeFeature.geometry.coordinates[walkToBikeFeature.geometry.coordinates.length - 1];
+                  let bikeToDestinationInfo;
+  
+                  const goStationResponse = await axiosInstance.post('/nonestep/road/go-station', {
+                      currentLatitude: bikeStation[1],
+                      currentLongitude: bikeStation[0],
+                      goRegion: destinationStation.region,
+                      goStation: destinationStation.station
+                  });
+  
+                  bikeToDestinationInfo = goStationResponse.data.features.reduce((acc, feature) => {
+                      acc.time += feature.properties.time || 0;
+                      acc.distance += feature.properties.distance || 0;
+                      return acc;
+                  }, { time: 0, distance: 0 });
+  
+                  // 자전거 이동 시간 조정 (도보 속도의 1.5배로 가정)
+                  bikeToDestinationInfo.time = Math.round(bikeToDestinationInfo.time * 0.67);
+  
+                  bikeRouteInfo = {
+                      bikeStation: { lat: bikeStation[1], lng: bikeStation[0] }, // 자전거 보관소 위치 저장 (마커 표시용)
+                      walkTime: walkToBikeInfo.time,
+                      walkDistance: walkToBikeInfo.distance,
+                      bikeTime: bikeToDestinationInfo.time,
+                      bikeDistance: bikeToDestinationInfo.distance,
+                      totalTime: walkToBikeInfo.time + bikeToDestinationInfo.time,
+                      totalDistance: walkToBikeInfo.distance + bikeToDestinationInfo.distance,
+                      message: `출발지에서 ${formatDistance(walkToBikeInfo.distance)} 걸어서 자전거 보관소로 이동 후, ${formatDistance(bikeToDestinationInfo.distance)} 자전거 이용`
+                  };
+              } else {
+                  bikeRouteInfo = { 
+                      bikeStation: null, // 자전거 보관소가 없는 경우 (마커 표시용)
+                      walkTime: 0, 
+                      walkDistance: 0, 
+                      bikeTime: 0, 
+                      bikeDistance: 0, 
+                      totalTime: 0,
+                      totalDistance: 0,
+                      message: "가까운 거리에 이용 가능한 자전거 보관소가 없습니다." 
+                  };
+              }
           }
-        }
+        }  
   
+
+      } catch (error) {
+        console.error('자전거 경로 계산 중 오류 발생:', error);
+        // 자전거 경로 계산 실패 시에도 도보 경로가 있으면 계속 진행
+        bikeRouteInfo = null;
       }
-  
+      
       // 지하철 경로 계산
       const subwayRequestData = {
         region: originStation.region,
@@ -344,7 +337,6 @@ const FindWay = () => {
         walkTime: formatTime(Math.round(walkRouteInfo.time / 60)), // 도보 경로의 총 소요 시간
         walkDistance: formatDistance(walkRouteInfo.distance), // 도보 경로의 총 거리
         isOverDistance: walkRouteInfo.isOverDistance,
-        overDistanceErrorMessage: walkRouteInfo.errorMessage,
       
         // 도보 + 자전거 경로
         bikeWalkTime: bikeRouteInfo ? formatTime(Math.round(bikeRouteInfo.walkTime / 60)) : '0분', // 1. 출발지 -> 자전거 보관소(도보) 소요 시간(분)
@@ -362,8 +354,10 @@ const FindWay = () => {
         subwayTime: subwayRouteInfo ? formatTime(subwayRouteInfo.globalTravelTime) : '0분', // 지하철 경로의 총 소요 시간 (응답 데이터 기본 단위 : 분)
         subwayDistance: subwayRouteInfo ? formatDistance(subwayRouteInfo.globalDistance * 1000) : '0m', // 지하철 경로의 총 거리 (응답 데이터 기본 단위 : km)
         isStationToStation: isStationToStation
+
       };
-      console.log('bikeRouteInfo 데이터 : ',bikeRouteInfo)
+      console.log('routeInfo 데이터 : ',routeInfo);
+      console.log('bikeRouteInfo 데이터 : ',bikeRouteInfo);
 
   
       setRouteInfo(routeInfo);
@@ -374,7 +368,7 @@ const FindWay = () => {
         walk: walkData,
         bike: bikeData
       });
-      
+
       setIsRouteCalculated(true);
       setShowRoutePopup(true);
     } catch (error) {
