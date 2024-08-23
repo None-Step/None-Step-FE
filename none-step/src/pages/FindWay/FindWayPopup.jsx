@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { FaArrowRight, FaWalking, FaBicycle, FaSubway, FaExchangeAlt } from 'react-icons/fa';
 import Close from '@/assets/img/Close.svg';
-import { theme } from '@/styles/Theme'
+import { theme } from '@/styles/Theme';
+import axiosInstance from '@/apis/axiosInstance';
 
 const PopupContainer = styled.div`
   position: absolute;
-  top: calc(70px + 86px);
+  top: calc(70px + 77px);
   left: 0;
   right: 0;
-  bottom: 80px;
+  bottom: 77px;
   background-color: white;
   padding: 20px;
-  z-index: 1000;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -89,13 +90,13 @@ const OverviewItem = styled.div`
 `;
 
 const OverviewLabel = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: ${props => props.theme.colors.gray01};
   margin: 0;
 `;
 
 const OverviewValue = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: bold;
   margin: 5px 0 0;
 `;
@@ -105,6 +106,7 @@ const StationList = styled.ul`
   padding: 0;
   margin: 0;
   position: relative;
+  padding-top: 20px;
   padding-left: 20px;
 `;
 
@@ -144,14 +146,17 @@ const StationInfo = styled.div`
 `;
 
 const StationName = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin: 0;
 `;
 
 const TransferInfo = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: ${props => props.theme.colors.gray01};
   margin: 5px 0 0;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 `;
 
 const LinePath = styled.div`
@@ -173,15 +178,82 @@ const RouteOverview = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid ${props => props.theme.colors.gray06};
+`;
+
+const LaneName = styled.span`
+  margin-left: 5px; 
+  font-size: 1.2rem;
+  padding: 0.25rem 0.6rem;
+  color: white;
+  border-radius: 50px;
 `;
 
 
 // 호선 색상을 가져오기
-const getLineColor = (lineName) => {
-  if (!lineName) return theme.colors.gray03; // 기본 색상 반환
-  const lineNumber = lineName.replace(/[^0-9]/g, '');
-  return theme.capitalLines[`${lineNumber}`] || theme.colors.gray03;
+const getLineColor = (lineName, region) => {
+  if (!lineName || !region) return theme.colors.gray03; // 기본 색상 반환
+
+  // console.log('getLineColor 데이터 / 호선 :', lineName,'지역 :',region);
+
+  // 지역별로 각 라인의 명칭에 맞게 색상을 매칭
+  switch(region) {
+    case '수도권':
+      if (lineName.includes('1호선')) return theme.capitalLines.one;
+      if (lineName.includes('2호선')) return theme.capitalLines.two;
+      if (lineName.includes('3호선')) return theme.capitalLines.three;
+      if (lineName.includes('4호선')) return theme.capitalLines.four;
+      if (lineName.includes('5호선')) return theme.capitalLines.five;
+      if (lineName.includes('6호선')) return theme.capitalLines.six;
+      if (lineName.includes('7호선')) return theme.capitalLines.seven;
+      if (lineName.includes('8호선')) return theme.capitalLines.eight;
+      if (lineName.includes('9호선')) return theme.capitalLines.nine;
+      if (lineName.includes('공항철도')) return theme.capitalLines.airport;
+      if (lineName.includes('경의중앙선')) return theme.capitalLines.gyeonguiJungang;
+      if (lineName.includes('경춘선')) return theme.capitalLines.gyeongchun;
+      if (lineName.includes('수인분당선')) return theme.capitalLines.suinBundang;
+      if (lineName.includes('신분당선')) return theme.capitalLines.shinbundang;
+      if (lineName.includes('경강선')) return theme.capitalLines.gyeonggang;
+      if (lineName.includes('서해선')) return theme.capitalLines.seohae;
+      if (lineName.includes('인천1호선')) return theme.capitalLines.incheon1;
+      if (lineName.includes('인천2호선')) return theme.capitalLines.incheon2;
+      if (lineName.includes('에버라인')) return theme.capitalLines.everline;
+      if (lineName.includes('의정부')) return theme.capitalLines.uijeongbu;
+      if (lineName.includes('우이.신설선')) return theme.capitalLines.wooyiShinseol;
+      if (lineName.includes('김포골드라인')) return theme.capitalLines.gimpoGold;
+      if (lineName.includes('신림선')) return theme.capitalLines.sillim;
+      if (lineName.includes('GTXA')) return theme.capitalLines.GTXA;
+      break;
+
+    case '부산':
+      if (lineName.includes('1호선')) return theme.busanLines.one;
+      if (lineName.includes('2호선')) return theme.busanLines.two;
+      if (lineName.includes('3호선')) return theme.busanLines.three;
+      if (lineName.includes('4호선')) return theme.busanLines.four;
+      if (lineName.includes('동해선')) return theme.busanLines.donghae;
+      if (lineName.includes('김해경전철')) return theme.busanLines.gimhae;
+      break;
+
+    case '대구':
+      if (lineName.includes('1호선')) return theme.daeguLines.one;
+      if (lineName.includes('2호선')) return theme.daeguLines.two;
+      if (lineName.includes('3호선')) return theme.daeguLines.three;
+      break;
+
+    case '대전':
+      if (lineName.includes('1호선')) return theme.daejeonLines.one;
+      break;
+
+    case '광주':
+      if (lineName.includes('1호선')) return theme.gwangjuLines.one;
+      break;
+
+    default:
+      return theme.colors.gray03; // 매칭되는 지역이 없는 경우 기본 색상
+  }
+  
+  return theme.colors.gray03; // 매칭되지 않은 경우 기본 색상
 };
 
 // 시간 포맷 (분 -> 시간 분)
@@ -196,158 +268,264 @@ const formatDistance = (meters) => {
   return `${(meters / 1000).toFixed(2)}km`;
 };
 
+// 환승 시간 포맷 함수
+const formatTransferTime = (seconds) => {
+  if (seconds < 60) return `${seconds}초`;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}분 ${remainingSeconds}초`;
+};
 
 const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
-  // console.log('받은 routeInfo 데이터: ', routeInfo);
-  const [activeTab, setActiveTab] = useState('도보 및 자전거');
+  // console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
+  const [activeTab, setActiveTab] = useState(routeInfo.isStationToStation ? '지하철 경로' : '도보 및 자전거');
+  const [coloredStations, setColoredStations] = useState([]);
+
+  // console.log('routeInfo 데이터 :', routeInfo);
 
   // 자전거 메시지 설정
   const bikeMessage = routeInfo.bikeTime > 0 
   ? `거리 ${routeInfo.bikeDistance}m` 
   : routeInfo.bikeMessage || "근처에 자전거 보관소가 없습니다.";
 
-  // 자전거 경로 사용 가능 여부 확인
-  const isBikeAvailable = routeInfo.bikeTime !== '0분' && routeInfo.bikeDistance !== '0m';
+  // 1. 카카오 장소 검색 API로 위경도 받아오기
+  const fetchCoordinates = useCallback((stationName, lineName) => {
+    return new Promise((resolve, reject) => {
+      const ps = new kakao.maps.services.Places();
+      ps.keywordSearch(`${stationName} ${lineName}`, (data, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          resolve({ latitude: data[0].y, longitude: data[0].x });
+        } else {
+          reject('Error fetching coordinates');
+        }
+      });
+    });
+  }, []);
 
-  const handleNavigate = (routeType) => {
-    onNavigate(routeType);
-  };
+  // 2. 받아온 위경도로 now-station API 지역 정보 받아오기
+  const fetchStationRegion = useCallback(async (latitude, longitude) => {
+    try {
+      const response = await axiosInstance.get(`/nonestep/subway/now-station?latitude=${latitude}&longitude=${longitude}`);
+      return response.data.region;
+    } catch (error) {
+      console.error('Error fetching station region:', error);
+      return null;
+    }
+  }, []);
 
-  const subwayRoute =  routeInfo.subwayRoute;
+// 노선 색상 적용하기
+const applyLineColors = useCallback(async () => {
+  if (!routeInfo.subwayRoute?.driveInfoSet?.driveInfo?.length) return [];
 
-  return (
-    <PopupContainer>
-      <CloseButton onClick={onClose}>
-        <img src={Close} alt="닫기 버튼" />
-      </CloseButton>
-      <TabContainer>
-        <Tab $active={activeTab === '도보 및 자전거'} onClick={() => setActiveTab('도보 및 자전거')}>
-          도보 및 자전거
-        </Tab>
-        <Tab $active={activeTab === '지하철 경로'} onClick={() => setActiveTab('지하철 경로')}>
-          지하철 경로
-        </Tab>
-      </TabContainer>
+  const updatedStations = [];
+  let currentColor = null;
+  let currentLineName = null;
+  let nextLineName = null;
 
-      <TabContent $active={activeTab === '도보 및 자전거'}>
+  for (let i = 0; i < routeInfo.subwayRoute.stationSet.stations.length; i++) {
+    const station = routeInfo.subwayRoute.stationSet.stations[i];
+    const nextStation = routeInfo.subwayRoute.stationSet.stations[i + 1];
+
+    // 현재 역의 노선 정보 찾기
+    const currentLine = routeInfo.subwayRoute.driveInfoSet.driveInfo.find(
+      info => info.startName === station.startName
+    );
+
+    // 다음 역의 노선 정보 찾기 (환승 여부 확인용)
+    if (nextStation) {
+      const nextLine = routeInfo.subwayRoute.driveInfoSet.driveInfo.find(
+        info => info.startName === nextStation.startName
+      );
+      nextLineName = nextLine ? nextLine.laneName : null;
+    } else {
+      nextLineName = null;
+    }
+
+    console.log('Processing station:', station.startName, 'Current line:', currentLine?.laneName, 'Next line:', nextLineName);
+
+    if (!currentLine) {
+      console.warn(`No line info found for station: ${station.startName}`);
+      updatedStations.push({...station, color: currentColor, laneName: currentLineName});
+      continue;
+    }
+
+    if (currentLineName !== currentLine.laneName) {
+      currentLineName = currentLine.laneName;
+      try {
+        const coordinates = await fetchCoordinates(station.startName, currentLine.laneName);
+        const stationRegion = await fetchStationRegion(coordinates.latitude, coordinates.longitude);
+        currentColor = getLineColor(currentLine.laneName, stationRegion);
+      } catch (error) {
+        console.error(`Error fetching color for station ${station.startName}:`, error);
+        currentColor = currentColor || theme.colors.gray03;
+      }
+    }
+
+    updatedStations.push({ 
+      ...station, 
+      color: currentColor, 
+      laneName: currentLineName,
+      isTransfer: currentLineName !== nextLineName
+    });
+  }
+
+  return updatedStations;
+}, [routeInfo.subwayRoute, fetchCoordinates, fetchStationRegion]);
+
+useEffect(() => {
+  applyLineColors().then(updatedStations => {
+    console.log('Updated stations:', updatedStations);
+    setColoredStations(updatedStations);
+  });
+}, [applyLineColors]);
+
+return (
+  <PopupContainer>
+    <CloseButton onClick={onClose}>
+      <img src={Close} alt="닫기 버튼" />
+    </CloseButton>
+    <TabContainer>
+      <Tab $active={activeTab === '도보 및 자전거'} onClick={() => setActiveTab('도보 및 자전거')}>
+        도보 및 자전거
+      </Tab>
+      <Tab $active={activeTab === '지하철 경로'} onClick={() => setActiveTab('지하철 경로')}>
+        지하철 경로
+      </Tab>
+    </TabContainer>
+
+    <TabContent $active={activeTab === '도보 및 자전거'}>
+  {routeInfo.isOverDistance ? (
+    <RouteDetail>{routeInfo.overDistanceErrorMessage || '도보 경로를 제공할 수 없습니다.'}</RouteDetail>
+  ) : (
+    <>
+      <RouteOption>
+        <RouteInfo>
+          <IconContainer>
+            <FaWalking />
+            <RouteType>도보 {routeInfo.walkTime}</RouteType>
+          </IconContainer>
+          {routeInfo.walkTime === '0분' ? (
+            <RouteDetail>도보 경로를 제공하지 않는 거리입니다.</RouteDetail>
+          ) : (
+            <>
+              <RouteDetail>거리 {routeInfo.walkDistance}</RouteDetail>
+              <Button onClick={() => onNavigate('walk')}>
+                <FaArrowRight />
+              </Button>
+            </>
+          )}
+        </RouteInfo>
+      </RouteOption>
+      {routeInfo.bikeTime !== '0분' && routeInfo.bikeDistance !== '0m' && (
         <RouteOption>
           <RouteInfo>
             <IconContainer>
               <FaWalking />
-              <RouteType>도보 {routeInfo.walkTime}</RouteType>
+              <FaBicycle />
+              <RouteType>도보 + 자전거 {routeInfo.bikeTotalTime}</RouteType>
             </IconContainer>
-            <RouteDetail>거리 {routeInfo.walkDistance}</RouteDetail>
+            <RouteDetail>
+              도보 {routeInfo.bikeWalkDistance} ({routeInfo.bikeWalkTime}) +
+              자전거 {routeInfo.bikeRideDistance} ({routeInfo.bikeRideTime})
+            </RouteDetail>
+            <RouteDetail>{routeInfo.bikeMessage}</RouteDetail>
           </RouteInfo>
-          <Button onClick={() => onNavigate('walk')}>
-            <FaArrowRight />
-          </Button>
-        </RouteOption>
-        {routeInfo.bikeTime !== '0분' && routeInfo.bikeDistance !== '0m' && (
-          <RouteOption>
-            <RouteInfo>
-              <IconContainer>
-                <FaWalking />
-                <FaBicycle />
-                <RouteType>도보 + 자전거 {routeInfo.bikeTotalTime}</RouteType>
-              </IconContainer>
-              <RouteDetail>
-                도보 {routeInfo.bikeWalkDistance} ({routeInfo.bikeWalkTime}) + 
-                자전거 {routeInfo.bikeRideDistance} ({routeInfo.bikeRideTime})
-              </RouteDetail>
-              <RouteDetail>{routeInfo.bikeMessage}</RouteDetail>
-            </RouteInfo>
+          {routeInfo.walkTime !== '0분' && (
             <Button onClick={() => onNavigate('bike')}>
               <FaArrowRight />
             </Button>
-          </RouteOption>
-        )}
-      </TabContent>
+          )}
+        </RouteOption>
+      )}
+    </>
+  )}
+</TabContent>
 
-      <TabContent $active={activeTab === '지하철 경로'}>
-        {subwayRoute ? (
-          <SubwayRouteInfo>
-            <RouteOverview>
-              <OverviewItem>
-                <OverviewLabel>총 소요시간</OverviewLabel>
-                <OverviewValue>{formatTime(subwayRoute.globalTravelTime)}</OverviewValue>
-              </OverviewItem>
-              <OverviewItem>
-                <OverviewLabel>환승 횟수</OverviewLabel>
-                <OverviewValue>{subwayRoute.exChangeInfoSet?.exChangeInfo?.length || 0}</OverviewValue>
-              </OverviewItem>
-              <OverviewItem>
-                <OverviewLabel>요금</OverviewLabel>
-                <OverviewValue>{subwayRoute.fare}원</OverviewValue>
-              </OverviewItem>
-              <OverviewItem>
-                <OverviewLabel>총 거리</OverviewLabel>
-                <OverviewValue>{subwayRoute.globalDistance?.toFixed(1)}km</OverviewValue>
-              </OverviewItem>
-            </RouteOverview>
+    <TabContent $active={activeTab === '지하철 경로'}>
+      {routeInfo.subwayRoute ? (
+        <SubwayRouteInfo>
+          <RouteOverview>
+            <OverviewItem>
+              <OverviewLabel>총 소요시간</OverviewLabel>
+              <OverviewValue>{formatTime(routeInfo.subwayRoute.globalTravelTime)}</OverviewValue>
+            </OverviewItem>
+            <OverviewItem>
+              <OverviewLabel>환승 횟수</OverviewLabel>
+              <OverviewValue>{routeInfo.subwayRoute.exChangeInfoSet?.exChangeInfo?.length || 0}</OverviewValue>
+            </OverviewItem>
+            <OverviewItem>
+              <OverviewLabel>요금</OverviewLabel>
+              <OverviewValue>{routeInfo.subwayRoute.fare}원</OverviewValue>
+            </OverviewItem>
+            <OverviewItem>
+              <OverviewLabel>총 거리</OverviewLabel>
+              <OverviewValue>{routeInfo.subwayRoute.globalDistance?.toFixed(1)}km</OverviewValue>
+            </OverviewItem>
+          </RouteOverview>
 
-            <StationList>
-              {subwayRoute.stationSet?.stations?.map((station, index, stations) => {
-                const isTransfer = subwayRoute.exChangeInfoSet?.exChangeInfo?.find(
-                  transfer => transfer.exName === station.endName
-                );
-                const currentLine = subwayRoute.driveInfoSet?.driveInfo.find(
-                  info => info.startName === station.startName
-                );
-                const isFirstStationOfLine = index === 0 || 
-                  currentLine?.startName !== subwayRoute.driveInfoSet?.driveInfo.find(
-                    info => info.startName === stations[index - 1].startName
-                  )?.laneName;
-                const lineColor = getLineColor(currentLine?.laneName);
+          <StationList>
+            {coloredStations.map((station, index) => {
+              const isTransfer = routeInfo.subwayRoute.exChangeInfoSet?.exChangeInfo?.find(
+                transfer => transfer.exName === station.endName
+              );
+              const nextStation = coloredStations[index + 1];
+              const isLineChange = station.laneName !== nextStation?.laneName;
 
-                return (
-                  <React.Fragment key={index}>
+              return (
+                <React.Fragment key={index}>
+                  <StationItem color={station.color}>
+                    <StationDot color={station.color} />
+                    <StationInfo>
+                      <StationName>
+                        {station.startName}
+                        <LaneName style={{ 
+                          backgroundColor: station.color 
+                        }}>
+                          {station.laneName}
+                        </LaneName>
+                      </StationName>
+                      {index === 0 && <TransferInfo>출발</TransferInfo>}
+                    </StationInfo>
+                  </StationItem>
+                  <LinePath color={station.color} />
+                  {isTransfer && (
                     <StationItem>
-                      <StationDot color={lineColor} />
+                      <StationDot color={nextStation?.color || theme.colors.gray03} />
                       <StationInfo>
-                        <StationName>
-                          {station.startName}
-                          {isFirstStationOfLine && currentLine && (
-                            <span style={{ marginLeft: '5px', fontSize: '1.2rem', color: lineColor }}>
-                              {currentLine.laneName}
-                            </span>
+                        <StationName>{station.endName}</StationName>
+                        <TransferInfo>
+                          <FaExchangeAlt style={{ marginRight: '8px' }} /> 
+                          {nextStation?.laneName || '다음 호선'}으로 환승
+                          {isTransfer.fastTrain && isTransfer.fastDoor && (
+                            <>(빠른환승 {isTransfer.fastTrain}-{isTransfer.fastDoor})</>
                           )}
-                        </StationName>
-                        {index === 0 && <TransferInfo>출발</TransferInfo>}
+                          {isTransfer.exWalkTime && (
+                            <>, 도보 {formatTransferTime(isTransfer.exWalkTime)}</>
+                          )}
+                        </TransferInfo>
                       </StationInfo>
                     </StationItem>
-                    <LinePath color={lineColor} />
-                    {isTransfer && (
-                      <StationItem>
-                        <StationDot color={lineColor} />
-                        <StationInfo>
-                          <StationName>{station.endName}</StationName>
-                          <TransferInfo>
-                            <FaExchangeAlt /> {isTransfer.laneName}으로 환승
-                            (빠른환승 {isTransfer.fastTrain}-{isTransfer.fastDoor}, 도보 {isTransfer.exWalkTime}초)
-                          </TransferInfo>
-                        </StationInfo>
-                      </StationItem>
-                    )}
-                    {index === subwayRoute.stationSet.stations.length - 1 && (
-                      <StationItem>
-                        <StationDot color={lineColor} />
-                        <StationInfo>
-                          <StationName>{station.endName}</StationName>
-                          <TransferInfo>도착</TransferInfo>
-                        </StationInfo>
-                      </StationItem>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </StationList>
-          </SubwayRouteInfo>
-        ) : (
-          <RouteDetail>이용 가능한 지하철 경로가 없습니다.</RouteDetail>
-        )}
-      </TabContent>
-    </PopupContainer>
-  );
+                  )}
+                  {index === coloredStations.length - 1 && (
+                    <StationItem>
+                      <StationDot color={station.color} />
+                      <StationInfo>
+                        <StationName>{station.endName}</StationName>
+                        <TransferInfo>도착</TransferInfo>
+                      </StationInfo>
+                    </StationItem>
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </StationList>
+        </SubwayRouteInfo>
+      ) : (
+        <RouteDetail>이용 가능한 지하철 경로가 없습니다.</RouteDetail>
+      )}
+    </TabContent>
+  </PopupContainer>
+);
 };
 
 export default FindWayPopup;
