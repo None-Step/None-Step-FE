@@ -15,7 +15,7 @@ const QuickRouteButton = styled.div`
   position: absolute;
   top: 160px;
   left: 1rem;
-  z-index: 3;
+  z-index: 2;
   cursor: pointer;
   display: flex;
   align-items: center;
