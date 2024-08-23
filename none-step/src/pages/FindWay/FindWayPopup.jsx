@@ -51,9 +51,12 @@ const RouteOption = styled.div`
   align-items: center;
   padding: 15px 0;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray06};
+  flex-grow: 1;
 `;
 
-const RouteInfo = styled.div``;
+const RouteInfo = styled.div`
+  flex-grow: 1;
+`;
 
 const IconContainer = styled.div`
   display: flex;
@@ -83,6 +86,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: auto;
 `;
 
 const OverviewItem = styled.div`
@@ -277,7 +281,7 @@ const formatTransferTime = (seconds) => {
 };
 
 const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
-  // console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
+  console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
   const [activeTab, setActiveTab] = useState(routeInfo.isStationToStation ? '지하철 경로' : '도보 및 자전거');
   const [coloredStations, setColoredStations] = useState([]);
 
@@ -394,28 +398,28 @@ return (
     </TabContainer>
 
     <TabContent $active={activeTab === '도보 및 자전거'}>
-  {routeInfo.isOverDistance ? (
-    <RouteDetail>{routeInfo.overDistanceErrorMessage || '도보 경로를 제공할 수 없습니다.'}</RouteDetail>
-  ) : (
-    <>
-      <RouteOption>
-        <RouteInfo>
-          <IconContainer>
-            <FaWalking />
-            <RouteType>도보 {routeInfo.walkTime}</RouteType>
-          </IconContainer>
-          {routeInfo.walkTime === '0분' ? (
-            <RouteDetail>도보 경로를 제공하지 않는 거리입니다.</RouteDetail>
-          ) : (
-            <>
-              <RouteDetail>거리 {routeInfo.walkDistance}</RouteDetail>
+      {routeInfo.isOverDistance ? (
+        <RouteDetail>{'반경 20km 이상의 거리는 노출되지 않으니 미 노출 시 가까운 역으로 재검색 부탁 드립니다.' || '도보 경로를 제공할 수 없습니다.'}</RouteDetail>
+      ) : (
+        <>
+          <RouteOption>
+            <RouteInfo>
+              <IconContainer>
+                <FaWalking />
+                <RouteType>도보 {routeInfo.walkTime}</RouteType>
+              </IconContainer>
+              {routeInfo.walkTime === '0분' ? (
+                <RouteDetail>반경 20km 이상의 거리는 노출되지 않으니 미 노출 시 가까운 역으로 재검색 부탁 드립니다.</RouteDetail>
+              ) : (
+                <RouteDetail>거리 {routeInfo.walkDistance}</RouteDetail>
+              )}
+            </RouteInfo>
+            {routeInfo.walkTime !== '0분' && (
               <Button onClick={() => onNavigate('walk')}>
                 <FaArrowRight />
               </Button>
-            </>
-          )}
-        </RouteInfo>
-      </RouteOption>
+            )}
+          </RouteOption>
       {routeInfo.bikeTime !== '0분' && routeInfo.bikeDistance !== '0m' && (
         <RouteOption>
           <RouteInfo>
