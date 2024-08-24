@@ -13,7 +13,7 @@ const MenuBar = () => {
     const handleNavigation = (path) => {
         navigate(path);
 
-        if (path === "/map" || path === "/chat") {
+        if (path === "/map") {
             dispatch(selectedCategory({ category: "" }));
         }
     };

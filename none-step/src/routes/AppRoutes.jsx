@@ -17,6 +17,7 @@ import NaverCallback from "@pages/Login/NaverCallback";
 import MyPage from "@pages/MyPage/MyPage";
 import ChattingMenu from "@pages/ChattingPage/ChattingMenu";
 import ChattingPage from "@pages/ChattingPage/ChattingPage";
+import PrivateRoute from "../layout/PrivateRoute";
 
 const AppRoutes = () => {
     return (
@@ -49,8 +50,10 @@ const AppRoutes = () => {
 
             <Route path="/map" element={<MapPage />} />
 
-            <Route path="/chat" element={<ChattingMenu />} />
-            <Route path="/chat/:region" element={<ChattingPage />} />
+            <Route element={<PrivateRoute />}>
+                <Route path="/chat" element={<ChattingMenu />} />
+                <Route path="/chat/:region" element={<ChattingPage />} />
+            </Route>
 
             <Route path="/mypage" element={<MyPage />} />
         </Routes>

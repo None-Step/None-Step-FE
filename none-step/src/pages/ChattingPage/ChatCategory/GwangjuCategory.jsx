@@ -20,13 +20,15 @@ const GwangjuCategory = () => {
                 break;
             default:
                 setSelected("gwangju");
-                dispatch(selectedCategory({ category: "gwangju" }));
+                dispatch(
+                    selectedCategory({ category: "gwangju", region: "gwangju" })
+                );
         }
     }, [category.category]);
 
-    const handleSelectedCategory = (line) => {
+    const handleSelectedCategory = (line, region) => {
         setSelected(line);
-        dispatch(selectedCategory({ category: line }));
+        dispatch(selectedCategory({ category: line, region: region }));
     };
 
     return (
@@ -36,7 +38,7 @@ const GwangjuCategory = () => {
                     className={
                         "gwangju " + (selected === "gwangju" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("gwangju")}
+                    onClick={() => handleSelectedCategory("gwangju", "gwangju")}
                 >
                     <span>전체</span>
                 </ChatCategoryBtn>
@@ -47,7 +49,7 @@ const GwangjuCategory = () => {
                         "gwangju_line1 " +
                         (selected === "line1" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line1")}
+                    onClick={() => handleSelectedCategory("line1", "gwangju")}
                 >
                     <span>1호선</span>
                 </ChatCategoryBtn>

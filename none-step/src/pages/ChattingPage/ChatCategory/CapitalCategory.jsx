@@ -12,8 +12,8 @@ const CapitalCategory = () => {
 
     useEffect(() => {
         switch (category.category) {
-            case "capital":
-                setSelected("capital");
+            case "seoul":
+                setSelected("seoul");
                 break;
             case "line1":
                 setSelected("line1");
@@ -30,6 +30,9 @@ const CapitalCategory = () => {
             case "line5":
                 setSelected("line5");
                 break;
+            case "line6":
+                setSelected("line6");
+                break;
             case "line7":
                 setSelected("line7");
                 break;
@@ -39,60 +42,62 @@ const CapitalCategory = () => {
             case "line9":
                 setSelected("line9");
                 break;
-            case "airport":
-                setSelected("airport");
+            case "gongHangCheolDo":
+                setSelected("gongHangCheolDo");
                 break;
-            case "gyeonguijungang":
-                setSelected("gyeonguijungang");
+            case "gyeongUiJungAngLine":
+                setSelected("gyeongUiJungAngLine");
                 break;
-            case "gyeongchun":
-                setSelected("gyeongchun");
+            case "gyeongChunLine":
+                setSelected("gyeongChunLine");
                 break;
-            case "suinbundang":
-                setSelected("suinbundang");
+            case "suInBunDangLine":
+                setSelected("suInBunDangLine");
                 break;
-            case "shinbundang":
-                setSelected("shinbundang");
+            case "shinBunDangLine":
+                setSelected("shinBunDangLine");
                 break;
-            case "gyeonggang":
-                setSelected("gyeonggang");
+            case "gyeongGangLine":
+                setSelected("gyeongGangLine");
                 break;
-            case "seohae":
-                setSelected("seohae");
+            case "seoHaeLine":
+                setSelected("seoHaeLine");
                 break;
-            case "incheon1":
-                setSelected("incheon1");
+            case "inCheonLine1":
+                setSelected("inCheonLine1");
                 break;
-            case "incheon2":
-                setSelected("incheon2");
+            case "inCheonLine2":
+                setSelected("inCheonLine2");
                 break;
-            case "everline":
-                setSelected("everline");
+            case "everLine":
+                setSelected("everLine");
                 break;
-            case "uijeongbu":
-                setSelected("uijeongbu");
+            case "uiJeongBu":
+                setSelected("uiJeongBu");
                 break;
-            case "wooyishinseol":
-                setSelected("wooyishinseol");
+            case "uiSinSeolLine":
+                setSelected("uiSinSeolLine");
                 break;
-            case "gimpogold":
-                setSelected("gimpogold");
+            case "gimPoGoldLine":
+                setSelected("gimPoGoldLine");
                 break;
-            case "sillim":
-                setSelected("sillim");
+            case "silLimLine":
+                setSelected("silLimLine");
                 break;
-            case "GTX_A":
-                setSelected("GTX_A");
+            case "gtxA":
+                setSelected("gtxA");
                 break;
             default:
-                setSelected("capital");
-                dispatch(selectedCategory({ category: "capital" }));
+                setSelected("seoul");
+                dispatch(
+                    selectedCategory({ category: "seoul", region: "seoul" })
+                );
         }
     }, [category.category]);
 
-    const handleSelectedCategory = (line) => {
+    const handleSelectedCategory = (line, region) => {
         setSelected(line);
-        dispatch(selectedCategory({ category: line }));
+        dispatch(selectedCategory({ category: line, region: region }));
     };
 
     return (
@@ -100,9 +105,9 @@ const CapitalCategory = () => {
             <li>
                 <ChatCategoryBtn
                     className={
-                        "capital " + (selected === "capital" ? "selected" : "")
+                        "capital " + (selected === "seoul" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("capital")}
+                    onClick={() => handleSelectedCategory("seoul", "seoul")}
                 >
                     <span>전체</span>
                 </ChatCategoryBtn>
@@ -113,7 +118,7 @@ const CapitalCategory = () => {
                         "capital_line1 " +
                         (selected === "line1" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line1")}
+                    onClick={() => handleSelectedCategory("line1", "seoul")}
                 >
                     <span>1호선</span>
                 </ChatCategoryBtn>
@@ -124,7 +129,7 @@ const CapitalCategory = () => {
                         "capital_line2 " +
                         (selected === "line2" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line2")}
+                    onClick={() => handleSelectedCategory("line2", "seoul")}
                 >
                     <span>2호선</span>
                 </ChatCategoryBtn>
@@ -135,7 +140,7 @@ const CapitalCategory = () => {
                         "capital_line3 " +
                         (selected === "line3" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line3")}
+                    onClick={() => handleSelectedCategory("line3", "seoul")}
                 >
                     <span>3호선</span>
                 </ChatCategoryBtn>
@@ -146,7 +151,7 @@ const CapitalCategory = () => {
                         "capital_line4 " +
                         (selected === "line4" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line4")}
+                    onClick={() => handleSelectedCategory("line4", "seoul")}
                 >
                     <span>4호선</span>
                 </ChatCategoryBtn>
@@ -157,7 +162,7 @@ const CapitalCategory = () => {
                         "capital_line5 " +
                         (selected === "line5" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line5")}
+                    onClick={() => handleSelectedCategory("line5", "seoul")}
                 >
                     <span>5호선</span>
                 </ChatCategoryBtn>
@@ -168,7 +173,7 @@ const CapitalCategory = () => {
                         "capital_line6 " +
                         (selected === "line6" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line6")}
+                    onClick={() => handleSelectedCategory("line6", "seoul")}
                 >
                     <span>6호선</span>
                 </ChatCategoryBtn>
@@ -179,7 +184,7 @@ const CapitalCategory = () => {
                         "capital_line7 " +
                         (selected === "line7" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line7")}
+                    onClick={() => handleSelectedCategory("line7", "seoul")}
                 >
                     <span>7호선</span>
                 </ChatCategoryBtn>
@@ -190,7 +195,7 @@ const CapitalCategory = () => {
                         "capital_line8 " +
                         (selected === "line8" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line8")}
+                    onClick={() => handleSelectedCategory("line8", "seoul")}
                 >
                     <span>8호선</span>
                 </ChatCategoryBtn>
@@ -201,7 +206,7 @@ const CapitalCategory = () => {
                         "capital_line9 " +
                         (selected === "line9" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line9")}
+                    onClick={() => handleSelectedCategory("line9", "seoul")}
                 >
                     <span>9호선</span>
                 </ChatCategoryBtn>
@@ -209,9 +214,12 @@ const CapitalCategory = () => {
             <li>
                 <ChatCategoryBtn
                     className={
-                        "airport " + (selected === "airport" ? "selected" : "")
+                        "airport " +
+                        (selected === "gongHangCheolDo" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("airport")}
+                    onClick={() =>
+                        handleSelectedCategory("gongHangCheolDo", "seoul")
+                    }
                 >
                     <span>공항철도</span>
                 </ChatCategoryBtn>
@@ -220,9 +228,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "gyeonguijungang " +
-                        (selected === "gyeonguijungang" ? "selected" : "")
+                        (selected === "gyeongUiJungAngLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("gyeonguijungang")}
+                    onClick={() =>
+                        handleSelectedCategory("gyeongUiJungAngLine", "seoul")
+                    }
                 >
                     <span>경의중앙선</span>
                 </ChatCategoryBtn>
@@ -231,9 +241,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "gyeongchun " +
-                        (selected === "gyeongchun" ? "selected" : "")
+                        (selected === "gyeongChunLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("gyeongchun")}
+                    onClick={() =>
+                        handleSelectedCategory("gyeongChunLine", "seoul")
+                    }
                 >
                     <span>경춘선</span>
                 </ChatCategoryBtn>
@@ -242,9 +254,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "suinbundang " +
-                        (selected === "suinbundang" ? "selected" : "")
+                        (selected === "suInBunDangLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("suinbundang")}
+                    onClick={() =>
+                        handleSelectedCategory("suInBunDangLine", "seoul")
+                    }
                 >
                     <span>수인분당선</span>
                 </ChatCategoryBtn>
@@ -253,9 +267,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "shinbundang " +
-                        (selected === "shinbundang" ? "selected" : "")
+                        (selected === "shinBunDangLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("shinbundang")}
+                    onClick={() =>
+                        handleSelectedCategory("shinBunDangLine", "seoul")
+                    }
                 >
                     <span>신분당선</span>
                 </ChatCategoryBtn>
@@ -264,9 +280,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "gyeonggang " +
-                        (selected === "gyeonggang" ? "selected" : "")
+                        (selected === "gyeongGangLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("gyeonggang")}
+                    onClick={() =>
+                        handleSelectedCategory("gyeongGangLine", "seoul")
+                    }
                 >
                     <span>경강선</span>
                 </ChatCategoryBtn>
@@ -274,9 +292,12 @@ const CapitalCategory = () => {
             <li>
                 <ChatCategoryBtn
                     className={
-                        "seohae " + (selected === "seohae" ? "selected" : "")
+                        "seohae " +
+                        (selected === "seoHaeLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("seohae")}
+                    onClick={() =>
+                        handleSelectedCategory("seoHaeLine", "seoul")
+                    }
                 >
                     <span>서해선</span>
                 </ChatCategoryBtn>
@@ -285,9 +306,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "incheon1 " +
-                        (selected === "incheon1" ? "selected" : "")
+                        (selected === "inCheonLine1" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("incheon1")}
+                    onClick={() =>
+                        handleSelectedCategory("inCheonLine1", "seoul")
+                    }
                 >
                     <span>인천1호선</span>
                 </ChatCategoryBtn>
@@ -296,9 +319,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "incheon2 " +
-                        (selected === "incheon2" ? "selected" : "")
+                        (selected === "inCheonLine2" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("incheon2")}
+                    onClick={() =>
+                        handleSelectedCategory("inCheonLine2", "seoul")
+                    }
                 >
                     <span>인천2호선</span>
                 </ChatCategoryBtn>
@@ -307,9 +332,9 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "everline " +
-                        (selected === "everline" ? "selected" : "")
+                        (selected === "everLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("everline")}
+                    onClick={() => handleSelectedCategory("everLine", "seoul")}
                 >
                     <span>에버라인</span>
                 </ChatCategoryBtn>
@@ -318,9 +343,9 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "uijeongbu " +
-                        (selected === "uijeongbu" ? "selected" : "")
+                        (selected === "uiJeongBu" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("uijeongbu")}
+                    onClick={() => handleSelectedCategory("uiJeongBu", "seoul")}
                 >
                     <span>의정부경전철</span>
                 </ChatCategoryBtn>
@@ -329,9 +354,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "wooyishinseol " +
-                        (selected === "wooyishinseol" ? "selected" : "")
+                        (selected === "uiSinSeolLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("wooyishinseol")}
+                    onClick={() =>
+                        handleSelectedCategory("uiSinSeolLine", "seoul")
+                    }
                 >
                     <span>우이신설선</span>
                 </ChatCategoryBtn>
@@ -340,9 +367,11 @@ const CapitalCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "gimpogold " +
-                        (selected === "gimpogold" ? "selected" : "")
+                        (selected === "gimPoGoldLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("gimpogold")}
+                    onClick={() =>
+                        handleSelectedCategory("gimPoGoldLine", "seoul")
+                    }
                 >
                     <span>김포골드라인</span>
                 </ChatCategoryBtn>
@@ -350,9 +379,12 @@ const CapitalCategory = () => {
             <li>
                 <ChatCategoryBtn
                     className={
-                        "sillim " + (selected === "sillim" ? "selected" : "")
+                        "sillim " +
+                        (selected === "silLimLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("sillim")}
+                    onClick={() =>
+                        handleSelectedCategory("silLimLine", "seoul")
+                    }
                 >
                     <span>신림선</span>
                 </ChatCategoryBtn>
@@ -360,9 +392,9 @@ const CapitalCategory = () => {
             <li>
                 <ChatCategoryBtn
                     className={
-                        "GTX_A " + (selected === "GTX_A" ? "selected" : "")
+                        "GTX_A " + (selected === "gtxA" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("GTX_A")}
+                    onClick={() => handleSelectedCategory("gtxA", "seoul")}
                 >
                     <span>GTX-A</span>
                 </ChatCategoryBtn>

@@ -27,21 +27,23 @@ const BusanCategory = () => {
             case "line4":
                 setSelected("line4");
                 break;
-            case "donghae":
-                setSelected("donghae");
+            case "dongHaeLine":
+                setSelected("dongHaeLine");
                 break;
-            case "busan_gimhae":
-                setSelected("busan_gimhae");
+            case "buSanGimHae":
+                setSelected("buSanGimHae");
                 break;
             default:
                 setSelected("busan");
-                dispatch(selectedCategory({ category: "busan" }));
+                dispatch(
+                    selectedCategory({ category: "busan", region: "busan" })
+                );
         }
     }, [category.category]);
 
-    const handleSelectedCategory = (line) => {
+    const handleSelectedCategory = (line, region) => {
         setSelected(line);
-        dispatch(selectedCategory({ category: line }));
+        dispatch(selectedCategory({ category: line, region: region }));
     };
 
     return (
@@ -51,7 +53,7 @@ const BusanCategory = () => {
                     className={
                         "busan " + (selected === "busan" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("busan")}
+                    onClick={() => handleSelectedCategory("busan", "busan")}
                 >
                     <span>전체</span>
                 </ChatCategoryBtn>
@@ -62,7 +64,7 @@ const BusanCategory = () => {
                         "busan_line1 " +
                         (selected === "line1" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line1")}
+                    onClick={() => handleSelectedCategory("line1", "busan")}
                 >
                     <span>1호선</span>
                 </ChatCategoryBtn>
@@ -73,7 +75,7 @@ const BusanCategory = () => {
                         "busan_line2 " +
                         (selected === "line2" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line2")}
+                    onClick={() => handleSelectedCategory("line2", "busan")}
                 >
                     <span>2호선</span>
                 </ChatCategoryBtn>
@@ -84,7 +86,7 @@ const BusanCategory = () => {
                         "busan_line3 " +
                         (selected === "line3" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line3")}
+                    onClick={() => handleSelectedCategory("line3", "busan")}
                 >
                     <span>3호선</span>
                 </ChatCategoryBtn>
@@ -95,7 +97,7 @@ const BusanCategory = () => {
                         "busan_line4 " +
                         (selected === "line4" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line4")}
+                    onClick={() => handleSelectedCategory("line4", "busan")}
                 >
                     <span>4호선</span>
                 </ChatCategoryBtn>
@@ -103,9 +105,12 @@ const BusanCategory = () => {
             <li>
                 <ChatCategoryBtn
                     className={
-                        "donghae " + (selected === "donghae" ? "selected" : "")
+                        "donghae " +
+                        (selected === "dongHaeLine" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("donghae")}
+                    onClick={() =>
+                        handleSelectedCategory("dongHaeLine", "busan")
+                    }
                 >
                     <span>동해선</span>
                 </ChatCategoryBtn>
@@ -114,9 +119,11 @@ const BusanCategory = () => {
                 <ChatCategoryBtn
                     className={
                         "busan_gimhae " +
-                        (selected === "busan_gimhae" ? "selected" : "")
+                        (selected === "buSanGimHae" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("busan_gimhae")}
+                    onClick={() =>
+                        handleSelectedCategory("buSanGimHae", "busan")
+                    }
                 >
                     <span>부산김해</span>
                 </ChatCategoryBtn>
