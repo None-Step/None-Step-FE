@@ -20,13 +20,15 @@ const DaejeonCategory = () => {
                 break;
             default:
                 setSelected("daejeon");
-                dispatch(selectedCategory({ category: "daejeon" }));
+                dispatch(
+                    selectedCategory({ category: "daejeon", region: "daejeon" })
+                );
         }
     }, [category.category]);
 
-    const handleSelectedCategory = (line) => {
+    const handleSelectedCategory = (line, region) => {
         setSelected(line);
-        dispatch(selectedCategory({ category: line }));
+        dispatch(selectedCategory({ category: line, reegion: region }));
     };
 
     return (
@@ -36,7 +38,7 @@ const DaejeonCategory = () => {
                     className={
                         "daejeon " + (selected === "daejeon" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("daejeon")}
+                    onClick={() => handleSelectedCategory("daejeon", "daejeon")}
                 >
                     <span>전체</span>
                 </ChatCategoryBtn>
@@ -47,7 +49,7 @@ const DaejeonCategory = () => {
                         "daejeon_line1 " +
                         (selected === "line1" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line1")}
+                    onClick={() => handleSelectedCategory("line1", "daejeon")}
                 >
                     <span>1호선</span>
                 </ChatCategoryBtn>

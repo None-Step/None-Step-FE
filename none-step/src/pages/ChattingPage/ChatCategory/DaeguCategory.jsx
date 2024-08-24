@@ -26,13 +26,15 @@ const DaeguCategory = () => {
                 break;
             default:
                 setSelected("daegu");
-                dispatch(selectedCategory({ category: "daegu" }));
+                dispatch(
+                    selectedCategory({ category: "daegu", region: "daegu" })
+                );
         }
     }, [category.category]);
 
-    const handleSelectedCategory = (line) => {
+    const handleSelectedCategory = (line, region) => {
         setSelected(line);
-        dispatch(selectedCategory({ category: line }));
+        dispatch(selectedCategory({ category: line, region: region }));
     };
 
     return (
@@ -42,7 +44,7 @@ const DaeguCategory = () => {
                     className={
                         "daegu " + (selected === "daegu" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("daegu")}
+                    onClick={() => handleSelectedCategory("daegu", "daegu")}
                 >
                     <span>전체</span>
                 </ChatCategoryBtn>
@@ -53,7 +55,7 @@ const DaeguCategory = () => {
                         "daegu_line1 " +
                         (selected === "line1" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line1")}
+                    onClick={() => handleSelectedCategory("line1", "daegu")}
                 >
                     <span>1호선</span>
                 </ChatCategoryBtn>
@@ -64,7 +66,7 @@ const DaeguCategory = () => {
                         "daegu_line2 " +
                         (selected === "line2" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line2")}
+                    onClick={() => handleSelectedCategory("line2", "daegu")}
                 >
                     <span>2호선</span>
                 </ChatCategoryBtn>
@@ -75,7 +77,7 @@ const DaeguCategory = () => {
                         "daegu_line3 " +
                         (selected === "line3" ? "selected" : "")
                     }
-                    onClick={() => handleSelectedCategory("line3")}
+                    onClick={() => handleSelectedCategory("line3", "daegu")}
                 >
                     <span>3호선</span>
                 </ChatCategoryBtn>
