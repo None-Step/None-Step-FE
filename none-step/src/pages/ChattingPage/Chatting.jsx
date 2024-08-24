@@ -10,6 +10,9 @@ import {
     Modal,
     ModalContainer,
     MyChattingMessageContainer,
+    ScrollBottomBtn,
+    ScrollBottomBtnContainer,
+    ScrollBottomBtnWrapper,
     ToastContainer,
 } from "./Chatting.styles";
 import { useLocation } from "react-router-dom";
@@ -23,8 +26,8 @@ import { TbSend } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import axiosInstance from "@apis/axiosInstance";
 import userProfileImg from "@assets/img/profile-img.svg";
-import { IoAlertCircleOutline } from "react-icons/io5";
-import { IoEllipsisVertical } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoAlertCircleOutline, IoEllipsisVertical } from "react-icons/io5";
 import declarationIcon from "@assets/icons/declaration-icon.svg";
 import { Client } from "@stomp/stompjs";
 
@@ -42,6 +45,7 @@ const Chatting = () => {
     const [message, setMessage] = useState("");
     const [memberRandom, setMemberRandom] = useState("");
     const [memberNickName, setMemberNickName] = useState("");
+    const [isScrollBottom, setIsScrollBottom] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [copyMessage, setCopyMessage] = useState("");
     const [chatNumber, setChatNumber] = useState();
@@ -73,7 +77,7 @@ const Chatting = () => {
     }, [category.category, member.memberRandom, member.memberNickName]);
 
     useEffect(() => {
-        if (isLoading) {
+        if (isLoading && chatScrollRef.current) {
             setTimeout(() => {
                 scrollToBottom();
             }, 100);
@@ -157,13 +161,27 @@ const Chatting = () => {
         }
     };
 
+    const KSTDate = (time) => {
+        const date = new Date(time);
+        date.setHours(date.getHours() + 9);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const week = date.getDay();
+        const weekList = ["일", "월", "화", "수", "목", "금", "토"];
+        return `${year}년 ${month}월 ${day}일 ${weekList[week]}요일`;
+    };
+
     const KST = (time) => {
         const date = new Date(time);
         date.setHours(date.getHours() + 9);
         const hours = String(date.getHours()).padStart(2, "0");
         const minutes = String(date.getMinutes()).padStart(2, "0");
 
-        if (0 <= hours && hours < 12) {
+        if (hours == 0) {
+            const amHours = date.getHours() + 12;
+            return `오전 ${amHours}:${minutes}`;
+        } else if (0 < hours && hours < 12) {
             return `오전 ${hours}:${minutes}`;
         } else if (hours == 12) {
             return `오후 ${hours}:${minutes}`;
@@ -176,6 +194,7 @@ const Chatting = () => {
     const scrollToBottom = () => {
         if (chatScrollRef.current) {
             chatScrollRef.current.scrollIntoView({ block: "end" });
+            setIsScrollBottom(false);
         }
     };
 
@@ -419,6 +438,18 @@ const Chatting = () => {
                     <ChattingContainer ref={chatScrollRef} className="loading">
                         {chatting.map((chat, index) => (
                             <div key={index} className="chattings">
+                                {index === 0 && (
+                                    <div className="first_message new_date">
+                                        <p>{KSTDate(chat.date)}</p>
+                                    </div>
+                                )}
+                                {0 < index &&
+                                    KSTDate(chat.date) !==
+                                        KSTDate(chatting[index - 1].date) && (
+                                        <div className="new_date">
+                                            <p>{KSTDate(chat.date)}</p>
+                                        </div>
+                                    )}
                                 {chat.memberRandom === memberRandom &&
                                 chat.memberNickName === memberNickName ? (
                                     <MyChattingMessageContainer
@@ -698,32 +729,40 @@ const Chatting = () => {
                 ) : (
                     <></>
                 )}
-
-                {selected === "seoul" ||
-                selected === "busan" ||
-                selected === "daejeon" ||
-                selected === "daegu" ||
-                selected === "gwangju" ? (
-                    <></>
-                ) : (
-                    <ChattingInputContainer>
-                        <ChattingInput
-                            type="type"
-                            id="chat"
-                            label="채팅"
-                            value={message}
-                            placeholder="메시지를 입력해주세요"
-                            rows={1}
-                            maxLength="300"
-                            onChange={(e) => handleMessage(e)}
-                            onKeyPress={handleSearchEnter}
-                        />
-                        <MessageSendBtn onClick={sendMessage}>
-                            <TbSend />
-                        </MessageSendBtn>
-                    </ChattingInputContainer>
-                )}
             </ChattingWrapper>
+            {isScrollBottom && (
+                <ScrollBottomBtnWrapper>
+                    <ScrollBottomBtnContainer>
+                        <ScrollBottomBtn onClick={scrollToBottom}>
+                            <IoIosArrowDown />
+                        </ScrollBottomBtn>
+                    </ScrollBottomBtnContainer>
+                </ScrollBottomBtnWrapper>
+            )}
+            {selected === "seoul" ||
+            selected === "busan" ||
+            selected === "daejeon" ||
+            selected === "daegu" ||
+            selected === "gwangju" ? (
+                <></>
+            ) : (
+                <ChattingInputContainer>
+                    <ChattingInput
+                        type="type"
+                        id="chat"
+                        label="채팅"
+                        value={message}
+                        placeholder="메시지를 입력해주세요"
+                        rows={1}
+                        maxLength="300"
+                        onChange={(e) => handleMessage(e)}
+                        onKeyPress={handleSearchEnter}
+                    />
+                    <MessageSendBtn onClick={sendMessage}>
+                        <TbSend />
+                    </MessageSendBtn>
+                </ChattingInputContainer>
+            )}
             {isModalOpen && (
                 <ModalContainer
                     ref={modalRef}
