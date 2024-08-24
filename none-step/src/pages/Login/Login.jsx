@@ -31,14 +31,17 @@ const Login = () => {
         }
     }, [emailValid, passwordValid]);
 
-    const socialLogin =  (event, provider) => {
+    const socialLogin = (event, provider) => {
       event.preventDefault();
-
-       console.log(`${provider} 로그인 시도 중`);
-        const authURL = `https://nonestep.site/nonestep/member/login/${provider}`;
-        console.log(`다음 URL로 리다이렉트 중: ${authURL}`);
-        window.location.href = authURL;
-    };
+  
+      // 리디렉트될 URL을 설정 (콜백 페이지로 보내기,,,)
+      const redirectUri = `${window.location.origin}/nonestep/member/login/callback/${provider}`;
+      document.cookie = `redirect_uri=${redirectUri}; path=/`;  
+      console.log(`${provider} 로그인 시도 중`);
+      const authURL = `https://nonestep.site/nonestep/member/login/${provider}`;
+      console.log(`다음 URL로 리다이렉트 중: ${authURL}`);
+      window.location.href = authURL;
+  };
 
     // 일반 로그인 핸들러
     const handleLogin = (event) => {
