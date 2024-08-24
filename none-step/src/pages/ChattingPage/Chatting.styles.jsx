@@ -4,7 +4,6 @@ export const ChattingWrapper = styled.div`
     position: relative;
     width: 100%;
     max-width: 100%;
-    max-height: calc(100vh - 64px);
     margin-top: 64px;
 `;
 
@@ -50,6 +49,22 @@ export const ChattingContainer = styled.div`
 
     &.loading {
         opacity: 0;
+    }
+
+    .new_date {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0 4px;
+    }
+
+    .first_message.new_date {
+        padding-top: 10px;
+    }
+
+    .new_date p {
+        color: ${(props) => props.theme.colors.gray01};
+        font-size: 1.2rem;
+        font-weight: 400;
     }
 
     .chattings.new_message {
@@ -560,6 +575,40 @@ export const ChattingMessageContainer = styled.div`
     }
 `;
 
+export const ScrollBottomBtnWrapper = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+`;
+
+export const ScrollBottomBtnContainer = styled.div`
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin: 0 12px;
+`;
+
+export const ScrollBottomBtn = styled.button`
+    position: fixed;
+    bottom: 80px;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 100%;
+    background: ${(props) => props.theme.colors.white};
+    box-shadow: ${(props) => props.theme.colors.shadow200};
+    outline: none;
+    cursor: pointer;
+    z-index: 99;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+`;
+
 export const ChattingInputContainer = styled.div`
     position: fixed;
     bottom: 0;
@@ -571,6 +620,7 @@ export const ChattingInputContainer = styled.div`
     padding: 10px;
     background: ${(props) => props.theme.colors.white};
     box-shadow: ${(props) => props.theme.colors.shadow200};
+    z-index: 99;
 `;
 
 const StyledInput = styled.textarea`
@@ -673,7 +723,7 @@ export const ToastContainer = styled.div`
     p {
         position: absolute;
         top: 0;
-        padding: 14px 20px;
+        padding: 12px 18px;
         border-radius: 25px;
         background: rgba(34, 34, 34, 0.9);
         color: #fff;
