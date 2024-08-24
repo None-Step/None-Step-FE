@@ -9,7 +9,6 @@ import SignUpSuccess from "@pages/SignUp/SignUpSuccess";
 import FindIDSuccess from "@pages/FindID/FindIDSuccess";
 import FindPW from "@pages/FindPW/FindPW";
 import FindWay from "@pages/FindWay/FindWay";
-import FindWayConfirm from "@pages/FindWay/FindWayConfirm";
 import FindWayNav from "@pages/FindWay/FindWayNav";
 import FindPWResetting from "@pages/FindPW/FindPWResetting";
 import FindPWSuccess from "@pages/FindPW/FindPWSuccess";
@@ -18,6 +17,7 @@ import NaverCallback from "@pages/Login/NaverCallback";
 import MyPage from "@pages/MyPage/MyPage";
 import ChattingMenu from "@pages/ChattingPage/ChattingMenu";
 import ChattingPage from "@pages/ChattingPage/ChattingPage";
+import PrivateRoute from "../layout/PrivateRoute";
 
 const AppRoutes = () => {
     return (
@@ -25,7 +25,6 @@ const AppRoutes = () => {
             <Route path="/" element={<MainPage />} />
 
             <Route path="/findway" element={<FindWay />} />
-            <Route path="/findway/route" element={<FindWayConfirm />} />
             <Route path="/findway/navigate" element={<FindWayNav />} />
 
             <Route path="/signup/terms" element={<TermsOfService />} />
@@ -51,8 +50,10 @@ const AppRoutes = () => {
 
             <Route path="/map" element={<MapPage />} />
 
-            <Route path="/chat" element={<ChattingMenu />} />
-            <Route path="/chat/:region" element={<ChattingPage />} />
+            <Route element={<PrivateRoute />}>
+                <Route path="/chat" element={<ChattingMenu />} />
+                <Route path="/chat/:region" element={<ChattingPage />} />
+            </Route>
 
             <Route path="/mypage" element={<MyPage />} />
         </Routes>
