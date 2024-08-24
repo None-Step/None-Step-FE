@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FaArrowRight } from 'react-icons/fa';
 
 // 전체 페이지
 export const PageWrapper = styled.div`
@@ -10,24 +11,25 @@ export const PageWrapper = styled.div`
 // 검색 바
 export const SearchBox = styled.div`
   position: absolute;
-  top: 74px;
-  z-index: 3;
-  width: calc(100% - 2rem);
-  height: 40px;
-  border-radius: 4px;
-  margin-inline: 1rem;
+  top: 70px;
+  z-index: 4;
+  width: 100%;
   background-color: ${(props) => props.theme.colors.white};
-  padding: 1rem 0.8rem;
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray05};
+  padding: 0.5rem 0.8rem;
   box-sizing: border-box;
+
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  box-shadow: ${(props) => props.theme.colors.shadow200};
 `;
 
 export const LoadingMessage = styled(SearchBox)`
-  top: 120px;
+  top: 170px;
   font-size: 1.4rem;
+  margin-inline: 1rem;
+  width: calc(100% - 2rem);
 `
 
 export const SearchForm = styled.form`
@@ -43,7 +45,14 @@ export const SearchIndex = styled.input`
   height: 100%;
   outline: none;
   border: none;
+  padding: 1rem 0.8rem;
 `;
+
+export const Hr = styled.hr`
+  width: 100%;
+  border: none;
+  border-top: 1px solid ${(props => props.theme.colors.gray06)} ;
+`
 
 const SVGWrapper = styled.svg`
   cursor: pointer;
@@ -83,6 +92,14 @@ export const Reload = styled.div`
   z-index: 3;
 `;
 
+export const InputReload = styled(Reload)`
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem;
+  box-shadow: none;
+  border: 1px solid ${(props) => props.theme.colors.gray06};
+`;
+
 // 커스텀 인포윈도우 스타일
 export const CustomOverlay = styled.div`
   background-color: #fff;
@@ -110,3 +127,53 @@ export const Confirm = styled.p`
   font-size: 1.4rem;
   color: ${(props) => props.theme.colors.primary};
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+export const Button = styled.button`
+  padding: 5px 10px;
+  border: none;
+  border-radius: 2px;
+  background-color: ${(props) => props.theme.colors.primary};
+  color: white;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+  &:last-of-type{
+    margin-left: 1rem;
+  }
+`;
+
+export const RouteInfoBar = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+`;
+
+export const LocationText = styled.span`
+  font-size: 14px;
+  color: #333;
+`;
+
+export const ArrowIcon = styled(FaArrowRight)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #333;
+`;
+
+export const UserLocationStart = styled(LocationText)`
+  color: ${props => props.theme.colors.primary};
+`
