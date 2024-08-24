@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateNickname } from '@/store/slices/memberSlice';
 import { useNavigate } from 'react-router-dom';
 import Close, { PageContainer,
   ProfileSection,
@@ -67,6 +69,7 @@ const MyPage = () => {
   const [phoneNumberValid, setPhoneNumberValid] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // 회원 정보 불러오기
   useEffect(() => {
@@ -157,16 +160,19 @@ const MyPage = () => {
           },
         })
         .then(response => {
+          const updatedNickname = response.data.memberNickName || response.data.memberNickname || nicknameInput;
           setMemberInfo(prevInfo => ({
             ...prevInfo,
-            memberNickName: response.data.memberNickName || response.data.memberNickname || nicknameInput,
+            memberNickName: updatedNickname,
             memberIMG: response.data.memberIMG || prevInfo.memberIMG
           }));
-          setNicknameInput(response.data.memberNickName || nicknameInput);
+          setNicknameInput(updatedNickname);
           setIsNicknameEdited(false);
           handleModalClose();
           setSelectedImage(null);
           alert('프로필이 성공적으로 업데이트되었습니다.');
+
+          dispatch(updateNickname(updatedNickname));
         })
         .catch(error => {
           console.error('프로필 업데이트 실패:', error);
@@ -178,7 +184,7 @@ const MyPage = () => {
     } else {
       alert('올바른 닉네임을 입력해주세요.');
     }
-  }, [isNicknameEdited, isNicknameValid, nicknameInput, selectedImage, handleModalClose]);
+  }, [isNicknameEdited, isNicknameValid, nicknameInput, selectedImage, handleModalClose, dispatch]);
 
   // 이미지 선택 처리하기
   const handleImageChange = useCallback((event) => {
