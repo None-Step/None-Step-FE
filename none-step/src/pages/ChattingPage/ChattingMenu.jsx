@@ -6,15 +6,23 @@ import {
     ChattingLineContainer,
 } from "./ChattingMenu.styles";
 import { IoIosArrowDown } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CapitalChatMenu from "./ChatMenu/CapitalChatMenu";
 import BusanChatMenu from "./ChatMenu/BusanChatMenu";
 import DaejeonChatMenu from "./ChatMenu/DaejeonChatMenu";
 import DaeguChatMenu from "./ChatMenu/DaeguChatMenu";
 import GwangjuChatMenu from "./ChatMenu/GwangjuChatMenu";
+import { useDispatch } from "react-redux";
+import { selectedCategory } from "@store/slices/categorySlice";
 
 const ChattingMenu = () => {
     const [menuIndex, setMenuIndex] = useState();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(selectedCategory({ category: "", region: "" }));
+    }, []);
 
     const regionChat = [
         {
@@ -35,6 +43,7 @@ const ChattingMenu = () => {
         } else {
             e.target.classList.add("open");
             e.target.nextElementSibling.classList.add("open");
+            window.scrollTo(0, 0);
         }
     };
 
