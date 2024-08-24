@@ -7,17 +7,23 @@ const DaejeonChatMenu = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleClickMenu = (line) => {
+    const handleClickMenu = (line, region) => {
         navigate("/chat/daejeon");
-        dispatch(selectedCategory({ category: line }));
+        dispatch(selectedCategory({ category: line, region: region }));
     };
 
     return (
         <>
-            <li className="daejeon" onClick={() => handleClickMenu("daejeon")}>
+            <li
+                className="daejeon"
+                onClick={() => handleClickMenu("daejeon", "daejeon")}
+            >
                 <span>전체</span>
             </li>
-            <li className="line1" onClick={() => handleClickMenu("line1")}>
+            <li
+                className="line1"
+                onClick={() => handleClickMenu("line1", "daejeon")}
+            >
                 <span className="daejeon_line1">1</span>
                 <span>1호선</span>
             </li>
