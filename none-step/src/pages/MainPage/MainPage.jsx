@@ -26,7 +26,7 @@ import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
 import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedCategory } from "@store/slices/categorySlice";
@@ -36,6 +36,10 @@ const MainPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(selectedCategory({ category: "", region: "" }));
+    }, []);
 
     const handleScrollCategory = () => {
         const el = scrollRef.current;
@@ -60,7 +64,11 @@ const MainPage = () => {
 
     const handleClickChat = (region) => {
         navigate(`/chat/${region}`);
-        dispatch(selectedCategory({ category: region }));
+        if (region === "capital") {
+            dispatch(selectedCategory({ category: "seoul", region: "seoul" }));
+        } else {
+            dispatch(selectedCategory({ category: region, region: region }));
+        }
     };
 
     return (
