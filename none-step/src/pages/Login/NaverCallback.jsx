@@ -12,7 +12,7 @@ const NaverCallback = () => {
     const code = new URL(window.location.href).searchParams.get("code");
 
     if (code) {
-      axiosInstance.get(`/nonestep/member/login/callback/naver?code=${code}`)
+      axiosInstance.get(`/login/callback/naver?code=${code}`)
         .then(response => {
           if (response.data.message.toLowerCase() === 'success') {
             // 응답 헤더에서 액세스 토큰 추출

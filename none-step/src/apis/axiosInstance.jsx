@@ -2,11 +2,11 @@ import axios from "axios";
 import { store } from "@/store";
 import { logout } from "@/store/slices/memberSlice";
 
-// 추가: 토큰 만료 시간 관련 상수
+// 토큰 만료 시간 관련 상수
 const ACCESS_TOKEN_EXPIRY = 60 * 60 * 1000; // 1시간
 const REFRESH_TOKEN_BEFORE_EXPIRY = 5 * 60 * 1000; // 5분
 
-// 추가: 토큰 만료 시간 추적을 위한 변수
+// 토큰 만료 시간 추적을 위한 변수
 let tokenExpirationTime = null;
 
 const axiosInstance = axios.create({
@@ -17,17 +17,17 @@ const axiosInstance = axios.create({
   }
 });
 
-// 추가: 토큰 만료 시간 설정 함수
+// 토큰 만료 시간 설정 함수
 function setTokenExpiration() {
   tokenExpirationTime = Date.now() + ACCESS_TOKEN_EXPIRY;
 }
 
-// 추가: 토큰 갱신이 필요한지 확인하는 함수
+// 토큰 갱신이 필요한지 확인하는 함수
 function isTokenRefreshNeeded() {
   return tokenExpirationTime && (tokenExpirationTime - Date.now() < REFRESH_TOKEN_BEFORE_EXPIRY);
 }
 
-// 추가: 토큰 갱신 함수
+// 토큰 갱신 함수
 async function refreshAccessToken() {
   try {
     const memberID = sessionStorage.getItem('memberID');
@@ -46,7 +46,7 @@ async function refreshAccessToken() {
   }
 }
 
-// 수정: 요청 인터셉터에 토큰 갱신 로직 추가
+// 요청 인터셉터에 토큰 갱신 로직 추가
 axiosInstance.interceptors.request.use(
   async (config) => {
     if (isTokenRefreshNeeded()) {
@@ -67,7 +67,7 @@ axiosInstance.interceptors.response.use(
     const authHeader = response.headers['authorization'];
     if (authHeader) {
       sessionStorage.setItem('accessToken', authHeader);
-      setTokenExpiration(); // 추가: 새 토큰을 받았을 때 만료 시간 갱신
+      setTokenExpiration(); // 새 토큰을 받았을 때 만료 시간 갱신
     }
     return response;
   },
@@ -91,7 +91,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// 추가: 초기 토큰 설정 함수 (로그인 성공 시 호출 필요)
+// 초기 토큰 설정 함수 (로그인 성공 시 호출 필요)
 axiosInstance.setInitialToken = (token) => {
   sessionStorage.setItem('accessToken', token);
   setTokenExpiration();
