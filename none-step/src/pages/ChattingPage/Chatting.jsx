@@ -28,15 +28,14 @@ import axiosInstance from "@apis/axiosInstance";
 import userProfileImg from "@assets/img/profile-img.svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoAlertCircleOutline, IoEllipsisVertical } from "react-icons/io5";
-import declarationIcon from "@assets/icons/declaration-icon.svg";
 import { Client } from "@stomp/stompjs";
 
 const Chatting = () => {
     const scrollRef = useRef(null);
-    const chatScrollRef = useRef();
+    const chatScrollRef = useRef(null);
     const client = useRef(null);
-    const modalRef = useRef();
-    const toastRef = useRef();
+    const modalRef = useRef(null);
+    const toastRef = useRef(null);
 
     const [region, setRegion] = useState("");
     const [selected, setSelected] = useState("");
@@ -44,11 +43,13 @@ const Chatting = () => {
     const [message, setMessage] = useState("");
     const [memberRandom, setMemberRandom] = useState("");
     const [memberNickName, setMemberNickName] = useState("");
+    const [userMemberRandom, setUserMemberRandom] = useState("");
+    const [userMemberNickName, setUserMemberNickName] = useState("");
     const [isScrollBottom, setIsScrollBottom] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [copyMessage, setCopyMessage] = useState("");
-    const [chatNumber, setChatNumber] = useState();
-    const [isCopy, setIsCopy] = useState(true);
+    const [chatNumber, setChatNumber] = useState(0);
+    const [selectedModal, setSelectedModal] = useState("copy");
 
     const category = useSelector((state) => state.category.value);
     const member = useSelector((state) => state.member);
@@ -67,6 +68,7 @@ const Chatting = () => {
 
     useEffect(() => {
         setRegion(location.pathname.split("/")[2]);
+        document.body.style.overflow = "auto";
     }, [location.pathname]);
 
     useEffect(() => {
@@ -342,9 +344,9 @@ const Chatting = () => {
     };
 
     const handleMessageCopy = () => {
-        setIsCopy(true);
+        setSelectedModal("copy");
 
-        if (isCopy) {
+        if (selectedModal === "copy") {
             try {
                 navigator.clipboard.writeText(copyMessage);
                 toastPop();
@@ -358,7 +360,7 @@ const Chatting = () => {
     };
 
     const handleDeleteMessage = () => {
-        setIsCopy(false);
+        setSelectedModal("delete");
 
         const body = {
             chatNo: chatNumber,
@@ -390,10 +392,17 @@ const Chatting = () => {
         }
     }, [chatting]);
 
-    const handleModalOpen = (chatNo, chatMessage) => {
+    const handleModalOpen = (
+        chatNo,
+        chatMessage,
+        chatMemberRandom,
+        chatMemberNickName
+    ) => {
         setIsModalOpen(true);
         setChatNumber(chatNo);
         setCopyMessage(chatMessage);
+        setUserMemberRandom(chatMemberRandom);
+        setUserMemberNickName(chatMemberNickName);
         document.body.style.overflow = "hidden";
     };
 
@@ -506,7 +515,9 @@ const Chatting = () => {
                                                         onClick={() =>
                                                             handleModalOpen(
                                                                 chat.chatNo,
-                                                                chat.message
+                                                                chat.message,
+                                                                chat.memberRandom,
+                                                                chat.memberNickName
                                                             )
                                                         }
                                                     >
@@ -660,43 +671,28 @@ const Chatting = () => {
                                                         {KST(chat.date)}
                                                     </span>
                                                 )}
-                                                {/* {chat.isChatDelete ? (
+                                                {chat.isChatDelete ||
+                                                selected === "seoul" ||
+                                                selected === "busan" ||
+                                                selected === "daejeon" ||
+                                                selected === "daegu" ||
+                                                selected === "gwangju" ? (
                                                     <></>
                                                 ) : (
                                                     <button
-                                                        className={
-                                                            "declaration_icon " +
-                                                            (index <
-                                                                chatting.length -
-                                                                    1 &&
-                                                            KST(chat.date) ===
-                                                                KST(
-                                                                    chatting[
-                                                                        index +
-                                                                            1
-                                                                    ].date
-                                                                ) &&
-                                                            chat.memberRandom ===
-                                                                chatting[
-                                                                    index + 1
-                                                                ]
-                                                                    .memberRandom &&
-                                                            chat.chatLine ===
-                                                                chatting[
-                                                                    index + 1
-                                                                ].chatLine
-                                                                ? "continue"
-                                                                : "")
+                                                        className="delete_icon"
+                                                        onClick={() =>
+                                                            handleModalOpen(
+                                                                chat.chatNo,
+                                                                chat.message,
+                                                                chat.memberRandom,
+                                                                chat.memberNickName
+                                                            )
                                                         }
                                                     >
-                                                        <img
-                                                            src={
-                                                                declarationIcon
-                                                            }
-                                                            alt="declaration-icon"
-                                                        />
+                                                        <IoEllipsisVertical />
                                                     </button>
-                                                )} */}
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -739,37 +735,55 @@ const Chatting = () => {
                     </MessageSendBtn>
                 </ChattingInputContainer>
             )}
-            {isModalOpen && (
-                <ModalContainer
-                    ref={modalRef}
-                    onClick={(e) => handleModalClose(e)}
-                >
-                    <Modal>
-                        <li>
-                            <button
-                                className="chatting_copy"
-                                onClick={handleMessageCopy}
-                            >
-                                <span>복사하기</span>
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                className="chatting_delete"
-                                onClick={handleDeleteMessage}
-                            >
-                                <span>삭제하기</span>
-                            </button>
-                        </li>
-                    </Modal>
-                </ModalContainer>
-            )}
-            <ToastContainer ref={toastRef} className="opacity">
-                {isCopy ? (
-                    <p>복사되었습니다.</p>
-                ) : (
-                    <p>메시지가 삭제되었습니다.</p>
+            {isModalOpen &&
+                userMemberRandom === memberRandom &&
+                userMemberNickName === memberNickName && (
+                    <ModalContainer
+                        ref={modalRef}
+                        onClick={(e) => handleModalClose(e)}
+                    >
+                        <Modal>
+                            <li>
+                                <button
+                                    className="chatting_copy"
+                                    onClick={handleMessageCopy}
+                                >
+                                    <span>복사하기</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    className="chatting_delete"
+                                    onClick={handleDeleteMessage}
+                                >
+                                    <span>삭제하기</span>
+                                </button>
+                            </li>
+                        </Modal>
+                    </ModalContainer>
                 )}
+            {isModalOpen &&
+                userMemberRandom !== memberRandom &&
+                userMemberNickName !== memberNickName && (
+                    <ModalContainer
+                        ref={modalRef}
+                        onClick={(e) => handleModalClose(e)}
+                    >
+                        <Modal>
+                            <li>
+                                <button
+                                    className="chatting_copy"
+                                    onClick={handleMessageCopy}
+                                >
+                                    <span>복사하기</span>
+                                </button>
+                            </li>
+                        </Modal>
+                    </ModalContainer>
+                )}
+            <ToastContainer ref={toastRef} className="opacity">
+                {selectedModal === "copy" && <p>복사되었습니다.</p>}
+                {selectedModal === "delete" && <p>메시지가 삭제되었습니다.</p>}
             </ToastContainer>
         </>
     );
