@@ -1,22 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- 아이폰 / 홈 화면에 추가해서 웹앱으로 사용할 때만 적용되는 태그 -->
-    <!-- 아이폰 standalone 모드로 실행 (iOS의 Safari 브라우저 UI 없이 전체 화면으로 실행) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- 아이폰 상태바 관련 설정, default로 테스트 후 수정  -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>이번역</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_JS_APP_KEY%&libraries=services,clusterer"
-    ></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <!-- 아이폰 / 홈 화면에 추가해서 웹앱으로 사용할 때만 적용되는 태그 -->
+        <!-- 아이폰 standalone 모드로 실행 (iOS의 Safari 브라우저 UI 없이 전체 화면으로 실행) -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- 아이폰 상태바 관련 설정, default로 테스트 후 수정  -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <link rel="icon" type="image/svg+xml" href="/nonestep.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>이번역</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+        <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_JS_APP_KEY%&libraries=services,clusterer,drawing"
+        ></script>
+    </body>
 </html>
