@@ -21,7 +21,7 @@ const PopupContainer = styled.div`
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 10px;
   background: none;
   border: none;
@@ -31,6 +31,7 @@ const CloseButton = styled.button`
 
 const TabContainer = styled.div`
   display: flex;
+  margin-top: 20px;
   margin-bottom: 20px;
 `;
 
@@ -420,7 +421,6 @@ return (
               </Button>
             )}
           </RouteOption>
-      {routeInfo.bikeTime !== '0분' && routeInfo.bikeDistance !== '0m' && (
         <RouteOption>
           <RouteInfo>
             <IconContainer>
@@ -429,8 +429,8 @@ return (
               <RouteType>도보 + 자전거 {routeInfo.bikeTotalTime}</RouteType>
             </IconContainer>
             <RouteDetail>
-              도보 {routeInfo.bikeWalkDistance} ({routeInfo.bikeWalkTime}) +
-              자전거 {routeInfo.bikeRideDistance} ({routeInfo.bikeRideTime})
+              {/* 도보 {routeInfo.bikeWalkDistance} ({routeInfo.bikeWalkTime}) +
+              자전거 {routeInfo.bikeRideDistance} ({routeInfo.bikeRideTime}) */}
             </RouteDetail>
             <RouteDetail>{routeInfo.bikeMessage}</RouteDetail>
           </RouteInfo>
@@ -440,7 +440,6 @@ return (
             </Button>
           )}
         </RouteOption>
-      )}
     </>
   )}
 </TabContent>

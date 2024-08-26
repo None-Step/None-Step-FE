@@ -113,14 +113,14 @@ const QuickRoute = ({ userLocation }) => {
   return (
     <>
       <QuickRouteButton onClick={handleQuickRoute}>
-        빠른 경로
+        가까운 역 바로가기
       </QuickRouteButton>
 
       {showModal && (
         <>
           <ModalBG onClick={handleCancel} />
           <WithdrawContainer>
-            <Title>빠른 경로 안내</Title>
+            <Title>가까운 역 바로가기 안내</Title>
             <Notice>
               <span>회원님이 검색하신 역의 가장 가까운</span>
               <span>엘리베이터, 에스컬레이터의 위치로</span>

@@ -32,11 +32,11 @@ const AppRoutes = () => {
 
             <Route path="/login" element={<Login />} />
             <Route
-                path="/nonestep/member/login/callback/kakao"
+                path="/login/callback/kakao"
                 element={<KakaoCallback />}
             />
             <Route
-                path="/nonestep/member/login/callback/naver"
+                path="/login/callback/naver"
                 element={<NaverCallback />}
             />
 

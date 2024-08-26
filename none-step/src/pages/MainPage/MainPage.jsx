@@ -26,16 +26,27 @@ import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
 import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedCategory } from "@store/slices/categorySlice";
+import { fetchUserInfo } from '@/hooks/auth';
 
 const MainPage = () => {
     const scrollRef = useRef(null);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const accessToken = sessionStorage.getItem('accessToken');
+
+        if (accessToken) {
+            fetchUserInfo(dispatch).catch(error => {
+                console.error('MainPage: 사용자 정보 가져오기 실패:', error);
+              });
+        }
+    }, [dispatch]);
 
     const handleScrollCategory = () => {
         const el = scrollRef.current;
