@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const ChattingMenuWrapper = styled.div`
     width: 100%;
     max-width: 100%;
-    min-height: calc(100vh - 139px);
-    margin-top: 64px;
+    min-height: calc(100vh - 145px);
+    margin-top: 70px;
     margin-bottom: 75px;
     background: #fafafa;
 `;
