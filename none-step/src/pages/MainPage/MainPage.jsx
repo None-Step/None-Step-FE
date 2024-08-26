@@ -39,12 +39,12 @@ const MainPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const accessToken = sessionStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem('accessToken');
 
         if (accessToken) {
-            fetchUserInfo(dispatch).catch((error) => {
-                console.error("MainPage: 사용자 정보 가져오기 실패:", error);
-            });
+            fetchUserInfo(dispatch).catch(error => {
+                console.error('MainPage: 사용자 정보 가져오기 실패:', error);
+              });
         }
 
         dispatch(selectedCategory({ category: "", region: "" }));
