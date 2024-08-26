@@ -51,6 +51,10 @@ export const ChattingContainer = styled.div`
         opacity: 0;
     }
 
+    &.full {
+        padding-bottom: 40px;
+    }
+
     .new_date {
         display: flex;
         justify-content: center;
@@ -597,6 +601,10 @@ export const ScrollBottomBtn = styled.button`
     outline: none;
     cursor: pointer;
     z-index: 99;
+
+    &.full {
+        bottom: 40px;
+    }
 
     svg {
         width: 18px;
