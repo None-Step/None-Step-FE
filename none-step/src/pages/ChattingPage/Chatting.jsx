@@ -40,7 +40,6 @@ const Chatting = () => {
 
     const [region, setRegion] = useState("");
     const [selected, setSelected] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     const [chatting, setChatting] = useState([]);
     const [message, setMessage] = useState("");
     const [memberRandom, setMemberRandom] = useState("");
@@ -75,18 +74,6 @@ const Chatting = () => {
         setMemberRandom(member.memberRandom);
         setMemberNickName(member.memberNickName);
     }, [category.category, member.memberRandom, member.memberNickName]);
-
-    useEffect(() => {
-        if (isLoading && chatScrollRef.current) {
-            setTimeout(() => {
-                scrollToBottom();
-            }, 100);
-
-            setTimeout(() => {
-                chatScrollRef.current.classList.remove("loading");
-            }, 300);
-        }
-    }, [category.category, isLoading]);
 
     const handleScrollCategory = () => {
         const el = scrollRef.current;
@@ -209,9 +196,13 @@ const Chatting = () => {
             axiosInstance
                 .get(`/nonestep/chat/all?region=${category.region}`)
                 .then((response) => {
-                    console.log(response.data);
                     setChatting(response.data);
-                    setIsLoading(true);
+                    setTimeout(() => {
+                        scrollToBottom();
+                    }, 100);
+                    setTimeout(() => {
+                        chatScrollRef.current.classList.remove("loading");
+                    }, 500);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -222,9 +213,13 @@ const Chatting = () => {
                     `/nonestep/chat/subscribe?region=${category.region}&line=${category.category}`
                 )
                 .then((response) => {
-                    console.log(response.data);
                     setChatting(response.data);
-                    setIsLoading(true);
+                    setTimeout(() => {
+                        scrollToBottom();
+                    }, 100);
+                    setTimeout(() => {
+                        chatScrollRef.current.classList.remove("loading");
+                    }, 500);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -289,9 +284,6 @@ const Chatting = () => {
             onConnect: () => {
                 subscribe();
             },
-            debug: (str) => {
-                console.log(`debug: ${str}`);
-            },
         });
 
         client.current.activate();
@@ -301,7 +293,6 @@ const Chatting = () => {
         if (client.current) {
             client.current.deactivate();
             client.current = null;
-            console.log("disconnect");
         }
     };
 
@@ -434,157 +425,172 @@ const Chatting = () => {
                         {Category[region]}
                     </ChatCategoryContainer>
                 </ChatCategoryWrapper>
-                {isLoading ? (
-                    <ChattingContainer ref={chatScrollRef} className="loading">
-                        {chatting.map((chat, index) => (
-                            <div key={index} className="chattings">
-                                {index === 0 && (
-                                    <div className="first_message new_date">
+                <ChattingContainer ref={chatScrollRef} className="loading">
+                    {chatting.map((chat, index) => (
+                        <div key={index} className="chattings">
+                            {index === 0 && (
+                                <div className="first_message new_date">
+                                    <p>{KSTDate(chat.date)}</p>
+                                </div>
+                            )}
+                            {0 < index &&
+                                KSTDate(chat.date) !==
+                                    KSTDate(chatting[index - 1].date) && (
+                                    <div className="new_date">
                                         <p>{KSTDate(chat.date)}</p>
                                     </div>
                                 )}
-                                {0 < index &&
-                                    KSTDate(chat.date) !==
-                                        KSTDate(chatting[index - 1].date) && (
-                                        <div className="new_date">
-                                            <p>{KSTDate(chat.date)}</p>
-                                        </div>
-                                    )}
-                                {chat.memberRandom === memberRandom &&
-                                chat.memberNickName === memberNickName ? (
-                                    <MyChattingMessageContainer
-                                        key={`${chat.chatNo}`}
-                                        className={
-                                            0 < index &&
-                                            KST(chat.date) ===
-                                                KST(chatting[index - 1].date) &&
-                                            chat.memberNickName ===
-                                                chatting[index - 1]
-                                                    .memberNickName &&
-                                            chat.memberRandom ===
-                                                chatting[index - 1]
-                                                    .memberRandom &&
-                                            chat.chatLine ===
-                                                chatting[index - 1].chatLine
-                                                ? "continue"
-                                                : ""
-                                        }
-                                    >
-                                        <div className="chat_info">
-                                            {0 < index &&
-                                            chat.memberNickName ===
-                                                chatting[index - 1]
-                                                    .memberNickName &&
-                                            chat.memberRandom ===
-                                                chatting[index - 1]
-                                                    .memberRandom &&
-                                            chat.chatLine ===
-                                                chatting[index - 1].chatLine ? (
-                                                <></>
-                                            ) : (
-                                                <>
-                                                    {selected === "seoul" ||
-                                                    selected === "busan" ||
-                                                    selected === "daejeon" ||
-                                                    selected === "daegu" ||
-                                                    selected === "gwangju" ? (
-                                                        <div className="line_container">
-                                                            <span
-                                                                className={`line ${category.region}_${chat.chatLine}`}
-                                                            >
-                                                                {lineNumber(
-                                                                    chat.chatLine
-                                                                )}
-                                                            </span>
-                                                        </div>
-                                                    ) : (
-                                                        <></>
-                                                    )}
-                                                </>
-                                            )}
-
-                                            <div className="my_message_wrapper">
-                                                <div className="time_container">
-                                                    {chat.isChatDelete ||
-                                                    selected === "seoul" ||
-                                                    selected === "busan" ||
-                                                    selected === "daejeon" ||
-                                                    selected === "daegu" ||
-                                                    selected === "gwangju" ? (
-                                                        <></>
-                                                    ) : (
-                                                        <button
-                                                            className="delete_icon"
-                                                            onClick={() =>
-                                                                handleModalOpen(
-                                                                    chat.chatNo,
-                                                                    chat.message
-                                                                )
-                                                            }
+                            {chat.memberRandom === memberRandom &&
+                            chat.memberNickName === memberNickName ? (
+                                <MyChattingMessageContainer
+                                    key={`${chat.chatNo}`}
+                                    className={
+                                        0 < index &&
+                                        KST(chat.date) ===
+                                            KST(chatting[index - 1].date) &&
+                                        chat.memberNickName ===
+                                            chatting[index - 1]
+                                                .memberNickName &&
+                                        chat.memberRandom ===
+                                            chatting[index - 1].memberRandom &&
+                                        chat.chatLine ===
+                                            chatting[index - 1].chatLine
+                                            ? "continue"
+                                            : ""
+                                    }
+                                >
+                                    <div className="chat_info">
+                                        {0 < index &&
+                                        chat.memberNickName ===
+                                            chatting[index - 1]
+                                                .memberNickName &&
+                                        chat.memberRandom ===
+                                            chatting[index - 1].memberRandom &&
+                                        chat.chatLine ===
+                                            chatting[index - 1].chatLine ? (
+                                            <></>
+                                        ) : (
+                                            <>
+                                                {selected === "seoul" ||
+                                                selected === "busan" ||
+                                                selected === "daejeon" ||
+                                                selected === "daegu" ||
+                                                selected === "gwangju" ? (
+                                                    <div className="line_container">
+                                                        <span
+                                                            className={`line ${category.region}_${chat.chatLine}`}
                                                         >
-                                                            <IoEllipsisVertical />
-                                                        </button>
-                                                    )}
-                                                    {index <
-                                                        chatting.length - 1 &&
-                                                    KST(chat.date) ===
-                                                        KST(
-                                                            chatting[index + 1]
-                                                                .date
-                                                        ) &&
-                                                    chat.memberNickName ===
-                                                        chatting[index + 1]
-                                                            .memberNickName &&
-                                                    chat.memberRandom ===
-                                                        chatting[index + 1]
-                                                            .memberRandom &&
-                                                    chat.chatLine ===
-                                                        chatting[index + 1]
-                                                            .chatLine ? (
-                                                        <></>
-                                                    ) : (
-                                                        <span className="time">
-                                                            {KST(chat.date)}
+                                                            {lineNumber(
+                                                                chat.chatLine
+                                                            )}
                                                         </span>
-                                                    )}
-                                                </div>
-                                                <div className="my_message_container">
-                                                    {chat.isChatDelete ? (
-                                                        <div className="delete_message_container">
-                                                            <IoAlertCircleOutline />
-                                                            <span className="delete_message">
-                                                                삭제된
-                                                                메시지입니다.
-                                                            </span>
-                                                        </div>
-                                                    ) : (
-                                                        <span className="message">
-                                                            {chat.message}
+                                                    </div>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </>
+                                        )}
+
+                                        <div className="my_message_wrapper">
+                                            <div className="time_container">
+                                                {chat.isChatDelete ||
+                                                selected === "seoul" ||
+                                                selected === "busan" ||
+                                                selected === "daejeon" ||
+                                                selected === "daegu" ||
+                                                selected === "gwangju" ? (
+                                                    <></>
+                                                ) : (
+                                                    <button
+                                                        className="delete_icon"
+                                                        onClick={() =>
+                                                            handleModalOpen(
+                                                                chat.chatNo,
+                                                                chat.message
+                                                            )
+                                                        }
+                                                    >
+                                                        <IoEllipsisVertical />
+                                                    </button>
+                                                )}
+                                                {index < chatting.length - 1 &&
+                                                KST(chat.date) ===
+                                                    KST(
+                                                        chatting[index + 1].date
+                                                    ) &&
+                                                chat.memberNickName ===
+                                                    chatting[index + 1]
+                                                        .memberNickName &&
+                                                chat.memberRandom ===
+                                                    chatting[index + 1]
+                                                        .memberRandom &&
+                                                chat.chatLine ===
+                                                    chatting[index + 1]
+                                                        .chatLine ? (
+                                                    <></>
+                                                ) : (
+                                                    <span className="time">
+                                                        {KST(chat.date)}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="my_message_container">
+                                                {chat.isChatDelete ? (
+                                                    <div className="delete_message_container">
+                                                        <IoAlertCircleOutline />
+                                                        <span className="delete_message">
+                                                            삭제된 메시지입니다.
                                                         </span>
-                                                    )}
-                                                </div>
+                                                    </div>
+                                                ) : (
+                                                    <span className="message">
+                                                        {chat.message}
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
-                                    </MyChattingMessageContainer>
-                                ) : (
-                                    <ChattingMessageContainer
-                                        key={`${chat.chatNo}`}
-                                        className={
-                                            0 < index &&
-                                            KST(chat.date) ===
-                                                KST(chatting[index - 1].date) &&
-                                            chat.memberNickName ===
-                                                chatting[index - 1]
-                                                    .memberNickName &&
-                                            chat.memberRandom ===
-                                                chatting[index - 1]
-                                                    .memberRandom &&
-                                            chat.chatLine ===
-                                                chatting[index - 1].chatLine
-                                                ? "continue"
-                                                : ""
-                                        }
-                                    >
+                                    </div>
+                                </MyChattingMessageContainer>
+                            ) : (
+                                <ChattingMessageContainer
+                                    key={`${chat.chatNo}`}
+                                    className={
+                                        0 < index &&
+                                        KST(chat.date) ===
+                                            KST(chatting[index - 1].date) &&
+                                        chat.memberNickName ===
+                                            chatting[index - 1]
+                                                .memberNickName &&
+                                        chat.memberRandom ===
+                                            chatting[index - 1].memberRandom &&
+                                        chat.chatLine ===
+                                            chatting[index - 1].chatLine
+                                            ? "continue"
+                                            : ""
+                                    }
+                                >
+                                    {0 < index &&
+                                    KST(chat.date) ===
+                                        KST(chatting[index - 1].date) &&
+                                    chat.memberNickName ===
+                                        chatting[index - 1].memberNickName &&
+                                    chat.memberRandom ===
+                                        chatting[index - 1].memberRandom &&
+                                    chat.chatLine ===
+                                        chatting[index - 1].chatLine ? (
+                                        <></>
+                                    ) : (
+                                        <div className="profile_img">
+                                            <img
+                                                src={
+                                                    chat.memberIMG ||
+                                                    userProfileImg
+                                                }
+                                                alt="profile-image"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="chat_info">
                                         {0 < index &&
                                         KST(chat.date) ===
                                             KST(chatting[index - 1].date) &&
@@ -597,91 +603,64 @@ const Chatting = () => {
                                             chatting[index - 1].chatLine ? (
                                             <></>
                                         ) : (
-                                            <div className="profile_img">
-                                                <img
-                                                    src={
-                                                        chat.memberIMG ||
-                                                        userProfileImg
-                                                    }
-                                                    alt="profile-image"
-                                                />
+                                            <div className="nickname_container">
+                                                <span className="nickname">
+                                                    {chat.memberNickName}
+                                                </span>
+                                                {selected === "seoul" ||
+                                                selected === "busan" ||
+                                                selected === "daejeon" ||
+                                                selected === "daegu" ||
+                                                selected === "gwangju" ? (
+                                                    <span
+                                                        className={`line ${category.region}_${chat.chatLine}`}
+                                                    >
+                                                        {lineNumber(
+                                                            chat.chatLine
+                                                        )}
+                                                    </span>
+                                                ) : (
+                                                    <></>
+                                                )}
                                             </div>
                                         )}
-                                        <div className="chat_info">
-                                            {0 < index &&
-                                            KST(chat.date) ===
-                                                KST(chatting[index - 1].date) &&
-                                            chat.memberNickName ===
-                                                chatting[index - 1]
-                                                    .memberNickName &&
-                                            chat.memberRandom ===
-                                                chatting[index - 1]
-                                                    .memberRandom &&
-                                            chat.chatLine ===
-                                                chatting[index - 1].chatLine ? (
-                                                <></>
-                                            ) : (
-                                                <div className="nickname_container">
-                                                    <span className="nickname">
-                                                        {chat.memberNickName}
+                                        <div className="message_wrapper">
+                                            <div className="message_container">
+                                                {chat.isChatDelete ? (
+                                                    <div className="delete_message_container">
+                                                        <IoAlertCircleOutline />
+                                                        <span className="delete_message">
+                                                            삭제된 메시지입니다.
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <span className="message">
+                                                        {chat.message}
                                                     </span>
-                                                    {selected === "seoul" ||
-                                                    selected === "busan" ||
-                                                    selected === "daejeon" ||
-                                                    selected === "daegu" ||
-                                                    selected === "gwangju" ? (
-                                                        <span
-                                                            className={`line ${category.region}_${chat.chatLine}`}
-                                                        >
-                                                            {lineNumber(
-                                                                chat.chatLine
-                                                            )}
-                                                        </span>
-                                                    ) : (
-                                                        <></>
-                                                    )}
-                                                </div>
-                                            )}
-                                            <div className="message_wrapper">
-                                                <div className="message_container">
-                                                    {chat.isChatDelete ? (
-                                                        <div className="delete_message_container">
-                                                            <IoAlertCircleOutline />
-                                                            <span className="delete_message">
-                                                                삭제된
-                                                                메시지입니다.
-                                                            </span>
-                                                        </div>
-                                                    ) : (
-                                                        <span className="message">
-                                                            {chat.message}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <div className="time_container">
-                                                    {index <
-                                                        chatting.length - 1 &&
-                                                    KST(chat.date) ===
-                                                        KST(
-                                                            chatting[index + 1]
-                                                                .date
-                                                        ) &&
-                                                    chat.memberNickName ===
-                                                        chatting[index + 1]
-                                                            .memberNickName &&
-                                                    chat.memberRandom ===
-                                                        chatting[index + 1]
-                                                            .memberRandom &&
-                                                    chat.chatLine ===
-                                                        chatting[index + 1]
-                                                            .chatLine ? (
-                                                        <></>
-                                                    ) : (
-                                                        <span className="time">
-                                                            {KST(chat.date)}
-                                                        </span>
-                                                    )}
-                                                    {/* {chat.isChatDelete ? (
+                                                )}
+                                            </div>
+                                            <div className="time_container">
+                                                {index < chatting.length - 1 &&
+                                                KST(chat.date) ===
+                                                    KST(
+                                                        chatting[index + 1].date
+                                                    ) &&
+                                                chat.memberNickName ===
+                                                    chatting[index + 1]
+                                                        .memberNickName &&
+                                                chat.memberRandom ===
+                                                    chatting[index + 1]
+                                                        .memberRandom &&
+                                                chat.chatLine ===
+                                                    chatting[index + 1]
+                                                        .chatLine ? (
+                                                    <></>
+                                                ) : (
+                                                    <span className="time">
+                                                        {KST(chat.date)}
+                                                    </span>
+                                                )}
+                                                {/* {chat.isChatDelete ? (
                                                     <></>
                                                 ) : (
                                                     <button
@@ -718,17 +697,14 @@ const Chatting = () => {
                                                         />
                                                     </button>
                                                 )} */}
-                                                </div>
                                             </div>
                                         </div>
-                                    </ChattingMessageContainer>
-                                )}
-                            </div>
-                        ))}
-                    </ChattingContainer>
-                ) : (
-                    <></>
-                )}
+                                    </div>
+                                </ChattingMessageContainer>
+                            )}
+                        </div>
+                    ))}
+                </ChattingContainer>
             </ChattingWrapper>
             {isScrollBottom && (
                 <ScrollBottomBtnWrapper>
