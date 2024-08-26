@@ -12,7 +12,7 @@ const KakaoCallback = () => {
     const code = new URL(window.location.href).searchParams.get("code");
 
     if (code) {
-        axiosInstance.get(`/nonestep/member/login/callback/kakao?code=${code}`)
+        axiosInstance.get(`/login/callback/kakao?code=${code}`)
             .then(response => {
                 if (response.data.message.toLowerCase() === 'success') {
                     const accessToken = response.headers['Authorization'];

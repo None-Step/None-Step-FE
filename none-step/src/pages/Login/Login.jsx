@@ -4,12 +4,12 @@ import Button from '@/components/Button'
 import SocialButton from '@/components/SocialButton'
 import Logo from '@/components/Logo'
 import LoginWrap from '@/components/LoginWrap'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Wrapper, HrWrap, Hr, Span, SignAction, SignActionSpan} from './Login.style';
 import axiosInstance from '@/apis/axiosInstance'
 import { useDispatch } from 'react-redux'
-import { login } from '@/store/slices/memberSlice'
 import MenuBar from '@/components/menuBar/MenuBar'
+import { fetchUserInfo } from '@/hooks/auth';
 
 const Login = () => {
     const [memberID, setMemberID] = useState('');
@@ -21,6 +21,7 @@ const Login = () => {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
         if (emailValid && passwordValid) {
@@ -31,85 +32,86 @@ const Login = () => {
         }
     }, [emailValid, passwordValid]);
 
+    useEffect(() => {
+      // URL 파라미터에서 토큰 확인
+      const params = new URLSearchParams(location.search);
+      const token = params.get('Authorization');
+
+      if (token) {
+          handleSocialLoginSuccess(token);
+      }
+  }, [location]);
+
+  const handleSocialLoginSuccess = (token) => {
+      // 액세스 토큰을 세션 스토리지에 저장
+      sessionStorage.setItem('accessToken', token);
+      
+      // axiosInstance의 기본 헤더에 토큰 설정
+      axiosInstance.defaults.headers.common['Authorization'] = token;
+
+      fetchUserInfo(dispatch)
+          .then(() => {
+              navigate('/'); // fetchUserInfo 완료 후 메인 페이지로 이동
+          })
+          .catch(error => {
+              console.error('소셜 로그인 사용자 정보 가져오기 실패:', error);
+              alert("로그인 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+          });
+  }
+
+    // 소셜 로그인 핸들러
     const socialLogin = (event, provider) => {
       event.preventDefault();
-  
-      // 리디렉트될 URL을 설정 (콜백 페이지로 보내기,,,)
-      const redirectUri = `${window.location.origin}/nonestep/member/login/callback/${provider}`;
-      document.cookie = `redirect_uri=${redirectUri}; path=/`;  
       console.log(`${provider} 로그인 시도 중`);
       const authURL = `https://nonestep.site/nonestep/member/login/${provider}`;
       console.log(`다음 URL로 리다이렉트 중: ${authURL}`);
       window.location.href = authURL;
-  };
-
+    };
+    
     // 일반 로그인 핸들러
     const handleLogin = (event) => {
-        event.preventDefault();
-      
-        axiosInstance.post('/nonestep/member/login', { 
-          memberID: memberID, 
-          memberPass: memberPass 
-        })
-        .then(response => {
-          if (response.data.message.toLowerCase() === 'success') {
-            // Authorization 헤더에서 액세스 토큰 추출
-            const accessToken = response.headers['authorization'];
-            
-            if (accessToken) {
-              // 액세스 토큰을 세션 스토리지에 저장
-              sessionStorage.setItem('accessToken', accessToken);
-              
-              // axiosInstance의 기본 헤더에 토큰 설정
-              axiosInstance.defaults.headers.common['Authorization'] = accessToken;
-      
-              axiosInstance
-                .get('/nonestep/member/info')
-                .then((response) => {
-                  const data = response.data;
+      event.preventDefault();
 
-                  const payload = {
-                    isAuthorized: true,
-                    memberID: data.memberID || "",
-                    memberMail: data.memberMail || "",
-                    memberName: data.memberName || "",
-                    memberPhone: data.memberPhone || "",
-                    memberIMG: data.memberIMG || "",
-                    memberNickName: data.memberNickName || "",
-                    memberRandom: data.memberRandom || "",
-                    memberJoinDate: data.memberJoinDate || ""
-                  };
-
-                  dispatch((login(payload)));
-                  navigate('/');
-                })
-                .catch(error => {
-                  console.error('사용자 정보 가져오기 실패 :', error);
-                });
+      axiosInstance.post('/nonestep/member/login', { 
+        memberID: memberID, 
+        memberPass: memberPass 
+      })
+      .then(response => {
+        if (response.data.message.toLowerCase() === 'success') {
+          // Authorization 헤더에서 액세스 토큰 추출
+          const accessToken = response.headers['authorization'];
+          
+          if (accessToken) {
+            // 액세스 토큰을 세션 스토리지에 저장
+            sessionStorage.setItem('accessToken', accessToken);
             
-            } else {
-              throw new Error('응답에서 액세스 토큰을 찾을 수 없음');
-            }
+            // axiosInstance의 기본 헤더에 토큰 설정
+            axiosInstance.defaults.headers.common['Authorization'] = accessToken;
+
+            return fetchUserInfo(dispatch);
           } else {
-            throw new Error('Login failed');
+            throw new Error('응답에서 액세스 토큰을 찾을 수 없음');
           }
-        })
-        .catch(error => {
-          console.error('Login error:', error);
-          let errorMessage = "로그인에 실패했습니다. 다시 시도해주세요.";
-          
-          if (error.response) {
-            console.error('Error response:', error.response.data);
-            console.error('Error status:', error.response.status);
-            if (error.response.status === 401) {
-              errorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
-            }
-          }
-          
-          alert(errorMessage);
-        });
-      }
-      
+        } else {
+          throw new Error('로그인 실패');
+        }
+      })
+      .then(() => {
+        navigate('/'); // fetchUserInfo 완료 후 메인 페이지로 이동
+      })
+      .catch(error => {
+        console.error('Login error:', error);
+        let errorMessage = "로그인에 실패했습니다. 다시 시도해주세요.";
+        
+        if (error.response && error.response.status === 401) {
+          errorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
+        }
+        
+        alert(errorMessage);
+      });
+    }      
+
+
           const handleID = (value) => {
       setMemberID(value);
     }
