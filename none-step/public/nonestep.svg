@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="radial-gradient" cx="428.01" cy="428.87" fx="428.01" fy="428.87" r="180.47" gradientTransform="translate(-230.26 314.62) scale(1.14 .27)" gradientUnits="userSpaceOnUse">
+    <radialGradient id="radial-gradient" cx="428.01" cy="421.59" fx="428.01" fy="421.59" r="162.42" gradientTransform="translate(-230.26 309.27) scale(1.14 .27)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#007aff"/>
       <stop offset="1" stop-color="#007aff" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="linear-gradient" x1="256" y1="31" x2="256" y2="427.55" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient" x1="256" y1="63.5" x2="256" y2="420.39" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#01e9bd"/>
       <stop offset="1" stop-color="#6bb5ff"/>
     </linearGradient>
@@ -18,9 +18,11 @@
     </filter>
   </defs>
   <rect x="0" width="512" height="512" rx="75" ry="75" style="fill: #fff;"/>
-  <ellipse cx="256" cy="428.87" rx="219.64" ry="52.13" style="fill: url(#radial-gradient); opacity: .5;"/>
   <g>
-    <path d="M256,31c-78.22,0-141.62,63.41-141.62,141.62,0,10.4,1.19,20.51,3.32,30.27,16.04,82.85,138.3,224.65,138.3,224.65,0,0,122.27-141.8,138.3-224.65,2.13-9.76,3.32-19.87,3.32-30.27,0-78.22-63.41-141.62-141.62-141.62Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-1);"/>
-    <circle cx="256" cy="169.52" r="91.16" style="fill: #fff;"/>
+    <ellipse cx="256" cy="421.59" rx="197.68" ry="46.91" style="fill: url(#radial-gradient); opacity: .5;"/>
+    <g>
+      <path d="M256,63.5c-70.39,0-127.46,57.07-127.46,127.46,0,9.36,1.07,18.46,2.99,27.24,14.43,74.56,124.47,202.19,124.47,202.19,0,0,110.04-127.62,124.47-202.19,1.92-8.79,2.99-17.88,2.99-27.24,0-70.39-57.07-127.46-127.46-127.46Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-1);"/>
+      <circle cx="256" cy="188.16" r="82.04" style="fill: #fff;"/>
+    </g>
   </g>
 </svg>

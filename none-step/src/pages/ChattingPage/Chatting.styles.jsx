@@ -54,7 +54,7 @@ export const ChattingContainer = styled.div`
     .new_date {
         display: flex;
         justify-content: center;
-        padding: 20px 0 4px;
+        padding: 24px 0 8px;
     }
 
     .first_message.new_date {
@@ -63,7 +63,7 @@ export const ChattingContainer = styled.div`
 
     .new_date p {
         color: ${(props) => props.theme.colors.gray01};
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: 400;
     }
 
@@ -300,11 +300,6 @@ export const MyChattingMessageContainer = styled.div`
         color: ${(props) => props.theme.colors.gray01};
     }
 
-    .time_container .time {
-        display: inline-block;
-        margin-left: 3px;
-    }
-
     .time_container .delete_icon {
         border: none;
         background: transparent;
@@ -316,6 +311,11 @@ export const MyChattingMessageContainer = styled.div`
         width: 10px;
         height: 10px;
         color: ${(props) => props.theme.colors.gray01};
+    }
+
+    .time_container .time {
+        display: inline-block;
+        margin-left: 3px;
     }
 `;
 
@@ -553,25 +553,20 @@ export const ChattingMessageContainer = styled.div`
 
     .time_container .time {
         display: inline-block;
+        margin-right: 3px;
     }
 
-    .time_container .declaration_icon {
-        width: 10px;
-        height: 10px;
-        margin-left: 4px;
+    .time_container .delete_icon {
         border: none;
         background: transparent;
         outline: none;
         cursor: pointer;
     }
 
-    .time_container .declaration_icon.continue {
-        margin-bottom: 5px;
-    }
-
-    .time_container .declaration_icon img {
-        width: 100%;
-        height: 100%;
+    .time_container .delete_icon svg {
+        width: 10px;
+        height: 10px;
+        color: ${(props) => props.theme.colors.gray01};
     }
 `;
 
