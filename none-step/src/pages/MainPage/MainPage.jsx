@@ -25,11 +25,12 @@ import seoulMetroIcon from "@assets/icons/seoul-metro-logo.svg";
 import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
+import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedCategory } from "@store/slices/categorySlice";
-import { fetchUserInfo } from '@/hooks/auth';
+import { fetchUserInfo } from "@hooks/auth";
 
 const MainPage = () => {
     const scrollRef = useRef(null);
@@ -38,7 +39,6 @@ const MainPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         const accessToken = sessionStorage.getItem('accessToken');
 
         if (accessToken) {
@@ -48,22 +48,21 @@ const MainPage = () => {
         }
 
         dispatch(selectedCategory({ category: "", region: "" }));
-        
     }, []);
 
     const handleScrollCategory = () => {
-        const el = scrollRef.current;
-        if (el) {
+        const scrollElement = scrollRef.current;
+        if (scrollElement) {
             const onWheel = (e) => {
                 if (e.deltaY === 0) return;
                 e.preventDefault();
-                el.scrollTo({
-                    left: el.scrollLeft + e.deltaY * 5,
+                scrollElement.scrollTo({
+                    left: scrollElement.scrollLeft + e.deltaY * 5,
                     behavior: "smooth",
                 });
             };
-            el.addEventListener("wheel", onWheel);
-            return () => el.removeEventListener("wheel", onWheel);
+            scrollElement.addEventListener("wheel", onWheel);
+            return () => scrollElement.removeEventListener("wheel", onWheel);
         }
     };
 
