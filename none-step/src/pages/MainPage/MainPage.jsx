@@ -30,6 +30,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedCategory } from "@store/slices/categorySlice";
+import { fetchUserInfo } from "@hooks/auth";
 
 const MainPage = () => {
     const scrollRef = useRef(null);
@@ -38,22 +39,30 @@ const MainPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const accessToken = sessionStorage.getItem("accessToken");
+
+        if (accessToken) {
+            fetchUserInfo(dispatch).catch((error) => {
+                console.error("MainPage: 사용자 정보 가져오기 실패:", error);
+            });
+        }
+
         dispatch(selectedCategory({ category: "", region: "" }));
     }, []);
 
     const handleScrollCategory = () => {
-        const el = scrollRef.current;
-        if (el) {
+        const scrollElement = scrollRef.current;
+        if (scrollElement) {
             const onWheel = (e) => {
                 if (e.deltaY === 0) return;
                 e.preventDefault();
-                el.scrollTo({
-                    left: el.scrollLeft + e.deltaY * 5,
+                scrollElement.scrollTo({
+                    left: scrollElement.scrollLeft + e.deltaY * 5,
                     behavior: "smooth",
                 });
             };
-            el.addEventListener("wheel", onWheel);
-            return () => el.removeEventListener("wheel", onWheel);
+            scrollElement.addEventListener("wheel", onWheel);
+            return () => scrollElement.removeEventListener("wheel", onWheel);
         }
     };
 
