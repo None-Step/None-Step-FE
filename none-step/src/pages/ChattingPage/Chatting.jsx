@@ -29,6 +29,7 @@ import userProfileImg from "@assets/img/profile-img.svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoAlertCircleOutline, IoEllipsisVertical } from "react-icons/io5";
 import { Client } from "@stomp/stompjs";
+import _ from "lodash";
 
 const Chatting = () => {
     const scrollRef = useRef(null);
@@ -45,7 +46,7 @@ const Chatting = () => {
     const [memberNickName, setMemberNickName] = useState("");
     const [userMemberRandom, setUserMemberRandom] = useState("");
     const [userMemberNickName, setUserMemberNickName] = useState("");
-    const [isScrollBottom, setIsScrollBottom] = useState(false);
+    const [isScrollBottom, setIsScrollBottom] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [copyMessage, setCopyMessage] = useState("");
     const [chatNumber, setChatNumber] = useState(0);
@@ -78,18 +79,18 @@ const Chatting = () => {
     }, [category.category, member.memberRandom, member.memberNickName]);
 
     const handleScrollCategory = () => {
-        const el = scrollRef.current;
-        if (el) {
+        const scrollElement = scrollRef.current;
+        if (scrollElement) {
             const onWheel = (e) => {
                 if (e.deltaY === 0) return;
                 e.preventDefault();
-                el.scrollTo({
-                    left: el.scrollLeft + e.deltaY * 5,
+                scrollElement.scrollTo({
+                    left: scrollElement.scrollLeft + e.deltaY * 5,
                     behavior: "smooth",
                 });
             };
-            el.addEventListener("wheel", onWheel);
-            return () => el.removeEventListener("wheel", onWheel);
+            scrollElement.addEventListener("wheel", onWheel);
+            return () => scrollElement.removeEventListener("wheel", onWheel);
         }
     };
 
@@ -183,7 +184,7 @@ const Chatting = () => {
     const scrollToBottom = () => {
         if (chatScrollRef.current) {
             chatScrollRef.current.scrollIntoView({ block: "end" });
-            setIsScrollBottom(false);
+            setIsScrollBottom(true);
         }
     };
 
@@ -346,15 +347,17 @@ const Chatting = () => {
     const handleMessageCopy = () => {
         setSelectedModal("copy");
 
-        if (selectedModal === "copy") {
-            try {
-                navigator.clipboard.writeText(copyMessage);
-                toastPop();
-            } catch (error) {
-                alert("복사 중 오류가 발생했습니다.");
-                console.log(error);
+        setTimeout(() => {
+            if (selectedModal === "copy") {
+                try {
+                    navigator.clipboard.writeText(copyMessage);
+                    toastPop();
+                } catch (error) {
+                    alert("복사 중 오류가 발생했습니다.");
+                    console.log(error);
+                }
             }
-        }
+        }, 100);
         setIsModalOpen(false);
         document.body.style.overflow = "auto";
     };
@@ -423,6 +426,23 @@ const Chatting = () => {
         }
     };
 
+    const scrollEvent = _.debounce((e) => {
+        const totalHeight = document.documentElement.scrollHeight;
+        const innerHeight = window.innerHeight;
+        const clientHeight = e.srcElement.scrollingElement.scrollTop;
+
+        setIsScrollBottom(totalHeight <= innerHeight + clientHeight + 50);
+    }, 100);
+
+    useEffect(() => {
+        window.addEventListener("scroll", scrollEvent);
+    }, [scrollEvent]);
+
+    useEffect(() => {
+        if (!isScrollBottom) return;
+        scrollToBottom();
+    }, [chatting, isScrollBottom]);
+
     return (
         <>
             <ChattingWrapper>
@@ -434,7 +454,19 @@ const Chatting = () => {
                         {Category[region]}
                     </ChatCategoryContainer>
                 </ChatCategoryWrapper>
-                <ChattingContainer ref={chatScrollRef} className="loading">
+                <ChattingContainer
+                    ref={chatScrollRef}
+                    className={
+                        "loading " +
+                        (selected === "seoul" ||
+                        selected === "busan" ||
+                        selected === "daejeon" ||
+                        selected === "daegu" ||
+                        selected === "gwangju"
+                            ? "full"
+                            : "")
+                    }
+                >
                     {chatting.map((chat, index) => (
                         <div key={index} className="chattings">
                             {index === 0 && (
@@ -702,10 +734,21 @@ const Chatting = () => {
                     ))}
                 </ChattingContainer>
             </ChattingWrapper>
-            {isScrollBottom && (
+            {!isScrollBottom && (
                 <ScrollBottomBtnWrapper>
                     <ScrollBottomBtnContainer>
-                        <ScrollBottomBtn onClick={scrollToBottom}>
+                        <ScrollBottomBtn
+                            onClick={scrollToBottom}
+                            className={
+                                selected === "seoul" ||
+                                selected === "busan" ||
+                                selected === "daejeon" ||
+                                selected === "daegu" ||
+                                selected === "gwangju"
+                                    ? "full"
+                                    : ""
+                            }
+                        >
                             <IoIosArrowDown />
                         </ScrollBottomBtn>
                     </ScrollBottomBtnContainer>
