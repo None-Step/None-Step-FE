@@ -46,8 +46,9 @@ const MainPage = () => {
                 console.error('MainPage: 사용자 정보 가져오기 실패:', error);
               });
         }
-          
+
         dispatch(selectedCategory({ category: "", region: "" }));
+        
     }, []);
 
     const handleScrollCategory = () => {
