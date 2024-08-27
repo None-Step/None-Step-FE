@@ -4,14 +4,12 @@ import { useLocation } from 'react-router-dom';
 import { PageWrapper } from './FindWay.style'
 import { PageHeader } from '@/components/header/Headers'
 import MenuBar from '@/components/menuBar/MenuBar'
-import { LoadingMessage, Reload } from './FindWay.style';
+import { Reload } from './FindWay.style';
 import ReloadIcon from '@/assets/img/current.svg'
 import { FaArrowRight } from 'react-icons/fa';
 import styled from 'styled-components';
-
-const LoadMessage = styled(LoadingMessage)`
-  top: 70px;
-`;
+import OriginMarker from '@/assets/img/origin-marker.svg';
+import DestinationMarker from '@/assets/img/destination-marker.svg';
 
 const RouteInfoBar = styled.div`
   position: absolute;
@@ -45,17 +43,17 @@ const DEFAULT_LEVEL = 3;
 const FindWayNav = () => {
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [userLocation, setUserLocation] = useState(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [statusMessage, setStatusMessage] = useState('지도를 불러오는 중...');
   const [mapLevel, setMapLevel] = useState(DEFAULT_LEVEL);
-  const [isTracking, setIsTracking] = useState(true);  // 사용자 위치 추적 상태
+  const [isTracking, setIsTracking] = useState(true);
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
   const [originName, setOriginName] = useState('출발지 미설정');
   const [destinationName, setDestinationName] = useState('도착지 미설정');
-  
+
   const location = useLocation();
   const { routeData, origin: routeOrigin, destination: routeDestination } = location.state || {};
+
+  // console.log('초기 설정 :', { routeData, routeOrigin, routeDestination });
 
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
 
@@ -66,6 +64,7 @@ const FindWayNav = () => {
   }, []);
 
   useEffect(() => {
+    // console.log('routeOrigin 값:', routeOrigin);
     if (routeOrigin) {
       setOrigin(routeOrigin);
       setOriginName(routeOrigin.name || '현재 위치');
@@ -73,6 +72,7 @@ const FindWayNav = () => {
   }, [routeOrigin]);
 
   useEffect(() => {
+    // console.log('routeDestination 값:', routeDestination);
     if (routeDestination) {
       setDestination(routeDestination);
       setDestinationName(routeDestination.name || '도착지 미설정');
@@ -84,7 +84,7 @@ const FindWayNav = () => {
     if (!routeData || !routeData.features || routeData.features.length === 0) {
       return [];
     }
-    
+
     return routeData.features.flatMap(feature => 
       feature.geometry.coordinates.map(coord => ({
         lat: coord[1],
@@ -106,11 +106,9 @@ const FindWayNav = () => {
           if (isTracking) {
             setCenter(newLocation);
           }
-          setStatusMessage('');
         },
         (error) => {
           console.error("위치 추적 오류:", error.message);
-          setStatusMessage('위치 추적에 실패했습니다.');
         },
         {
           enableHighAccuracy: true,
@@ -119,43 +117,17 @@ const FindWayNav = () => {
         }
       );
       return () => navigator.geolocation.clearWatch(watchId);
-    } else {
-      setStatusMessage('이 브라우저에서는 위치 추적을 사용할 수 없습니다.');
     }
   }, [isTracking]);
 
-  // 카카오맵 스크립트 로드
   useEffect(() => {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_JS_APP_KEY}&libraries=services&autoload=false`;
-    document.head.appendChild(script);
-    script.addEventListener('load', () => {
-      window.kakao.maps.load(() => {
-        setMapLoaded(true);
-        setStatusMessage('');
-      });
-    });
-    script.addEventListener('error', () => {
-      setStatusMessage('지도를 불러오는데 실패했습니다.');
-    });
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
-  // 사용자 위치 추적 시작
-  useEffect(() => {
-    if (mapLoaded) {
-      const stopWatching = watchUserPosition();
-      return stopWatching; // 컴포넌트 언마운트 시 위치 추적 중지
-    }
-  }, [mapLoaded, watchUserPosition]);
+    const stopWatching = watchUserPosition();
+    return stopWatching;
+  }, [watchUserPosition]);
 
   // 지도의 중심이 변경될 때 호출되는 핸들러
   const handleCenterChanged = (map) => {
     setMapLevel(map.getLevel());
-    // 사용자가 지도를 수동으로 이동시킬 때 추적 모드 해제
     if (isTracking) {
       setIsTracking(false);
     }
@@ -166,14 +138,11 @@ const FindWayNav = () => {
     if (userLocation) {
       setCenter(userLocation);
       setMapLevel(DEFAULT_LEVEL);
-      setIsTracking(true);  // 현재 위치로 이동 시 추적 모드 활성화
+      setIsTracking(true);
     }
   };
 
-  // 지도 로딩 중일 때 보여줄 내용
-  if (!mapLoaded) {
-    return <LoadMessage>{statusMessage}</LoadMessage>;
-  }
+  // console.log('Render state:', { origin, destination, originName, destinationName, polylinePath });
 
   return (
     <PageWrapper>
@@ -192,8 +161,25 @@ const FindWayNav = () => {
         level={mapLevel}
         onCenterChanged={handleCenterChanged}
       >
-        {origin && <MapMarker position={origin} />}
-        {destination && <MapMarker position={destination} />}
+        {origin &&
+          <MapMarker position={origin}
+          image={{
+            src: OriginMarker,
+            size: {
+                width: 50,
+                height: 65,
+            },
+          }} />}
+        {destination &&
+          <MapMarker position={destination}
+          image={{
+            src: DestinationMarker,
+            size: {
+                width: 50,
+                height: 65,
+            },
+          }}
+           />}
         {polylinePath.length > 0 && (
           <Polyline
             path={[polylinePath]}
@@ -207,7 +193,6 @@ const FindWayNav = () => {
           <img src={ReloadIcon} alt='현재위치 새로고침'/>
         </Reload>
       </Map>
-      {statusMessage && <LoadMessage>{statusMessage}</LoadMessage>}
       <MenuBar />
     </PageWrapper>
   )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { SearchIndex, SearchIcon, SearchBox, SearchForm, Hr, InputReload } from './FindWay.style';
+import { SearchIndex, SearchBox, SearchForm, Hr } from './FindWay.style';
 import styled from 'styled-components';
 
 // ResultList와 ResultItem 스타일 정의
@@ -35,8 +35,10 @@ const ResultItemAddress = styled.span`
 `
 
 const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, destinationName, setOriginName, setDestinationName }) => {
-  const [places, setPlaces] = useState([]);
-  const resultListRef = useRef(null);
+  const [originPlaces, setOriginPlaces] = useState([]);
+  const [destinationPlaces, setDestinationPlaces] = useState([]);
+  const originResultListRef = useRef(null);
+  const destinationResultListRef = useRef(null);
 
   // 키워드가 지하철역인지 확인하기
   const isSubwayStation = (keyword) => {
@@ -64,13 +66,25 @@ const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, 
           ...place,
           isStation: isSubwayStation(place.place_name),
         }));
-        setPlaces(results);
+        if (isOrigin) {
+          setOriginPlaces(results);
+        } else {
+          setDestinationPlaces(results);
+        }
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색 결과가 존재하지 않습니다.');
-        setPlaces([]);
+        if (isOrigin) {
+          setOriginPlaces([]);
+        } else {
+          setDestinationPlaces([]);
+        }
       } else if (status === kakao.maps.services.Status.ERROR) {
         alert('검색 중 오류가 발생했습니다.');
-        setPlaces([]);
+        if (isOrigin) {
+          setOriginPlaces([]);
+        } else {
+          setDestinationPlaces([]);
+        }
       }
     });
   };
@@ -88,21 +102,26 @@ const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, 
   };
 
   // 검색 결과 클릭 시 처리
-  const handleResultClick = (place, isOrigin) => {
-    if (isOrigin) {
-      onSelectOrigin(place);
-      setOriginName(place.place_name);
-    } else {
-      onSelectDestination(place);
-      setDestinationName(place.place_name);
-    }
-    setPlaces([]); // 검색 결과 리스트를 초기화
+  const handleOriginResultClick = (place) => {
+    onSelectOrigin(place);
+    setOriginName(place.place_name);
+    setOriginPlaces([]); // 검색 결과 리스트를 초기화
   };
+
+  const handleDestinationResultClick = (place) => {
+    onSelectDestination(place);
+    setDestinationName(place.place_name);
+    setDestinationPlaces([]); // 검색 결과 리스트를 초기화
+  };
+
 
   // 외부 클릭 시 검색 결과 닫기
   const handleClickOutside = (event) => {
-    if (resultListRef.current && !resultListRef.current.contains(event.target)) {
-      setPlaces([]);
+    if (originResultListRef.current && !originResultListRef.current.contains(event.target)) {
+      setOriginPlaces([]);
+    }
+    if (destinationResultListRef.current && !destinationResultListRef.current.contains(event.target)) {
+      setDestinationPlaces([]);
     }
   };
 
@@ -122,6 +141,15 @@ const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, 
           onChange={(e) => setOriginName(e.target.value)}
           placeholder="출발지를 입력하세요"
         />
+        {originPlaces.length > 0 && (
+          <ResultList ref={originResultListRef}>
+            {originPlaces.map((place) => (
+              <ResultItem key={place.id} onClick={() => handleOriginResultClick(place)}>
+                {place.place_name} <ResultItemAddress>{place.address_name}</ResultItemAddress>
+              </ResultItem>
+            ))}
+          </ResultList>
+        )}
       </SearchForm>
       <Hr/>
       <SearchForm onSubmit={handleDestinationSubmit}>
@@ -131,17 +159,16 @@ const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, 
           onChange={(e) => setDestinationName(e.target.value)}
           placeholder="도착지를 입력하세요"
         />
+        {destinationPlaces.length > 0 && (
+          <ResultList ref={destinationResultListRef}>
+            {destinationPlaces.map((place) => (
+              <ResultItem key={place.id} onClick={() => handleDestinationResultClick(place)}>
+                {place.place_name} <ResultItemAddress>{place.address_name}</ResultItemAddress>
+              </ResultItem>
+            ))}
+          </ResultList>
+        )}
       </SearchForm>
-      
-      {places.length > 0 && (
-        <ResultList ref={resultListRef}>
-          {places.map((place) => (
-            <ResultItem key={place.id} onClick={() => handleResultClick(place, originName === '')}>
-              {place.place_name} <ResultItemAddress>{place.address_name}</ResultItemAddress>
-            </ResultItem>
-          ))}
-        </ResultList>
-      )}
     </SearchBox>
   );
 };
