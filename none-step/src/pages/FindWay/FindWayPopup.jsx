@@ -283,7 +283,8 @@ const formatTransferTime = (seconds) => {
 
 const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
   // console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
-  const [activeTab, setActiveTab] = useState(routeInfo.isStationToStation ? '지하철 경로' : '도보 및 자전거');
+  // const [activeTab, setActiveTab] = useState(routeInfo.isStationToStation ? '지하철 경로' : '도보 및 자전거'); // 지하철 경로가 존재하는 경우 기본 탭을 지하철 경로로 설정
+  const [activeTab, setActiveTab] = useState('도보 및 자전거');
   const [coloredStations, setColoredStations] = useState([]);
 
   // console.log('routeInfo 데이터 :', routeInfo);
