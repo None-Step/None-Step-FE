@@ -53,13 +53,13 @@ const FindWay = () => {
   const getStationInfo = useCallback(async (lat, lng) => {
     try {
       const requestData = { latitude: lat, longitude: lng };
-      console.log('now-station 요청 데이터:', requestData);
+      // console.log('now-station 요청 데이터:', requestData);
       const response = await axiosInstance.get(`/nonestep/subway/now-station`, { params: requestData });
-      console.log('now-station 응답 데이터:', response.data);
+      // console.log('now-station 응답 데이터:', response.data);
       return response.data;
     } catch (error) {
       console.error('역 정보 조회 실패:', error);
-      console.log('now-station 오류 응답:', error.response?.data);
+      // console.log('now-station 오류 응답:', error.response?.data);
       throw error;
     }
   }, []);
@@ -251,7 +251,7 @@ const FindWay = () => {
   
       // 도보 경로 계산
       // 출발지가 역이고 목적지가 역이 아닌 경우 -> go-road API 호출
-      if (originStation.station && !destinationStation.station) {
+      if (origin.isStation && !destination.isStation) {
         const requestData = {
           goLatitude: destination.lat,
           goLongitude: destination.lng,
@@ -259,42 +259,12 @@ const FindWay = () => {
           currentStation: originStation.station
         };
         
-        console.log('go-road API 호출 데이터:', requestData);
-        
+        // console.log('go-road API 호출 데이터:', requestData);
         walkResponse = await axiosInstance.post('/nonestep/road/go-road', requestData);
-        console.log('go-road API 응답 데이터:', walkResponse.data);
-  
-      // 목적지가 역인 경우 -> go-station API 호출
-      } else if (destinationStation.station) {
-        const requestData = {
-          currentLatitude: origin.lat,
-          currentLongitude: origin.lng,
-          goRegion: destinationStation.region,
-          goStation: destinationStation.station
-        };
-  
-        console.log('go-station API 호출 데이터:', requestData);
-        console.log('go-station API 호출 destinationStation.station:', requestData);
-  
-        walkResponse = await axiosInstance.post('/nonestep/road/go-station', requestData);
-        console.log('go-station API 응답 데이터:', walkResponse.data);
-  
-      // 출발지와 목적지 둘 다 역인 경우 -> go-station API 호출
-      } else if (originStation.station && destinationStation.station) {
-        const requestData = {
-          currentLatitude: origin.lat,
-          currentLongitude: origin.lng,
-          goRegion: destinationStation.region,
-          goStation: destinationStation.station
-        };
-  
-        console.log('go-station API 호출 데이터:', requestData);
-  
-        walkResponse = await axiosInstance.post('/nonestep/road/go-station', requestData);
-        console.log('go-station API 응답 데이터:', walkResponse.data);
-  
+        // console.log('go-road API 응답 데이터:', walkResponse.data);      
+    
       // 출발지와 목적지 둘 다 역이 아닌 경우 -> walk API 호출
-      } else {
+      } else if (!origin.isStation && !destination.isStation) {
         const requestData = {
           currentLatitude: origin.lat,
           currentLongitude: origin.lng,
@@ -302,9 +272,24 @@ const FindWay = () => {
           goLongitude: destination.lng
         };
   
-        console.log('walk API 호출 데이터:', requestData);
+        // console.log('walk API 호출 데이터:', requestData);
         walkResponse = await axiosInstance.post('/nonestep/road/walk', requestData);
-        console.log('walk API 응답 데이터:', walkResponse.data);
+        // console.log('walk API 응답 데이터:', walkResponse.data);
+
+        // 출발지와 목적지 둘 중 하나라도 역인 경우 -> go-station API 호출
+      } else {
+        const requestData = {
+          currentLatitude: origin.lat,
+          currentLongitude: origin.lng,
+          goRegion: destinationStation.region,
+          goStation: destinationStation.station
+        };
+  
+        // console.log('go-station API 호출 데이터:', requestData);
+        // console.log('go-station API 호출 destinationStation.station:', requestData);
+  
+        walkResponse = await axiosInstance.post('/nonestep/road/go-station', requestData);
+        // console.log('go-station API 응답 데이터:', walkResponse.data);
       }
   
       // 도보 경로 API 응답 처리
@@ -315,6 +300,12 @@ const FindWay = () => {
           return acc;
         }, { time: 0, distance: 0 });
       }
+      // 최종 도보 경로 정보 처리
+      setRouteInfo((prevRouteInfo) => ({
+        ...prevRouteInfo,
+        walkTime: formatTime(Math.round(walkRouteInfo.time / 60)),
+        walkDistance: formatDistance(walkRouteInfo.distance)
+      }));
   
       // 자전거 경로 계산
       if (!walkRouteInfo.isOverDistance) {
@@ -327,9 +318,9 @@ const FindWay = () => {
             goLongitude: destination.lng
           };
   
-          console.log('자전거 경로 요청 데이터:', bikeRequestData);
+          // console.log('자전거 경로 요청 데이터:', bikeRequestData);
           bikeResponse = await axiosInstance.post(bikeApiEndpoint, bikeRequestData);
-          console.log('자전거 경로 응답 데이터:', bikeResponse.data);
+          // console.log('자전거 경로 응답 데이터:', bikeResponse.data);
   
           if (bikeResponse.data && bikeResponse.data.features && bikeResponse.data.features.length > 0) {
             // 자전거 보관소 위치 조회
@@ -403,9 +394,9 @@ const FindWay = () => {
         endLine: destinationStation.line,
         endStation: destinationStation.station
       };
-      console.log('지하철 경로 요청 데이터:', subwayRequestData);
+      // console.log('지하철 경로 요청 데이터:', subwayRequestData);
       const subwayResponse = await axiosInstance.post('/nonestep/road/subway-path', subwayRequestData);
-      console.log('지하철 경로 응답 데이터:', subwayResponse.data);
+      // console.log('지하철 경로 응답 데이터:', subwayResponse.data);
 
       if (subwayResponse.data && subwayResponse.data.result) {
         subwayRouteInfo = subwayResponse.data.result;
@@ -436,9 +427,9 @@ const FindWay = () => {
         isStationToStation: isStationToStation
       };
 
-      console.log('routeInfo 데이터 : ', routeInfo);
-      console.log('bikeRouteInfo 데이터 : ', bikeRouteInfo);
-      console.log('자전거 보관소 위치: ', routeInfo.bikeStation);
+      // console.log('routeInfo 데이터 : ', routeInfo);
+      // console.log('bikeRouteInfo 데이터 : ', bikeRouteInfo);
+      // console.log('자전거 보관소 위치: ', routeInfo.bikeStation);
 
       // 경로 정보와 상태 업데이트
       setRouteInfo(routeInfo);
