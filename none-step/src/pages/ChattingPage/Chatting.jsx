@@ -338,8 +338,8 @@ const Chatting = () => {
                 e.preventDefault();
                 setMessage((prev) => prev + "\n");
             } else {
-                sendMessage();
                 e.preventDefault();
+                sendMessage();
             }
         }
     };
