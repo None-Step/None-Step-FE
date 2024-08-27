@@ -282,7 +282,7 @@ const formatTransferTime = (seconds) => {
 };
 
 const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
-  console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
+  // console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
   const [activeTab, setActiveTab] = useState(routeInfo.isStationToStation ? '지하철 경로' : '도보 및 자전거');
   const [coloredStations, setColoredStations] = useState([]);
 
@@ -346,7 +346,7 @@ const applyLineColors = useCallback(async () => {
       nextLineName = null;
     }
 
-    console.log('Processing station:', station.startName, 'Current line:', currentLine?.laneName, 'Next line:', nextLineName);
+    // console.log('Processing station:', station.startName, 'Current line:', currentLine?.laneName, 'Next line:', nextLineName);
 
     if (!currentLine) {
       console.warn(`No line info found for station: ${station.startName}`);
@@ -379,7 +379,7 @@ const applyLineColors = useCallback(async () => {
 
 useEffect(() => {
   applyLineColors().then(updatedStations => {
-    console.log('Updated stations:', updatedStations);
+    // console.log('Updated stations:', updatedStations);
     setColoredStations(updatedStations);
   });
 }, [applyLineColors]);
