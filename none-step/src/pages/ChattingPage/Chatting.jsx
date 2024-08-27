@@ -280,12 +280,10 @@ const Chatting = () => {
     const connect = () => {
         client.current = new Client({
             brokerURL: "wss://nonestep.site/nonestep/connect",
-            webSocketFactory: () =>
-                new WebSocket("https://nonestep.site/nonestep/connect"),
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
-            onConnect: () => {
+            onConnect: function () {
                 subscribe();
             },
         });
