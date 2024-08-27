@@ -25,6 +25,7 @@ import seoulMetroIcon from "@assets/icons/seoul-metro-logo.svg";
 import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
+import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
