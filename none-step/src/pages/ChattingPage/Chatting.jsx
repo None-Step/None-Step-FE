@@ -50,7 +50,7 @@ const Chatting = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [copyMessage, setCopyMessage] = useState("");
     const [chatNumber, setChatNumber] = useState(0);
-    const [selectedModal, setSelectedModal] = useState("copy");
+    const [selectedModal, setSelectedModal] = useState();
 
     const category = useSelector((state) => state.category.value);
     const member = useSelector((state) => state.member);
@@ -347,17 +347,14 @@ const Chatting = () => {
     const handleMessageCopy = () => {
         setSelectedModal("copy");
 
-        setTimeout(() => {
-            if (selectedModal === "copy") {
-                try {
-                    navigator.clipboard.writeText(copyMessage);
-                    toastPop();
-                } catch (error) {
-                    alert("복사 중 오류가 발생했습니다.");
-                    console.log(error);
-                }
-            }
-        }, 100);
+        try {
+            navigator.clipboard.writeText(copyMessage);
+            toastPop();
+        } catch (error) {
+            alert("복사 중 오류가 발생했습니다.");
+            console.log(error);
+        }
+
         setIsModalOpen(false);
         document.body.style.overflow = "auto";
     };
@@ -376,6 +373,7 @@ const Chatting = () => {
             body: JSON.stringify(body),
             headers: { Authorization: access },
         });
+
         toastPop();
         setIsModalOpen(false);
         document.body.style.overflow = "auto";
@@ -393,7 +391,7 @@ const Chatting = () => {
                 }, 300);
             }
         }
-    }, [chatting]);
+    }, [chatting.length]);
 
     const handleModalOpen = (
         chatNo,
@@ -771,7 +769,7 @@ const Chatting = () => {
                         rows={1}
                         maxLength="300"
                         onChange={(e) => handleMessage(e)}
-                        onKeyPress={handleSearchEnter}
+                        onKeyDown={handleSearchEnter}
                     />
                     <MessageSendBtn onClick={sendMessage}>
                         <TbSend />
