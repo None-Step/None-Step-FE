@@ -18,12 +18,11 @@ export const MainWrapper = styled.div`
 
 export const MainSection = styled.div`
     width: 100%;
-    height: 250px;
-    background: linear-gradient(
-        -127deg,
-        rgba(0, 73, 153, 1) 0%,
-        rgba(136, 193, 255, 1) 100%
-    );
+
+    img {
+        width: 100%;
+        object-fit: contain;
+    }
 `;
 
 export const CategoryWrapper = styled.div`

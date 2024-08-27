@@ -11,6 +11,7 @@ import {
 } from "./MainPage.styles";
 import MenuBar from "@components/menuBar/MenuBar";
 import LocationTracker from "@components/location/LocationTracker";
+import mainBanner from "@assets/img/main-banner.png";
 import elevatorIcon from "@assets/icons/elevator-icon.svg";
 import escalatorIcon from "@assets/icons/escalator-icon.svg";
 import wheelchairLiftIcon from "@assets/icons/wheelchair-lift-icon.svg";
@@ -39,12 +40,12 @@ const MainPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const accessToken = sessionStorage.getItem('accessToken');
+        const accessToken = sessionStorage.getItem("accessToken");
 
         if (accessToken) {
-            fetchUserInfo(dispatch).catch(error => {
-                console.error('MainPage: 사용자 정보 가져오기 실패:', error);
-              });
+            fetchUserInfo(dispatch).catch((error) => {
+                console.error("MainPage: 사용자 정보 가져오기 실패:", error);
+            });
         }
 
         dispatch(selectedCategory({ category: "", region: "" }));
@@ -84,7 +85,9 @@ const MainPage = () => {
         <>
             <MainHeader />
             <MainWrapper>
-                <MainSection></MainSection>
+                <MainSection>
+                    <img src={mainBanner} alt="main-banner-01" />
+                </MainSection>
                 <CategoryWrapper>
                     <h3>편의시설 바로가기</h3>
                     <CategoryContainer
