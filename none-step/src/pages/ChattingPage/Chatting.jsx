@@ -333,14 +333,9 @@ const Chatting = () => {
     };
 
     const handleSearchEnter = (e) => {
-        if (e.key === "Enter") {
-            if (e.shiftKey) {
-                e.preventDefault();
-                setMessage((prev) => prev + "\n");
-            } else {
-                e.preventDefault();
-                sendMessage();
-            }
+        if (e.key === "Enter" && !e.shiftKey) {
+            sendMessage();
+            e.preventDefault();
         }
     };
 
