@@ -756,17 +756,17 @@ const Chatting = () => {
             ) : (
                 <ChattingInputContainer>
                     <ChattingInput
-                        type="type"
+                        type="text"
                         id="chat"
                         label="채팅"
                         value={message}
                         placeholder="메시지를 입력해주세요"
                         rows={1}
                         maxLength="300"
-                        onChange={(e) => handleMessage(e)}
+                        onChange={handleMessage}
                         onKeyDown={handleSearchEnter}
                     />
-                    <MessageSendBtn onClick={sendMessage}>
+                    <MessageSendBtn type="button" onClick={sendMessage}>
                         <TbSend />
                     </MessageSendBtn>
                 </ChattingInputContainer>
