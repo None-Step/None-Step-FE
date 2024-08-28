@@ -136,13 +136,13 @@ export const ModalBG = styled.div`
 
 export const ModalContainer = styled.div`
     width: 100%;
+    max-width: 600px;
     height: fit-content;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     background-color: ${(props) => props.theme.colors.white};
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    position: fixed;
+    bottom: 72px;
     z-index: 3;
     padding: 2rem;
     box-sizing: border-box;
