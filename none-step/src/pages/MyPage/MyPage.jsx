@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { updateNickname } from "@/store/slices/memberSlice";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +44,8 @@ import { InputWrap, SubmitBut } from "@/pages/SignUp/SignUp02/SignUpForm.style";
 import SimpleInputForm from "./SimpleInputForm";
 
 const MyPage = () => {
+    const scrollRef = useRef(null);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
     const [isWithdrawCompleteOpen, setIsWithdrawCompleteOpen] = useState(false);
@@ -108,11 +110,17 @@ const MyPage = () => {
         setIsModalOpen(true);
         setNicknameInput(memberInfo?.memberNickName || "");
         setIsNicknameEdited(false);
+        if (scrollRef.current) {
+            scrollRef.current.style.overflow = "hidden";
+        }
     }, [memberInfo]);
 
     // 프로필 편집 모달 닫기
     const handleModalClose = useCallback(() => {
         setIsModalOpen(false);
+        if (scrollRef.current) {
+            scrollRef.current.style.overflow = "auto";
+        }
     }, []);
 
     // 회원 탈퇴 모달 열기
@@ -391,7 +399,7 @@ const MyPage = () => {
 
     return (
         <BG>
-            <PageContainer>
+            <PageContainer ref={scrollRef}>
                 <PageHeader />
 
                 {memberInfo && (
