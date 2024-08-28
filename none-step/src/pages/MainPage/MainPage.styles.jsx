@@ -6,8 +6,8 @@ export const MainWrapper = styled.div`
     gap: 8px;
     width: 100%;
     max-width: 100%;
-    margin-top: 60px;
-    margin-bottom: 95px;
+    padding-top: 60px;
+    padding-bottom: 75px;
     background: #fafafa;
 
     h3 {
@@ -119,5 +119,30 @@ export const ChatBtn = styled.button`
         left: 10px;
         font-size: 1.8rem;
         font-weight: 600;
+    }
+`;
+
+export const FooterWrapper = styled.div`
+    padding: 35px 20px;
+`;
+
+export const FooterContainer = styled.div`
+    p {
+        color: #999;
+        font-size: 1.2rem;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    p.qna span:first-child {
+        margin-right: 7px;
+        font-weight: 500;
+    }
+
+    p.qna span:last-child {
+        text-decoration: underline;
+        cursor: pointer;
     }
 `;
