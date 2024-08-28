@@ -6,6 +6,8 @@ import {
     ChatBtn,
     ChatContainer,
     ChatWrapper,
+    FooterContainer,
+    FooterWrapper,
     MainSection,
     MainWrapper,
 } from "./MainPage.styles";
@@ -79,6 +81,20 @@ const MainPage = () => {
         } else {
             dispatch(selectedCategory({ category: region, region: region }));
         }
+    };
+
+    const { Kakao } = window;
+
+    const kakaoChatting = () => {
+        if (Kakao) {
+            if (!Kakao.isInitialized()) {
+                Kakao.init(`${import.meta.env.VITE_KAKAO_JS_APP_KEY}`);
+            }
+        }
+
+        Kakao.Channel.chat({
+            channelPublicId: "_muxbhn",
+        });
     };
 
     return (
@@ -236,6 +252,17 @@ const MainPage = () => {
                     </ChatContainer>
                 </ChatWrapper>
                 <LocationTracker />
+                <FooterWrapper>
+                    <FooterContainer>
+                        <p className="qna">
+                            <span>문의하기</span>
+                            <span onClick={kakaoChatting}>
+                                카카오톡 1:1 채팅
+                            </span>
+                        </p>
+                        <p>&#169;이번역 All Rights Reserved.</p>
+                    </FooterContainer>
+                </FooterWrapper>
             </MainWrapper>
             <MenuBar />
         </>

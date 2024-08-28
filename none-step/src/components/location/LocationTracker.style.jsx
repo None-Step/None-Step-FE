@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { SubmitButton } from "@/pages/MyPage/MyPage.style";
-import { Title } from '@/pages/MyPage/MyPage.style'
+import { Title } from "@/pages/MyPage/MyPage.style";
 
 export const HomeContainer = styled.div`
     width: 100%;
@@ -19,7 +19,7 @@ export const InBox = styled.div`
 
 export const LocationTitle = styled(Title)`
     margin-bottom: 0 !important;
-`
+`;
 
 export const LocationBut = styled(SubmitButton)`
     width: fit-content;
@@ -29,7 +29,7 @@ export const LocationBut = styled(SubmitButton)`
 
 export const Location = styled.p`
     font-size: 1.6rem;
-    padding-block: 1.5rem 0.8rem;
+    padding-block: 1.5rem 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,15 +63,19 @@ export const Strong = styled.strong`
 `;
 
 export const ToggleButton = styled.button`
-  background-color: ${props => props.$isActive ? props.theme.colors.primary : props.theme.colors.gray04};
-  color: ${props => props.$isActive ? props.theme.colors.white : props.theme.colors.black};
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    background-color: ${(props) =>
+        props.$isActive
+            ? props.theme.colors.primary
+            : props.theme.colors.gray04};
+    color: ${(props) =>
+        props.$isActive ? props.theme.colors.white : props.theme.colors.black};
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
-  &:hover {
-    opacity: 0.8;
-  }
+    &:hover {
+        opacity: 0.8;
+    }
 `;
