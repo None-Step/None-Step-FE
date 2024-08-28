@@ -257,7 +257,7 @@ const getLineColor = (lineName, region) => {
     default:
       return theme.colors.gray03; // 매칭되는 지역이 없는 경우 기본 색상
   }
-  
+
   return theme.colors.gray03; // 매칭되지 않은 경우 기본 색상
 };
 
@@ -279,6 +279,19 @@ const formatTransferTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   return `${minutes}분 ${remainingSeconds}초`;
+};
+
+// 역 이름 예외 처리하기
+const stationNameMapping = {
+  // '이수'역으로 통일
+  '총신대입구(이수)': '이수'
+};
+
+// 예외 처리된 역명을 반환하는 함수
+const getMappedStationName = (name) => {
+  const mappedName = stationNameMapping[name] || name;
+  // console.log(`역명 전환: ${name} -> ${mappedName}`);
+  return mappedName;
 };
 
 const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
@@ -332,15 +345,22 @@ const applyLineColors = useCallback(async () => {
     const station = routeInfo.subwayRoute.stationSet.stations[i];
     const nextStation = routeInfo.subwayRoute.stationSet.stations[i + 1];
 
-    // 현재 역의 노선 정보 찾기
+    // 현재 역의 노선 정보 찾기 (이름 매핑을 적용하여 비교)
+    // 응답 중 노선 정보를 보내주는 부분이 driveInfoSet뿐이므로
+    // driveInfoSet에 저장되어 있는 startName과 현재 (저장중인) 역의 startName을 비교
     const currentLine = routeInfo.subwayRoute.driveInfoSet.driveInfo.find(
-      info => info.startName === station.startName
+      info => {
+        const mappedInfoName = getMappedStationName(info.startName);
+        const mappedStationName = getMappedStationName(station.startName);
+        // console.log(`일치 여부 확인: info.startName ${mappedInfoName}, station.startName ${mappedStationName}`);
+        return mappedInfoName === mappedStationName;
+      }
     );
 
-    // 다음 역의 노선 정보 찾기 (환승 여부 확인용)
+    // 다음 역의 노선 정보 찾기 (환승 여부 확인용, 이름 매핑을 적용)
     if (nextStation) {
       const nextLine = routeInfo.subwayRoute.driveInfoSet.driveInfo.find(
-        info => info.startName === nextStation.startName
+        info => getMappedStationName(info.startName) === getMappedStationName(nextStation.startName)
       );
       nextLineName = nextLine ? nextLine.laneName : null;
     } else {
@@ -351,15 +371,22 @@ const applyLineColors = useCallback(async () => {
 
     if (!currentLine) {
       console.warn(`No line info found for station: ${station.startName}`);
+      // 노선 정보를 찾지 못한 경우(driveInfoSet에 노선 정보는 출발역, 환승역만 있음) = 호선이 변하지 않은 경우
+      // 이전에 설정된 호선 색상, 호선 정보 그대로 저장함
       updatedStations.push({...station, color: currentColor, laneName: currentLineName});
       continue;
     }
 
+    // 현재 역의 노선 정보가 변경된 경우(이전 역과 호선이 다른 경우)
     if (currentLineName !== currentLine.laneName) {
+      // 호선 정보 업데이트
       currentLineName = currentLine.laneName;
       try {
+        // 현재 역 명 + 호선 명 => 현재 역의 위/경도 가져오기
         const coordinates = await fetchCoordinates(station.startName, currentLine.laneName);
+        // 위/경도로 지역(Region) 가져오기
         const stationRegion = await fetchStationRegion(coordinates.latitude, coordinates.longitude);
+        // 지역 정보로 호선 색상 가져오기
         currentColor = getLineColor(currentLine.laneName, stationRegion);
       } catch (error) {
         console.error(`Error fetching color for station ${station.startName}:`, error);
@@ -470,7 +497,7 @@ return (
           <StationList>
             {coloredStations.map((station, index) => {
               const isTransfer = routeInfo.subwayRoute.exChangeInfoSet?.exChangeInfo?.find(
-                transfer => transfer.exName === station.endName
+                transfer => getMappedStationName(transfer.exName) === getMappedStationName(station.endName)
               );
               const nextStation = coloredStations[index + 1];
               const isLineChange = station.laneName !== nextStation?.laneName;

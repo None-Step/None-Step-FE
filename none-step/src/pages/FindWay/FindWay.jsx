@@ -249,7 +249,8 @@ const FindWay = () => {
   
       let isStationToStation = originStation.station && destinationStation.station;
   
-      // 도보 경로 계산
+      try {
+              // 도보 경로 계산
       // 출발지가 역이고 목적지가 역이 아닌 경우 -> go-road API 호출
       if (origin.isStation && !destination.isStation) {
         const requestData = {
@@ -261,7 +262,7 @@ const FindWay = () => {
         
         // console.log('go-road API 호출 데이터:', requestData);
         walkResponse = await axiosInstance.post('/nonestep/road/go-road', requestData);
-        // console.log('go-road API 응답 데이터:', walkResponse.data);      
+        // console.log('go-road API 응답 데이터:', walkResponse.data);   
     
       // 출발지와 목적지 둘 다 역이 아닌 경우 -> walk API 호출
       } else if (!origin.isStation && !destination.isStation) {
@@ -306,6 +307,16 @@ const FindWay = () => {
         walkTime: formatTime(Math.round(walkRouteInfo.time / 60)),
         walkDistance: formatDistance(walkRouteInfo.distance)
       }));
+
+      } catch (error) {
+        console.error('도보 경로 계산 중 오류 발생:', error);
+        walkRouteInfo = {
+          time: 0,
+          distance: 0,
+          isOverDistance: false,
+          message: "도보 경로를 계산할 수 없습니다."
+        };
+      }
   
       // 자전거 경로 계산
       try {
@@ -406,21 +417,30 @@ const FindWay = () => {
           message: "자전거 경로를 조회할 수 없습니다."
         };
       }
+      
+      try {
+        // 지하철 경로 계산
+        const subwayRequestData = {
+          region: originStation.region,
+          startLine: originStation.line,
+          startStation: originStation.station,
+          endLine: destinationStation.line,
+          endStation: destinationStation.station
+        };
+        // console.log('지하철 경로 요청 데이터:', subwayRequestData);
+        const subwayResponse = await axiosInstance.post('/nonestep/road/subway-path', subwayRequestData);
+        // console.log('지하철 경로 응답 데이터:', subwayResponse.data);
 
-      // 지하철 경로 계산
-      const subwayRequestData = {
-        region: originStation.region,
-        startLine: originStation.line,
-        startStation: originStation.station,
-        endLine: destinationStation.line,
-        endStation: destinationStation.station
-      };
-      // console.log('지하철 경로 요청 데이터:', subwayRequestData);
-      const subwayResponse = await axiosInstance.post('/nonestep/road/subway-path', subwayRequestData);
-      // console.log('지하철 경로 응답 데이터:', subwayResponse.data);
-
-      if (subwayResponse.data && subwayResponse.data.result) {
-        subwayRouteInfo = subwayResponse.data.result;
+        if (subwayResponse.data && subwayResponse.data.result) {
+          subwayRouteInfo = subwayResponse.data.result;
+        }
+      } catch (error) {
+        console.error('지하철 경로 계산 중 오류 발생:', error);
+        subwayRouteInfo = {
+          globalTravelTime: 0,
+          globalDistance: 0,
+          message: "지하철 경로를 조회할 수 없습니다."
+        };
       }
 
       // 최종 경로 정보를 routeInfo 객체에 저장
@@ -522,7 +542,6 @@ const FindWay = () => {
     }
   }, [isNavigating, userLocation, setCenter]);
 
-
   return (
     <PageWrapper>
       <PageHeader />
@@ -578,7 +597,7 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap position={origin} yAnchor={1.5}>
+              <CustomOverlayMap position={origin} yAnchor={1.62}>
                 <CustomOverlay>
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
@@ -608,7 +627,7 @@ const FindWay = () => {
               }}
             />
             {destination && showDestinationOverlay && (
-              <CustomOverlayMap position={destination} yAnchor={1.5}>
+              <CustomOverlayMap position={destination} yAnchor={1.62}>
                 <CustomOverlay>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
