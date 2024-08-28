@@ -283,6 +283,7 @@ const formatTransferTime = (seconds) => {
 
 // 역 이름 예외 처리하기
 const stationNameMapping = {
+  // '이수'역으로 통일
   '총신대입구(이수)': '이수'
 };
 

@@ -542,7 +542,6 @@ const FindWay = () => {
     }
   }, [isNavigating, userLocation, setCenter]);
 
-
   return (
     <PageWrapper>
       <PageHeader />
