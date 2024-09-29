@@ -22,8 +22,7 @@
         "react-router-dom": "^6.24.1",
         "redux": "^5.0.1",
         "redux-persist": "^6.0.0",
-        "styled-components": "^6.1.11",
-        "vite-plugin-mkcert": "^1.17.5"
+        "styled-components": "^6.1.11"
     },
     "devDependencies": {
         "@types/react": "^18.3.3",
