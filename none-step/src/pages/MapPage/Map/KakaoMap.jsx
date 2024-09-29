@@ -155,8 +155,14 @@ const KakaoMap = () => {
                 radius = 600;
                 break;
             case 5:
+                radius = 1400;
+                break;
             case 6:
+                radius = 2000;
+                break;
             case 7:
+                radius = 2500;
+                break;
             case 8:
             case 9:
             case 10:
@@ -164,7 +170,7 @@ const KakaoMap = () => {
             case 12:
             case 13:
             case 14:
-                radius = 1400;
+                radius = 3000;
                 break;
             default:
                 radius = 400;
@@ -599,7 +605,7 @@ const KakaoMap = () => {
                                     handleSearchBlur();
                                 }}
                             />
-                            {mapLevel < 5 && isStationInfoOpen && (
+                            {mapLevel < 7 && isStationInfoOpen && (
                                 <StationInfo
                                     stationInfo={stationDetailInfo}
                                     handleClose={() =>

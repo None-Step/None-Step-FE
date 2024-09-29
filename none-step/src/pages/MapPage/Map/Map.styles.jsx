@@ -11,7 +11,7 @@ export const MapWrapper = styled.div`
 
 export const SearchWrapper = styled.div`
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -51,7 +51,7 @@ export const SearchInput = (props) => {
 
 export const CategoryWrapper = styled.div`
     position: absolute;
-    top: 60px;
+    top: 65px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
