@@ -102,7 +102,7 @@ const MainPage = () => {
             <MainHeader />
             <MainWrapper>
                 <MainSection>
-                    <img src={mainBanner} alt="main-banner-01" />
+                    <img loading="lazy" decoding="async" src={mainBanner} alt="main-banner-01" />
                 </MainSection>
                 <CategoryWrapper>
                     <h3>편의시설 바로가기</h3>
@@ -114,7 +114,7 @@ const MainPage = () => {
                             <CategoryBtn
                                 onClick={() => handleClickMap("elevator")}
                             >
-                                <img src={elevatorIcon} alt="elevator-icon" />
+                                <img loading="lazy" decoding="async" src={elevatorIcon} alt="elevator-icon" />
                                 <span>엘리베이터</span>
                             </CategoryBtn>
                         </li>
@@ -122,7 +122,7 @@ const MainPage = () => {
                             <CategoryBtn
                                 onClick={() => handleClickMap("escal")}
                             >
-                                <img src={escalatorIcon} alt="escalator-icon" />
+                                <img loading="lazy" decoding="async" src={escalatorIcon} alt="escalator-icon" />
                                 <span>에스컬레이터</span>
                             </CategoryBtn>
                         </li>
@@ -139,7 +139,7 @@ const MainPage = () => {
                             <CategoryBtn
                                 onClick={() => handleClickMap("toilet")}
                             >
-                                <img src={toiletIcon} alt="toilet-icon" />
+                                <img loading="lazy" decoding="async" src={toiletIcon} alt="toilet-icon" />
                                 <span>화장실</span>
                             </CategoryBtn>
                         </li>
@@ -167,13 +167,13 @@ const MainPage = () => {
                         </li>
                         <li className="atm">
                             <CategoryBtn onClick={() => handleClickMap("atm")}>
-                                <img src={atmIcon} alt="atm-icon" />
+                                <img loading="lazy" decoding="async" src={atmIcon} alt="atm-icon" />
                                 <span>ATM</span>
                             </CategoryBtn>
                         </li>
                         <li className="aed">
                             <CategoryBtn onClick={() => handleClickMap("aed")}>
-                                <img src={aedIcon} alt="aed-icon" />
+                                <img loading="lazy" decoding="async" src={aedIcon} alt="aed-icon" />
                                 <span>제세동기</span>
                             </CategoryBtn>
                         </li>
