@@ -12,7 +12,7 @@ import BicycleMarker from '@/assets/img/bicycle-marker.svg';
 import OriginMarker from '@/assets/img/origin-marker.svg';
 import DestinationMarker from '@/assets/img/destination-marker.svg';
 
-const TIMEOUT_DURATION = 8000;
+const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 const DEFAULT_LEVEL = 3;
 
@@ -565,7 +565,7 @@ const FindWay = () => {
         onCenterChanged={handleCenterChanged}
       >
         {/* 사용자 위치 마커 및 오버레이 */}
-        {userLocation && (
+        {userLocation && origin != null && (
           <>
             <MapMarker 
               position={userLocation} 
