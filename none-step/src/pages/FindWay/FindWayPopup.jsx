@@ -370,7 +370,7 @@ const applyLineColors = useCallback(async () => {
     // console.log('Processing station:', station.startName, 'Current line:', currentLine?.laneName, 'Next line:', nextLineName);
 
     if (!currentLine) {
-      console.warn(`No line info found for station: ${station.startName}`);
+      // console.warn(`해당 역의 호선 정보를 찾을 수 없음 : ${station.startName}`);
       // 노선 정보를 찾지 못한 경우(driveInfoSet에 노선 정보는 출발역, 환승역만 있음) = 호선이 변하지 않은 경우
       // 이전에 설정된 호선 색상, 호선 정보 그대로 저장함
       updatedStations.push({...station, color: currentColor, laneName: currentLineName});

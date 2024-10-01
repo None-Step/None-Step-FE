@@ -11,8 +11,9 @@ import QuickRoute from './QuickRoute';
 import BicycleMarker from '@/assets/img/bicycle-marker.svg';
 import OriginMarker from '@/assets/img/origin-marker.svg';
 import DestinationMarker from '@/assets/img/destination-marker.svg';
+import Loading from '../../components/Loading';
 
-const TIMEOUT_DURATION = 8000;
+const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 const DEFAULT_LEVEL = 3;
 
@@ -29,6 +30,7 @@ const formatDistance = (meters) => {
 };
 
 const FindWay = () => {
+  const [loading, setLoading] = useState(false);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [userLocation, setUserLocation] = useState(null);
   const [mapLevel, setMapLevel] = useState(DEFAULT_LEVEL);
@@ -247,11 +249,13 @@ const FindWay = () => {
       // 출발지와 도착지의 역 정보를 가져옴
       const originStation = await getStationInfo(origin.lat, origin.lng);
       const destinationStation = await getStationInfo(destination.lat, destination.lng);
+
+      setLoading(true);
   
       let isStationToStation = originStation.station && destinationStation.station;
   
       try {
-              // 도보 경로 계산
+      // 도보 경로 계산
       // 출발지가 역이고 목적지가 역이 아닌 경우 -> go-road API 호출
       if (origin.isStation && !destination.isStation) {
         const requestData = {
@@ -485,6 +489,7 @@ const FindWay = () => {
 
       setIsRouteCalculated(true);
       setShowRoutePopup(true);
+      setLoading(false);
     } catch (error) {
       console.error('경로 계산 중 오류 발생:', error);
       alert('경로를 계산하는 데 실패했습니다.');
@@ -714,6 +719,9 @@ const FindWay = () => {
           <img src={ReloadIcon} alt='현재위치 새로고침'/>
         </Reload>
       </Map>
+
+      {/* 로딩 중일 때 스피너 표시 */}
+      {loading && <Loading />}
   
       {/* 경로 정보 팝업 */}
       {showRoutePopup && routeInfo && (
