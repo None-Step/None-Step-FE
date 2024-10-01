@@ -37,7 +37,6 @@ export const CategoryWrapper = styled.div`
 export const CategoryContainer = styled.ul`
     display: flex;
     flex-direction: row;
-    gap: 8px;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
@@ -51,25 +50,25 @@ export const CategoryContainer = styled.ul`
     }
 
     li:first-child {
-        margin-left: 20px;
+        margin-left: 15px;
     }
 
     li:last-child {
-        margin-right: 20px;
+        margin-right: 15px;
     }
 `;
 
 export const CategoryBtn = styled.button`
-    width: 90px;
-    height: 90px;
+    width: 95px;
+    height: 95px;
     border: none;
     background: none;
     outline: none;
     cursor: pointer;
 
     img {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         margin-bottom: 15px;
     }
 
