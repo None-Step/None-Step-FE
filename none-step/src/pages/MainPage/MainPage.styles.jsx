@@ -26,15 +26,18 @@ export const MainSection = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
-    padding: 20px 20px 25px;
+    padding: 20px 0 25px;
     background: ${(props) => props.theme.colors.white};
+
+    h3 {
+        margin-left: 20px;
+    }
 `;
 
 export const CategoryContainer = styled.ul`
     display: flex;
     flex-direction: row;
     gap: 8px;
-    padding: 0 10px;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
@@ -46,11 +49,19 @@ export const CategoryContainer = styled.ul`
     li {
         display: block;
     }
+
+    li:first-child {
+        margin-left: 20px;
+    }
+
+    li:last-child {
+        margin-right: 20px;
+    }
 `;
 
 export const CategoryBtn = styled.button`
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border: none;
     background: none;
     outline: none;
