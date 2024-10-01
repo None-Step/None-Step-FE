@@ -12,7 +12,7 @@ import BicycleMarker from '@/assets/img/bicycle-marker.svg';
 import OriginMarker from '@/assets/img/origin-marker.svg';
 import DestinationMarker from '@/assets/img/destination-marker.svg';
 
-const TIMEOUT_DURATION = 4000;
+const TIMEOUT_DURATION = 8000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 const DEFAULT_LEVEL = 3;
 
@@ -123,6 +123,7 @@ const FindWay = () => {
         },
         (error) => {
           console.error("위치 추적 오류:", error.message);
+          alert('현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.');
         },
         {
           enableHighAccuracy: true,
@@ -565,14 +566,14 @@ const FindWay = () => {
         onCenterChanged={handleCenterChanged}
       >
         {/* 사용자 위치 마커 및 오버레이 */}
-        {userLocation && origin != null && (
+        {userLocation && (!origin || (origin.lat !== userLocation.lat || origin.lng !== userLocation.lng)) &&  (
           <>
             <MapMarker 
               position={userLocation} 
               onClick={() => handleMarkerClick('userLocation')}
             />
             {showUserLocationOverlay && !origin && !destination && !isNavigating && (
-              <CustomOverlayMap position={userLocation} yAnchor={1.65}>
+              <CustomOverlayMap position={userLocation} yAnchor={1.75}>
                 <CustomOverlay>
                   <StationName>현재 위치</StationName>
                     <UserLocationStart onClick={() => handleSetLocation('origin', userLocation)}>출발지로 설정하기</UserLocationStart>
@@ -581,7 +582,7 @@ const FindWay = () => {
             )}
           </>
         )}
-        
+
         {/* 출발지 마커 */}
         {origin && (
           <>
@@ -597,7 +598,7 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap position={origin} yAnchor={1.62}>
+              <CustomOverlayMap position={origin} yAnchor={1.75}>
                 <CustomOverlay>
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
@@ -627,7 +628,7 @@ const FindWay = () => {
               }}
             />
             {destination && showDestinationOverlay && (
-              <CustomOverlayMap position={destination} yAnchor={1.62}>
+              <CustomOverlayMap position={destination} yAnchor={1.75}>
                 <CustomOverlay>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
@@ -694,7 +695,7 @@ const FindWay = () => {
               }}
             />
             {routeInfo?.bikeStation && showBikeStationOverlay && (
-              <CustomOverlayMap position={routeInfo.bikeStation} yAnchor={1.52}>
+              <CustomOverlayMap position={routeInfo.bikeStation} yAnchor={1.75}>
                 <CustomOverlay>
                   <StationName>자전거 보관소</StationName>
                   <ButtonContainer>
