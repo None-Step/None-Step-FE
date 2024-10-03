@@ -18,6 +18,7 @@ import MyPage from "@pages/MyPage/MyPage";
 import ChattingMenu from "@pages/ChattingPage/ChattingMenu";
 import ChattingPage from "@pages/ChattingPage/ChattingPage";
 import PrivateRoute from "../layout/PrivateRoute";
+import Bookmark from "@pages/MyPage/bookmark/Bookmark";
 
 const AppRoutes = () => {
     return (
@@ -56,6 +57,7 @@ const AppRoutes = () => {
             </Route>
 
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/bookmark/find" element={<Bookmark />} />
         </Routes>
     );
 };

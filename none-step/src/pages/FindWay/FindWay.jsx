@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Map, MapMarker, CustomOverlayMap, Polyline, Circle } from 'react-kakao-maps-sdk';
-import { PageWrapper, Reload, CustomOverlay, StationName, UserLocationStart, StationAddress, ButtonContainer, Button } from './FindWay.style';
+import { PageWrapper, Reload, CustomOverlay, StationName, UserLocationStart, StationAddress, ButtonContainer, Button, BookmarkBtn } from './FindWay.style';
 import { PageHeader } from '@/components/header/Headers';
 import MenuBar from '@/components/menuBar/MenuBar';
 import ReloadIcon from '@/assets/img/current.svg';
@@ -11,7 +11,8 @@ import QuickRoute from './QuickRoute';
 import BicycleMarker from '@/assets/img/bicycle-marker.svg';
 import OriginMarker from '@/assets/img/origin-marker.svg';
 import DestinationMarker from '@/assets/img/destination-marker.svg';
-import Loading from '../../components/Loading';
+import Loading from '@/components/Loading';
+import bookmark from '../../assets/img/bookmark.svg';
 
 const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -608,6 +609,9 @@ const FindWay = () => {
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
                   <ButtonContainer>
+                    <BookmarkBtn>
+                      <img src={bookmark} alt='북마크 아이콘' />
+                    </BookmarkBtn>
                     <Button onClick={() => handleSetLocation('origin', origin)}>출발</Button>
                     <Button onClick={() => handleSetLocation('destination', origin)}>도착</Button>
                   </ButtonContainer>
@@ -638,6 +642,9 @@ const FindWay = () => {
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
                   <ButtonContainer>
+                    <BookmarkBtn>
+                      <img src={bookmark} alt='북마크 아이콘' />
+                    </BookmarkBtn>
                     <Button onClick={() => handleSetLocation('origin', destination)}>출발</Button>
                     <Button onClick={() => handleSetLocation('destination', destination)}>도착</Button>
                   </ButtonContainer>

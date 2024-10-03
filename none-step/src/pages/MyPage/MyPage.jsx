@@ -459,6 +459,18 @@ const MyPage = () => {
                 )}
 
                 <InfoSection>
+                    <SectionTitle>즐겨찾기 관리</SectionTitle>
+                    <InfoItem>
+                        <span>길찾기</span>
+                        <RightIcon />
+                    </InfoItem>
+                    <InfoItem>
+                        <span>지도</span>
+                        <RightIcon />
+                    </InfoItem>
+                </InfoSection>
+
+                <InfoSection>
                     <SectionTitle>계정 관리</SectionTitle>
                     <InfoItem $clickable onClick={handleLogout}>
                         <span>로그아웃</span>

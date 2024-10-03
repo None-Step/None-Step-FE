@@ -16,7 +16,7 @@ export const SearchBox = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   border-bottom: 1px solid ${(props) => props.theme.colors.gray05};
-  padding: 0.5rem 0.8rem;
+  padding-inline: 0.8rem;
   box-sizing: border-box;
 
   display: flex;
@@ -144,9 +144,21 @@ export const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
-  &:last-of-type{
-    margin-left: 1rem;
+  &:nth-child(2) {
+    margin-right: 0.6rem;
   }
+`;
+
+export const BookmarkBtn = styled(Button)`
+  background-color: rgba(0, 122, 255, 0.15);
+  padding: 8px 10px;
+  border-radius: 100px;
+
+  margin-right: 1.4rem;
+
+  display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const RouteInfoBar = styled.div`

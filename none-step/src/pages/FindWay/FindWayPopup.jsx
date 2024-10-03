@@ -36,6 +36,7 @@ const TabContainer = styled.div`
 `;
 
 const Tab = styled.button`
+  font-size: 1.6rem;
   flex: 1;
   padding: 10px;
   background: none;
