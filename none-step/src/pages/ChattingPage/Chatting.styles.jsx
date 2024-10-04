@@ -661,6 +661,11 @@ export const MessageSendBtn = styled.button`
     outline: none;
     cursor: pointer;
 
+    &:disabled {
+        background: ${(props) => props.theme.colors.gray04};
+        cursor: default;
+    }
+
     svg {
         width: 22px;
         height: 22px;
