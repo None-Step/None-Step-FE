@@ -754,20 +754,38 @@ const Chatting = () => {
                 <></>
             ) : (
                 <ChattingInputContainer>
-                    <ChattingInput
-                        type="text"
-                        id="chat"
-                        label="채팅"
-                        value={message}
-                        placeholder="메시지를 입력해주세요"
-                        rows={1}
-                        maxLength="300"
-                        onChange={handleMessage}
-                        onKeyDown={handleSearchEnter}
-                    />
-                    <MessageSendBtn type="button" onClick={sendMessage}>
-                        <TbSend />
-                    </MessageSendBtn>
+                    {member.isAuthorized ? (
+                        <>
+                            <ChattingInput
+                                type="text"
+                                id="chat"
+                                label="채팅"
+                                value={message}
+                                placeholder="메시지를 입력해주세요"
+                                rows={1}
+                                maxLength="300"
+                                onChange={handleMessage}
+                                onKeyDown={handleSearchEnter}
+                            />
+                            <MessageSendBtn type="button" onClick={sendMessage}>
+                                <TbSend />
+                            </MessageSendBtn>
+                        </>
+                    ) : (
+                        <>
+                            <ChattingInput
+                                type="text"
+                                id="chat"
+                                label="채팅"
+                                value={message}
+                                placeholder="로그인 후 이용 가능합니다."
+                                disabled
+                            />
+                            <MessageSendBtn type="button" disabled>
+                                <TbSend />
+                            </MessageSendBtn>
+                        </>
+                    )}
                 </ChattingInputContainer>
             )}
             {isModalOpen &&
