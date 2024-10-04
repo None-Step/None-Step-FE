@@ -15,7 +15,7 @@ import {
     ScrollBottomBtnWrapper,
     ToastContainer,
 } from "./Chatting.styles";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import CapitalCategory from "./ChatCategory/CapitalCategory";
 import BusanCategory from "./ChatCategory/BusanCategory";
@@ -58,6 +58,8 @@ const Chatting = () => {
     const access = sessionStorage.getItem("accessToken");
 
     const location = useLocation();
+
+    const navigate = useNavigate();
 
     const Category = {
         capital: <CapitalCategory />,
@@ -304,6 +306,10 @@ const Chatting = () => {
 
         return () => disconnect();
     }, [category.category, category.region]);
+
+    const handleClickLogin = () => {
+        navigate("/login");
+    };
 
     const handleMessage = (e) => {
         setMessage(e.target.value);
@@ -779,7 +785,7 @@ const Chatting = () => {
                                 label="채팅"
                                 value={message}
                                 placeholder="로그인 후 이용 가능합니다."
-                                disabled
+                                onClick={handleClickLogin}
                             />
                             <MessageSendBtn type="button" disabled>
                                 <TbSend />
