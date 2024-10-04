@@ -129,13 +129,15 @@ export const Confirm = styled.p`
 `;
 
 export const ButtonContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 `;
 
 export const Button = styled.button`
-  padding: 5px 10px;
+  width: 100%;
+  padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 2px;
   background-color: ${(props) => props.theme.colors.primary};
@@ -144,22 +146,32 @@ export const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
-  &:nth-child(2) {
+  &:first-child {
     margin-right: 0.6rem;
   }
 `;
 
-export const BookmarkBtn = styled(Button)`
-  background-color: rgba(0, 122, 255, 0.15);
+export const BookmarkBtn = styled.div`
+  /* background-color: rgba(0, 122, 255, 0.15);
   padding: 8px 10px;
-  border-radius: 100px;
-
-  margin-right: 1.4rem;
+  border-radius: 100px; */
+  margin-bottom: 0.4rem;
+  margin-right: calc(80% - (28px + 0.6rem));
 
   display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 `;
+
+export const BookmarkIcon = styled.img`
+  margin-right: 0.4rem;
+`;
+
+export const BookmarkSpan = styled.span`
+  font-size: 1.2rem;
+  color : ${(props) => props.color}
+`;
+
 
 export const RouteInfoBar = styled.div`
   position: absolute;

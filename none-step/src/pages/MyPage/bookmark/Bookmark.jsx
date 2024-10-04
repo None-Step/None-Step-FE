@@ -16,7 +16,7 @@ const TabContainer = styled.div`
 `;
 
 const Tab = styled.button`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   flex: 1;
   padding: 1.5rem;
   background: none;
@@ -53,7 +53,11 @@ const Bookmark = ({color}) => {
             </TabContent>
 
             <TabContent $active={activeTab === '경로'}>
-                <BookmarkPath/>
+                <BookmarkPath
+                  color={color}
+                  originName='집'
+                  destinationName='회사'
+                  />
             </TabContent>
 
           </Wrapper>

@@ -394,6 +394,19 @@ const MyPage = () => {
         [memberInfo]
     );
 
+    function handleBookmark($clickable) {
+        switch ($clickable) {
+            case '길찾기':
+                navigate('/mypage/bookmark/find');
+                break;
+            case '지도':
+                navigate('/mypage/bookmark/find');
+                break;
+        
+            default:
+                break;
+        }
+    }
     const MAX_FILE_SIZE = 10 * 1024 * 1024;
     const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
 
@@ -460,11 +473,15 @@ const MyPage = () => {
 
                 <InfoSection>
                     <SectionTitle>즐겨찾기 관리</SectionTitle>
-                    <InfoItem>
+                    <InfoItem
+                        $clickable
+                        onClick={() => handleBookmark("길찾기")}>
                         <span>길찾기</span>
                         <RightIcon />
                     </InfoItem>
-                    <InfoItem>
+                    <InfoItem
+                        $clickable
+                        onClick={() => handleBookmark("지도")}>
                         <span>지도</span>
                         <RightIcon />
                     </InfoItem>
