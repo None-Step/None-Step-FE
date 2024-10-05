@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Map, MapMarker, CustomOverlayMap, Polyline, Circle } from 'react-kakao-maps-sdk';
-import { PageWrapper, Reload, CustomOverlay, StationName, UserLocationStart, StationAddress, ButtonContainer, Button } from './FindWay.style';
+import { PageWrapper, Reload, CustomOverlay, StationName, UserLocationStart, StationAddress, ButtonContainer, Button, BookmarkBtn, BookmarkSpan, BookmarkIcon } from './FindWay.style';
 import { PageHeader } from '@/components/header/Headers';
 import MenuBar from '@/components/menuBar/MenuBar';
 import ReloadIcon from '@/assets/img/current.svg';
@@ -11,7 +11,11 @@ import QuickRoute from './QuickRoute';
 import BicycleMarker from '@/assets/img/bicycle-marker.svg';
 import OriginMarker from '@/assets/img/origin-marker.svg';
 import DestinationMarker from '@/assets/img/destination-marker.svg';
-import Loading from '../../components/Loading';
+import Loading from '@/components/Loading';
+import bookmark from '@/assets/img/bookmark.svg';
+import emptyStar from '@/assets/img/gray-star.svg';
+import yellowStar from '@/assets/img/yellow-star.svg';
+import BookmarkModal from './modal/BookmarkModal';
 
 const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -29,7 +33,7 @@ const formatDistance = (meters) => {
   return `${(meters / 1000).toFixed(2)}km`;
 };
 
-const FindWay = () => {
+const FindWay = ({color}) => {
   const [loading, setLoading] = useState(false);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [userLocation, setUserLocation] = useState(null);
@@ -50,6 +54,12 @@ const FindWay = () => {
   const [destinationInput, setDestinationInput] = useState('');
   const [showBikeStationOverlay, setShowBikeStationOverlay] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState('walk'); // 경로 선택
+
+  //북마크
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const handleBookmarkClick = () => {
+    setIsBookmarked(!isBookmarked);
+  };
 
   // const isStation = useCallback((place) => place && place.isStation, []);
   const getStationInfo = useCallback(async (lat, lng) => {
@@ -603,8 +613,14 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap position={origin} yAnchor={1.75}>
+              <CustomOverlayMap position={origin} yAnchor={1.65}>
                 <CustomOverlay>
+                <BookmarkBtn onClick={handleBookmarkClick}>
+                  <BookmarkIcon src={isBookmarked ? yellowStar : emptyStar} alt='북마크 아이콘' />
+                  <BookmarkSpan color={isBookmarked ? '#007AFF' : '#8E8E93'}>
+                    즐겨찾기
+                  </BookmarkSpan>
+                </BookmarkBtn>
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
                   <ButtonContainer>
@@ -617,6 +633,15 @@ const FindWay = () => {
           </>
           
         )}
+
+        {/* 북마크 모달 */}
+        {isBookmarked && (
+          <>
+            <BookmarkModal onClick={handleBookmarkClick} />
+          </>
+        )
+
+        }
   
         {/* 도착지 마커 */}
         {destination && (
@@ -635,6 +660,9 @@ const FindWay = () => {
             {destination && showDestinationOverlay && (
               <CustomOverlayMap position={destination} yAnchor={1.75}>
                 <CustomOverlay>
+                    <BookmarkBtn>
+                      <img src={bookmark} alt='북마크 아이콘' />
+                    </BookmarkBtn>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
                   <ButtonContainer>
