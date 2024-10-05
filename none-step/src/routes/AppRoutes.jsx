@@ -34,11 +34,11 @@ const AppRoutes = () => {
 
             <Route path="/login" element={<Login />} />
             <Route
-                path="/login/callback/kakao"
+                path="/nonestep/member/login/callback/kakao"
                 element={<KakaoCallback />}
             />
             <Route
-                path="/login/callback/naver"
+                path="/nonestep/member/login/callback/naver"
                 element={<NaverCallback />}
             />
 
@@ -51,10 +51,8 @@ const AppRoutes = () => {
 
             <Route path="/map" element={<MapPage />} />
 
-            <Route element={<PrivateRoute />}>
-                <Route path="/chat" element={<ChattingMenu />} />
-                <Route path="/chat/:region" element={<ChattingPage />} />
-            </Route>
+            <Route path="/chat" element={<ChattingMenu />} />
+            <Route path="/chat/:region" element={<ChattingPage />} />
 
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/bookmark/find" element={<Bookmark />} />

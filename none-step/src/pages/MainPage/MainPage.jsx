@@ -201,6 +201,7 @@ const MainPage = () => {
                         </li>
                     </CategoryContainer>
                 </CategoryWrapper>
+                <LocationTracker />
                 <ChatWrapper>
                     <h3>채팅 바로가기</h3>
                     <ChatContainer>
@@ -251,7 +252,7 @@ const MainPage = () => {
                         </li>
                     </ChatContainer>
                 </ChatWrapper>
-                <LocationTracker />
+
                 <FooterWrapper>
                     <FooterContainer>
                         <p className="qna">

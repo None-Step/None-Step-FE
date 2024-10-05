@@ -15,7 +15,7 @@ import {
     ScrollBottomBtnWrapper,
     ToastContainer,
 } from "./Chatting.styles";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import CapitalCategory from "./ChatCategory/CapitalCategory";
 import BusanCategory from "./ChatCategory/BusanCategory";
@@ -58,6 +58,8 @@ const Chatting = () => {
     const access = sessionStorage.getItem("accessToken");
 
     const location = useLocation();
+
+    const navigate = useNavigate();
 
     const Category = {
         capital: <CapitalCategory />,
@@ -304,6 +306,10 @@ const Chatting = () => {
 
         return () => disconnect();
     }, [category.category, category.region]);
+
+    const handleClickLogin = () => {
+        navigate("/login");
+    };
 
     const handleMessage = (e) => {
         setMessage(e.target.value);
@@ -754,20 +760,38 @@ const Chatting = () => {
                 <></>
             ) : (
                 <ChattingInputContainer>
-                    <ChattingInput
-                        type="text"
-                        id="chat"
-                        label="채팅"
-                        value={message}
-                        placeholder="메시지를 입력해주세요"
-                        rows={1}
-                        maxLength="300"
-                        onChange={handleMessage}
-                        onKeyDown={handleSearchEnter}
-                    />
-                    <MessageSendBtn type="button" onClick={sendMessage}>
-                        <TbSend />
-                    </MessageSendBtn>
+                    {member.isAuthorized ? (
+                        <>
+                            <ChattingInput
+                                type="text"
+                                id="chat"
+                                label="채팅"
+                                value={message}
+                                placeholder="메시지를 입력해주세요"
+                                rows={1}
+                                maxLength="300"
+                                onChange={handleMessage}
+                                onKeyDown={handleSearchEnter}
+                            />
+                            <MessageSendBtn type="button" onClick={sendMessage}>
+                                <TbSend />
+                            </MessageSendBtn>
+                        </>
+                    ) : (
+                        <>
+                            <ChattingInput
+                                type="text"
+                                id="chat"
+                                label="채팅"
+                                value={message}
+                                placeholder="로그인 후 이용 가능합니다."
+                                onClick={handleClickLogin}
+                            />
+                            <MessageSendBtn type="button" disabled>
+                                <TbSend />
+                            </MessageSendBtn>
+                        </>
+                    )}
                 </ChattingInputContainer>
             )}
             {isModalOpen &&
