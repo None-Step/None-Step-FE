@@ -400,7 +400,7 @@ const MyPage = () => {
                 navigate('/mypage/bookmark/find');
                 break;
             case '지도':
-                navigate('/mypage/bookmark/find');
+                navigate('/mypage/bookmark/map');
                 break;
         
             default:
