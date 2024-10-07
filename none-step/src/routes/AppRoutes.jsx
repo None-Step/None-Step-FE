@@ -18,7 +18,8 @@ import MyPage from "@pages/MyPage/MyPage";
 import ChattingMenu from "@pages/ChattingPage/ChattingMenu";
 import ChattingPage from "@pages/ChattingPage/ChattingPage";
 import PrivateRoute from "../layout/PrivateRoute";
-import Bookmark from "@pages/MyPage/bookmark/Bookmark";
+import BookmarkMap from "@pages/MyPage/bookmark/BookmarkMap";
+import BookmarkFindWay from "@pages/MyPage/bookmark/BookmarkFindWay";
 
 const AppRoutes = () => {
     return (
@@ -55,7 +56,8 @@ const AppRoutes = () => {
             <Route path="/chat/:region" element={<ChattingPage />} />
 
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/mypage/bookmark/find" element={<Bookmark />} />
+            <Route path="/mypage/bookmark/find" element={<BookmarkFindWay />} />
+            <Route path="/mypage/bookmark/map" element={<BookmarkMap />} />
         </Routes>
     );
 };

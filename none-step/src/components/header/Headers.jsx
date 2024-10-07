@@ -67,7 +67,9 @@ export const PageHeader = () => {
             case "/mypage":
                 return "내정보";
             case "/mypage/bookmark/find":
-                return "길찾기 북마크";
+                return "길찾기 즐겨찾기";
+            case "/mypage/bookmark/map":
+                return "지도 즐겨찾기";
             case "/map":
                 return "지도";
             case "/chat/capital":
