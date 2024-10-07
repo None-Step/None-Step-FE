@@ -57,9 +57,42 @@ const FindWay = ({color}) => {
 
   //북마크
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const handleBookmarkClick = () => {
+  const [bookmarkPlaceName, setBookmarkPlaceName] = useState('');
+  const [bookmarkPlaceAddress, setBookmarkPlaceAddress] = useState('');
+  const [bookmarkLat, setBookmarkLat] = useState('');
+  const [bookmarkLng, setBookmarkLng] = useState('');
+  const handleBookmarkClick = (placeName, placeAddress, lat, lng) => {
+    setBookmarkPlaceName(placeName);
+    setBookmarkPlaceAddress(placeAddress);
+    setBookmarkLat(lat);
+    setBookmarkLng(lng);
     setIsBookmarked(!isBookmarked);
   };
+  const [bookmarkedPlaces, setBookmarkedPlaces] = useState([]);
+
+  // 즐겨찾기 목록 조회
+  useEffect(() => {
+    const fetchBookmarkedPlaces = async () => {
+      try {
+        const response = await axiosInstance.get('/nonestep/book-mark/place-list');
+        setBookmarkedPlaces(response.data); // 데이터를 상태에 저장
+      } catch (error) {
+        console.error('즐겨찾기 목록 조회 실패:', error);
+      }
+    };
+
+    fetchBookmarkedPlaces();
+  }, []);
+
+  let isDestinationBookmarked = false;
+
+for (let i = 0; i < bookmarkedPlaces.length; i++) {
+  if (bookmarkedPlaces[i].placeLatitude === destination?.lat && 
+      bookmarkedPlaces[i].placeLongitude === destination?.lng) {
+    isDestinationBookmarked = true;
+    break;  // 조건을 만족하는 요소를 찾았을 때 반복 중단시키기
+  }
+}
 
   // const isStation = useCallback((place) => place && place.isStation, []);
   const getStationInfo = useCallback(async (lat, lng) => {
@@ -553,6 +586,9 @@ const FindWay = ({color}) => {
       case 'bikeStation':
         setShowBikeStationOverlay(true);
         break;
+      case 'bookmark' :
+        handleBookmarkClick(placeName);
+        break;
       default:
         break;
     }
@@ -615,9 +651,9 @@ const FindWay = ({color}) => {
             {origin && showOriginOverlay && (
               <CustomOverlayMap position={origin} yAnchor={1.65}>
                 <CustomOverlay>
-                <BookmarkBtn onClick={handleBookmarkClick}>
-                  <BookmarkIcon src={isBookmarked ? yellowStar : emptyStar} alt='북마크 아이콘' />
-                  <BookmarkSpan color={isBookmarked ? '#007AFF' : '#8E8E93'}>
+                <BookmarkBtn onClick={() => handleBookmarkClick(origin.name, origin.address, origin.lat, origin.lng)}>
+                  <BookmarkIcon src={isDestinationBookmarked ? yellowStar : emptyStar} alt='북마크 아이콘' />
+                  <BookmarkSpan color={isDestinationBookmarked ? '#007AFF' : '#8E8E93'}>
                     즐겨찾기
                   </BookmarkSpan>
                 </BookmarkBtn>
@@ -637,7 +673,13 @@ const FindWay = ({color}) => {
         {/* 북마크 모달 */}
         {isBookmarked && (
           <>
-            <BookmarkModal onClick={handleBookmarkClick} />
+            <BookmarkModal
+              onClick={handleBookmarkClick}
+              placeName={bookmarkPlaceName}
+              placeAddress={bookmarkPlaceAddress}
+              lat={bookmarkLat}
+              lng={bookmarkLng}
+            />
           </>
         )
 
@@ -660,9 +702,12 @@ const FindWay = ({color}) => {
             {destination && showDestinationOverlay && (
               <CustomOverlayMap position={destination} yAnchor={1.75}>
                 <CustomOverlay>
-                    <BookmarkBtn>
-                      <img src={bookmark} alt='북마크 아이콘' />
-                    </BookmarkBtn>
+                <BookmarkBtn onClick={() => handleBookmarkClick(destination.name, destination.address, destination.lat, destination.lng)}>
+                <BookmarkIcon src={isDestinationBookmarked ? yellowStar : emptyStar} alt='북마크 아이콘' />
+                  <BookmarkSpan color={isDestinationBookmarked ? '#007AFF' : '#8E8E93'}>
+                    즐겨찾기
+                  </BookmarkSpan>
+                </BookmarkBtn>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
                   <ButtonContainer>

@@ -44,6 +44,9 @@ import { InputWrap, SubmitBut } from "@/pages/SignUp/SignUp02/SignUpForm.style";
 import SimpleInputForm from "./SimpleInputForm";
 
 const MyPage = () => {
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+    const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
+
     const scrollRef = useRef(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -406,9 +409,7 @@ const MyPage = () => {
             default:
                 break;
         }
-    }
-    const MAX_FILE_SIZE = 10 * 1024 * 1024;
-    const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
+    };
 
     return (
         <BG>
