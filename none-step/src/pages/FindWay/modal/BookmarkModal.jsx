@@ -4,6 +4,8 @@ import { ModalBG, ModalContainer, ActionTitle } from '../../MyPage/MyPage.style'
 import Button from "@/components/Button";
 import Check from '../../../assets/img/Check.svg';
 import Close from '../../MyPage/MyPage.style';
+import axiosInstance from "@/apis/axiosInstance";
+import { useSelector } from 'react-redux';
 
 const InputWrap = styled.div`
   width: 100%;
@@ -61,15 +63,61 @@ const CheckImg = styled.img`
   object-fit: contain;
 `
 
-const BookmarkModal = ({onClick}) => {
-  const [checkedColors, setCheckedColors] = useState(Array(colorPalette.length).fill(false));
-  // => colorPalette와 똑같은 길이의 배열을 생성하고, 그 값을 false로 채워넣기
-  // => 즉 checkedColors는 값이 false인 7개의 데이터를 가진 배열이 됨
+const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
+  const isAuthorized = useSelector((state) => state.member.isAuthorized); // 리덕스에서 로그인 상태 가져오기
+
+  const [selectColor,setSelectColor] = useState(null);
+  const [placeNameInput, setPlaceNameInput] = useState(placeName || "");
 
   const handleChecked = (index) => {
-    const updatedCheckedColors = [...checkedColors];
-    updatedCheckedColors[index] = !updatedCheckedColors[index];
-    setCheckedColors(updatedCheckedColors);
+    setSelectColor(selectColor === index ? null : index);
+    
+  };
+
+  const handleSave = () => {
+    if (!isAuthorized) {
+      alert('로그인 후 사용 가능합니다.');
+      return;
+    }
+
+    if (!placeNameInput) {
+      alert("장소명을 입력해 주세요.");
+      return;
+    }
+
+    if (selectColor === null) {
+      alert("색상을 선택해 주세요.");
+      return;
+    }
+
+    const selectedColor = colorPalette[selectColor];
+
+    console.log("전송할 데이터: ", {
+      latitude: lat,
+      longitude: lng,
+      placeNickName: placeNameInput,
+      placeAddress: placeAddress,
+      placeColor: selectedColor,
+    });
+
+    axiosInstance
+      .post('nonestep/book-mark/place-register', {
+        latitude: lat,
+        longitude: lng,
+        placeNickName: placeNameInput,
+        placeAddress: placeAddress,
+        placeColor: selectedColor
+      })
+      .then((response) => {
+        console.log("응답 데이터: ", response.data);
+        if(response.data.message.toLowerCase() === 'success') {
+          alert('즐겨찾기가 성공적으로 등록되었습니다.');
+          onClick(); 
+        }
+      })
+      .catch((error) => {
+        alert(error, '즐겨찾기 등록에 실패했습니다. 다시 시도해주세요.');
+      })
   };
 
   return (
@@ -82,6 +130,8 @@ const BookmarkModal = ({onClick}) => {
         <InputWrap>
           <InputText
             type="text"
+            value={placeNameInput}
+            onChange={(e) => setPlaceNameInput(e.target.value)}
             placeholder="즐겨찾기 장소명"
           />
         </InputWrap>
@@ -94,12 +144,12 @@ const BookmarkModal = ({onClick}) => {
               style={{ backgroundColor: color }} 
               onClick={() => handleChecked(index)}
             >
-              {checkedColors[index] ? (<CheckImg src={Check} alt="체크" />) : null}
+              {selectColor === index ? (<CheckImg src={Check} alt="체크" />) : null}
             </Color>
           ))}
         </Palette>
 
-        <Button submitMessage="저장하기" />
+        <Button submitMessage="저장하기" onClick={handleSave}/>
         <Close onClick={onClick}>닫기</Close>
       </ModalContainer>
     </ModalBG>

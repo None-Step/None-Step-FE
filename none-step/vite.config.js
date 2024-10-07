@@ -3,10 +3,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
+import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
+    plugins: [react(),
+        mkcert({
+                certFileName: "./localhost+1.pem",
+                keyFileName: "./localhost+1-key.pem",
+            }),
+    ],
     resolve: {
         alias: [
             { find: "@", replacement: resolve(__dirname, "src") },
