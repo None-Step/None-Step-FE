@@ -65,17 +65,13 @@ export const BookmarkPlace = ({color, placeName, placeAddress, onDelete, placeNo
           <PlaceAddress>{placeAddress}</PlaceAddress>
         </ListItem>
         <img src={CloseIcon} alt='닫기 버튼'
-          onClick={() => {
-            console.log('삭제 버튼 클릭됨');
-            console.log('삭제할 placeNo:', placeNo);
-            onDelete(placeNo);
-          }}/>
+          onClick={() => { onDelete(placeNo); }}/>
       </ListContainer>
     </>
   )
 }
 
-export const BookmarkPath = ({color, originName, destinationName}) => {
+export const BookmarkPath = ({color, pathStartName, pathEndName, onDelete, pathNo}) => {
   return (
     <>
       <ListContainer>
@@ -91,15 +87,12 @@ export const BookmarkPath = ({color, originName, destinationName}) => {
             fill={color} />
           </Star>
 
-          <PlaceName>{originName}</PlaceName>
+          <PlaceName>{pathStartName}</PlaceName>
             <RightIcon src={rightIcon} alt='화살표 아이콘'/>
-          <PlaceName>{destinationName}</PlaceName>
+          <PlaceName>{pathEndName}</PlaceName>
         </ListItem>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 10.5862L16.95 5.63623L18.364 7.05023L13.414 12.0002L18.364 16.9502L16.95 18.3642L12
-          13.4142L7.04999 18.3642L5.63599 16.9502L10.586 12.0002L5.63599 7.05023L7.04999 5.63623L12 10.5862Z"
-          fill="#333333"/>
-        </svg>
+        <img src={CloseIcon} alt='닫기 버튼'
+          onClick={() => {onDelete(pathNo); }}/>
     </ListContainer>
     </>
   )

@@ -4,6 +4,8 @@ import { FaArrowRight, FaWalking, FaBicycle, FaSubway, FaExchangeAlt } from 'rea
 import Close from '@/assets/img/Close.svg';
 import { theme } from '@/styles/Theme';
 import axiosInstance from '@/apis/axiosInstance';
+import { useSelector } from 'react-redux';
+import BookmarkPathModal from './modal/BookmarkPathModal';
 
 const PopupContainer = styled.div`
   position: absolute;
@@ -90,6 +92,11 @@ const Button = styled.button`
   justify-content: center;
   margin-left: auto;
 `;
+
+const BookmarkBtn = styled(Button)`
+  background-color: white;
+  border: 1px solid ${(props) => props.theme.colors.primary};
+`
 
 const OverviewItem = styled.div`
   text-align: center;
@@ -295,7 +302,7 @@ const getMappedStationName = (name) => {
   return mappedName;
 };
 
-const FindWayPopup = ({ routeInfo, onClose, onNavigate }) => {
+const FindWayPopup = ({ routeInfo, onClose, onNavigate, origin, destination }) => {
   // console.log('넘겨 받은 routeInfo 데이터: ', routeInfo);
   // const [activeTab, setActiveTab] = useState(routeInfo.isStationToStation ? '지하철 경로' : '도보 및 자전거'); // 지하철 경로가 존재하는 경우 기본 탭을 지하철 경로로 설정
   const [activeTab, setActiveTab] = useState('도보 및 자전거');
@@ -413,6 +420,12 @@ useEffect(() => {
   });
 }, [applyLineColors]);
 
+const [isBookmarked, setIsBookmarked] = useState(false);
+
+const handleBookmarkModal = () => {
+  setIsBookmarked(!isBookmarked);
+}
+
 return (
   <PopupContainer>
     <CloseButton onClick={onClose}>
@@ -469,9 +482,31 @@ return (
             </Button>
           )}
         </RouteOption>
+        {/* 길찾기 경로 북마크 버튼 */}
+        <RouteOption>
+          <RouteInfo>
+            <RouteType>해당 경로 즐겨찾기 추가</RouteType>
+            <RouteDetail>{origin.name} -&gt; {destination.name}</RouteDetail>
+          </RouteInfo>
+          {/* 경로 등록 버튼 */}
+          <BookmarkBtn onClick={handleBookmarkModal}>
+          <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.97668 1.27861C9.27603 0.357304 10.5794 0.357302 10.8788 1.27861L12.3974 5.95238C12.5313 6.3644 12.9152 6.64336 13.3484 6.64336H18.2627C19.2315 6.64336 19.6342 7.88297 18.8505 8.45238L14.8748 11.3409C14.5243 11.5956 14.3776 12.0469 14.5115 12.459L16.0301 17.1327C16.3295 18.054 15.275 18.8202 14.4913 18.2507L10.5155 15.3622C10.165 15.1076 9.69044 15.1076 9.33995 15.3622L5.36421 18.2507C4.5805 18.8201 3.52602 18.054 3.82537 17.1327L5.34396 12.459C5.47784 12.0469 5.33118 11.5956 4.98069 11.3409L1.00496 8.45238C0.221242 7.88297 0.624017 6.64336 1.59274 6.64336H6.50702C6.94025 6.64336 7.32421 6.3644 7.45808 5.95238L8.97668 1.27861Z"
+          fill="#007AFF"/>
+          </svg>
+          </BookmarkBtn>
+        </RouteOption>
     </>
   )}
 </TabContent>
+
+{isBookmarked && (
+  <BookmarkPathModal
+    onClick={handleBookmarkModal}  // 모달 닫기 함수
+    origin={origin}  // 출발지 이름 전달
+    destination={destination}  // 도착지 이름 전달
+  />
+)}
 
     <TabContent $active={activeTab === '지하철 경로'}>
       {routeInfo.subwayRoute ? (

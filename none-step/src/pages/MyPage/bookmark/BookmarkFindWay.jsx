@@ -48,7 +48,7 @@ const BookmarkFindWay = ({color}) => {
       const response = await axiosInstance.get('/nonestep/book-mark/place-list');
       setBookmarkList(response.data);
     } catch (error) {
-      console.error('즐겨찾기 목록을 불러오는 데 실패했습니다.', error);
+      console.error('즐겨찾기 장소 목록을 불러오는 데 실패했습니다.', error);
     }
   };
   
@@ -58,27 +58,10 @@ const BookmarkFindWay = ({color}) => {
 
   // 삭제 핸들러 함수
   const handleDelete = async (placeNo) => {
-    console.log('삭제 요청 placeNo:', placeNo);  
-    console.log(`/nonestep/book-mark/place-delete?pathNo=${placeNo}`);
-  
-    // 세션 스토리지에서 토큰 가져오기
-    const token = sessionStorage.getItem('accessToken');
-  
-    if (!token) {
-      console.error('토큰이 없습니다. 로그인 상태를 확인하세요.');
-      return;
-    }
-  
-    try {
-      console.log('삭제 요청 헤더:', {
-        Authorization: `Bearer ${token}`,
-      });
-      
-      const response = await axiosInstance.delete(`/nonestep/book-mark/place-delete?pathNo=${placeNo}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    console.log(`삭제 요청, /nonestep/book-mark/place-delete?placeNo=${placeNo}`);
+
+    try {      
+      const response = await axiosInstance.delete(`/nonestep/book-mark/place-delete?placeNo=${placeNo}`);
   
       console.log('삭제 요청 응답:', response);
       fetchBookmarks();
@@ -86,6 +69,37 @@ const BookmarkFindWay = ({color}) => {
       console.error('즐겨찾기 삭제에 실패했습니다.', error);
     }
   };
+
+  // 길찾기 경로 북마크 -----------------------------------------------------------
+    const [bookmarkPathList, setbookmarkPathList] = useState([]);
+  
+    const fetchBookmarkPaths = async () => {
+      try {
+        const response = await axiosInstance.get('nonestep/book-mark/path-list');
+        setbookmarkPathList(response.data);
+      } catch (error) {
+        console.error('즐겨찾기 경로 목록을 불러오는 데 실패했습니다.', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchBookmarkPaths();
+    }, []);
+  
+  // 경로 삭제 핸들러 함수
+  const handleDeletePath = async (pathNo) => {
+    console.log (`경로 삭제 요청, /nonestep/book-mark/path-delete?pathNo=${pathNo}`);
+
+    try {
+      const response = await axiosInstance.delete(`/nonestep/book-mark/path-delete?pathNo=${pathNo}`);
+
+      console.log('경로 삭제 요청 응답:',response);
+      fetchBookmarkPaths();
+    } catch (error) {
+      console.error('경로 즐겨찾기 삭제에 실패했습니다.', error);
+    }
+  }
+  
 
   return (
     <BG>
@@ -106,8 +120,8 @@ const BookmarkFindWay = ({color}) => {
                   color={bookmark.placeColor}
                   placeName={bookmark.placeNickName}
                   placeAddress={bookmark.placeAddress}
-                  onDelete={handleDelete}
                   placeNo={bookmark.placeNo}
+                  onDelete={handleDelete}
                 />
               ))
             ) : (
@@ -116,11 +130,21 @@ const BookmarkFindWay = ({color}) => {
           </TabContent>
 
             <TabContent $active={activeTab === '경로'}>
-                <BookmarkPath
-                  color={color}
-                  originName='집'
-                  destinationName='회사'
-                />
+              {bookmarkPathList && bookmarkPathList.length > 0 ? (
+                bookmarkPathList.map((bookmark) => (
+                  <BookmarkPath
+                    key={bookmark.pathNo}
+                    color={bookmark.pathColor}
+                    pathStartName={bookmark.pathStartNickName}
+                    pathEndName={bookmark.pathEndNickName}
+                    pathNo={bookmark.pathNo}
+                    onDelete={handleDeletePath}
+                  />
+
+                ))  
+              ) : (
+                <Span>등록된 즐겨찾기가 없습니다.</Span>
+              )}
             </TabContent>
 
             <Span>즐겨찾기 장소는 최대 5곳 등록 가능합니다.</Span>
