@@ -74,24 +74,25 @@ const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
     
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isAuthorized) {
       alert('로그인 후 사용 가능합니다.');
       return;
     }
-
+  
     if (!placeNameInput) {
       alert("장소명을 입력해 주세요.");
       return;
     }
-
+  
     if (selectColor === null) {
       alert("색상을 선택해 주세요.");
       return;
     }
-
+  
     const selectedColor = colorPalette[selectColor];
-
+  
+    // 데이터를 전송하기 전 로그
     console.log("전송할 데이터: ", {
       latitude: lat,
       longitude: lng,
@@ -99,27 +100,35 @@ const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
       placeAddress: placeAddress,
       placeColor: selectedColor,
     });
-
-    axiosInstance
-      .post('nonestep/book-mark/place-register', {
-        latitude: lat,
-        longitude: lng,
+  
+    try {
+      const response = await axiosInstance.post('nonestep/book-mark/place-register', {
+        latitude: lat.toFixed(13),
+        longitude: lng.toFixed(13),
         placeNickName: placeNameInput,
         placeAddress: placeAddress,
         placeColor: selectedColor
-      })
-      .then((response) => {
-        console.log("응답 데이터: ", response.data);
-        if(response.data.message.toLowerCase() === 'success') {
-          alert('즐겨찾기가 성공적으로 등록되었습니다.');
-          onClick(); 
-        }
-      })
-      .catch((error) => {
-        alert(error, '즐겨찾기 등록에 실패했습니다. 다시 시도해주세요.');
-      })
+      });
+  
+      console.log("응답 데이터: ", response.data);
+  
+      if(response.data.message.toLowerCase() === 'success') {
+        alert('즐겨찾기가 성공적으로 등록되었습니다.');
+        onClick(); 
+      }
+    } catch (error) {
+      if (error.response) {
+        // 서버 응답이 있는 경우
+        console.error("서버 응답 에러:", error.response.data);
+        alert(error.response.data);
+      } else {
+        // 서버 응답이 없는 경우
+        console.error("요청 에러:", error.message);
+        alert("즐겨찾기 등록에 실패했습니다. 다시 시도해주세요.");
+      }
+    }
   };
-
+  
   return (
     <ModalBG onClick={onClick}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>

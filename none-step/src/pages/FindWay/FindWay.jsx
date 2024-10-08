@@ -605,6 +605,7 @@ for (let i = 0; i < bookmarkedPlaces.length; i++) {
         destinationName={destinationInput}
         setOriginName={setOriginInput}
         setDestinationName={setDestinationInput}
+        bookmarkedPlaces={bookmarkedPlaces}
       />
   
       <Map
@@ -624,7 +625,7 @@ for (let i = 0; i < bookmarkedPlaces.length; i++) {
               onClick={() => handleMarkerClick('userLocation')}
             />
             {showUserLocationOverlay && !origin && !destination && !isNavigating && (
-              <CustomOverlayMap position={userLocation} yAnchor={1.75}>
+              <CustomOverlayMap position={userLocation} yAnchor={1.62}>
                 <CustomOverlay>
                   <StationName>현재 위치</StationName>
                     <UserLocationStart onClick={() => handleSetLocation('origin', userLocation)}>출발지로 설정하기</UserLocationStart>
