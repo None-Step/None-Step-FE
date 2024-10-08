@@ -18,7 +18,10 @@ const InputWrap = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   transition: border .4s;
   margin-top: 0.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+  &:nth-of-type(2) {
+    margin-bottom: 4rem;
+  }
   &:focus-within {
     border: 1px solid ${(props) => props.theme.colors.gray01};
   }
@@ -27,7 +30,7 @@ const InputWrap = styled.div`
 const Label = styled.span`
   font-size: 1.4rem;
   transition: all .4s;
-  margin-right: calc(100% - (1.4rem * 5));
+  margin-right: calc(100% - (1.4rem * 7));
   margin-bottom: 1rem;
   &:last-of-type {
     margin-right: calc(100% - (1.4rem * 4));
@@ -66,58 +69,50 @@ const CheckImg = styled.img`
   object-fit: contain;
 `
 
-const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
-  const isAuthorized = useSelector((state) => state.member.isAuthorized); // 리덕스에서 로그인 상태 가져오기
-
-  const [selectColor,setSelectColor] = useState(null);
-  const [placeNameInput, setPlaceNameInput] = useState(placeName || "");
-
-  const handleChecked = (index) => {
-    setSelectColor(selectColor === index ? null : index);
-    
-  };
+const BookmarkPathModal = ({ onClick, origin, destination }) => {
+  const [selectColor, setSelectColor] = useState(null);
+  const [startNameInput, setStartNameInput] = useState(origin.name || "");
+  const [endNameInput, setEndNameInput] = useState(destination.name || "");
 
   const handleSave = async () => {
-    if (!isAuthorized) {
-      alert('로그인 후 사용 가능합니다.');
-      return;
-    }
-  
-    if (!placeNameInput) {
+    if (!startNameInput || !endNameInput) {
       alert("장소명을 입력해 주세요.");
       return;
     }
-  
+
     if (selectColor === null) {
       alert("색상을 선택해 주세요.");
       return;
     }
-  
+
     const selectedColor = colorPalette[selectColor];
-  
-    // 데이터를 전송하기 전 로그
-    console.log("전송할 데이터: ", {
-      latitude: lat,
-      longitude: lng,
-      placeNickName: placeNameInput,
-      placeAddress: placeAddress,
-      placeColor: selectedColor,
-    });
-  
+
+    console.log("전송할 데이터:", {
+        startLatitude: origin.lat,
+        startLongitude: origin.lng,
+        endLatitude: destination.lat,
+        endLongitude: destination.lng,
+        pathStartNickName: startNameInput,
+        pathEndNickName: endNameInput,
+        pathColor: selectedColor
+    })
+
     try {
-      const response = await axiosInstance.post('nonestep/book-mark/place-register', {
-        latitude: lat.toFixed(13),
-        longitude: lng.toFixed(13),
-        placeNickName: placeNameInput,
-        placeAddress: placeAddress,
-        placeColor: selectedColor
+      const response = await axiosInstance.post('nonestep/book-mark/path-register', {
+        startLatitude: origin.lat.toFixed(13),
+        startLongitude: origin.lng.toFixed(13),
+        endLatitude: destination.lat.toFixed(13),
+        endLongitude: destination.lng.toFixed(13),
+        pathStartNickName: startNameInput,
+        pathEndNickName: endNameInput,
+        pathColor: selectedColor
       });
-  
+
       console.log("응답 데이터: ", response.data);
-  
-      if(response.data.message.toLowerCase() === 'success') {
+
+      if (response.data.message.toLowerCase() === 'success') {
         alert('즐겨찾기가 성공적으로 등록되었습니다.');
-        onClick(); 
+        onClick();  // 모달 닫기
       }
     } catch (error) {
       if (error.response) {
@@ -131,41 +126,50 @@ const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
       }
     }
   };
-  
+
   return (
     <ModalBG onClick={onClick}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        {/* ModalBG 내부에 컨테이너가 있어서 컨테이너를 클릭해도 모달이 닫힘 => 방지코드 추가 */}
-        <ActionTitle>즐겨찾기 장소 등록</ActionTitle>
+        <ActionTitle>즐겨찾기 경로 등록</ActionTitle>
 
-        <Label>장소명 등록</Label>
+        <Label>출발 장소명 등록</Label>
         <InputWrap>
           <InputText
             type="text"
-            value={placeNameInput}
-            onChange={(e) => setPlaceNameInput(e.target.value)}
-            placeholder="즐겨찾기 장소명"
+            value={startNameInput}
+            onChange={(e) => setStartNameInput(e.target.value)}
+            placeholder="출발 장소명 입력"
+          />
+        </InputWrap>
+
+        <Label>도착 장소명 등록</Label>
+        <InputWrap>
+          <InputText
+            type="text"
+            value={endNameInput}
+            onChange={(e) => setEndNameInput(e.target.value)}
+            placeholder="도착 장소명 입력"
           />
         </InputWrap>
 
         <Label>색상 선택</Label>
         <Palette>
           {colorPalette.map((color, index) => (
-            <Color 
-              key={index} 
-              style={{ backgroundColor: color }} 
-              onClick={() => handleChecked(index)}
+            <Color
+              key={index}
+              style={{ backgroundColor: color }}
+              onClick={() => setSelectColor(index)}
             >
-              {selectColor === index ? (<CheckImg src={Check} alt="체크" />) : null}
+              {selectColor === index && <CheckImg src={Check} alt="체크" />}
             </Color>
           ))}
         </Palette>
 
-        <Button submitMessage="저장하기" onClick={handleSave}/>
+        <Button submitMessage="저장하기" onClick={handleSave} />
         <Close onClick={onClick}>닫기</Close>
       </ModalContainer>
     </ModalBG>
   );
-}
+};
 
-export default BookmarkModal;
+export default BookmarkPathModal;
