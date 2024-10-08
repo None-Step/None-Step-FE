@@ -7,10 +7,10 @@ import axiosInstance from '@/apis/axiosInstance';
 
 const PopupContainer = styled.div`
   position: absolute;
-  top: calc(70px + 77px);
+  top: calc(70px + 76px);
   left: 0;
   right: 0;
-  bottom: 77px;
+  bottom: 72px;
   background-color: white;
   padding: 20px;
   z-index: 3;
