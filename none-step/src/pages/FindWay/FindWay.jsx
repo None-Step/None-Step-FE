@@ -7,7 +7,7 @@ import ReloadIcon from '@/assets/img/current.svg';
 import KakaoMapPlaceSearch from './KakaoMapPlaceSearch';
 import FindWayPopup from './FindWayPopup';
 import axiosInstance from '@/apis/axiosInstance';
-import QuickRoute from './QuickRoute';
+import QuickRoute from './buttons/QuickRoute';
 import BicycleMarker from '@/assets/img/bicycle-marker.svg';
 import OriginMarker from '@/assets/img/origin-marker.svg';
 import DestinationMarker from '@/assets/img/destination-marker.svg';
@@ -807,8 +807,8 @@ for (let i = 0; i < bookmarkedPlaces.length; i++) {
             setSelectedRoute(routeType);
             handleStartNavigation();
           }}
-          origin={origin ? origin.name : ''}
-          destination={destination ? destination.name : ''}
+          origin={origin ? origin : ''}
+          destination={destination ? destination : ''}
         />
       )}
   

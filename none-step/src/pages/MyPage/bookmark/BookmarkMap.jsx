@@ -31,7 +31,8 @@ const TabContent = styled.div`
   display: ${(props) => props.$active ? 'block' : 'none'};
 `;
 
-const BookmarkMap = ({color}) => {
+const Bookmark = ({color}) => {
+  const [activeTab, setActiveTab] = useState('장소');
 
   return (
     <BG>
@@ -39,11 +40,25 @@ const BookmarkMap = ({color}) => {
           <PageHeader />
 
           <Wrapper>
+            <TabContainer>
+              <Tab $active={activeTab === '장소'} onClick={() => setActiveTab('장소')}>장소</Tab>
+              <Tab $active={activeTab === '경로'} onClick={() => setActiveTab('경로')}>경로</Tab>
+            </TabContainer>
 
-            <BookmarkPlace
-              color={color}
-              placeName='집'
-              placeAddress='부산광역시 서구 송도해변로' />
+            <TabContent $active={activeTab === '장소'}>
+              <BookmarkPlace
+                color={color}
+                placeName='집'
+                placeAddress='부산광역시 서구 송도해변로' />
+            </TabContent>
+
+            <TabContent $active={activeTab === '경로'}>
+                <BookmarkPath
+                  color={color}
+                  originName='집'
+                  destinationName='회사'
+                  />
+            </TabContent>
 
           </Wrapper>
 
@@ -54,4 +69,4 @@ const BookmarkMap = ({color}) => {
   )
 }
 
-export default BookmarkMap
+export default Bookmark
