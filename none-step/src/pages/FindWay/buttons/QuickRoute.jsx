@@ -10,7 +10,7 @@ import {
   ButWrap, 
   SeconBut, 
   But 
-} from '../../MyPage/MyPage.style'; // 경로는 실제 파일 위치에 맞게 조정해주세요
+} from '../../MyPage/MyPage.style';
 
 const QuickRouteButton = styled.div`
   background-color: ${(props) => props.theme.colors.white};

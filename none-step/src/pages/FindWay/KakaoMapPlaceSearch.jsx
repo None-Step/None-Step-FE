@@ -68,7 +68,7 @@ const Star = styled.svg`
   margin-right: 1.4rem;
 `;
 
-const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, destinationName, setOriginName, setDestinationName, bookmarkedPlaces }) => {
+const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, destinationName, setOriginName, setDestinationName, bookmarkedPlaces, pathOrigin, pathDestination }) => {
   const [originPlaces, setOriginPlaces] = useState([]);
   const [destinationPlaces, setDestinationPlaces] = useState([]);
   const [isOriginFocused, setIsOriginFocused] = useState(false); // 출발지 input에 포커스가 있는지 여부
@@ -209,6 +209,22 @@ const KakaoMapPlaceSearch = ({ onSelectOrigin, onSelectDestination, originName, 
     }
     setResultContainerOn(false);  // 입력이 변경될 때 목록 닫기
   };
+
+  // 경로 즐겨찾기 -------------------------------------------------------
+  // 새로운 출발지/도착지 데이터가 들어왔을 때 input 업데이트
+  useEffect(() => {
+    if (pathOrigin) {
+      setOriginName(pathOrigin.place_name);
+      onSelectOrigin(pathOrigin);
+    }
+  }, [pathOrigin]);
+  
+  useEffect(() => {
+    if (pathDestination) {
+      setDestinationName(pathDestination.place_name);
+      onSelectDestination(pathDestination);
+    }
+  }, [pathDestination]);
 
   return (
     <SearchBox>

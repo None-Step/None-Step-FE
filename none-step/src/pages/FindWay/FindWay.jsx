@@ -16,6 +16,7 @@ import bookmark from '@/assets/img/bookmark.svg';
 import emptyStar from '@/assets/img/gray-star.svg';
 import yellowStar from '@/assets/img/yellow-star.svg';
 import BookmarkModal from './modal/BookmarkModal';
+import BookmarkPathBtn from './buttons/BookmarkPathBtn';
 
 const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -33,7 +34,7 @@ const formatDistance = (meters) => {
   return `${(meters / 1000).toFixed(2)}km`;
 };
 
-const FindWay = ({color}) => {
+const FindWay = () => {
   const [loading, setLoading] = useState(false);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [userLocation, setUserLocation] = useState(null);
@@ -55,7 +56,7 @@ const FindWay = ({color}) => {
   const [showBikeStationOverlay, setShowBikeStationOverlay] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState('walk'); // 경로 선택
 
-  //북마크
+  // 즐겨찾기 관련 ----------------------------------------------------------------
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [bookmarkPlaceName, setBookmarkPlaceName] = useState('');
   const [bookmarkPlaceAddress, setBookmarkPlaceAddress] = useState('');
@@ -68,7 +69,17 @@ const FindWay = ({color}) => {
     setBookmarkLng(lng);
     setIsBookmarked(!isBookmarked);
   };
-  const [bookmarkedPlaces, setBookmarkedPlaces] = useState([]);
+  const [bookmarkedPlaces, setBookmarkedPlaces] = useState([]);  
+  const [pathOrigin, setPathOrigin] = useState(null);
+  const [pathDestination, setPathDestination] = useState(null);
+
+  const handlePathOrigin = (origin) => {
+    setPathOrigin(origin);
+  };
+
+  const handlePathDestination = (destination) => {
+    setPathDestination(destination);
+  };
 
   // 즐겨찾기 목록 조회
   useEffect(() => {
@@ -606,6 +617,8 @@ for (let i = 0; i < bookmarkedPlaces.length; i++) {
         setOriginName={setOriginInput}
         setDestinationName={setDestinationInput}
         bookmarkedPlaces={bookmarkedPlaces}
+        pathOrigin={pathOrigin}
+        pathDestination={pathDestination}
       />
   
       <Map
@@ -814,6 +827,10 @@ for (let i = 0; i < bookmarkedPlaces.length; i++) {
   
       {/* 빠른 경로 버튼 */}
       {!isNavigating && <QuickRoute userLocation={userLocation} />}
+      <BookmarkPathBtn
+        onPathOrigin={handlePathOrigin}
+        onPathDestination={handlePathDestination}
+       />
       <MenuBar />
     </PageWrapper>
   );};
