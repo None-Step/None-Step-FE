@@ -102,6 +102,8 @@ export const InputReload = styled(Reload)`
 
 // 커스텀 인포윈도우 스타일
 export const CustomOverlay = styled.div`
+  min-width: 160px;
+  min-height: 90px;
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;

@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import rightIcon from '@/assets/img/rightIcon-gray.svg'
 import CloseIcon from '@/assets/img/Close.svg'
-import axiosInstance from "@/apis/axiosInstance";
 
 const ListContainer = styled.div`
   padding: 1.8rem 1.2rem;
@@ -44,10 +43,6 @@ const RightIcon = styled.img`
   width: 12px;
   height: 12px;
 `;
-
-const handlePlaceDelete = () => {
-  axiosInstance.delete(`/nonestep/book-mark/place-delete?pathNo={}`)
-}
 
 
 export const BookmarkPlace = ({color, placeName, placeAddress, onDelete, placeNo}) => {
