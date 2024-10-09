@@ -148,12 +148,18 @@ const FindPW = () => {
       }
     })
     .catch(error => {
-      console.error('비밀번호 찾기 오류:', error);
-      if (error.response && error.response.status === 400) {
-        alert('입력하신 정보와 일치하는 계정이 없습니다.');
+      console.error('비밀번호 변경 오류:', error);
+    
+      if (error.response) {
+        console.error('서버 응답 에러:', error.response.data);
+        console.error('HTTP 상태 코드:', error.response.status);
+      } else if (error.request) {
+        console.error('요청이 전송되었지만 응답이 없습니다:', error.request);
       } else {
-        alert('비밀번호 찾기 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error('요청 설정 중 오류 발생:', error.message);
       }
+      
+      alert('비밀번호 변경 중 오류가 발생했습니다.');
     });
   };
 
