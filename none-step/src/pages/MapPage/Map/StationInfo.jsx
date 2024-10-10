@@ -22,7 +22,13 @@ import { PiElevatorFill } from "react-icons/pi";
 import { RiBattery2ChargeFill, RiCustomerService2Fill } from "react-icons/ri";
 import { TbEscalator } from "react-icons/tb";
 
-const StationInfo = ({ stationInfo, handleClose }) => {
+const StationInfo = ({
+    stationInfo,
+    stationUpTime,
+    stationDownTime,
+    climateCard,
+    handleClose,
+}) => {
     const [stationLine, setStationLine] = useState("");
     const [transferLine, setTransferLine] = useState([]);
     const [lineColor, setLineColor] = useState("");
@@ -539,6 +545,20 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                             ))}
                         </div>
                     )}
+                    {climateCard.getOff === "y" &&
+                        climateCard.getOn === "y" && (
+                            <div className="climate_card">
+                                <h2 className="info_title">기후동행카드</h2>
+                                <span>승 &#183; 하차 가능</span>
+                            </div>
+                        )}
+                    {climateCard.getOff === "y" &&
+                        climateCard.getOn === "n" && (
+                            <div className="climate_card">
+                                <h2 className="info_title">기후동행카드</h2>
+                                <span>하차만 가능</span>
+                            </div>
+                        )}
                     <h2 className="info_title">상세정보</h2>
                     <div className="info address_container">
                         <span>
@@ -798,16 +818,18 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                                 <span>-</span>
                             ) : (
                                 <>
-                                    {centers.map((center, index) => (
-                                        <p
-                                            key={`centerTel${index}`}
-                                            className="center_tel"
-                                        >
-                                            {center.centerTel === ""
-                                                ? "-"
-                                                : center.centerTel}
-                                        </p>
-                                    ))}
+                                    {centers.map((center, index) =>
+                                        center.centerTel === "" ? (
+                                            <p key={`centerTel${index}`}>-</p>
+                                        ) : (
+                                            <a
+                                                key={`centerTel${index}`}
+                                                href={`tel:${center.centerTel}`}
+                                            >
+                                                {center.centerTel}
+                                            </a>
+                                        )
+                                    )}
                                 </>
                             )}
                         </div>

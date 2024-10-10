@@ -4,12 +4,12 @@ export const ChattingWrapper = styled.div`
     position: relative;
     width: 100%;
     max-width: 100%;
-    margin-top: 64px;
+    margin-top: 70px;
 `;
 
 export const ChatCategoryWrapper = styled.div`
     position: fixed;
-    top: 64px;
+    top: 70px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;

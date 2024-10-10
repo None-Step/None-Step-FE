@@ -781,6 +781,27 @@ export const StationContainer = styled.div`
         background: ${(props) => props.theme.gwangjuLines.one};
     }
 
+    /* climate card */
+    .climate_card {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .climate_card h2 {
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    .climate_card span {
+        margin-left: 8px;
+        color: ${(props) => props.theme.colors.primary};
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+
+    /* info */
     .info_title {
         font-size: 1.6rem;
         margin-bottom: 20px;
@@ -837,5 +858,11 @@ export const StationContainer = styled.div`
 
     .lift_info p > span:first-child {
         margin-right: 7px;
+    }
+
+    .center_tel_info a {
+        font-size: 1.5rem;
+        color: ${(props) => props.theme.colors.primary};
+        text-decoration: underline;
     }
 `;

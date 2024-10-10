@@ -65,6 +65,9 @@ const KakaoMap = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [markers, setMarkers] = useState([]);
     const [stationDetailInfo, setStationDetailInfo] = useState({});
+    const [stationUpTime, setStationUpTime] = useState([]);
+    const [stationDownTime, setStationDownTime] = useState([]);
+    const [climateCard, setClimateCard] = useState({});
     const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
     const [liftInfo, setLiftInfo] = useState({});
     const [isLiftInfoOpen, setIsLiftInfoOpen] = useState(false);
@@ -353,6 +356,42 @@ const KakaoMap = () => {
                     "상세정보를 불러오는 데에 실패했습니다.\n 다시 시도해 주세요."
                 );
             });
+
+        axiosInstance
+            .get(
+                `/nonestep/subway/up-time?region=${marker.infoRegion}&line=${marker.infoLine}&station=${marker.infoStation}`
+            )
+            .then((response) => {
+                console.log(response.data);
+                setStationUpTime(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        axiosInstance
+            .get(
+                `/nonestep/subway/down-time?region=${marker.infoRegion}&line=${marker.infoLine}&station=${marker.infoStation}`
+            )
+            .then((response) => {
+                console.log(response.data);
+                setStationDownTime(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        axiosInstance
+            .get(
+                `/nonestep/subway/climate-card?region=${marker.infoRegion}&line=${marker.infoLine}&station=${marker.infoStation}`
+            )
+            .then((response) => {
+                console.log(response.data);
+                setClimateCard(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const getLiftInfoOverlay = (index) => {
@@ -608,6 +647,9 @@ const KakaoMap = () => {
                             {mapLevel < 7 && isStationInfoOpen && (
                                 <StationInfo
                                     stationInfo={stationDetailInfo}
+                                    stationUpTime={stationUpTime}
+                                    stationDownTime={stationDownTime}
+                                    climateCard={climateCard}
                                     handleClose={() =>
                                         setIsStationInfoOpen(false)
                                     }
@@ -1127,11 +1169,15 @@ const KakaoMap = () => {
                                             <span className="telephone_icon">
                                                 <BsTelephoneFill />
                                             </span>
-                                            <span>
-                                                {marker.centerTel === ""
-                                                    ? "-"
-                                                    : marker.centerTel}
-                                            </span>
+                                            {marker.centerTel === "" ? (
+                                                <p>-</p>
+                                            ) : (
+                                                <a
+                                                    href={`tel:${marker.centerTel}`}
+                                                >
+                                                    {marker.centerTel}
+                                                </a>
+                                            )}
                                         </p>
                                     </OverlayContainer>
                                 </CustomOverlayMap>
