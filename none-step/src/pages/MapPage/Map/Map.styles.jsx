@@ -4,9 +4,9 @@ export const MapWrapper = styled.div`
     position: relative;
     width: 100%;
     max-width: 600px;
-    height: calc(100vh - 139px);
-    margin-top: 64px;
-    margin-bottom: 75px;
+    height: calc(100vh - 142px);
+    margin-top: 70px;
+    margin-bottom: 72px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -121,7 +121,7 @@ export const OverlayContainer = styled.div`
     color: #333;
 
     span {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     & > p {
@@ -148,6 +148,12 @@ export const OverlayContainer = styled.div`
         display: block;
         margin-left: 66px;
         margin-bottom: 7px;
+    }
+
+    .center_overlay a {
+        font-size: 1.5rem;
+        color: ${(props) => props.theme.colors.primary};
+        text-decoration: underline;
     }
 `;
 
