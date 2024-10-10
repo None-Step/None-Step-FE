@@ -46,21 +46,17 @@ export const ChattingMenuContainer = styled.ul`
 
 export const ChattingLineContainer = styled.ul`
     position: relative;
-    /* display: none; */
     width: 100%;
     height: 0;
     background: #fcfcfc;
     transition: height 0.2s ease;
-    /* animation: slideUpCapital 0.2s ease; */
     overflow: hidden;
 
     &.open {
-        /* display: block; */
         height: auto;
         min-height: 130px;
         padding: 5px 0 30px;
         transition: height 0.2s ease;
-        /* animation: slideDownCapital 0.2s ease; */
     }
 
     @keyframes slideUpCapital {
@@ -248,16 +244,22 @@ export const ChattingLineContainer = styled.ul`
         background: ${(props) => props.theme.gwangjuLines.one};
     }
 
-    li span:last-child {
+    li span {
         font-size: 1.6rem;
+    }
+
+    li span.chatting_time {
+        margin-left: 8px;
+        color: #aaa;
+        font-size: 1.2rem;
     }
 
     img {
         position: absolute;
         bottom: -30px;
         right: -30px;
-        width: 170px;
-        height: 170px;
+        width: 40%;
+        max-width: 170px;
         opacity: 0.15;
     }
 `;
