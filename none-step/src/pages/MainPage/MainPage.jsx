@@ -93,7 +93,7 @@ const MainPage = () => {
             const { scrollLeft, scrollWidth, clientWidth } = scrollElement;
 
             setIsScrollLeft(0 < scrollLeft);
-            setIsScrollRight(scrollLeft < scrollWidth - clientWidth);
+            setIsScrollRight(scrollLeft < scrollWidth - clientWidth - 30);
 
             return () => scrollElement.removeEventListener("wheel", onWheel);
         }
@@ -161,7 +161,12 @@ const MainPage = () => {
                     <p>{noticeTitle}</p>
                 </NoticeWrapper>
                 <MainSection>
-                    <img loading="lazy" decoding="async" src={mainBanner} alt="main-banner-01" />
+                    <img
+                        loading="lazy"
+                        decoding="async"
+                        src={mainBanner}
+                        alt="main-banner-01"
+                    />
                 </MainSection>
                 <CategoryWrapper>
                     <h3>편의시설 바로가기</h3>
@@ -179,7 +184,7 @@ const MainPage = () => {
                             <CategoryBtn
                                 onClick={() => handleClickMap("elevator")}
                             >
-                                <img loading="lazy" decoding="async" src={elevatorIcon} alt="elevator-icon" />
+                                <img src={elevatorIcon} alt="elevator-icon" />
                                 <span>엘리베이터</span>
                             </CategoryBtn>
                         </li>
@@ -187,7 +192,7 @@ const MainPage = () => {
                             <CategoryBtn
                                 onClick={() => handleClickMap("escal")}
                             >
-                                <img loading="lazy" decoding="async" src={escalatorIcon} alt="escalator-icon" />
+                                <img src={escalatorIcon} alt="escalator-icon" />
                                 <span>에스컬레이터</span>
                             </CategoryBtn>
                         </li>
@@ -204,7 +209,7 @@ const MainPage = () => {
                             <CategoryBtn
                                 onClick={() => handleClickMap("toilet")}
                             >
-                                <img loading="lazy" decoding="async" src={toiletIcon} alt="toilet-icon" />
+                                <img src={toiletIcon} alt="toilet-icon" />
                                 <span>화장실</span>
                             </CategoryBtn>
                         </li>
@@ -232,13 +237,13 @@ const MainPage = () => {
                         </li>
                         <li className="atm">
                             <CategoryBtn onClick={() => handleClickMap("atm")}>
-                                <img loading="lazy" decoding="async" src={atmIcon} alt="atm-icon" />
+                                <img src={atmIcon} alt="atm-icon" />
                                 <span>ATM</span>
                             </CategoryBtn>
                         </li>
                         <li className="aed">
                             <CategoryBtn onClick={() => handleClickMap("aed")}>
-                                <img loading="lazy" decoding="async" src={aedIcon} alt="aed-icon" />
+                                <img src={aedIcon} alt="aed-icon" />
                                 <span>제세동기</span>
                             </CategoryBtn>
                         </li>
@@ -322,6 +327,7 @@ const MainPage = () => {
                         </li>
                     </ChatContainer>
                 </ChatWrapper>
+
                 <FooterWrapper>
                     <FooterContainer>
                         <p className="qna">
