@@ -10,7 +10,7 @@ import {
   ButWrap, 
   SeconBut, 
   But 
-} from '../MyPage/MyPage.style'; // 경로는 실제 파일 위치에 맞게 조정해주세요
+} from '../../MyPage/MyPage.style';
 
 const QuickRouteButton = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -21,7 +21,7 @@ const QuickRouteButton = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.colors.shadow200};
   position: absolute;
-  top: 160px;
+  top: 150px;
   left: 1rem;
   z-index: 2;
   cursor: pointer;
@@ -74,15 +74,23 @@ const QuickRoute = ({ userLocation }) => {
     // 1. 가장 가까운 지하철역 찾기
     findNearestStation(userLocation.lat, userLocation.lng)
       .then(stationData => {
-        console.log('가장 가까운 지하철역:', stationData);
+        // console.log('가장 가까운 지하철역:', stationData);
         const { region, line, station } = stationData;
-        
+
         // 2. 현재 위치에서 찾은 지하철역까지의 경로 계산
         return calculateRoute(userLocation.lat, userLocation.lng, region, station)
           .then(routeData => {
-            console.log('계산된 경로:', routeData);
-            
-            // 3. FindWayNav로 이동하며 경로 데이터 전달
+            // console.log('계산된 경로:', routeData);
+
+            // 3. routeData의 마지막 좌표를 목적지 좌표로 사용
+            const lastFeature = routeData.features[routeData.features.length - 1];
+            const lastCoordinate = lastFeature.geometry.coordinates[lastFeature.geometry.coordinates.length - 1];
+            const destinationCoords = {
+              lng: lastCoordinate[0],
+              lat: lastCoordinate[1]
+            };
+
+            // 4. FindWayNav로 이동하며 경로 데이터 전달
             navigate('/findway/navigate', { 
               state: { 
                 origin: {
@@ -92,6 +100,8 @@ const QuickRoute = ({ userLocation }) => {
                   address: "현재 위치"
                 },
                 destination: {
+                  lat: destinationCoords.lat,
+                  lng: destinationCoords.lng,
                   name: `${station}역`,
                   address: `${region} ${line} ${station}역`
                 },

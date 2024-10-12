@@ -16,7 +16,7 @@ export const SearchBox = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   border-bottom: 1px solid ${(props) => props.theme.colors.gray05};
-  padding: 0.5rem 0.8rem;
+  padding-inline: 0.8rem;
   box-sizing: border-box;
 
   display: flex;
@@ -102,6 +102,8 @@ export const InputReload = styled(Reload)`
 
 // 커스텀 인포윈도우 스타일
 export const CustomOverlay = styled.div`
+  min-width: 160px;
+  min-height: 90px;
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
@@ -129,13 +131,15 @@ export const Confirm = styled.p`
 `;
 
 export const ButtonContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 `;
 
 export const Button = styled.button`
-  padding: 5px 10px;
+  width: 100%;
+  padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 2px;
   background-color: ${(props) => props.theme.colors.primary};
@@ -144,10 +148,32 @@ export const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
-  &:last-of-type{
-    margin-left: 1rem;
+  &:first-child {
+    margin-right: 0.6rem;
   }
 `;
+
+export const BookmarkBtn = styled.div`
+  /* background-color: rgba(0, 122, 255, 0.15);
+  padding: 8px 10px;
+  border-radius: 100px; */
+  margin-bottom: 0.4rem;
+  margin-right: calc(80% - (28px + 0.6rem));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BookmarkIcon = styled.img`
+  margin-right: 0.4rem;
+`;
+
+export const BookmarkSpan = styled.span`
+  font-size: 1.2rem;
+  color : ${(props) => props.color}
+`;
+
 
 export const RouteInfoBar = styled.div`
   position: absolute;

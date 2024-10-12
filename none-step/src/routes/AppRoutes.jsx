@@ -24,6 +24,8 @@ import NoticeEditor from "@pages/NoticePage/Editor/NoticeEditor";
 import PrivateRoute from "@layout/PrivateRoute";
 import NoticeModify from "@pages/NoticePage/NoticeModify/NoticeModify";
 import NoticeSearch from "@pages/NoticePage/Search/NoticeSearch";
+import BookmarkMap from "@pages/MyPage/bookmark/BookmarkMap";
+import BookmarkFindWay from "@pages/MyPage/bookmark/BookmarkFindWay";
 
 const AppRoutes = () => {
     return (
@@ -70,6 +72,9 @@ const AppRoutes = () => {
                     <Route path="modify/:boardNo" element={<NoticeModify />} />
                 </Route>
             </Route>
+
+            <Route path="/mypage/bookmark/find" element={<BookmarkFindWay />} />
+            <Route path="/mypage/bookmark/map" element={<BookmarkMap />} />
         </Routes>
     );
 };
