@@ -1,5 +1,7 @@
 import { MainHeader } from "@components/header/Headers";
 import {
+    CategoryArrowLeft,
+    CategoryArrowRight,
     CategoryBtn,
     CategoryContainer,
     CategoryWrapper,
@@ -10,6 +12,7 @@ import {
     FooterWrapper,
     MainSection,
     MainWrapper,
+    NoticeWrapper,
 } from "./MainPage.styles";
 import MenuBar from "@components/menuBar/MenuBar";
 import LocationTracker from "@components/location/LocationTracker";
@@ -29,13 +32,20 @@ import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
 import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedCategory } from "@store/slices/categorySlice";
 import { fetchUserInfo } from "@hooks/auth";
+import { HiOutlineSpeakerWave } from "react-icons/hi2";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import axiosInstance from "@apis/axiosInstance";
 
 const MainPage = () => {
+    const [noticeTitle, setNoticeTitle] = useState("");
+    const [isScrollLeft, setIsScrollLeft] = useState(false);
+    const [isScrollRight, setIsScrollRight] = useState(true);
+
     const scrollRef = useRef(null);
 
     const navigate = useNavigate();
@@ -51,10 +61,24 @@ const MainPage = () => {
         }
 
         dispatch(selectedCategory({ category: "", region: "" }));
+
+        axiosInstance
+            .get("/nonestep/board/main-notice")
+            .then((response) => {
+                setNoticeTitle(response.data.boardTitle);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
+
+    const handleClickNotice = () => {
+        navigate("/notice");
+    };
 
     const handleScrollCategory = () => {
         const scrollElement = scrollRef.current;
+
         if (scrollElement) {
             const onWheel = (e) => {
                 if (e.deltaY === 0) return;
@@ -65,7 +89,37 @@ const MainPage = () => {
                 });
             };
             scrollElement.addEventListener("wheel", onWheel);
+
+            const { scrollLeft, scrollWidth, clientWidth } = scrollElement;
+
+            setIsScrollLeft(0 < scrollLeft);
+            setIsScrollRight(scrollLeft < scrollWidth - clientWidth);
+
             return () => scrollElement.removeEventListener("wheel", onWheel);
+        }
+    };
+
+    const handleClickLeft = () => {
+        if (600 < window.innerWidth) {
+            setIsScrollLeft(false);
+            scrollRef.current.scrollTo({
+                left:
+                    scrollRef.current.scrollLeft -
+                    scrollRef.current.offsetWidth,
+                behavior: "smooth",
+            });
+        }
+    };
+
+    const handleClickRight = () => {
+        if (600 < window.innerWidth) {
+            setIsScrollRight(false);
+            scrollRef.current.scrollTo({
+                left:
+                    scrollRef.current.scrollLeft +
+                    scrollRef.current.offsetWidth,
+                behavior: "smooth",
+            });
         }
     };
 
@@ -76,6 +130,7 @@ const MainPage = () => {
 
     const handleClickChat = (region) => {
         navigate(`/chat/${region}`);
+
         if (region === "capital") {
             dispatch(selectedCategory({ category: "seoul", region: "seoul" }));
         } else {
@@ -101,13 +156,28 @@ const MainPage = () => {
         <>
             <MainHeader />
             <MainWrapper>
+                <NoticeWrapper onClick={handleClickNotice}>
+                    <HiOutlineSpeakerWave />
+                    <p>{noticeTitle}</p>
+                </NoticeWrapper>
                 <MainSection>
-                    <img src={mainBanner} alt="main-banner-01" />
+                    <img
+                        loading="lazy"
+                        decoding="async"
+                        src={mainBanner}
+                        alt="main-banner-01"
+                    />
                 </MainSection>
                 <CategoryWrapper>
                     <h3>편의시설 바로가기</h3>
+                    {isScrollLeft && (
+                        <CategoryArrowLeft onClick={handleClickLeft}>
+                            <IoIosArrowBack />
+                        </CategoryArrowLeft>
+                    )}
                     <CategoryContainer
                         ref={scrollRef}
+                        onScroll={handleScrollCategory}
                         onWheel={handleScrollCategory}
                     >
                         <li className="elevator">
@@ -200,6 +270,11 @@ const MainPage = () => {
                             </CategoryBtn>
                         </li>
                     </CategoryContainer>
+                    {isScrollRight && (
+                        <CategoryArrowRight onClick={handleClickRight}>
+                            <IoIosArrowForward />
+                        </CategoryArrowRight>
+                    )}
                 </CategoryWrapper>
                 <LocationTracker />
                 <ChatWrapper>
