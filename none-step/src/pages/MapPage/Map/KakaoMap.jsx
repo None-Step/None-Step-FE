@@ -362,7 +362,6 @@ const KakaoMap = () => {
                 `/nonestep/subway/up-time?region=${marker.infoRegion}&line=${marker.infoLine}&station=${marker.infoStation}`
             )
             .then((response) => {
-                console.log(response.data);
                 setStationUpTime(response.data);
             })
             .catch((error) => {
@@ -374,7 +373,6 @@ const KakaoMap = () => {
                 `/nonestep/subway/down-time?region=${marker.infoRegion}&line=${marker.infoLine}&station=${marker.infoStation}`
             )
             .then((response) => {
-                console.log(response.data);
                 setStationDownTime(response.data);
             })
             .catch((error) => {
@@ -386,7 +384,6 @@ const KakaoMap = () => {
                 `/nonestep/subway/climate-card?region=${marker.infoRegion}&line=${marker.infoLine}&station=${marker.infoStation}`
             )
             .then((response) => {
-                console.log(response.data);
                 setClimateCard(response.data);
             })
             .catch((error) => {
