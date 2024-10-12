@@ -8,16 +8,14 @@ const PrivateRoute = () => {
     const member = useSelector((state) => state.member);
 
     useEffect(() => {
-        if (!member.isAuthorized) {
-            navigate("/login");
+        if (member.memberID !== "admin") {
+            navigate("/");
         }
     }, []);
 
     return (
         <>
-            <div>
-                <Outlet />
-            </div>
+            <Outlet />
         </>
     );
 };

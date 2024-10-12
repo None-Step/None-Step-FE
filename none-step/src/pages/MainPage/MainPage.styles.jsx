@@ -6,13 +6,43 @@ export const MainWrapper = styled.div`
     gap: 8px;
     width: 100%;
     max-width: 100%;
-    padding-top: 60px;
+    padding-top: 115px;
     padding-bottom: 75px;
     background: #fafafa;
 
     h3 {
         margin-bottom: 30px;
         font-size: 1.8rem;
+    }
+`;
+
+export const NoticeWrapper = styled.div`
+    position: fixed;
+    top: 70px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    height: 45px;
+    padding: 8px 20px;
+    background: ${(props) => props.theme.colors.white};
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    cursor: pointer;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    p {
+        margin-left: 10px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
     }
 `;
 
@@ -26,6 +56,7 @@ export const MainSection = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
+    position: relative;
     padding: 20px 0 25px;
     background: ${(props) => props.theme.colors.white};
 
@@ -34,9 +65,58 @@ export const CategoryWrapper = styled.div`
     }
 `;
 
+export const CategoryArrowLeft = styled.div`
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 100px;
+    padding-left: 6px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    cursor: pointer;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        color: #999;
+    }
+`;
+
+export const CategoryArrowRight = styled.div`
+    position: absolute;
+    bottom: 25px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 100px;
+    padding-left: 20px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 40%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    cursor: pointer;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        color: #999;
+    }
+`;
+
 export const CategoryContainer = styled.ul`
     display: flex;
     flex-direction: row;
+    padding: 0 20px;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
@@ -48,27 +128,19 @@ export const CategoryContainer = styled.ul`
     li {
         display: block;
     }
-
-    li:first-child {
-        margin-left: 15px;
-    }
-
-    li:last-child {
-        margin-right: 15px;
-    }
 `;
 
 export const CategoryBtn = styled.button`
-    width: 95px;
-    height: 95px;
+    width: 100px;
+    height: 100px;
     border: none;
     background: none;
     outline: none;
     cursor: pointer;
 
     img {
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
         margin-bottom: 15px;
     }
 

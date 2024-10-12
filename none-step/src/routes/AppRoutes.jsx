@@ -17,7 +17,13 @@ import NaverCallback from "@pages/Login/NaverCallback";
 import MyPage from "@pages/MyPage/MyPage";
 import ChattingMenu from "@pages/ChattingPage/ChattingMenu";
 import ChattingPage from "@pages/ChattingPage/ChattingPage";
-import PrivateRoute from "../layout/PrivateRoute";
+import NoticePage from "@pages/NoticePage/NoticePage";
+import NoticeList from "@pages/NoticePage/NoticeList/NoticeList";
+import NoticeDetail from "@pages/NoticePage/Detail/NoticeDetail";
+import NoticeEditor from "@pages/NoticePage/Editor/NoticeEditor";
+import PrivateRoute from "@layout/PrivateRoute";
+import NoticeModify from "@pages/NoticePage/NoticeModify/NoticeModify";
+import NoticeSearch from "@pages/NoticePage/Search/NoticeSearch";
 import BookmarkMap from "@pages/MyPage/bookmark/BookmarkMap";
 import BookmarkFindWay from "@pages/MyPage/bookmark/BookmarkFindWay";
 
@@ -56,6 +62,17 @@ const AppRoutes = () => {
             <Route path="/chat/:region" element={<ChattingPage />} />
 
             <Route path="/mypage" element={<MyPage />} />
+
+            <Route path="/notice" element={<NoticePage />}>
+                <Route index element={<NoticeList />} />
+                <Route path=":boardNo" element={<NoticeDetail />} />
+                <Route path="search" element={<NoticeSearch />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path="edit" element={<NoticeEditor />} />
+                    <Route path="modify/:boardNo" element={<NoticeModify />} />
+                </Route>
+            </Route>
+
             <Route path="/mypage/bookmark/find" element={<BookmarkFindWay />} />
             <Route path="/mypage/bookmark/map" element={<BookmarkMap />} />
         </Routes>
