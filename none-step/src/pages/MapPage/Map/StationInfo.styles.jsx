@@ -7,7 +7,7 @@ export const StationInfoWrapper = styled.div`
     transform: translateX(-50%);
     width: 80%;
     height: calc(100vh - 287px);
-    padding: 30px 20px 10px;
+    padding: 30px 0 10px;
     border: 1px solid ${(props) => props.theme.colors.gray05};
     border-radius: 7px;
     background: ${(props) => props.theme.colors.white};
@@ -20,7 +20,7 @@ export const StationInfoWrapper = styled.div`
         left: 0;
         transform: translateX(0);
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 142px);
         border: none;
         border-radius: 0;
     }
@@ -527,6 +527,25 @@ export const StationNameContainer = styled.div`
     }
 `;
 
+export const StationInfoContainer = styled.div`
+    height: calc(100% - 100px);
+    padding-left: 20px;
+    padding-right: 6px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        height: 40px;
+        border: 4px solid transparent;
+        border-radius: 10px;
+        background-color: #e7e7e7;
+        background-clip: padding-box;
+    }
+`;
+
 export const StationScheduleWrapper = styled.div`
     margin-bottom: 30px;
 `;
@@ -558,7 +577,7 @@ export const StationScheduleContainer = styled.div`
     table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     th,
@@ -589,28 +608,45 @@ export const StationScheduleContainer = styled.div`
     }
 
     td {
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    td span {
+        display: block;
+        line-height: 2.2rem;
+    }
+
+    td span.time {
+        display: inline-block;
+        color: #444;
+        font-weight: 600;
+    }
+
+    td span.express {
+        display: inline-block;
+        margin-left: 4px;
+        color: #fa5309;
+    }
+
+    td span.station {
+        color: ${(props) => props.theme.colors.gray01};
+        word-break: keep-all;
+    }
+
+    td.no_train {
         text-align: center;
-    }
-`;
-
-export const StationInfoContainer = styled.div`
-    height: calc(100% - 280px);
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-        width: 14px;
+        vertical-align: middle;
     }
 
-    &::-webkit-scrollbar-thumb {
-        height: 40px;
-        border: 4px solid transparent;
-        border-radius: 10px;
-        background-color: #e7e7e7;
-        background-clip: padding-box;
+    td.no_train span {
+        color: ${(props) => props.theme.colors.gray01};
     }
 `;
 
 export const StationContainer = styled.div`
+    margin-bottom: 30px;
+
     .transfer_station {
         display: flex;
         align-items: center;
