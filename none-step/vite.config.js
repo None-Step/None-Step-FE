@@ -1,4 +1,3 @@
-
 /* eslint-disable no-undef */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -7,6 +6,9 @@ import { resolve } from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
+    server: {
+        https: true,
+    },
     resolve: {
         alias: [
             { find: "@", replacement: resolve(__dirname, "src") },
@@ -41,7 +43,7 @@ export default defineConfig({
     },
     build: {
         rollupOptions: {
-            external: ['redux-persist', 'redux-persist/integration/react']
-        }
-    }
+            external: ["redux-persist", "redux-persist/integration/react"],
+        },
+    },
 });
