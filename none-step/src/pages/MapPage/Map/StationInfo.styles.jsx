@@ -26,6 +26,35 @@ export const StationInfoWrapper = styled.div`
     }
 `;
 
+export const BookmarkContainer = styled.div`
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.colors.gray01};
+    cursor: pointer;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    span {
+        margin-left: 6px;
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+
+    &.selected svg {
+        color: #ffcc00;
+    }
+
+    &.selected span {
+        color: ${(props) => props.theme.colors.primary};
+    }
+`;
+
 export const StationInfoCloseBtn = styled.button`
     position: absolute;
     top: 20px;
@@ -900,5 +929,33 @@ export const StationContainer = styled.div`
         font-size: 1.5rem;
         color: ${(props) => props.theme.colors.primary};
         text-decoration: underline;
+    }
+`;
+
+export const ToastContainer = styled.div`
+    position: fixed;
+    bottom: 130px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    z-index: 999;
+
+    &.opacity {
+        opacity: 0;
+    }
+
+    p {
+        position: absolute;
+        top: 0;
+        line-height: 2.1rem;
+        padding: 12px 18px;
+        border-radius: 25px;
+        background: rgba(34, 34, 34, 0.9);
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 500;
+        word-break: keep-all;
     }
 `;

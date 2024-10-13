@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+    BookmarkContainer,
     StationContainer,
     StationInfoCloseBtn,
     StationInfoContainer,
@@ -10,6 +11,7 @@ import {
     StationScheduleBtnContainer,
     StationScheduleContainer,
     StationScheduleWrapper,
+    ToastContainer,
 } from "./StationInfo.styles";
 import difToiletIcon from "../icons/dif-toilet-icon-gray.svg";
 import { BsTelephoneFill } from "react-icons/bs";
@@ -21,6 +23,8 @@ import { MdSunny } from "react-icons/md";
 import { PiElevatorFill } from "react-icons/pi";
 import { RiBattery2ChargeFill, RiCustomerService2Fill } from "react-icons/ri";
 import { TbEscalator } from "react-icons/tb";
+import { IoIosStarOutline, IoIosStar } from "react-icons/io";
+import axiosInstance from "@apis/axiosInstance";
 
 const StationInfo = ({
     stationInfo,
@@ -29,11 +33,15 @@ const StationInfo = ({
     climateCard,
     handleClose,
 }) => {
+    const toastRef = useRef(null);
+
     const [stationLine, setStationLine] = useState("");
     const [transferLine, setTransferLine] = useState([]);
     const [lineColor, setLineColor] = useState("");
     const [transferLineColor, setTransferLineColor] = useState([]);
     const [selectedDay, setselectedDay] = useState("weekday");
+    const [bookmarkList, setBookmarkList] = useState([]);
+    const [isBookmark, setIsBookmark] = useState(false);
 
     const info = stationInfo;
     const elevators = stationInfo.elevator;
@@ -46,6 +54,37 @@ const StationInfo = ({
     const aeds = stationInfo.aed;
     const chargers = stationInfo.charger;
     const centers = stationInfo.center;
+
+    const access = sessionStorage.getItem("accessToken");
+
+    useEffect(() => {
+        if (access) {
+            axiosInstance
+                .get("/nonestep/book-mark/subway-list", {
+                    headers: {
+                        Authorization: `${access}`,
+                    },
+                })
+                .then((response) => {
+                    setBookmarkList(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [access]);
+
+    useEffect(() => {
+        setIsBookmark(
+            bookmarkList.some((bookmark) => {
+                return (
+                    info.infoRegion === bookmark.region &&
+                    info.infoLine === bookmark.line &&
+                    info.infoStation === bookmark.station
+                );
+            })
+        );
+    }, [bookmarkList]);
 
     useEffect(() => {
         switch (stationInfo.infoLine) {
@@ -430,6 +469,54 @@ const StationInfo = ({
         });
     }, [stationInfo.infoRegion, stationInfo.infoTransfer]);
 
+    const handleClickBookmark = () => {
+        if (access && !isBookmark) {
+            axiosInstance
+                .post(
+                    "/nonestep/book-mark/subway-register",
+                    {
+                        region: info.infoRegion,
+                        line: info.infoLine,
+                        station: info.infoStation,
+                    },
+                    {
+                        headers: {
+                            Authorization: `${access}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    setIsBookmark(true);
+                })
+                .catch((error) => {
+                    toastPop();
+                });
+        } else if (access && isBookmark) {
+            axiosInstance
+                .delete(
+                    `/nonestep/book-mark/subway-delete?region=${info.infoRegion}&line=${info.infoLine}&station=${info.infoStation}`
+                )
+                .then((response) => {
+                    setIsBookmark(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else if (!access) {
+            alert("로그인 후 이용 가능합니다.");
+        }
+    };
+
+    const toastPop = () => {
+        if (toastRef.current) {
+            toastRef.current.classList.remove("opacity");
+
+            setTimeout(() => {
+                toastRef.current.classList.add("opacity");
+            }, 2000);
+        }
+    };
+
     const handleClickWeekday = () => {
         setselectedDay("weekday");
     };
@@ -477,6 +564,20 @@ const StationInfo = ({
 
     return (
         <StationInfoWrapper>
+            {isBookmark ? (
+                <BookmarkContainer
+                    className="selected"
+                    onClick={handleClickBookmark}
+                >
+                    <IoIosStar />
+                    <span>즐겨찾기</span>
+                </BookmarkContainer>
+            ) : (
+                <BookmarkContainer onClick={handleClickBookmark}>
+                    <IoIosStarOutline />
+                    <span>즐겨찾기</span>
+                </BookmarkContainer>
+            )}
             <StationInfoCloseBtn onClick={handleClose}>
                 <IoClose />
             </StationInfoCloseBtn>
@@ -1655,6 +1756,9 @@ const StationInfo = ({
                     </div>
                 </StationContainer>
             </StationInfoContainer>
+            <ToastContainer ref={toastRef} className="opacity">
+                <p>즐겨찾기는 최대 5개까지 등록할 수 있습니다.</p>
+            </ToastContainer>
         </StationInfoWrapper>
     );
 };
