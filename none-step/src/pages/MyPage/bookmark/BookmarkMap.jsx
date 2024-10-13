@@ -12,11 +12,14 @@ import { useEffect, useState } from "react";
 import axiosInstance from "@apis/axiosInstance";
 import { IoIosStar } from "react-icons/io";
 import { CgClose } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 const BookmarkMap = () => {
     const [bookmarkList, setBookmarkList] = useState([]);
     const [lineList, setLineList] = useState([]);
     const [lineColorList, setLineColorList] = useState([]);
+
+    const navigate = useNavigate();
 
     const access = sessionStorage.getItem("accessToken");
 
@@ -190,6 +193,24 @@ const BookmarkMap = () => {
         );
     }, [bookmarkList]);
 
+    const handleClickList = (region, line, station) => {
+        axiosInstance
+            .get(
+                `/nonestep/subway/station-info?region=${region}&line=${line}&station=${station}`
+            )
+            .then((response) => {
+                navigate(
+                    `/map?lat=${response.data.infoLatitude}&lng=${response.data.infoLongitude}`
+                );
+            })
+            .catch((error) => {
+                console.log(error);
+                alert(
+                    "상세정보를 불러오는 데에 실패했습니다.\n 다시 시도해 주세요."
+                );
+            });
+    };
+
     const handleClickDelete = (region, line, station) => {
         if (window.confirm("즐겨찾기를 삭제하시겠습니까?")) {
             axiosInstance
@@ -225,7 +246,16 @@ const BookmarkMap = () => {
                         <BookmarkList>
                             {bookmarkList.map((bookmark, index) => (
                                 <li key={index}>
-                                    <div className="bookmark_container">
+                                    <div
+                                        className="bookmark_container"
+                                        onClick={() =>
+                                            handleClickList(
+                                                bookmark.region,
+                                                bookmark.line,
+                                                bookmark.station
+                                            )
+                                        }
+                                    >
                                         <IoIosStar />
                                         <div className="bookmark_info">
                                             <LineContainer
