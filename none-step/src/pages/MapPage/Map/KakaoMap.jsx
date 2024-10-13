@@ -53,6 +53,7 @@ import { TbArrowAutofitHeight, TbArrowAutofitWidth } from "react-icons/tb";
 import axiosInstance from "@apis/axiosInstance";
 import StationInfo from "./StationInfo";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const KakaoMap = () => {
     const { kakao } = window;
@@ -77,12 +78,33 @@ const KakaoMap = () => {
     });
     const [userLocation, setUserLocation] = useState();
 
+    const location = useLocation();
+
     const category = useSelector((state) => state.category.value);
 
     useEffect(() => {
-        getLocation();
+        if (!location.search) {
+            getLocation();
+        }
         getUserLocation();
+    }, []);
 
+    useEffect(() => {
+        if (location.search) {
+            setCenter({
+                lat: location.search
+                    .replace("?", "")
+                    .split("&")[0]
+                    .replace("lat=", ""),
+                lng: location.search
+                    .replace("?", "")
+                    .split("&")[1]
+                    .replace("lng=", ""),
+            });
+        }
+    }, [location.search]);
+
+    useEffect(() => {
         switch (category.category) {
             case "elevator":
                 setSelectedCategory("elevator");

@@ -11,14 +11,18 @@ export const BookmarkList = styled.ul`
     li {
         display: flex;
         justify-content: space-between;
-        padding: 18px 12px;
+        width: 100%;
+        height: 60px;
         border-bottom: 1px solid ${(props) => props.theme.colors.gray06};
         background-color: ${(props) => props.theme.colors.white};
+        cursor: pointer;
     }
 
     li .bookmark_container {
         display: flex;
         align-items: center;
+        width: calc(100% - 44px);
+        padding-left: 12px;
     }
 
     li .bookmark_container svg {
@@ -205,6 +209,8 @@ export const LineContainer = styled.span`
 `;
 
 export const DeleteButton = styled.button`
+    width: 44px;
+    height: 100%;
     border: none;
     background: transparent;
     outline: none;
