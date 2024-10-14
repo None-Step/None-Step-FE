@@ -58,12 +58,11 @@ const BookmarkFindWay = ({color}) => {
 
   // 삭제 핸들러 함수
   const handleDelete = async (placeNo) => {
-    console.log(`삭제 요청, /nonestep/book-mark/place-delete?placeNo=${placeNo}`);
 
     try {      
       const response = await axiosInstance.delete(`/nonestep/book-mark/place-delete?placeNo=${placeNo}`);
   
-      console.log('삭제 요청 응답:', response);
+      // console.log('삭제 요청 응답:', response);
       fetchBookmarks();
     } catch (error) {
       console.error('즐겨찾기 삭제에 실패했습니다.', error);
@@ -88,12 +87,12 @@ const BookmarkFindWay = ({color}) => {
   
   // 경로 삭제 핸들러 함수
   const handleDeletePath = async (pathNo) => {
-    console.log (`경로 삭제 요청, /nonestep/book-mark/path-delete?pathNo=${pathNo}`);
+    // console.log (`경로 삭제 요청, /nonestep/book-mark/path-delete?pathNo=${pathNo}`);
 
     try {
       const response = await axiosInstance.delete(`/nonestep/book-mark/path-delete?pathNo=${pathNo}`);
 
-      console.log('경로 삭제 요청 응답:',response);
+      // console.log('경로 삭제 요청 응답:',response);
       fetchBookmarkPaths();
     } catch (error) {
       console.error('경로 즐겨찾기 삭제에 실패했습니다.', error);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axiosInstance from "@/apis/axiosInstance";
+import { useSelector } from 'react-redux';
 
 const ButWrapper = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ const Star = styled.svg`
 
 const BookmarkPathBtn = ({ onPathOrigin, onPathDestination }) => {
   const [bookmarkPathList, setbookmarkPathList] = useState([]);
+  const isAuthorized = useSelector((state) => state.member.isAuthorized); // 로그인 상태 가져오기
   
   const fetchBookmarkPaths = async () => {
     try {
@@ -55,13 +57,15 @@ const BookmarkPathBtn = ({ onPathOrigin, onPathDestination }) => {
       // console.log('API 응답:', response.data);
       setbookmarkPathList(response.data);
     } catch (error) {
-      console.error('즐겨찾기 경로 목록을 불러오는 데 실패했습니다.', error);
+      // console.error('즐겨찾기 경로 목록을 불러오는 데 실패했습니다.', error);
     }
   };
 
   useEffect(() => {
-    fetchBookmarkPaths();
-  }, []);
+    if (isAuthorized) {
+      fetchBookmarkPaths();
+    }
+  }, [isAuthorized]);
 
   const handleBookmarkPathClick = (bookmark) => {
     if (onPathOrigin && onPathDestination) {

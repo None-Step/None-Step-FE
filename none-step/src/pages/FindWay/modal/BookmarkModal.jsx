@@ -96,13 +96,13 @@ const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
     const selectedColor = colorPalette[selectColor];
   
     // 데이터를 전송하기 전 로그
-    console.log("전송할 데이터: ", {
-      latitude: lat,
-      longitude: lng,
-      placeNickName: placeNameInput,
-      placeAddress: placeAddress,
-      placeColor: selectedColor,
-    });
+    // console.log("전송할 데이터: ", {
+    //   latitude: lat,
+    //   longitude: lng,
+    //   placeNickName: placeNameInput,
+    //   placeAddress: placeAddress,
+    //   placeColor: selectedColor,
+    // });
   
     try {
       const response = await axiosInstance.post('nonestep/book-mark/place-register', {
@@ -113,7 +113,7 @@ const BookmarkModal = ({onClick, placeName, placeAddress, lat, lng}) => {
         placeColor: selectedColor
       });
   
-      console.log("응답 데이터: ", response.data);
+      // console.log("응답 데이터: ", response.data);
   
       if(response.data.message.toLowerCase() === 'success') {
         alert('즐겨찾기가 성공적으로 등록되었습니다.');
