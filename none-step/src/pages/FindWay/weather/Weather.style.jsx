@@ -11,6 +11,8 @@ export const Warning = styled.span`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+
+  margin-top: 1rem;
 `;
 
 export const WeatherInfo = styled.span`

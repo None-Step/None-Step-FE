@@ -95,11 +95,6 @@ const FindWay = () => {
   // 날씨 관련 ------------------------------------------------------------------
   const [isFlooding, setIsFlooding] = useState(false);
 
-  // 날씨 : 침수 여부 확인 API
-  // useEffect(() => {
-    // axiosInstance.get(`/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`)
-  // }, [userLocation, origin, destination]);
-
   const handlePathOrigin = origin => {
     setPathOrigin(origin);
   };
@@ -124,6 +119,22 @@ const FindWay = () => {
     fetchBookmarkedPlaces();
   }, []);
 
+  // 해당 장소가 북마크 된 장소인지 확인 ---------------------------
+  let isOriginBookmarked = false;
+
+  for (let i = 0; i < bookmarkedPlaces.length; i++) {
+    if (
+      bookmarkedPlaces[i].placeLatitude === origin?.lat &&
+      bookmarkedPlaces[i].placeLongitude === origin?.lng
+    ) {
+      isOriginBookmarked = true;
+      break;
+    }
+
+    // console.log(bookmarkedPlaces[i].placeLatitude, bookmarkedPlaces[i].placeLongitude)
+    // console.log(origin.lat, origin.lng)
+  }
+
   let isDestinationBookmarked = false;
 
   for (let i = 0; i < bookmarkedPlaces.length; i++) {
@@ -132,9 +143,10 @@ const FindWay = () => {
       bookmarkedPlaces[i].placeLongitude === destination?.lng
     ) {
       isDestinationBookmarked = true;
-      break; // 조건을 만족하는 요소를 찾았을 때 반복 중단시키기
+      break;
     }
   }
+  // ------------------------------------------------------
 
   // 역 정보 조회
   const getStationInfo = useCallback(async (lat, lng) => {
@@ -738,6 +750,49 @@ const FindWay = () => {
     [isNavigating, userLocation, setCenter]
   );
 
+    // 날씨 : 침수 여부 확인 API -----
+  // 침수 여부 확인 함수 정의
+  const checkFlooding = useCallback(async (lat, lng) => {
+    try {
+      const stationInfo = await getStationInfo(lat, lng); // 위경도를 이용해 역 정보 가져오기
+      const region = stationInfo.region;
+      const line = stationInfo.line;
+      const station = stationInfo.station;
+
+      const response = await axiosInstance.get(
+        `/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`
+      );
+      
+      // 침수 여부 결과 처리
+      setIsFlooding(response.data.isFlooding === "y");
+    } catch (error) {
+      console.error('침수 여부 확인 실패:', error);
+    }
+  }, [getStationInfo]);
+
+  // 현재 위치 침수 여부 확인 useEffect
+  useEffect(() => {
+    if (userLocation) {
+      checkFlooding(userLocation.lat, userLocation.lng); // 현재 위치의 위경도를 전달하여 침수 여부 확인
+    }
+  }, [userLocation, checkFlooding]);
+
+  // 출발지 침수 여부 확인 useEffect
+  useEffect(() => {
+    if (origin) {
+      checkFlooding(origin.lat, origin.lng); // 출발지의 위경도를 전달하여 침수 여부 확인
+    }
+  }, [origin, checkFlooding]);
+
+  // 도착지 침수 여부 확인 useEffect
+  useEffect(() => {
+    if (destination) {
+      checkFlooding(destination.lat, destination.lng); // 도착지의 위경도를 전달하여 침수 여부 확인
+    }
+  }, [destination, checkFlooding]);
+  // ---------------------------------------------------
+
+
   return (
     <PageWrapper>
       <PageHeader />
@@ -829,11 +884,11 @@ const FindWay = () => {
                     }
                   >
                     <BookmarkIcon
-                      src={isDestinationBookmarked ? yellowStar : emptyStar}
+                      src={isOriginBookmarked ? yellowStar : emptyStar}
                       alt="북마크 아이콘"
                     />
                     <BookmarkSpan
-                      color={isDestinationBookmarked ? '#007AFF' : '#8E8E93'}
+                      color={isOriginBookmarked ? '#007AFF' : '#8E8E93'}
                     >
                       즐겨찾기
                     </BookmarkSpan>
