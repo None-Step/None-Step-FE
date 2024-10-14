@@ -96,9 +96,9 @@ const FindWay = () => {
   const [isFlooding, setIsFlooding] = useState(false);
 
   // 날씨 : 침수 여부 확인 API
-  useEffect(() => {
+  // useEffect(() => {
     // axiosInstance.get(`/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`)
-  }, [userLocation, origin, destination]);
+  // }, [userLocation, origin, destination]);
 
   const handlePathOrigin = origin => {
     setPathOrigin(origin);
@@ -117,7 +117,7 @@ const FindWay = () => {
         );
         setBookmarkedPlaces(response.data); // 데이터를 상태에 저장
       } catch (error) {
-        console.error('즐겨찾기 목록 조회 실패:', error);
+        // console.error('즐겨찾기 목록 조회 실패:', error);
       }
     };
 
@@ -147,7 +147,7 @@ const FindWay = () => {
       // console.log('now-station 응답 데이터:', response.data);
       return response.data;
     } catch (error) {
-      console.error('역 정보 조회 실패:', error);
+      // console.error('역 정보 조회 실패:', error);
       // console.log('now-station 오류 응답:', error.response?.data);
       throw error;
     }
@@ -211,7 +211,7 @@ const FindWay = () => {
           }
         },
         error => {
-          console.error('위치 추적 오류:', error.message);
+          // console.error('위치 추적 오류:', error.message);
           alert(
             '현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.'
           );
@@ -321,7 +321,7 @@ const FindWay = () => {
       );
       return response.data;
     } catch (error) {
-      console.error('자전거 보관소 위치 조회 실패:', error);
+      // console.error('자전거 보관소 위치 조회 실패:', error);
       return null;
     }
   }, []);
