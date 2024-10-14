@@ -108,9 +108,9 @@ export const MyChattingMessageContainer = styled.div`
     .line_container .line {
         display: inline-flex;
         justify-content: center;
+        align-items: center;
         min-width: 16px;
         height: 16px;
-        line-height: 14px;
         margin-left: 6px;
         padding: 0 4px;
         border-radius: 8px;
@@ -361,9 +361,9 @@ export const ChattingMessageContainer = styled.div`
     .nickname_container .line {
         display: inline-flex;
         justify-content: center;
+        align-items: center;
         min-width: 16px;
         height: 16px;
-        line-height: 14px;
         margin-left: 6px;
         padding: 0 4px;
         border-radius: 8px;
