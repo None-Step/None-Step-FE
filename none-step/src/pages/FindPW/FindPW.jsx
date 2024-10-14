@@ -64,7 +64,7 @@ const FindPW = () => {
   
             setVerificationSent(true);
             
-            console.log("인증번호가 성공적으로 발송되었습니다.");
+            // console.log("인증번호가 성공적으로 발송되었습니다.");
           } else {
             throw new Error("서버 응답에 인증번호가 없습니다.");
           }
