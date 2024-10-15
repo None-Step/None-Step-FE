@@ -750,7 +750,7 @@ const FindWay = () => {
     [isNavigating, userLocation, setCenter]
   );
 
-    // 날씨 : 침수 여부 확인 API -----
+  // 날씨 : 침수 여부 확인 API -----
   // 침수 여부 확인 함수 정의
   const checkFlooding = useCallback(async (lat, lng) => {
     try {
