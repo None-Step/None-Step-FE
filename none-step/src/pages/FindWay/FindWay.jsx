@@ -752,23 +752,26 @@ const FindWay = () => {
 
   // 날씨 : 침수 여부 확인 API -----
   // 침수 여부 확인 함수 정의
-  const checkFlooding = useCallback(async (lat, lng) => {
-    try {
-      const stationInfo = await getStationInfo(lat, lng); // 위경도를 이용해 역 정보 가져오기
-      const region = stationInfo.region;
-      const line = stationInfo.line;
-      const station = stationInfo.station;
+  const checkFlooding = useCallback(
+    async (lat, lng) => {
+      try {
+        const stationInfo = await getStationInfo(lat, lng); // 위경도를 이용해 역 정보 가져오기
+        const region = stationInfo.region;
+        const line = stationInfo.line;
+        const station = stationInfo.station;
 
-      const response = await axiosInstance.get(
-        `/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`
-      );
-      
-      // 침수 여부 결과 처리
-      setIsFlooding(response.data.isFlooding === "y");
-    } catch (error) {
-      console.error('침수 여부 확인 실패:', error);
-    }
-  }, [getStationInfo]);
+        const response = await axiosInstance.get(
+          `/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`
+        );
+
+        // 침수 여부 결과 처리
+        setIsFlooding(response.data.isFlooding === 'y');
+      } catch (error) {
+        console.error('침수 여부 확인 실패:', error);
+      }
+    },
+    [getStationInfo]
+  );
 
   // 현재 위치 침수 여부 확인 useEffect
   useEffect(() => {
@@ -791,7 +794,6 @@ const FindWay = () => {
     }
   }, [destination, checkFlooding]);
   // ---------------------------------------------------
-
 
   return (
     <PageWrapper>
@@ -835,14 +837,6 @@ const FindWay = () => {
                   <CustomOverlayMap position={userLocation} yAnchor={1.62}>
                     <CustomOverlay>
                       <StationName>현재 위치</StationName>
-                      <InfoWrapper>
-                        {isFlooding && (
-                          <Warning>
-                            <img src={WarningIcon} alt="경고" />
-                            침수 주의
-                          </Warning>
-                        )}
-                      </InfoWrapper>
                       <UserLocationStart
                         onClick={() =>
                           handleSetLocation('origin', userLocation)
@@ -850,6 +844,15 @@ const FindWay = () => {
                       >
                         출발지로 설정하기
                       </UserLocationStart>
+                      {isFlooding && (
+                        <InfoWrapper>
+                          <Warning>
+                            <img src={WarningIcon} alt="경고" />
+                            침수 주의
+                          </Warning>
+                          최근 침수 피해가 있었던 지역입니다.<br/>안전에 유의하세요.
+                        </InfoWrapper>
+                      )}
                     </CustomOverlay>
                   </CustomOverlayMap>
                 )}
@@ -895,14 +898,15 @@ const FindWay = () => {
                   </BookmarkBtn>
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
-                  <InfoWrapper>
-                    {isFlooding && (
+                  {isFlooding && (
+                    <InfoWrapper>
                       <Warning>
                         <img src={WarningIcon} alt="경고" />
                         침수 주의
                       </Warning>
-                    )}
-                  </InfoWrapper>
+                      최근 침수 피해가 있었던 지역입니다.<br/>안전에 유의하세요.
+                    </InfoWrapper>
+                  )}
                   <ButtonContainer>
                     <Button onClick={() => handleSetLocation('origin', origin)}>
                       출발
@@ -985,6 +989,15 @@ const FindWay = () => {
                       도착
                     </Button>
                   </ButtonContainer>
+                  {isFlooding && (
+                    <InfoWrapper>
+                      <Warning>
+                        <img src={WarningIcon} alt="경고" />
+                        침수 주의
+                      </Warning>
+                      최근 침수 피해가 있었던 지역입니다.<br/>안전에 유의하세요.
+                    </InfoWrapper>
+                  )}
                 </CustomOverlay>
               </CustomOverlayMap>
             )}

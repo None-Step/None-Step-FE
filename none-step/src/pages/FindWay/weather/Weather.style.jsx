@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Warning = styled.span`
   padding: 0.2rem 0.4rem;
   border-radius: 2px;
-  background-color: rgba(236, 34, 31, 0.8);
+  background-color: rgba(0, 122, 255, 0.6);
   color: white;
   font-weight: bold;
 
@@ -27,7 +27,11 @@ export const Temperature = styled(WeatherInfo)`
 
 export const InfoWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+
+  font-size: 1.2rem;
+  text-align: center;
 `;
