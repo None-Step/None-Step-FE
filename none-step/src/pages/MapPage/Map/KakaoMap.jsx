@@ -14,6 +14,7 @@ import {
     SearchInput,
     SearchInputContainer,
     SearchWrapper,
+    ToastContainer,
     ZoomControlBtn,
     ZoomControlBtnContainer,
     ZoomControlContainer,
@@ -59,6 +60,7 @@ const KakaoMap = () => {
     const { kakao } = window;
 
     const scrollRef = useRef(null);
+    const toastRef = useRef(null);
 
     const [map, setMap] = useState();
     const [mapLevel, setMapLevel] = useState(3);
@@ -84,9 +86,29 @@ const KakaoMap = () => {
 
     useEffect(() => {
         if (!location.search) {
-            getLocation();
+            // getLocation();
+            const geoSuccess = (position) => {
+                setCenter({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            };
+
+            const geoError = () => {
+                toastPop();
+            };
+
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
         }
-        getUserLocation();
+        // getUserLocation();
+        const geoSuccess = (position) => {
+            setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            });
+        };
+
+        navigator.geolocation.watchPosition(geoSuccess);
     }, []);
 
     useEffect(() => {
@@ -141,31 +163,31 @@ const KakaoMap = () => {
         }
     }, [category.category]);
 
-    const getLocation = () => {
-        const geoSuccess = (position) => {
-            setCenter({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            });
-        };
+    // const getLocation = () => {
+    //     const geoSuccess = (position) => {
+    //         setCenter({
+    //             lat: position.coords.latitude,
+    //             lng: position.coords.longitude,
+    //         });
+    //     };
 
-        const geoError = () => {
-            alert("위치를 불러오는 데에 실패했습니다.");
-        };
+    //     const geoError = () => {
+    //         toastPop();
+    //     };
 
-        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-    };
+    //     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+    // };
 
-    const getUserLocation = () => {
-        const geoSuccess = (position) => {
-            setUserLocation({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            });
-        };
+    // const getUserLocation = () => {
+    //     const geoSuccess = (position) => {
+    //         setUserLocation({
+    //             lat: position.coords.latitude,
+    //             lng: position.coords.longitude,
+    //         });
+    //     };
 
-        navigator.geolocation.watchPosition(geoSuccess);
-    };
+    //     navigator.geolocation.watchPosition(geoSuccess);
+    // };
 
     useEffect(() => {
         let radius;
@@ -370,7 +392,7 @@ const KakaoMap = () => {
             )
             .then((response) => {
                 setStationDetailInfo(response.data);
-                setIsStationInfoOpen(true);
+                if (response.status === 200) setIsStationInfoOpen(true);
             })
             .catch((error) => {
                 console.log(error);
@@ -442,6 +464,16 @@ const KakaoMap = () => {
             userLocation.lng
         );
         map.panTo(userPosition);
+    };
+
+    const toastPop = () => {
+        if (toastRef.current) {
+            toastRef.current.classList.remove("opacity");
+
+            setTimeout(() => {
+                toastRef.current.classList.add("opacity");
+            }, 2000);
+        }
     };
 
     return (
@@ -1235,6 +1267,9 @@ const KakaoMap = () => {
                     </LocationBtn>
                 </ZoomControlContainer>
             </ZoomControlWrapper>
+            <ToastContainer ref={toastRef} className="opacity">
+                <p>위치를 불러오는데 실패했습니다.</p>
+            </ToastContainer>
         </MapWrapper>
     );
 };

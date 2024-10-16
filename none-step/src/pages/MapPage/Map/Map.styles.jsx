@@ -230,3 +230,31 @@ export const LocationBtn = styled.button`
         color: ${(props) => props.theme.colors.primary};
     }
 `;
+
+export const ToastContainer = styled.div`
+    position: fixed;
+    bottom: 200px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    z-index: 999;
+
+    &.opacity {
+        opacity: 0;
+    }
+
+    p {
+        position: absolute;
+        top: 0;
+        line-height: 2.1rem;
+        padding: 12px 18px;
+        border-radius: 25px;
+        background: rgba(34, 34, 34, 0.9);
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 500;
+        word-break: keep-all;
+    }
+`;

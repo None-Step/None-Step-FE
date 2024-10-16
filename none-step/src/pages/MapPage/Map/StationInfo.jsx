@@ -503,7 +503,7 @@ const StationInfo = ({
                     console.log(error);
                 });
         } else if (!access) {
-            alert("로그인 후 이용 가능합니다.");
+            toastPop();
         }
     };
 
@@ -513,8 +513,12 @@ const StationInfo = ({
 
             setTimeout(() => {
                 toastRef.current.classList.add("opacity");
-            }, 2000);
+            }, 2300);
         }
+    };
+
+    const stationName = (station) => {
+        return station.replace(",", "·");
     };
 
     const handleClickWeekday = () => {
@@ -586,7 +590,9 @@ const StationInfo = ({
                     <div className={`station_line ${lineColor}`}>
                         <span>{stationLine}</span>
                     </div>
-                    <h2 className="station_name">{info.infoStation}</h2>
+                    <h2 className="station_name">
+                        {stationName(info.infoStation)}
+                    </h2>
                 </StationNameContainer>
             </StationNameWrapper>
             <StationInfoContainer>
@@ -1479,6 +1485,13 @@ const StationInfo = ({
                                 <span>하차만 가능</span>
                             </div>
                         )}
+                    {climateCard.getOff === "n" &&
+                        climateCard.getOn === "n" && (
+                            <div className="climate_card">
+                                <h2 className="info_title">기후동행카드</h2>
+                                <span className="no_support">미지원</span>
+                            </div>
+                        )}
                     <h2 className="info_title">상세정보</h2>
                     <div className="info address_container">
                         <span>
@@ -1757,7 +1770,11 @@ const StationInfo = ({
                 </StationContainer>
             </StationInfoContainer>
             <ToastContainer ref={toastRef} className="opacity">
-                <p>즐겨찾기는 최대 5개까지 등록할 수 있습니다.</p>
+                {!access ? (
+                    <p>로그인 후 이용 가능합니다.</p>
+                ) : (
+                    <p>즐겨찾기는 최대 5개까지 등록할 수 있습니다.</p>
+                )}
             </ToastContainer>
         </StationInfoWrapper>
     );
