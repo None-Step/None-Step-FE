@@ -834,7 +834,10 @@ const FindWay = () => {
                 !origin &&
                 !destination &&
                 !isNavigating && (
-                  <CustomOverlayMap position={userLocation} yAnchor={1.62}>
+                  <CustomOverlayMap
+                    position={userLocation}
+                    yAnchor={isFlooding ? 1.4 : 1.62}
+                  >
                     <CustomOverlay>
                       <StationName>현재 위치</StationName>
                       <UserLocationStart
@@ -850,7 +853,9 @@ const FindWay = () => {
                             <img src={WarningIcon} alt="경고" />
                             침수 주의
                           </Warning>
-                          최근 침수 피해가 있었던 지역입니다.<br/>안전에 유의하세요.
+                          최근 침수 피해가 있었던 지역입니다.
+                          <br />
+                          안전에 유의하세요.
                         </InfoWrapper>
                       )}
                     </CustomOverlay>
@@ -874,7 +879,10 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap position={origin} yAnchor={1.65}>
+              <CustomOverlayMap
+                position={origin}
+                yAnchor={isFlooding ? 1.4 : 1.65}
+              >
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -904,7 +912,9 @@ const FindWay = () => {
                         <img src={WarningIcon} alt="경고" />
                         침수 주의
                       </Warning>
-                      최근 침수 피해가 있었던 지역입니다.<br/>안전에 유의하세요.
+                      최근 침수 피해가 있었던 지역입니다.
+                      <br />
+                      안전에 유의하세요.
                     </InfoWrapper>
                   )}
                   <ButtonContainer>
@@ -951,7 +961,10 @@ const FindWay = () => {
               }}
             />
             {destination && showDestinationOverlay && (
-              <CustomOverlayMap position={destination} yAnchor={1.75}>
+              <CustomOverlayMap
+                position={destination}
+                yAnchor={isFlooding ? 1.4 : 1.62}
+              >
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -975,6 +988,17 @@ const FindWay = () => {
                   </BookmarkBtn>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
+                  {isFlooding && (
+                    <InfoWrapper>
+                      <Warning>
+                        <img src={WarningIcon} alt="경고" />
+                        침수 주의
+                      </Warning>
+                      최근 침수 피해가 있었던 지역입니다.
+                      <br />
+                      안전에 유의하세요.
+                    </InfoWrapper>
+                  )}
                   <ButtonContainer>
                     <Button
                       onClick={() => handleSetLocation('origin', destination)}
@@ -989,15 +1013,6 @@ const FindWay = () => {
                       도착
                     </Button>
                   </ButtonContainer>
-                  {isFlooding && (
-                    <InfoWrapper>
-                      <Warning>
-                        <img src={WarningIcon} alt="경고" />
-                        침수 주의
-                      </Warning>
-                      최근 침수 피해가 있었던 지역입니다.<br/>안전에 유의하세요.
-                    </InfoWrapper>
-                  )}
                 </CustomOverlay>
               </CustomOverlayMap>
             )}
