@@ -681,8 +681,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: stationMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -716,8 +716,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: elevatorMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -733,7 +733,7 @@ const KakaoMap = () => {
                                         lat: marker.elevatorLatitude,
                                         lng: marker.elevatorLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="elevator_overlay">
@@ -759,8 +759,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: escalatorMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -776,7 +776,7 @@ const KakaoMap = () => {
                                         lat: marker.escalLatitude,
                                         lng: marker.escalLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="escalator_overlay">
@@ -800,8 +800,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: wheelchairLiftMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -932,8 +932,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: toiletMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -949,7 +949,7 @@ const KakaoMap = () => {
                                         lat: marker.toiletLatitude,
                                         lng: marker.toiletLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="toilet_overlay">
@@ -973,8 +973,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: difToiletMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -990,7 +990,7 @@ const KakaoMap = () => {
                                         lat: marker.difToiletLatitude,
                                         lng: marker.difToiletLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="dif_toilet_overlay">
@@ -1016,8 +1016,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: nursingRoomMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -1033,7 +1033,7 @@ const KakaoMap = () => {
                                         lat: marker.nursingLatitude,
                                         lng: marker.nursingLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="nursing_room_overlay">
@@ -1057,8 +1057,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: atmMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -1074,7 +1074,7 @@ const KakaoMap = () => {
                                         lat: marker.atmLatitude,
                                         lng: marker.atmLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="atm_overlay">
@@ -1098,8 +1098,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: aedMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -1115,7 +1115,7 @@ const KakaoMap = () => {
                                         lat: marker.aedLatitude,
                                         lng: marker.aedLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="aed_overlay">
@@ -1139,8 +1139,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: wheelchairChargerMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -1156,7 +1156,7 @@ const KakaoMap = () => {
                                         lat: marker.chargerLatitude,
                                         lng: marker.chargerLongitude,
                                     }}
-                                    yAnchor={2.5}
+                                    yAnchor={2.8}
                                 >
                                     <OverlayContainer>
                                         <p className="charger_overlay">
@@ -1180,8 +1180,8 @@ const KakaoMap = () => {
                                 image={{
                                     src: customerServiceMarkerIcon,
                                     size: {
-                                        width: 35,
-                                        height: 49,
+                                        width: 40,
+                                        height: 56,
                                     },
                                 }}
                                 position={{
@@ -1197,7 +1197,7 @@ const KakaoMap = () => {
                                         lat: marker.centerLatitude,
                                         lng: marker.centerLongitude,
                                     }}
-                                    yAnchor={1.65}
+                                    yAnchor={1.8}
                                 >
                                     <OverlayContainer>
                                         <p className="center_overlay">
