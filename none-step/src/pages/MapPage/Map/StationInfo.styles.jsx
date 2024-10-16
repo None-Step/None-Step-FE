@@ -614,6 +614,7 @@ export const StationScheduleContainer = styled.div`
         width: 50%;
         height: 40px;
         border: 1px solid ${(props) => props.theme.colors.gray06};
+        word-break: keep-all;
     }
 
     th {
@@ -864,6 +865,10 @@ export const StationContainer = styled.div`
         color: ${(props) => props.theme.colors.primary};
         font-size: 1.6rem;
         font-weight: 500;
+    }
+
+    .climate_card .no_support {
+        color: #ff3b30;
     }
 
     /* info */
