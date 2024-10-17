@@ -4,7 +4,6 @@ import {
   MapMarker,
   CustomOverlayMap,
   Polyline,
-  Circle,
 } from 'react-kakao-maps-sdk';
 import {
   PageWrapper,
@@ -23,7 +22,7 @@ import { PageHeader } from '@/components/header/Headers';
 import MenuBar from '@/components/menuBar/MenuBar';
 import ReloadIcon from '@/assets/img/current.svg';
 import KakaoMapPlaceSearch from './KakaoMapPlaceSearch';
-import FindWayPopup from './FindWayPopup';
+import FindWayPopup from './popup/FindWayPopup';
 import axiosInstance from '@/apis/axiosInstance';
 import QuickRoute from './buttons/QuickRoute';
 import BicycleMarker from '@/assets/img/bicycle-marker.svg';
@@ -36,6 +35,7 @@ import BookmarkModal from './modal/BookmarkModal';
 import BookmarkPathBtn from './buttons/BookmarkPathBtn';
 import { InfoWrapper, Warning } from './weather/Weather.style';
 import WarningIcon from './weather/icons/warning.svg';
+import { WeatherPopup, WeatherPreview } from './weather/Weather';
 
 const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -101,6 +101,13 @@ const FindWay = () => {
 
   const handlePathDestination = destination => {
     setPathDestination(destination);
+  };
+
+  // 날씨 팝업
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleWeatherPopup = () => {
+    setIsClicked(!isClicked);
   };
 
   // 즐겨찾기 목록 조회
@@ -811,6 +818,13 @@ const FindWay = () => {
         pathDestination={pathDestination}
       />
 
+      {/* 빠른 경로 버튼 */}
+      {!isNavigating && <QuickRoute userLocation={userLocation} />}
+      <BookmarkPathBtn
+        onPathOrigin={handlePathOrigin}
+        onPathDestination={handlePathDestination}
+      />
+
       <Map
         center={center}
         style={{
@@ -840,13 +854,6 @@ const FindWay = () => {
                   >
                     <CustomOverlay>
                       <StationName>현재 위치</StationName>
-                      <UserLocationStart
-                        onClick={() =>
-                          handleSetLocation('origin', userLocation)
-                        }
-                      >
-                        출발지로 설정하기
-                      </UserLocationStart>
                       {isFlooding && (
                         <InfoWrapper>
                           <Warning>
@@ -858,6 +865,13 @@ const FindWay = () => {
                           안전에 유의하세요.
                         </InfoWrapper>
                       )}
+                      <UserLocationStart
+                        onClick={() =>
+                          handleSetLocation('origin', userLocation)
+                        }
+                      >
+                        출발지로 설정하기
+                      </UserLocationStart>
                     </CustomOverlay>
                   </CustomOverlayMap>
                 )}
@@ -1101,6 +1115,9 @@ const FindWay = () => {
         <Reload onClick={handleReloadLocation} $viewportHeight={viewportHeight}>
           <img src={ReloadIcon} alt="현재위치 새로고침" />
         </Reload>
+
+        {/* 날씨 작은 화면 */}
+        <WeatherPreview $viewportHeight={viewportHeight} onClick={handleWeatherPopup} />
       </Map>
 
       {/* 로딩 중일 때 스피너 표시 */}
@@ -1121,12 +1138,10 @@ const FindWay = () => {
         />
       )}
 
-      {/* 빠른 경로 버튼 */}
-      {!isNavigating && <QuickRoute userLocation={userLocation} />}
-      <BookmarkPathBtn
-        onPathOrigin={handlePathOrigin}
-        onPathDestination={handlePathDestination}
-      />
+      {/* 날씨 상세 정보 팝업 */}
+      {isClicked && <WeatherPopup onClose={() => handleWeatherPopup()}/>}
+      
+
       <MenuBar />
     </PageWrapper>
   );
