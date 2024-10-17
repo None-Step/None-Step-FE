@@ -86,29 +86,9 @@ const KakaoMap = () => {
 
     useEffect(() => {
         if (!location.search) {
-            // getLocation();
-            const geoSuccess = (position) => {
-                setCenter({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                });
-            };
-
-            const geoError = () => {
-                toastPop();
-            };
-
-            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+            getLocation();
         }
-        // getUserLocation();
-        const geoSuccess = (position) => {
-            setUserLocation({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            });
-        };
-
-        navigator.geolocation.watchPosition(geoSuccess);
+        getUserLocation();
     }, []);
 
     useEffect(() => {
@@ -163,31 +143,41 @@ const KakaoMap = () => {
         }
     }, [category.category]);
 
-    // const getLocation = () => {
-    //     const geoSuccess = (position) => {
-    //         setCenter({
-    //             lat: position.coords.latitude,
-    //             lng: position.coords.longitude,
-    //         });
-    //     };
+    const getLocation = () => {
+        const geoSuccess = (position) => {
+            setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            });
+        };
 
-    //     const geoError = () => {
-    //         toastPop();
-    //     };
+        const geoError = () => {
+            toastPop();
+        };
 
-    //     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-    // };
+        const geoOptions = {
+            enableHighAccuracy: true,
+            timeout: 1000 * 5,
+            maximumAge: 1000 * 3600 * 12,
+        };
 
-    // const getUserLocation = () => {
-    //     const geoSuccess = (position) => {
-    //         setUserLocation({
-    //             lat: position.coords.latitude,
-    //             lng: position.coords.longitude,
-    //         });
-    //     };
+        navigator.geolocation.getCurrentPosition(
+            geoSuccess,
+            geoError,
+            geoOptions
+        );
+    };
 
-    //     navigator.geolocation.watchPosition(geoSuccess);
-    // };
+    const getUserLocation = () => {
+        const geoSuccess = (position) => {
+            setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            });
+        };
+
+        navigator.geolocation.watchPosition(geoSuccess);
+    };
 
     useEffect(() => {
         let radius;
@@ -527,6 +517,21 @@ const KakaoMap = () => {
                             >
                                 <img src={subwayIcon} alt="elevator-icon" />
                                 <span>역정보</span>
+                            </CategoryBtn>
+                        </li>
+                        <li className="congestion">
+                            <CategoryBtn
+                                className={
+                                    selectedCategory === "congestion"
+                                        ? "selected"
+                                        : ""
+                                }
+                                onClick={() =>
+                                    handleClickCategory("congestion")
+                                }
+                            >
+                                <img src={subwayIcon} alt="elevator-icon" />
+                                <span>역 혼잡도</span>
                             </CategoryBtn>
                         </li>
                         <li className="elevator">
