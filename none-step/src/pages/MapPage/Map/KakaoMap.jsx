@@ -519,7 +519,7 @@ const KakaoMap = () => {
                                 <span>역정보</span>
                             </CategoryBtn>
                         </li>
-                        <li className="congestion">
+                        {/* <li className="congestion">
                             <CategoryBtn
                                 className={
                                     selectedCategory === "congestion"
@@ -533,7 +533,7 @@ const KakaoMap = () => {
                                 <img src={subwayIcon} alt="elevator-icon" />
                                 <span>역 혼잡도</span>
                             </CategoryBtn>
-                        </li>
+                        </li> */}
                         <li className="elevator">
                             <CategoryBtn
                                 className={
