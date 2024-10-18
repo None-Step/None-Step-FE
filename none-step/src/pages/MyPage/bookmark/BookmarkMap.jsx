@@ -193,6 +193,10 @@ const BookmarkMap = () => {
         );
     }, [bookmarkList]);
 
+    const stationName = (station) => {
+        return station.replace(",", "·");
+    };
+
     const handleClickList = (region, line, station) => {
         axiosInstance
             .get(
@@ -264,7 +268,7 @@ const BookmarkMap = () => {
                                                 {lineList[index]}
                                             </LineContainer>
                                             <span className="station">
-                                                {bookmark.station}
+                                                {stationName(bookmark.station)}
                                             </span>
                                             <span className="region">
                                                 {bookmark.region}
