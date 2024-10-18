@@ -18,11 +18,10 @@ import { BsTelephoneFill } from "react-icons/bs";
 import { FaMapMarkerAlt, FaRestroom, FaWheelchair } from "react-icons/fa";
 import { FaWonSign, FaHeartPulse } from "react-icons/fa6";
 import { IoClose, IoTime, IoMoon } from "react-icons/io5";
-import { LuBaby } from "react-icons/lu";
 import { MdSunny } from "react-icons/md";
 import { PiElevatorFill } from "react-icons/pi";
 import { RiBattery2ChargeFill, RiCustomerService2Fill } from "react-icons/ri";
-import { TbEscalator } from "react-icons/tb";
+import { TbEscalator, TbBabyBottle } from "react-icons/tb";
 import { IoIosStarOutline, IoIosStar } from "react-icons/io";
 import axiosInstance from "@apis/axiosInstance";
 
@@ -1471,21 +1470,24 @@ const StationInfo = ({
                             ))}
                         </div>
                     )}
-                    {climateCard.getOff === "y" &&
+                    {stationInfo.infoRegion === "수도권" &&
+                        climateCard.getOff === "y" &&
                         climateCard.getOn === "y" && (
                             <div className="climate_card">
                                 <h2 className="info_title">기후동행카드</h2>
                                 <span>승 &#183; 하차 가능</span>
                             </div>
                         )}
-                    {climateCard.getOff === "y" &&
+                    {stationInfo.infoRegion === "수도권" &&
+                        climateCard.getOff === "y" &&
                         climateCard.getOn === "n" && (
                             <div className="climate_card">
                                 <h2 className="info_title">기후동행카드</h2>
                                 <span>하차만 가능</span>
                             </div>
                         )}
-                    {climateCard.getOff === "n" &&
+                    {stationInfo.infoRegion === "수도권" &&
+                        climateCard.getOff === "n" &&
                         climateCard.getOn === "n" && (
                             <div className="climate_card">
                                 <h2 className="info_title">기후동행카드</h2>
@@ -1615,7 +1617,7 @@ const StationInfo = ({
                     </div>
                     <div className="info nursing_rooms_container">
                         <span>
-                            <LuBaby />
+                            <TbBabyBottle />
                         </span>
                         <span>수유실</span>
                         <div className="detail_info nursing_room_info">
