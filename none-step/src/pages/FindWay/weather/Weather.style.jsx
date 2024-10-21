@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { RouteOption } from '../popup/FindWayPopup.style';
 
 export const Warning = styled.span`
   padding: 0.2rem 0.4rem;
@@ -72,7 +71,7 @@ export const Flooding = styled(InfoWrapper)`
 export const ColLeft = styled(Flooding)`
   flex-direction: column;
   align-items: flex-start;
-`
+`;
 
 export const FlexCenter = styled.div`
   display: flex;
@@ -98,7 +97,7 @@ export const MinWeather = styled.div`
   align-items: center;
   gap: 0.5rem;
 
-  padding: 0.6rem 0.4rem;
+  padding: 0.8rem 1rem;
   border-radius: 4px;
   box-shadow: ${props => props.theme.colors.shadow200};
   background-color: ${props => props.theme.colors.white};
