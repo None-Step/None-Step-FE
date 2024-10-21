@@ -36,6 +36,7 @@ import BookmarkPathBtn from './buttons/BookmarkPathBtn';
 import { InfoWrapper, Warning } from './weather/Weather.style';
 import WarningIcon from './weather/icons/warning.svg';
 import { WeatherPopup, WeatherPreview } from './weather/Weather';
+import coordinates from './weather/coordinates.json';
 
 const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -94,6 +95,8 @@ const FindWay = () => {
 
   // 날씨 관련 ------------------------------------------------------------------
   const [isFlooding, setIsFlooding] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
 
   const handlePathOrigin = origin => {
     setPathOrigin(origin);
@@ -104,11 +107,9 @@ const FindWay = () => {
   };
 
   // 날씨 팝업
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleWeatherPopup = () => {
-    setIsClicked(!isClicked);
-  };
+  const handleWeatherPopup = useCallback(() => {
+    setIsClicked(prevIsClicked => !prevIsClicked);
+  }, []);
 
   // 즐겨찾기 목록 조회
   useEffect(() => {
@@ -215,22 +216,43 @@ const FindWay = () => {
   }, []);
 
   // 1. 사용자 실시간 위치 추적
+  const getAddressFromCoords = (lat, lng) => {
+    return new Promise((resolve, reject) => {
+      const geocoder = new kakao.maps.services.Geocoder();
+
+      geocoder.coord2Address(lng, lat, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const address = result[0].address.address_name;
+          resolve(address);
+        } else {
+          reject(new Error('주소를 찾을 수 없습니다.'));
+        }
+      });
+    });
+  };
+
   const watchUserPosition = useCallback(() => {
     if ('geolocation' in navigator) {
       const watchId = navigator.geolocation.watchPosition(
-        position => {
-          const newLocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          setUserLocation(newLocation);
-          if (isTracking) {
-            setCenter(newLocation);
-            setShowUserLocationOverlay(true);
+        async position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          try {
+            const address = await getAddressFromCoords(lat, lng);
+            const newLocation = { lat, lng, address };
+            setUserLocation(newLocation);
+            if (isTracking) {
+              setCenter(newLocation);
+              setShowUserLocationOverlay(true);
+            }
+          } catch (error) {
+            console.error('주소 변환 실패:', error);
+            // 주소 변환에 실패해도 위치 정보 저장하기
+            setUserLocation({ lat, lng, address: '주소 불명' });
           }
         },
         error => {
-          // console.error('위치 추적 오류:', error.message);
+          console.error('위치 추적 오류:', error.message);
           alert(
             '현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.'
           );
@@ -284,6 +306,7 @@ const FindWay = () => {
       if (type === 'origin') {
         setOrigin(newLocation);
         setOriginInput(newLocation.name);
+        updateWeather(newLocation);
         if (JSON.stringify(destination) === JSON.stringify(newLocation)) {
           setDestination(null);
           setDestinationInput('');
@@ -291,6 +314,7 @@ const FindWay = () => {
       } else {
         setDestination(newLocation);
         setDestinationInput(newLocation.name);
+        updateWeather(newLocation);
         if (JSON.stringify(origin) === JSON.stringify(newLocation)) {
           setOrigin(null);
           setOriginInput('');
@@ -689,7 +713,7 @@ const FindWay = () => {
       setShowRoutePopup(true);
       setLoading(false);
     } catch (error) {
-      console.error('경로 계산 중 오류 발생:', error);
+      // console.error('경로 계산 중 오류 발생:', error);
       alert('경로를 계산하는 데 실패했습니다.');
     }
   }, [
@@ -774,7 +798,7 @@ const FindWay = () => {
         // 침수 여부 결과 처리
         setIsFlooding(response.data.isFlooding === 'y');
       } catch (error) {
-        console.error('침수 여부 확인 실패:', error);
+        // console.error('침수 여부 확인 실패:', error);
       }
     },
     [getStationInfo]
@@ -800,7 +824,130 @@ const FindWay = () => {
       checkFlooding(destination.lat, destination.lng); // 도착지의 위경도를 전달하여 침수 여부 확인
     }
   }, [destination, checkFlooding]);
-  // ---------------------------------------------------
+
+  // 초단기 날씨 조회 ---------------------------------------------------
+
+  // 기상청 좌표 json에서 일치하는 주소의 좌표 가져오기 (주소가 존재할 때만)
+  const getCoordinates = useCallback(address => {
+    if (!address) {
+      // console.log('주소가 null 또는 undefined입니다');
+      return null;
+    }
+    // console.log('주소에 대한 좌표 찾는 중:', address);
+  
+    // 주소 정제 함수
+    const refineAddress = (addr) => {
+      const cityMap = {
+        '부산': '부산광역시',
+        '대전': '대전광역시',
+        '대구': '대구광역시',
+        '서울': '서울특별시',
+        '인천': '인천광역시',
+        '광주': '광주광역시',
+        '울산': '울산광역시',
+        '세종': '세종특별자치시'
+      };
+  
+      const specialDongMap = {
+        '종로': {'1': '1.2.3.4', '2': '1.2.3.4', '3': '1.2.3.4', '4': '1.2.3.4', '5': '5.6', '6': '5.6'},
+        '용산': {'2': '2'},
+        '금호': {'1': '1', '2': '2.3', '3': '2.3', '4': '4'},
+        '수성': {'1': '1', '2': '2.3', '3': '2.3', '4': '4'}
+      };
+  
+      const parts = addr.split(' ');
+      if (cityMap[parts[0]]) {
+        parts[0] = cityMap[parts[0]];
+      }
+  
+      // 세종특별자치시 예외 처리
+      if (parts[0] === '세종특별자치시') {
+        return parts.slice(0, 2).join(' '); // 세종특별자치시 + 동
+      }
+  
+      // 특별한 동 이름 처리
+      const dongRegex = /^(.+?)(\d+)가$/;
+      const match = parts[2].match(dongRegex);
+      if (match && specialDongMap[match[1]]) {
+        const dongBase = match[1];
+        const dongNumber = match[2];
+        if (specialDongMap[dongBase][dongNumber]) {
+          parts[2] = `${dongBase}${specialDongMap[dongBase][dongNumber]}가동`;
+        }
+      } else {
+        // '가' 제거 (예: 남포동3가 -> 남포동)
+        parts[2] = parts[2].replace(/\d+가$/, '');
+      }
+  
+      // 일반적인 경우 (시/도 + 군/구 + 읍/면/동)
+      return parts.slice(0, 3).join(' ');
+    };
+  
+    const refinedAddress = refineAddress(address);
+    // console.log('정제된 주소:', refinedAddress);
+    const result = coordinates[refinedAddress] || null;
+    // console.log('좌표 결과:', result);
+    return result;
+  }, []);
+
+  // 초단기 날씨 API 호출
+  const fetchWeather = useCallback((x, y) => {
+    const baseDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const baseTime = new Date().toTimeString().slice(0, 5).replace(':', '');
+    // console.log('날씨 API 호출 데이터:', x, y, baseDate, baseTime);
+    return axiosInstance
+      .post('/nonestep/weather/current', {
+        "x" : x,
+        "y" : y,
+        "baseDate" : baseDate,
+        "baseTime" : baseTime,
+      })
+      .then(response => {
+        // console.log('날씨 API 응답:', response.data);
+        return response.data;
+      })
+      .catch(error => {
+        // console.error('날씨 정보를 불러올 수 없습니다:', error);
+        throw error; // 에러를 다시 던져서 상위에서 처리할 수 있게 함
+      });
+  }, []);
+
+  // 위치 변경마다 날씨 데이터 업데이트
+  const updateWeather = useCallback(
+    location => {
+      // console.log('날씨 업데이트 함수 호출됨, 위치:', location);
+      if (!location || !location.address) {
+        // console.log('updateWeather에서 위치 또는 주소가 누락됨');
+        return;
+      }
+
+      const coords = getCoordinates(location.address);
+      // console.log('getCoordinates에서 반환된 좌표:', coords);
+
+      if (coords) {
+        fetchWeather(coords.x, coords.y)
+          .then(data => {
+            // console.log('받아온 날씨 데이터:', data);
+            setWeatherData(data);
+          })
+          .catch(error => {
+            // console.error('날씨 데이터 가져오기 오류:', error);
+          });
+      } else {
+        // console.log('주소에 대한 유효한 좌표를 찾을 수 없습니다');
+      }
+    },
+    [getCoordinates, fetchWeather]
+  );
+
+  useEffect(() => {
+    const locationToUse = destination || origin || userLocation;
+    if (locationToUse && locationToUse.address) {
+      updateWeather(locationToUse);
+    } else {
+      console.log('유효한 위치 정보가 없습니다');
+    }
+  }, [destination, origin, userLocation, updateWeather]);
 
   return (
     <PageWrapper>
@@ -1117,7 +1264,13 @@ const FindWay = () => {
         </Reload>
 
         {/* 날씨 작은 화면 */}
-        <WeatherPreview $viewportHeight={viewportHeight} onClick={handleWeatherPopup} />
+        {userLocation && (
+          <WeatherPreview
+            $viewportHeight={viewportHeight}
+            onClick={handleWeatherPopup}
+            weatherData={weatherData}
+          />
+        )}
       </Map>
 
       {/* 로딩 중일 때 스피너 표시 */}
@@ -1139,8 +1292,21 @@ const FindWay = () => {
       )}
 
       {/* 날씨 상세 정보 팝업 */}
-      {isClicked && <WeatherPopup onClose={() => handleWeatherPopup()}/>}
-      
+      {isClicked && weatherData && (
+        <WeatherPopup
+          onClose={handleWeatherPopup}
+          weatherData={weatherData}
+          placeName={
+            destination
+              ? destination.name
+              : origin
+              ? origin.name
+              : userLocation
+              ? userLocation.name
+              : '현재 위치'
+          }
+        />
+      )}
 
       <MenuBar />
     </PageWrapper>
