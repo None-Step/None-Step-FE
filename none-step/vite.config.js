@@ -19,6 +19,10 @@ export default defineConfig({
                 replacement: resolve(__dirname, "src/components"),
             },
             {
+                find: "@constants",
+                replacement: resolve(__dirname, "src/constants"),
+            },
+            {
                 find: "@hooks",
                 replacement: resolve(__dirname, "src/hooks"),
             },
