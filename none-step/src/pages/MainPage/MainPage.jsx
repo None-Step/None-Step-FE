@@ -17,6 +17,7 @@ import {
 import MenuBar from "@components/menuBar/MenuBar";
 import LocationTracker from "@components/location/LocationTracker";
 import mainBanner from "@assets/img/main-banner.png";
+import congestionIcon from "@assets/icons/congestion-main-icon.svg";
 import elevatorIcon from "@assets/icons/elevator-icon.svg";
 import escalatorIcon from "@assets/icons/escalator-icon.svg";
 import wheelchairLiftIcon from "@assets/icons/wheelchair-lift-icon.svg";
@@ -92,7 +93,7 @@ const MainPage = () => {
 
             const { scrollLeft, scrollWidth, clientWidth } = scrollElement;
 
-            setIsScrollLeft(0 < scrollLeft);
+            setIsScrollLeft(0 < scrollLeft - 30);
             setIsScrollRight(scrollLeft < scrollWidth - clientWidth - 30);
 
             return () => scrollElement.removeEventListener("wheel", onWheel);
@@ -152,6 +153,10 @@ const MainPage = () => {
         });
     };
 
+    const handleClickLicense = () => {
+        navigate("/license");
+    };
+
     return (
         <>
             <MainHeader />
@@ -180,6 +185,17 @@ const MainPage = () => {
                         onScroll={handleScrollCategory}
                         onWheel={handleScrollCategory}
                     >
+                        <li className="congestion">
+                            <CategoryBtn
+                                onClick={() => handleClickMap("congestion")}
+                            >
+                                <img
+                                    src={congestionIcon}
+                                    alt="congestion-icon"
+                                />
+                                <span>지하철혼잡도</span>
+                            </CategoryBtn>
+                        </li>
                         <li className="elevator">
                             <CategoryBtn
                                 onClick={() => handleClickMap("elevator")}
@@ -334,6 +350,12 @@ const MainPage = () => {
                             <span>문의하기</span>
                             <span onClick={kakaoChatting}>
                                 카카오톡 1:1 채팅
+                            </span>
+                        </p>
+                        <p className="license">
+                            <span>라이선스</span>
+                            <span onClick={handleClickLicense}>
+                                오픈소스 라이선스
                             </span>
                         </p>
                         <p>&#169;이번역 All Rights Reserved.</p>
