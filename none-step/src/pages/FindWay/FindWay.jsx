@@ -37,6 +37,7 @@ import { InfoWrapper, Warning } from './weather/Weather.style';
 import WarningIcon from './weather/icons/warning.svg';
 import { WeatherPopup, WeatherPreview } from './weather/Weather';
 import coordinates from './weather/coordinates.json';
+import WeatherErrorModal from './weather/WeatherErrorModal';
 
 const TIMEOUT_DURATION = 4000;
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
@@ -97,6 +98,25 @@ const FindWay = () => {
   const [isFlooding, setIsFlooding] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalType, setModalType] = useState(''); // 모달 종류를 저장하는 상태
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    setModalType('');
+  };
+
+  // 위치 접근 불가 모달을 보여줄 때 호출
+  const handleLocationError = () => {
+    setIsModalVisible(true);
+    setModalType('locationError');
+  };
+
+  // 날씨 정보 오류 모달을 보여줄 때 호출
+  const handleWeatherError = () => {
+    setIsModalVisible(true);
+    setModalType('weatherError');
+  };
 
   const handlePathOrigin = origin => {
     setPathOrigin(origin);
@@ -253,14 +273,12 @@ const FindWay = () => {
         },
         error => {
           console.error('위치 추적 오류:', error.message);
-          alert(
-            '현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.'
-          );
+          handleLocationError(); // 모달을 열도록 호출
         },
         {
           enableHighAccuracy: true,
           timeout: TIMEOUT_DURATION,
-          maximumAge: 0,
+          maximumAge: 3 * 60 * 1000,
         }
       );
       return () => navigator.geolocation.clearWatch(watchId);
@@ -834,37 +852,44 @@ const FindWay = () => {
       return null;
     }
     // console.log('주소에 대한 좌표 찾는 중:', address);
-  
+
     // 주소 정제 함수
-    const refineAddress = (addr) => {
+    const refineAddress = addr => {
       const cityMap = {
-        '부산': '부산광역시',
-        '대전': '대전광역시',
-        '대구': '대구광역시',
-        '서울': '서울특별시',
-        '인천': '인천광역시',
-        '광주': '광주광역시',
-        '울산': '울산광역시',
-        '세종': '세종특별자치시'
+        부산: '부산광역시',
+        대전: '대전광역시',
+        대구: '대구광역시',
+        서울: '서울특별시',
+        인천: '인천광역시',
+        광주: '광주광역시',
+        울산: '울산광역시',
+        세종: '세종특별자치시',
       };
-  
+
       const specialDongMap = {
-        '종로': {'1': '1.2.3.4', '2': '1.2.3.4', '3': '1.2.3.4', '4': '1.2.3.4', '5': '5.6', '6': '5.6'},
-        '용산': {'2': '2'},
-        '금호': {'1': '1', '2': '2.3', '3': '2.3', '4': '4'},
-        '수성': {'1': '1', '2': '2.3', '3': '2.3', '4': '4'}
+        종로: {
+          1: '1.2.3.4',
+          2: '1.2.3.4',
+          3: '1.2.3.4',
+          4: '1.2.3.4',
+          5: '5.6',
+          6: '5.6',
+        },
+        용산: { 2: '2' },
+        금호: { 1: '1', 2: '2.3', 3: '2.3', 4: '4' },
+        수성: { 1: '1', 2: '2.3', 3: '2.3', 4: '4' },
       };
-  
+
       const parts = addr.split(' ');
       if (cityMap[parts[0]]) {
         parts[0] = cityMap[parts[0]];
       }
-  
+
       // 세종특별자치시 예외 처리
       if (parts[0] === '세종특별자치시') {
         return parts.slice(0, 2).join(' '); // 세종특별자치시 + 동
       }
-  
+
       // 특별한 동 이름 처리
       const dongRegex = /^(.+?)(\d+)가$/;
       const match = parts[2].match(dongRegex);
@@ -878,11 +903,11 @@ const FindWay = () => {
         // '가' 제거 (예: 남포동3가 -> 남포동)
         parts[2] = parts[2].replace(/\d+가$/, '');
       }
-  
+
       // 일반적인 경우 (시/도 + 군/구 + 읍/면/동)
       return parts.slice(0, 3).join(' ');
     };
-  
+
     const refinedAddress = refineAddress(address);
     // console.log('정제된 주소:', refinedAddress);
     const result = coordinates[refinedAddress] || null;
@@ -897,10 +922,10 @@ const FindWay = () => {
     // console.log('날씨 API 호출 데이터:', x, y, baseDate, baseTime);
     return axiosInstance
       .post('/nonestep/weather/current', {
-        "x" : x,
-        "y" : y,
-        "baseDate" : baseDate,
-        "baseTime" : baseTime,
+        x: x,
+        y: y,
+        baseDate: baseDate,
+        baseTime: baseTime,
       })
       .then(response => {
         // console.log('날씨 API 응답:', response.data);
@@ -908,6 +933,7 @@ const FindWay = () => {
       })
       .catch(error => {
         // console.error('날씨 정보를 불러올 수 없습니다:', error);
+        handleWeatherError();
         throw error; // 에러를 다시 던져서 상위에서 처리할 수 있게 함
       });
   }, []);
@@ -1304,6 +1330,19 @@ const FindWay = () => {
               : userLocation
               ? userLocation.name
               : '현재 위치'
+          }
+        />
+      )}
+
+      {/* 날씨 데이터를 불러올 수 없을 때 or 현재 위치 정보가 없을 때 팝업 표시 */}
+      {isModalVisible && (
+        <WeatherErrorModal
+          onClose={handleCloseModal}
+          title={modalType === 'locationError' ? '위치 정보' : '날씨 정보'}
+          message={
+            modalType === 'locationError'
+              ? '현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.'
+              : '날씨 정보를 조회하는 데 실패했습니다.'
           }
         />
       )}
