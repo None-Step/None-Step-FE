@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Warning = styled.span`
   padding: 0.2rem 0.4rem;
@@ -115,4 +115,24 @@ export const MinWeather = styled.div`
 export const WeatherImg = styled.img`
   width: 3rem;
   height: 3rem;
+`;
+
+const slideIn = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+export const BigWeatherImg = styled(WeatherImg)`
+  width: 15rem;
+  height: 15rem;
+  opacity: 20%;
+  position: absolute;
+  bottom: 6rem;
+  right: -0.5rem;
+  transform: translateX(100%); // 초기 위치
+  animation: ${slideIn} 1s ease-out 1s forwards; // 1s 딜레이, forwards로 마지막 상태 유지
 `;

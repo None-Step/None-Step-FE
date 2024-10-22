@@ -27,6 +27,7 @@ import {
   Hidden,
   FlexCenter,
   ColLeft,
+  BigWeatherImg,
 } from './Weather.style';
 import {
   CloseButton,
@@ -83,7 +84,7 @@ const mergeWeatherData = timeData => {
         }
         break;
       case 'RN1':
-        rainFall = `${value}mm`;
+        rainFall = `${value}`;
         break;
       case 'WSD':
         windSpeed = `${value}m/s`;
@@ -167,9 +168,9 @@ const processWeatherData = weatherData => {
     const aNum = parseInt(a);
     const bNum = parseInt(b);
     // 0000을 예외 처리
-    if (aNum === 0 && bNum !== 0) return -1;  // 0000이 더 작음
-    if (aNum !== 0 && bNum === 0) return 1;   // 0000이 더 작음
-    return aNum - bNum;  // 나머지는 일반적인 숫자 비교
+    if (aNum === 0 && bNum !== 0) return -1; // 0000이 더 작음
+    if (aNum !== 0 && bNum === 0) return 1; // 0000이 더 작음
+    return aNum - bNum; // 나머지는 일반적인 숫자 비교
   });
 
   // console.log(`times: ${times}`);
@@ -324,6 +325,10 @@ export const WeatherPopup = ({ onClose, weatherData, placeName }) => {
           </IconWrapper>
         </RouteOption>
       ))}
+      <BigWeatherImg
+        src={getWeatherIcon(currentWeather.fcstValue)}
+        alt={currentWeather.fcstValue}
+      />
     </PopupContainer>
   );
 };
