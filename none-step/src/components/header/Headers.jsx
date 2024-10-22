@@ -100,6 +100,8 @@ export const PageHeader = () => {
                 return "공지사항 작성";
             case "/notice/search":
                 return "공지사항 검색";
+            case "/license":
+                return "오픈소스 라이선스";
             default:
                 return "";
         }

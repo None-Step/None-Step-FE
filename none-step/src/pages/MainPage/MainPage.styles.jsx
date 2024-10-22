@@ -218,12 +218,14 @@ export const FooterContainer = styled.div`
         margin-bottom: 15px;
     }
 
-    p.qna span:first-child {
+    p.qna span:first-child,
+    p.license span:first-child {
         margin-right: 7px;
         font-weight: 500;
     }
 
-    p.qna span:last-child {
+    p.qna span:last-child,
+    p.license span:last-child {
         text-decoration: underline;
         cursor: pointer;
     }
