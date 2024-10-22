@@ -101,21 +101,44 @@ const FindWay = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState(''); // 모달 종류를 저장하는 상태
 
+  // 3분 동안 팝업 제한 시간 설정
+  const MODAL_TIMER = 3 * 60 * 1000;
+
+  // 모달 닫기 핸들러 (위치 + 날씨 UI 공유)
   const handleCloseModal = () => {
     setIsModalVisible(false);
+    const now = Date.now();
+
+    // 각 모달 타입에 따라 다른 시간을 저장
+    if (modalType === 'locationError') {
+      localStorage.setItem('locationErrorDismissed', now);
+    } else if (modalType === 'weatherError') {
+      localStorage.setItem('weatherErrorDismissed', now);
+    }
+
     setModalType('');
   };
 
-  // 위치 접근 불가 모달을 보여줄 때 호출
+  // 위치 접근 오류 모달 표시 여부를 판단하는 함수
   const handleLocationError = () => {
-    setIsModalVisible(true);
-    setModalType('locationError');
+    const lastDismissed = localStorage.getItem('locationErrorDismissed');
+    const now = Date.now();
+
+    if (!lastDismissed || now - lastDismissed > MODAL_TIMER) {
+      setIsModalVisible(true);
+      setModalType('locationError');
+    }
   };
 
-  // 날씨 정보 오류 모달을 보여줄 때 호출
+  // 날씨 정보 오류 모달 표시 여부를 판단하는 함수
   const handleWeatherError = () => {
-    setIsModalVisible(true);
-    setModalType('weatherError');
+    const lastDismissed = localStorage.getItem('weatherErrorDismissed');
+    const now = Date.now();
+
+    if (!lastDismissed || now - lastDismissed > MODAL_TIMER) {
+      setIsModalVisible(true);
+      setModalType('weatherError');
+    }
   };
 
   const handlePathOrigin = origin => {
@@ -273,7 +296,7 @@ const FindWay = () => {
         },
         error => {
           console.error('위치 추적 오류:', error.message);
-          handleLocationError(); // 모달을 열도록 호출
+          handleLocationError(); // 위치 오류 모달 표시
         },
         {
           enableHighAccuracy: true,
@@ -918,7 +941,8 @@ const FindWay = () => {
   // 초단기 날씨 API 호출
   const fetchWeather = useCallback((x, y) => {
     const baseDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    const baseTime = new Date().toTimeString().slice(0, 5).replace(':', '');
+    const hour = new Date().getHours();
+    const baseTime = hour.toString().padStart(2, '0') + '00';
     // console.log('날씨 API 호출 데이터:', x, y, baseDate, baseTime);
     return axiosInstance
       .post('/nonestep/weather/current', {
@@ -933,7 +957,7 @@ const FindWay = () => {
       })
       .catch(error => {
         // console.error('날씨 정보를 불러올 수 없습니다:', error);
-        handleWeatherError();
+        handleWeatherError(); // 날씨 오류 모달 표시
         throw error; // 에러를 다시 던져서 상위에서 처리할 수 있게 함
       });
   }, []);
