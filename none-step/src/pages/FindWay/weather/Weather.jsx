@@ -27,6 +27,7 @@ import {
   Hidden,
   FlexCenter,
   ColLeft,
+  BigWeatherImg,
 } from './Weather.style';
 import {
   CloseButton,
@@ -83,7 +84,7 @@ const mergeWeatherData = timeData => {
         }
         break;
       case 'RN1':
-        rainFall = `${value}mm`;
+        rainFall = `${value}`;
         break;
       case 'WSD':
         windSpeed = `${value}m/s`;
@@ -163,25 +164,33 @@ const getWeatherIcon = value => {
 // 3. 정리된 데이터 취합
 const processWeatherData = weatherData => {
   const groupedData = groupByTime(weatherData);
-  const times = Object.keys(groupedData).sort();
-  const firstTime = times[0]; // 첫 번째 시간을 기준으로 설정
+  const times = Object.keys(groupedData).sort((a, b) => {
+    const aNum = parseInt(a);
+    const bNum = parseInt(b);
+    // 0000을 예외 처리
+    if (aNum === 0 && bNum !== 0) return -1; // 0000이 더 작음
+    if (aNum !== 0 && bNum === 0) return 1; // 0000이 더 작음
+    return aNum - bNum; // 나머지는 일반적인 숫자 비교
+  });
 
-  // 첫 번째 시간부터 +1시간씩
+  // console.log(`times: ${times}`);
+
+  // times 배열에서 순서대로 3개의 시간을 사용
+  const firstTime = times[0];
+  const secondTime = times[1] || '';
+  const thirdTime = times[2] || '';
+
+  // console.log(`secondTime:${secondTime}, thirdTime:${thirdTime}`);
+
   return [
     { time: firstTime, ...mergeWeatherData(groupedData[firstTime]) },
     {
-      time: (parseInt(firstTime) + 100).toString().padStart(4, '0'),
-      ...mergeWeatherData(
-        groupedData[(parseInt(firstTime) + 100).toString().padStart(4, '0')] ||
-          []
-      ),
+      time: secondTime,
+      ...mergeWeatherData(groupedData[secondTime] || []),
     },
     {
-      time: (parseInt(firstTime) + 200).toString().padStart(4, '0'),
-      ...mergeWeatherData(
-        groupedData[(parseInt(firstTime) + 200).toString().padStart(4, '0')] ||
-          []
-      ),
+      time: thirdTime,
+      ...mergeWeatherData(groupedData[thirdTime] || []),
     },
   ];
 };
@@ -208,12 +217,7 @@ export const WeatherPreview = ({ onClick, $viewportHeight, weatherData }) => {
   );
 };
 
-export const WeatherPopup = ({
-  onClose,
-  weatherData,
-  placeName,
-  firstTime,
-}) => {
+export const WeatherPopup = ({ onClose, weatherData, placeName }) => {
   const processedWeatherData = useMemo(() => {
     if (!weatherData) return [];
     return processWeatherData(weatherData);
@@ -223,28 +227,28 @@ export const WeatherPopup = ({
 
   const currentWeather = processedWeatherData[0];
 
-  const validFirstTime = firstTime
-    ? firstTime.toString().padStart(4, '0')
-    : '0000';
+  // 시간 변환
+  const formatTime = timeString => {
+    const hour = parseInt(timeString.slice(0, 2), 10);
 
-  // 현재 시간 계산 (오전/오후 처리)
-  const hour = parseInt(validFirstTime.slice(0, 2), 10); // 시간 부분 추출 후 숫자 변환
-  const period = hour >= 12 ? '오후' : '오전'; // 오전/오후 구분
-  const displayHour = hour % 12 === 0 ? 12 : hour % 12; // 12시 예외 처리
+    // 자정(00시)과 새벽 시간대(01시~04시)를 전날 밤시간대로 변환
+    let displayHour = hour;
+    let period = hour >= 12 ? '오후' : '오전';
 
-  const currentTime = `${period} ${displayHour}`;
+    if (hour < 4) {
+      // 새벽 시간대
+      displayHour = hour === 0 ? 12 : hour; // 00시는 12시로
+      period = '오전';
+    } else if (hour < 12) {
+      displayHour = hour;
+      period = '오전';
+    } else {
+      displayHour = hour === 12 ? 12 : hour % 12;
+      period = '오후';
+    }
 
-  // 1시간 뒤, 2시간 뒤 계산 (24시간 형태에서 순환)
-  const oneHourLaterHour = (hour + 1) % 24;
-  const twoHoursLaterHour = (hour + 2) % 24;
-
-  // 오전/오후와 시 표시
-  const oneHourLater = `${oneHourLaterHour >= 12 ? '오후' : '오전'} ${
-    oneHourLaterHour % 12 === 0 ? 12 : oneHourLaterHour % 12
-  }`;
-  const twoHoursLater = `${twoHoursLaterHour >= 12 ? '오후' : '오전'} ${
-    twoHoursLaterHour % 12 === 0 ? 12 : twoHoursLaterHour % 12
-  }`;
+    return `${period} ${displayHour}`;
+  };
 
   return (
     <PopupContainer>
@@ -256,7 +260,7 @@ export const WeatherPopup = ({
         <WeatherBox>
           <PositionWrapper>
             <RouteType>{placeName ? placeName : '현재 위치'}</RouteType>
-            <WeatherBlue>{currentTime}시 날씨</WeatherBlue>
+            <WeatherBlue>{formatTime(currentWeather.time)}시 날씨</WeatherBlue>
           </PositionWrapper>
           <PositionWrapper>
             <WeatherBlack>{currentWeather.fcstValue}</WeatherBlack>
@@ -295,11 +299,7 @@ export const WeatherPopup = ({
         <RouteOption key={index}>
           <WeatherBox>
             <PositionWrapper>
-              <WeatherBlue>
-                {index === 0
-                  ? `${oneHourLater}시 날씨`
-                  : `${twoHoursLater}시 날씨`}
-              </WeatherBlue>
+              <WeatherBlue>{formatTime(weather.time)}시 날씨</WeatherBlue>
             </PositionWrapper>
             <PositionWrapper>
               <WeatherBlack>{weather.fcstValue}</WeatherBlack>
@@ -325,6 +325,10 @@ export const WeatherPopup = ({
           </IconWrapper>
         </RouteOption>
       ))}
+      <BigWeatherImg
+        src={getWeatherIcon(currentWeather.fcstValue)}
+        alt={currentWeather.fcstValue}
+      />
     </PopupContainer>
   );
 };
