@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 35">
+  <defs>
+    <radialGradient id="radial-gradient" cx="12.5" cy="77.84" fx="12.5" fy="77.84" r="6.17" gradientTransform="translate(-12.35 .9) scale(1.99 .41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0c0c0d" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="12.5" y1="0" x2="12.5" y2="33" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01e9bd"/>
+      <stop offset="1" stop-color="#6bb5ff"/>
+    </linearGradient>
+    <filter id="drop-shadow-8" x=".71" y="0" width="23.57" height="33" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#0c0c0d" flood-opacity=".1"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <ellipse cx="12.5" cy="33" rx="12.5" ry="2" style="fill: url(#radial-gradient);"/>
+  <path d="M12.5,0C5.99,0,.71,5.28.71,11.79c0,.87.1,1.71.28,2.52,1.33,6.89,11.51,18.7,11.51,18.7,0,0,10.17-11.8,11.51-18.7.18-.81.28-1.65.28-2.52C24.29,5.28,19.01,0,12.5,0Z" style="fill: url(#linear-gradient); filter: url(#drop-shadow-8);"/>
+  <circle cx="12.5" cy="11.53" r="8.49" style="fill: #fff;"/>
+  <path d="M10.45,11.24c.05.11.11.21.17.31-.05-.11-.11-.21-.17-.31Z" style="fill: #40a4ff;"/>
+  <g>
+    <g>
+      <circle cx="12.5" cy="10.31" r="1.41" style="fill: #40a4ff;"/>
+      <path d="M12.5,12.28h0c1.16,0,2.11.95,2.11,2.11v1.55c0,.31-.25.56-.56.56h-3.09c-.31,0-.56-.25-.56-.56v-1.55c0-1.16.95-2.11,2.11-2.11Z" style="fill: #40a4ff;"/>
+    </g>
+    <g>
+      <circle cx="8.7" cy="8.34" r="1.41" style="fill: #007aff;"/>
+      <path d="M10.77,12c-.03-.15-.08-.3-.14-.44-.07-.1-.12-.2-.17-.31-.38-.56-1.02-.93-1.75-.93h0c-1.16,0-2.11.94-2.11,2.11v1.55c0,.31.25.56.56.56h2.39v-.14c0-.98.48-1.85,1.22-2.39Z" style="fill: #007aff;"/>
+    </g>
+    <g>
+      <circle cx="16.3" cy="8.34" r="1.41" style="fill: #007aff;"/>
+      <path d="M16.3,10.31h0c-.73,0-1.37.37-1.75.93-.05.11-.11.21-.17.31-.06.14-.11.29-.14.44.74.54,1.22,1.41,1.22,2.39v.14h2.39c.31,0,.56-.25.56-.56v-1.55c0-1.16-.94-2.11-2.11-2.11Z" style="fill: #007aff;"/>
+    </g>
+  </g>
+  <path d="M14.55,11.24c-.07.1-.12.2-.17.31.07-.1.12-.2.17-.31Z" style="fill: #40a4ff;"/>
+</svg>
