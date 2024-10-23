@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { AccuracyMessage, Br, HomeContainer, InBox, Location, ToggleButton, Notice, Strong, ThisStop, LocationTitle } from './LocationTracker.style'
-import { RxDotFilled } from "react-icons/rx";
 import axiosInstance from '@/apis/axiosInstance'
 
 const LocationTracker = () => {
@@ -109,9 +108,9 @@ const LocationTracker = () => {
       <Location>
         {renderLocationMessage()}
       </Location>
-      <Notice><RxDotFilled /> 회원님의 위치에서 가장 가까운 역을 조회한 결과이므로 <Br/> 실제 역과 차이가 발생할 수 있습니다.</Notice>
+      <Notice>* 회원님의 위치에서 가장 가까운 역을 조회한 결과이므로 <Br/> 실제 역과 차이가 발생할 수 있습니다.</Notice>
       <br/>
-      <Notice><RxDotFilled /> 시스템 설정에서 해당 브라우저에 위치 권한을 허용해주세요.</Notice>
+      <Notice>* 시스템 설정에서 해당 브라우저에 위치 권한을 허용해주세요.</Notice>
       <br/>
       <Notice>(<strong>iOS</strong> 설정 &gt; 개인정보 보호 및 보안 &gt; 위치 &gt; 사용할 브라우저의 '나의 위치 공유' 허용)</Notice>
     </HomeContainer>

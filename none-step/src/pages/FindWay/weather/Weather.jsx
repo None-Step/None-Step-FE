@@ -23,10 +23,6 @@ import {
   WeatherBox,
   Warning,
   Flooding,
-  Br,
-  Hidden,
-  FlexCenter,
-  ColLeft,
   BigWeatherImg,
 } from './Weather.style';
 import {
@@ -35,9 +31,6 @@ import {
   RouteInfo,
   RouteOption,
   RouteType,
-  Tab,
-  TabContainer,
-  TabContent,
 } from '../popup/FindWayPopup.style';
 import Close from '@/assets/img/Close.svg';
 
