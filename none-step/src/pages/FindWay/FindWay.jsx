@@ -36,7 +36,6 @@ import BookmarkPathBtn from './buttons/BookmarkPathBtn';
 import { InfoWrapper, Warning } from './weather/Weather.style';
 import WarningIcon from './weather/icons/warning.svg';
 import { WeatherPopup, WeatherPreview } from './weather/Weather';
-import coordinates from './weather/coordinates.json';
 import WeatherErrorModal from './weather/WeatherErrorModal';
 
 const TIMEOUT_DURATION = 4000;
@@ -868,127 +867,35 @@ const FindWay = () => {
 
   // 초단기 날씨 조회 ---------------------------------------------------
 
-  // 기상청 좌표 json에서 일치하는 주소의 좌표 가져오기 (주소가 존재할 때만)
-  const getCoordinates = useCallback(address => {
-    if (!address) {
-      // console.log('주소가 null 또는 undefined입니다');
-      return null;
-    }
-    // console.log('주소에 대한 좌표 찾는 중:', address);
+// fetchWeather 함수 수정 - 위경도 직접 전달
+const fetchWeather = useCallback((latitude, longitude) => {
+  return axiosInstance
+    .post('/nonestep/weather/current-weather', {
+      latitude: latitude,
+      longitude: longitude
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      handleWeatherError(); // 날씨 오류 모달 표시
+      throw error;
+    });
+}, []);
 
-    // 주소 정제 함수
-    const refineAddress = addr => {
-      const cityMap = {
-        부산: '부산광역시',
-        대전: '대전광역시',
-        대구: '대구광역시',
-        서울: '서울특별시',
-        인천: '인천광역시',
-        광주: '광주광역시',
-        울산: '울산광역시',
-        세종: '세종특별자치시',
-      };
+const updateWeather = useCallback(location => {
+  if (!location || !location.lat || !location.lng) {
+    return;
+  }
 
-      const specialDongMap = {
-        종로: {
-          1: '1.2.3.4',
-          2: '1.2.3.4',
-          3: '1.2.3.4',
-          4: '1.2.3.4',
-          5: '5.6',
-          6: '5.6',
-        },
-        용산: { 2: '2' },
-        금호: { 1: '1', 2: '2.3', 3: '2.3', 4: '4' },
-        수성: { 1: '1', 2: '2.3', 3: '2.3', 4: '4' },
-      };
-
-      const parts = addr.split(' ');
-      if (cityMap[parts[0]]) {
-        parts[0] = cityMap[parts[0]];
-      }
-
-      // 세종특별자치시 예외 처리
-      if (parts[0] === '세종특별자치시') {
-        return parts.slice(0, 2).join(' '); // 세종특별자치시 + 동
-      }
-
-      // 특별한 동 이름 처리
-      const dongRegex = /^(.+?)(\d+)가$/;
-      const match = parts[2].match(dongRegex);
-      if (match && specialDongMap[match[1]]) {
-        const dongBase = match[1];
-        const dongNumber = match[2];
-        if (specialDongMap[dongBase][dongNumber]) {
-          parts[2] = `${dongBase}${specialDongMap[dongBase][dongNumber]}가동`;
-        }
-      } else {
-        // '가' 제거 (예: 남포동3가 -> 남포동)
-        parts[2] = parts[2].replace(/\d+가$/, '');
-      }
-
-      // 일반적인 경우 (시/도 + 군/구 + 읍/면/동)
-      return parts.slice(0, 3).join(' ');
-    };
-
-    const refinedAddress = refineAddress(address);
-    // console.log('정제된 주소:', refinedAddress);
-    const result = coordinates[refinedAddress] || null;
-    // console.log('좌표 결과:', result);
-    return result;
-  }, []);
-
-  // 초단기 날씨 API 호출
-  const fetchWeather = useCallback((x, y) => {
-    const baseDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    const hour = new Date().getHours();
-    const baseTime = hour.toString().padStart(2, '0') + '00';
-    // console.log('날씨 API 호출 데이터:', x, y, baseDate, baseTime);
-    return axiosInstance
-      .post('/nonestep/weather/current', {
-        x: x,
-        y: y,
-        baseDate: baseDate,
-        baseTime: baseTime,
-      })
-      .then(response => {
-        // console.log('날씨 API 응답:', response.data);
-        return response.data;
-      })
-      .catch(error => {
-        // console.error('날씨 정보를 불러올 수 없습니다:', error);
-        handleWeatherError(); // 날씨 오류 모달 표시
-        throw error; // 에러를 다시 던져서 상위에서 처리할 수 있게 함
-      });
-  }, []);
-
-  // 위치 변경마다 날씨 데이터 업데이트
-  const updateWeather = useCallback(
-    location => {
-      // console.log('날씨 업데이트 함수 호출됨, 위치:', location);
-      if (!location || !location.address) {
-        // console.log('updateWeather에서 위치 또는 주소가 누락됨');
-        return;
-      }
-
-      const coords = getCoordinates(location.address);
-      // console.log('getCoordinates에서 반환된 좌표:', coords);
-
-      if (coords) {
-        fetchWeather(coords.x, coords.y)
-          .then(data => {
-            // console.log('받아온 날씨 데이터:', data);
-            setWeatherData(data);
-          })
-          .catch(error => {
-            // console.error('날씨 데이터 가져오기 오류:', error);
-          });
-      } else {
-        // console.log('주소에 대한 유효한 좌표를 찾을 수 없습니다');
-      }
-    },
-    [getCoordinates, fetchWeather]
-  );
+  fetchWeather(location.lat, location.lng)
+    .then(data => {
+      setWeatherData(data);
+    })
+    .catch(error => {
+      console.error('날씨 데이터 가져오기 오류:', error);
+    });
+}, [fetchWeather]);
 
   useEffect(() => {
     const locationToUse = destination || origin || userLocation;
@@ -1018,6 +925,7 @@ const FindWay = () => {
       {/* 빠른 경로 버튼 */}
       {!isNavigating && <QuickRoute userLocation={userLocation} />}
       <BookmarkPathBtn
+        isQuickRouteVisible={!isNavigating}
         onPathOrigin={handlePathOrigin}
         onPathDestination={handlePathDestination}
       />
@@ -1045,10 +953,7 @@ const FindWay = () => {
                 !origin &&
                 !destination &&
                 !isNavigating && (
-                  <CustomOverlayMap
-                    position={userLocation}
-                    yAnchor={isFlooding ? 1.4 : 1.62}
-                  >
+                  <CustomOverlayMap position={userLocation} yAnchor={1.62}>
                     <CustomOverlay>
                       <StationName>현재 위치</StationName>
                       {isFlooding && (
@@ -1057,9 +962,6 @@ const FindWay = () => {
                             <img src={WarningIcon} alt="경고" />
                             침수 주의
                           </Warning>
-                          최근 침수 피해가 있었던 지역입니다.
-                          <br />
-                          안전에 유의하세요.
                         </InfoWrapper>
                       )}
                       <UserLocationStart
@@ -1090,10 +992,7 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap
-                position={origin}
-                yAnchor={isFlooding ? 1.4 : 1.65}
-              >
+              <CustomOverlayMap position={origin} yAnchor={1.65}>
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -1123,9 +1022,6 @@ const FindWay = () => {
                         <img src={WarningIcon} alt="경고" />
                         침수 주의
                       </Warning>
-                      최근 침수 피해가 있었던 지역입니다.
-                      <br />
-                      안전에 유의하세요.
                     </InfoWrapper>
                   )}
                   <ButtonContainer>
@@ -1172,10 +1068,7 @@ const FindWay = () => {
               }}
             />
             {destination && showDestinationOverlay && (
-              <CustomOverlayMap
-                position={destination}
-                yAnchor={isFlooding ? 1.4 : 1.62}
-              >
+              <CustomOverlayMap position={destination} yAnchor={1.62}>
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -1205,9 +1098,6 @@ const FindWay = () => {
                         <img src={WarningIcon} alt="경고" />
                         침수 주의
                       </Warning>
-                      최근 침수 피해가 있었던 지역입니다.
-                      <br />
-                      안전에 유의하세요.
                     </InfoWrapper>
                   )}
                   <ButtonContainer>
