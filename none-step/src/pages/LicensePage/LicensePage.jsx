@@ -47,7 +47,11 @@ const LicensePage = () => {
                                 <IoIosArrowDown />
                             </div>
                             {license.name === "icons" ? (
-                                <LicenseInfo>
+                                <LicenseInfo
+                                    className={
+                                        index === menuIndex ? "open" : ""
+                                    }
+                                >
                                     {license.icons.map((icon, index) => (
                                         <IconsMenuContainer key={index}>
                                             <span>{icon.title}</span>
