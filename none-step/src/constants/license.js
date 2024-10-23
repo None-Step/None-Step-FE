@@ -1269,6 +1269,13 @@ SOFTWARE.`,
                 licenseType: "CC BY 4.0 License",
                 licenseContent: `© 2021 Leya Cherkasova Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)`,
             },
+            {
+                title: "Flaticon UIcon",
+                link: "https://www.flaticon.com/uicons",
+                version: "",
+                licenseType: "CC BY 4.0 License",
+                licenseContent: `Copyright © 2010-2024 Freepik Company S.L.`,
+            },
         ],
     },
 ];
