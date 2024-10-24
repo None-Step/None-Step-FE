@@ -18,13 +18,27 @@ const ModalBut = styled(But)`
   border-radius: 2px;
 `;
 
-const WeatherErrorModal = ({onClose, title, message}) => {
+const MinNotice = styled.span`
+  font-size: 1.2rem;
+  color: ${props => props.theme.colors.gray01};
+  margin-bottom: 1rem;
+`;
+
+const WeatherErrorModal = ({ onClose, title, message }) => {
+  const isWeatherError = title === '날씨 정보';
+
   return (
     <ModalBG>
       <ModalContainer>
         <Title>{title}</Title>
         <Notice>{message}</Notice>
-          <ModalBut onClick={onClose}>확인</ModalBut>
+        {isWeatherError && (
+          <MinNotice>
+            기상청에서 날씨를 발표하지 않은 지역/시간의 경우, 날씨 정보가
+            나타나지 않을 수 있습니다.
+          </MinNotice>
+        )}
+        <ModalBut onClick={onClose}>확인</ModalBut>
       </ModalContainer>
     </ModalBG>
   );

@@ -295,7 +295,6 @@ const FindWay = () => {
         },
         error => {
           console.error('위치 추적 오류:', error.message);
-          handleLocationError(); // 위치 오류 모달 표시
         },
         {
           enableHighAccuracy: true,
@@ -325,14 +324,29 @@ const FindWay = () => {
 
   // 8. 지도 리로드 (지도의 중심좌표를 사용자의 현재 위치로 / 다른 오버레이를 숨김)
   const handleReloadLocation = useCallback(() => {
-    if (userLocation) {
-      setCenter(userLocation);
-      setMapLevel(DEFAULT_LEVEL);
-      setIsTracking(true);
-      setShowUserLocationOverlay(true);
-      setShowOriginOverlay(false);
-      setShowDestinationOverlay(false);
+    if (!navigator.geolocation) {
+      handleLocationError(); // 위치 정보 사용 불가능한 경우
+      return;
     }
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        if (userLocation) {
+          setCenter(userLocation);
+          setMapLevel(DEFAULT_LEVEL);
+          setIsTracking(true);
+          setShowUserLocationOverlay(true);
+          setShowOriginOverlay(false);
+          setShowDestinationOverlay(false);
+        } else {
+          handleLocationError(); // 위치 정보는 있지만 userLocation이 없는 경우
+        }
+      },
+      error => {
+        console.error('위치 정보 가져오기 실패:', error);
+        handleLocationError(); // 위치 정보 가져오기 실패한 경우
+      }
+    );
   }, [userLocation]);
 
   const handleSetLocation = useCallback(
@@ -867,35 +881,38 @@ const FindWay = () => {
 
   // 초단기 날씨 조회 ---------------------------------------------------
 
-// fetchWeather 함수 수정 - 위경도 직접 전달
-const fetchWeather = useCallback((latitude, longitude) => {
-  return axiosInstance
-    .post('/nonestep/weather/current-weather', {
-      latitude: latitude,
-      longitude: longitude
-    })
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      handleWeatherError(); // 날씨 오류 모달 표시
-      throw error;
-    });
-}, []);
+  // fetchWeather 함수 수정 - 위경도 직접 전달
+  const fetchWeather = useCallback((latitude, longitude) => {
+    return axiosInstance
+      .post('/nonestep/weather/current-weather', {
+        latitude: latitude,
+        longitude: longitude,
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        handleWeatherError(); // 날씨 오류 모달 표시
+        throw error;
+      });
+  }, []);
 
-const updateWeather = useCallback(location => {
-  if (!location || !location.lat || !location.lng) {
-    return;
-  }
+  const updateWeather = useCallback(
+    location => {
+      if (!location || !location.lat || !location.lng) {
+        return;
+      }
 
-  fetchWeather(location.lat, location.lng)
-    .then(data => {
-      setWeatherData(data);
-    })
-    .catch(error => {
-      console.error('날씨 데이터 가져오기 오류:', error);
-    });
-}, [fetchWeather]);
+      fetchWeather(location.lat, location.lng)
+        .then(data => {
+          setWeatherData(data);
+        })
+        .catch(error => {
+          console.error('날씨 데이터 가져오기 오류:', error);
+        });
+    },
+    [fetchWeather]
+  );
 
   useEffect(() => {
     const locationToUse = destination || origin || userLocation;
@@ -1234,6 +1251,7 @@ const updateWeather = useCallback(location => {
       {/* 날씨 상세 정보 팝업 */}
       {isClicked && weatherData && (
         <WeatherPopup
+          isFlooding={isFlooding}
           onClose={handleWeatherPopup}
           weatherData={weatherData}
           placeName={
@@ -1255,7 +1273,7 @@ const updateWeather = useCallback(location => {
           title={modalType === 'locationError' ? '위치 정보' : '날씨 정보'}
           message={
             modalType === 'locationError'
-              ? '현재 위치를 불러올 수 없습니다. 위치 정보 접근을 허용해주세요.'
+              ? `현재 위치를 불러올 수 없습니다.\n위치 정보 접근을 허용해주세요.`
               : '날씨 정보를 조회하는 데 실패했습니다.'
           }
         />
