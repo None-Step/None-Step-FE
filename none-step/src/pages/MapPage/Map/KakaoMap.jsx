@@ -10,6 +10,7 @@ import {
     CategoryWrapper,
     LocationBtn,
     MapWrapper,
+    OverlayCongestion,
     OverlayContainer,
     SearchInput,
     SearchInputContainer,
@@ -22,6 +23,7 @@ import {
 } from "./Map.styles";
 import locationIcon from "../icons/location-icon.svg";
 import subwayIcon from "../icons/subway-icon.svg";
+import congestionIcon from "../icons/congestion-icon.svg";
 import elevatorIcon from "../icons/elevator-icon.svg";
 import escalatorIcon from "../icons/escalator-icon.svg";
 import wheelchairLiftIcon from "../icons/wheelchair-lift-icon.svg";
@@ -33,6 +35,7 @@ import aedIcon from "../icons/aed-icon.svg";
 import wheelchairChargerIcon from "../icons/wheelchair-charger-icon.svg";
 import customerServiceIcon from "../icons/customer-service-icon.svg";
 import stationMarkerIcon from "../markers/station-marker-icon.svg";
+import congestionMarkerIcon from "../markers/congestion-marker-icon.svg";
 import elevatorMarkerIcon from "../markers/elevator-marker-icon.svg";
 import escalatorMarkerIcon from "../markers/escalator-marker-icon.svg";
 import wheelchairLiftMarkerIcon from "../markers/wheelchair-lift-marker-icon.svg";
@@ -47,7 +50,7 @@ import userLocationIcon from "../icons/user-location-icon.svg";
 import { useEffect, useRef, useState } from "react";
 import { BsTelephoneFill } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaPlus, FaMinus } from "react-icons/fa6";
+import { HiPlus, HiMinus } from "react-icons/hi";
 import { GoMoveToTop, GoMoveToBottom } from "react-icons/go";
 import { IoSearchOutline, IoTime } from "react-icons/io5";
 import { TbArrowAutofitHeight, TbArrowAutofitWidth } from "react-icons/tb";
@@ -55,6 +58,7 @@ import axiosInstance from "@apis/axiosInstance";
 import StationInfo from "./StationInfo";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import CongestionInfo from "../Congestion/CongestionInfo";
 
 const KakaoMap = () => {
     const { kakao } = window;
@@ -72,6 +76,17 @@ const KakaoMap = () => {
     const [stationDownTime, setStationDownTime] = useState([]);
     const [climateCard, setClimateCard] = useState({});
     const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
+    const [lineList, setLineList] = useState([]);
+    const [lineColorList, setLineColorList] = useState([]);
+    const [stationList, setStationList] = useState([]);
+    const [stationInfo, setStationInfo] = useState({});
+    const [upCongestion, setUpCongestion] = useState([]);
+    const [downCongestion, setDownCongestion] = useState([]);
+    const [upCongestionInfo, setUpCongestionInfo] = useState({});
+    const [downCongestionInfo, setDownCongestionInfo] = useState({});
+    const [upDistanceInfo, setUpDistanceInfo] = useState([]);
+    const [downDistanceInfo, setDownDistanceInfo] = useState([]);
+    const [isCongestionOpen, setIsCongestionOpen] = useState(false);
     const [liftInfo, setLiftInfo] = useState({});
     const [isLiftInfoOpen, setIsLiftInfoOpen] = useState(false);
     const [center, setCenter] = useState({
@@ -108,6 +123,9 @@ const KakaoMap = () => {
 
     useEffect(() => {
         switch (category.category) {
+            case "congestion":
+                setSelectedCategory("congestion");
+                break;
             case "elevator":
                 setSelectedCategory("elevator");
                 break;
@@ -213,7 +231,31 @@ const KakaoMap = () => {
                 radius = 400;
         }
 
-        if (selectedCategory && center) {
+        const nowTime = () => {
+            const date = new Date();
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+
+            return `${hours}${minutes}`;
+        };
+
+        const nowWeek = () => {
+            const date = new Date();
+            const week = date.getDay();
+            const weekList = [
+                "HOLIDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "SAT",
+            ];
+
+            return `${weekList[week]}`;
+        };
+
+        if (selectedCategory !== "congestion" && selectedCategory && center) {
             axiosInstance
                 .get(
                     `/nonestep/subway/${selectedCategory}?latitude=${center.lat}&longitude=${center.lng}&radius=${radius}`
@@ -224,8 +266,231 @@ const KakaoMap = () => {
                 .catch((error) => {
                     console.log(error);
                 });
+        } else if (
+            selectedCategory === "congestion" &&
+            selectedCategory &&
+            center
+        ) {
+            axiosInstance
+                .get(
+                    `/nonestep/congestion/subway-marker?latitude=${
+                        center.lat
+                    }&longitude=${
+                        center.lng
+                    }&radius=${radius}&time=${nowTime()}&type=${nowWeek()}`
+                )
+                .then((response) => {
+                    // console.log(response.data);
+                    setMarkers(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }, [selectedCategory, center, mapLevel]);
+
+    useEffect(() => {
+        if (selectedCategory === "congestion") {
+            setLineList(
+                markers.map((marker) => {
+                    switch (marker.line) {
+                        case "1호선":
+                            return "1";
+                        case "2호선":
+                            return "2";
+                        case "3호선":
+                            return "3";
+                        case "4호선":
+                            return "4";
+                        case "5호선":
+                            return "5";
+                        case "6호선":
+                            return "6";
+                        case "7호선":
+                            return "7";
+                        case "8호선":
+                            return "8";
+                        case "9호선":
+                            return "9";
+                        case "수인분당선":
+                            return "수인분당";
+                        case "신분당선":
+                            return "신분당";
+                        case "경의중앙선":
+                            return "경의중앙";
+                        case "경춘선":
+                            return "경춘";
+                        case "경강선":
+                            return "경강";
+                        case "우의신설선":
+                            return "우의신설";
+                        case "신림선":
+                            return "신림";
+                        case "김포골드라인":
+                            return "김포골드";
+                        case "에버라인":
+                            return "에버라인";
+                        case "서해선":
+                            return "서해";
+                        case "공항철도":
+                            return "공항";
+                        case "GTX-A":
+                            return "GTX-A";
+                        case "의정부경전철":
+                            return "의정부";
+                        case "인천1호선":
+                            return "인천1";
+                        case "인천2호선":
+                            return "인천2";
+                        case "동해선":
+                            return "동해";
+                        case "부산김해경전철":
+                            return "부산김해";
+                    }
+                })
+            );
+
+            setLineColorList(
+                markers.map((marker) => {
+                    if (marker.region === "수도권") {
+                        switch (marker.line) {
+                            case "1호선":
+                                return "capital_line1";
+                            case "2호선":
+                                return "capital_line2";
+                            case "3호선":
+                                return "capital_line3";
+                            case "4호선":
+                                return "capital_line4";
+                            case "5호선":
+                                return "capital_line5";
+                            case "6호선":
+                                return "capital_line6";
+                            case "7호선":
+                                return "capital_line7";
+                            case "8호선":
+                                return "capital_line8";
+                            case "9호선":
+                                return "capital_line9";
+                            case "수인분당선":
+                                return "capital_suin";
+                            case "신분당선":
+                                return "capital_shinbundang";
+                            case "경의중앙선":
+                                return "capital_gyeongui";
+                            case "경춘선":
+                                return "capital_gyeongchun";
+                            case "경강선":
+                                return "capital_gyeonggang";
+                            case "우의신설선":
+                                return "capital_wooyi";
+                            case "신림선":
+                                return "capital_sillim";
+                            case "김포골드라인":
+                                return "capital_gimpo";
+                            case "에버라인":
+                                return "capital_ever";
+                            case "서해선":
+                                return "capital_seohae";
+                            case "공항철도":
+                                return "capital_airport";
+                            case "GTX-A":
+                                return "capital_GTX_A";
+                            case "의정부경전철":
+                                return "capital_uijeongbu";
+                            case "인천1호선":
+                                return "capital_incheon1";
+                            case "인천2호선":
+                                return "capital_incheon2";
+                        }
+                    } else if (marker.region === "부산") {
+                        switch (marker.line) {
+                            case "1호선":
+                                return "busan_line1";
+
+                            case "2호선":
+                                return "busan_line2";
+
+                            case "3호선":
+                                return "busan_line3";
+
+                            case "4호선":
+                                return "busan_line4";
+
+                            case "동해선":
+                                return "busan_donghae";
+
+                            case "부산김해경전철":
+                                return "busan_gimhae";
+                        }
+                    } else if (marker.region === "대구") {
+                        switch (marker.line) {
+                            case "1호선":
+                                return "daegu_line1";
+
+                            case "2호선":
+                                return "daegu_line2";
+
+                            case "3호선":
+                                return "daegu_line3";
+                        }
+                    } else if (marker.region === "대전") {
+                        return "daejeon_line1";
+                    } else if (marker.region === "광주") {
+                        return "gwangju_line1";
+                    }
+                })
+            );
+
+            setUpCongestion(
+                markers.map((marker) => {
+                    switch (marker.upCongestion) {
+                        case "여유":
+                            return "uncrowded";
+
+                        case "보통":
+                            return "normal";
+
+                        case "주의":
+                            return "caution";
+
+                        case "혼잡":
+                            return "congested";
+                        default:
+                            return "nothing";
+                    }
+                })
+            );
+
+            setDownCongestion(
+                markers.map((marker) => {
+                    switch (marker.downCongestion) {
+                        case "여유":
+                            return "uncrowded";
+
+                        case "보통":
+                            return "normal";
+
+                        case "주의":
+                            return "caution";
+
+                        case "혼잡":
+                            return "congested";
+                        default:
+                            return "nothing";
+                    }
+                })
+            );
+
+            setStationList(
+                markers.map((marker) => {
+                    return marker.station
+                        ? marker.station.replace(",", "·")
+                        : marker.station;
+                })
+            );
+        }
+    }, [markers, selectedCategory]);
 
     const getMapLevel = (map) => {
         const level = map.getLevel();
@@ -346,6 +611,7 @@ const KakaoMap = () => {
 
     const handleSearchClick = () => {
         setIsStationInfoOpen(false);
+        setIsCongestionOpen(false);
         setIsLiftInfoOpen(false);
     };
 
@@ -423,6 +689,87 @@ const KakaoMap = () => {
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    const getCongestionInfo = (marker) => {
+        const nowTime = () => {
+            const date = new Date();
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+
+            return `${hours}${minutes}`;
+        };
+
+        const nowWeek = () => {
+            const date = new Date();
+            const week = date.getDay();
+            const weekList = [
+                "HOLIDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "WEEKDAY",
+                "SAT",
+            ];
+
+            return `${weekList[week]}`;
+        };
+
+        axiosInstance
+            .get(
+                `/nonestep/congestion/up-time?region=${marker.region}&line=${
+                    marker.line
+                }&station=${marker.station}&time=${nowTime()}&type=${nowWeek()}`
+            )
+            .then((response) => {
+                setUpCongestionInfo(response.data);
+                setIsCongestionOpen(true);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        axiosInstance
+            .get(
+                `/nonestep/congestion/down-time?region=${marker.region}&line=${
+                    marker.line
+                }&station=${marker.station}&time=${nowTime()}&type=${nowWeek()}`
+            )
+            .then((response) => {
+                setDownCongestionInfo(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        axiosInstance
+            .get(
+                `/nonestep/congestion/up-info?region=${marker.region}&line=${marker.line}&station=${marker.station}`
+            )
+            .then((response) => {
+                setUpDistanceInfo(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        axiosInstance
+            .get(
+                `/nonestep/congestion/down-info?region=${marker.region}&line=${marker.line}&station=${marker.station}`
+            )
+            .then((response) => {
+                setDownDistanceInfo(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        setStationInfo({
+            region: marker.region,
+            line: marker.line,
+            station: marker.station,
+        });
     };
 
     const getLiftInfoOverlay = (index) => {
@@ -515,11 +862,11 @@ const KakaoMap = () => {
                                 }
                                 onClick={() => handleClickCategory("location")}
                             >
-                                <img src={subwayIcon} alt="elevator-icon" />
+                                <img src={subwayIcon} alt="subway-icon" />
                                 <span>역정보</span>
                             </CategoryBtn>
                         </li>
-                        {/* <li className="congestion">
+                        <li className="congestion">
                             <CategoryBtn
                                 className={
                                     selectedCategory === "congestion"
@@ -530,10 +877,13 @@ const KakaoMap = () => {
                                     handleClickCategory("congestion")
                                 }
                             >
-                                <img src={subwayIcon} alt="elevator-icon" />
-                                <span>역 혼잡도</span>
+                                <img
+                                    src={congestionIcon}
+                                    alt="congestion-icon"
+                                />
+                                <span>지하철혼잡도</span>
                             </CategoryBtn>
-                        </li> */}
+                        </li>
                         <li className="elevator">
                             <CategoryBtn
                                 className={
@@ -556,7 +906,7 @@ const KakaoMap = () => {
                                 }
                                 onClick={() => handleClickCategory("escal")}
                             >
-                                <img src={escalatorIcon} alt="elevator-icon" />
+                                <img src={escalatorIcon} alt="escalator-icon" />
                                 <span>에스컬레이터</span>
                             </CategoryBtn>
                         </li>
@@ -569,10 +919,7 @@ const KakaoMap = () => {
                                 }
                                 onClick={() => handleClickCategory("lift")}
                             >
-                                <img
-                                    src={wheelchairLiftIcon}
-                                    alt="elevator-icon"
-                                />
+                                <img src={wheelchairLiftIcon} alt="lift-icon" />
                                 <span>휠체어리프트</span>
                             </CategoryBtn>
                         </li>
@@ -585,7 +932,7 @@ const KakaoMap = () => {
                                 }
                                 onClick={() => handleClickCategory("toilet")}
                             >
-                                <img src={toiletIcon} alt="elevator-icon" />
+                                <img src={toiletIcon} alt="toilet-icon" />
                                 <span>화장실</span>
                             </CategoryBtn>
                         </li>
@@ -600,7 +947,10 @@ const KakaoMap = () => {
                                     handleClickCategory("dif-toilet")
                                 }
                             >
-                                <img src={difToiletIcon} alt="elevator-icon" />
+                                <img
+                                    src={difToiletIcon}
+                                    alt="dif-toilet-icon"
+                                />
                                 <span>장애인 화장실</span>
                             </CategoryBtn>
                         </li>
@@ -617,7 +967,7 @@ const KakaoMap = () => {
                             >
                                 <img
                                     src={nursingRoomIcon}
-                                    alt="elevator-icon"
+                                    alt="nursing-room-icon"
                                 />
                                 <span>수유실</span>
                             </CategoryBtn>
@@ -629,7 +979,7 @@ const KakaoMap = () => {
                                 }
                                 onClick={() => handleClickCategory("atm")}
                             >
-                                <img src={atmIcon} alt="elevator-icon" />
+                                <img src={atmIcon} alt="atm-icon" />
                                 <span>ATM</span>
                             </CategoryBtn>
                         </li>
@@ -640,7 +990,7 @@ const KakaoMap = () => {
                                 }
                                 onClick={() => handleClickCategory("aed")}
                             >
-                                <img src={aedIcon} alt="elevator-icon" />
+                                <img src={aedIcon} alt="aed-icon" />
                                 <span>제세동기</span>
                             </CategoryBtn>
                         </li>
@@ -655,7 +1005,7 @@ const KakaoMap = () => {
                             >
                                 <img
                                     src={wheelchairChargerIcon}
-                                    alt="elevator-icon"
+                                    alt="wheelchair-charger-icon"
                                 />
                                 <span>전동 휠체어 충전</span>
                             </CategoryBtn>
@@ -671,7 +1021,7 @@ const KakaoMap = () => {
                             >
                                 <img
                                     src={customerServiceIcon}
-                                    alt="elevator-icon"
+                                    alt="customer-service-icon"
                                 />
                                 <span>고객센터</span>
                             </CategoryBtn>
@@ -708,6 +1058,113 @@ const KakaoMap = () => {
                                     climateCard={climateCard}
                                     handleClose={() =>
                                         setIsStationInfoOpen(false)
+                                    }
+                                />
+                            )}
+                        </>
+                    ))}
+                {selectedCategory === "congestion" &&
+                    markers.map((marker, index) => (
+                        <>
+                            <MapMarker
+                                key={`location-${marker.latitude},${marker.longitude}`}
+                                image={{
+                                    src: congestionMarkerIcon,
+                                    size: {
+                                        width: 40,
+                                        height: 56,
+                                    },
+                                }}
+                                position={{
+                                    lat: marker.latitude,
+                                    lng: marker.longitude,
+                                }}
+                                clickable={false}
+                            />
+                            {mapLevel < 5 ? (
+                                <CustomOverlayMap
+                                    key={`overlay-congestion-${marker.latitude},${marker.longitude}`}
+                                    position={{
+                                        lat: marker.latitude,
+                                        lng: marker.longitude,
+                                    }}
+                                    yAnchor={1.55}
+                                >
+                                    <OverlayCongestion>
+                                        <div className="station_info">
+                                            <span className="station">
+                                                <span
+                                                    className={`line ${lineColorList[index]}`}
+                                                >
+                                                    {lineList[index]}
+                                                </span>
+                                                <span className="station_name">
+                                                    {stationList[index]}
+                                                </span>
+                                            </span>
+                                            <span
+                                                className="more_info"
+                                                onClick={() => {
+                                                    getCongestionInfo(marker);
+                                                    handleSearchBlur();
+                                                }}
+                                            >
+                                                더보기
+                                            </span>
+                                        </div>
+                                        <div className="congestion_info">
+                                            {(marker.line === "6호선" &&
+                                                marker.station === "역촌") ||
+                                            (marker.line === "6호선" &&
+                                                marker.station === "불광") ||
+                                            (marker.line === "6호선" &&
+                                                marker.station === "독바위") ||
+                                            (marker.line === "6호선" &&
+                                                marker.station === "연신내") ||
+                                            (marker.line === "6호선" &&
+                                                marker.station === "구산") ? (
+                                                <></>
+                                            ) : (
+                                                <div className="up_congestion">
+                                                    <span className="direction">
+                                                        상행선 방향
+                                                    </span>
+                                                    <span
+                                                        className={`congestion ${upCongestion[index]}`}
+                                                    >
+                                                        {marker.upCongestion
+                                                            ? marker.upCongestion
+                                                            : "정보없음"}
+                                                    </span>
+                                                </div>
+                                            )}
+                                            <div className="down_congestion">
+                                                <span className="direction">
+                                                    하행선 방향
+                                                </span>
+                                                <span
+                                                    className={`congestion ${downCongestion[index]}`}
+                                                >
+                                                    {marker.downCongestion
+                                                        ? marker.downCongestion
+                                                        : "정보없음"}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </OverlayCongestion>
+                                </CustomOverlayMap>
+                            ) : (
+                                <></>
+                            )}
+                            {isCongestionOpen && (
+                                <CongestionInfo
+                                    stationInfo={stationInfo}
+                                    upCongestion={upCongestionInfo}
+                                    downCongestion={downCongestionInfo}
+                                    upDistanceInfo={upDistanceInfo}
+                                    downDistanceInfo={downDistanceInfo}
+                                    handleClose={() =>
+                                        setIsCongestionOpen(false)
                                     }
                                 />
                             )}
@@ -1261,10 +1718,10 @@ const KakaoMap = () => {
                 <ZoomControlContainer>
                     <ZoomControlBtnContainer>
                         <ZoomControlBtn onClick={handleZoomIn}>
-                            <FaPlus />
+                            <HiPlus />
                         </ZoomControlBtn>
                         <ZoomControlBtn onClick={handleZoomOut}>
-                            <FaMinus />
+                            <HiMinus />
                         </ZoomControlBtn>
                     </ZoomControlBtnContainer>
                     <LocationBtn onClick={handleMovecenter}>
