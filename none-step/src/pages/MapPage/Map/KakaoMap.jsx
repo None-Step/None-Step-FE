@@ -280,7 +280,6 @@ const KakaoMap = () => {
                     }&radius=${radius}&time=${nowTime()}&type=${nowWeek()}`
                 )
                 .then((response) => {
-                    // console.log(response.data);
                     setMarkers(response.data);
                 })
                 .catch((error) => {
@@ -1127,7 +1126,10 @@ const KakaoMap = () => {
                                             ) : (
                                                 <div className="up_congestion">
                                                     <span className="direction">
-                                                        상행선 방향
+                                                        {marker.upNextStation ===
+                                                        ""
+                                                            ? `${marker.station} 방향`
+                                                            : marker.upNextStation}
                                                     </span>
                                                     <span
                                                         className={`congestion ${upCongestion[index]}`}
@@ -1140,7 +1142,10 @@ const KakaoMap = () => {
                                             )}
                                             <div className="down_congestion">
                                                 <span className="direction">
-                                                    하행선 방향
+                                                    {marker.downNextStation ===
+                                                    ""
+                                                        ? `${marker.station} 방향`
+                                                        : marker.downNextStation}
                                                 </span>
                                                 <span
                                                     className={`congestion ${downCongestion[index]}`}
