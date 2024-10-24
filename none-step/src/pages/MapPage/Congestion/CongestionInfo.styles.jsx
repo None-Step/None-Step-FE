@@ -527,15 +527,12 @@ export const StationNameContainer = styled.div`
     }
 `;
 
-export const CongestionInfoContainer = styled.div`
-    padding: 0 20px;
-`;
-
 export const DirectionContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 8px;
     margin-bottom: 20px;
+    padding: 0 20px;
 `;
 
 export const DirectionButton = styled.button`
@@ -555,6 +552,30 @@ export const DirectionButton = styled.button`
     &.selected {
         border: 1px solid ${(props) => props.theme.colors.primary};
         color: ${(props) => props.theme.colors.primary};
+    }
+`;
+
+export const CongestionInfoContainer = styled.div`
+    padding: 20px;
+
+    @media screen and (max-height: 800px) {
+        height: calc(100% - 150px);
+        padding-left: 20px;
+        padding-right: 6px;
+        padding-bottom: 50px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            height: 40px;
+            border: 4px solid transparent;
+            border-radius: 10px;
+            background-color: #e7e7e7;
+            background-clip: padding-box;
+        }
     }
 `;
 
