@@ -185,6 +185,17 @@ const MainPage = () => {
                         onScroll={handleScrollCategory}
                         onWheel={handleScrollCategory}
                     >
+                        <li className="congestion">
+                            <CategoryBtn
+                                onClick={() => handleClickMap("congestion")}
+                            >
+                                <img
+                                    src={congestionIcon}
+                                    alt="congestion-icon"
+                                />
+                                <span>지하철혼잡도</span>
+                            </CategoryBtn>
+                        </li>
                         <li className="elevator">
                             <CategoryBtn
                                 onClick={() => handleClickMap("elevator")}
