@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import {PopupContainer} from '../popup/FindWayPopup.style';
 
 export const Warning = styled.span`
   padding: 0.2rem 0.4rem;
@@ -136,3 +137,17 @@ export const BigWeatherImg = styled(WeatherImg)`
   transform: translateX(100%); // 초기 위치
   animation: ${slideIn} 1s ease-out 1s forwards; // 1s 딜레이, forwards로 마지막 상태 유지
 `;
+
+export const FloodingCover = styled(Warning)`
+  justify-content: left;
+`
+
+export const FloodingWrapper = styled(InfoWrapper)`
+  flex-direction: row;
+  justify-content: left;
+  padding-block: 1rem;
+`
+
+export const WeatherContainer = styled(PopupContainer)`
+  overflow-x: hidden;
+`

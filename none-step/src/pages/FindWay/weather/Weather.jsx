@@ -24,6 +24,9 @@ import {
   Warning,
   Flooding,
   BigWeatherImg,
+  FloodingCover,
+  FloodingWrapper,
+  WeatherContainer,
 } from './Weather.style';
 import {
   CloseButton,
@@ -210,7 +213,12 @@ export const WeatherPreview = ({ onClick, $viewportHeight, weatherData }) => {
   );
 };
 
-export const WeatherPopup = ({ onClose, weatherData, placeName }) => {
+export const WeatherPopup = ({
+  onClose,
+  weatherData,
+  placeName,
+  isFlooding,
+}) => {
   const processedWeatherData = useMemo(() => {
     if (!weatherData) return [];
     return processWeatherData(weatherData);
@@ -244,7 +252,7 @@ export const WeatherPopup = ({ onClose, weatherData, placeName }) => {
   };
 
   return (
-    <PopupContainer>
+    <WeatherContainer>
       <CloseButton onClick={onClose}>
         <img src={Close} alt="닫기 버튼" />
       </CloseButton>
@@ -318,10 +326,24 @@ export const WeatherPopup = ({ onClose, weatherData, placeName }) => {
           </IconWrapper>
         </RouteOption>
       ))}
+      {isFlooding && (
+        // <FloodingWrapper>
+        //   <FloodingCover>
+        //     <img src={WarningIcon} alt="경고" />
+        //     침수 주의
+        //   </FloodingCover>
+        // </FloodingWrapper>
+        <FloodingWrapper>
+          <WeatherBlack>
+            <strong>[침수 주의]</strong> 5년 내 침수 피해가 있었던
+            지역입니다.
+          </WeatherBlack>
+        </FloodingWrapper>
+      )}
       <BigWeatherImg
         src={getWeatherIcon(currentWeather.fcstValue)}
         alt={currentWeather.fcstValue}
       />
-    </PopupContainer>
+    </WeatherContainer>
   );
 };
