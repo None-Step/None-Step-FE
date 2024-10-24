@@ -280,29 +280,25 @@ const CongestionInfo = ({
                         </h2>
                     </StationNameContainer>
                 </StationNameWrapper>
+                <DirectionContainer>
+                    <DirectionButton
+                        className={direction === "up" ? "selected" : ""}
+                        onClick={() => handleClickDirection("up")}
+                    >
+                        {upCongestion.nextStation === ""
+                            ? `${stationName(stationInfo.station)} 방향(종점)`
+                            : upCongestion.nextStation}
+                    </DirectionButton>
+                    <DirectionButton
+                        className={direction === "down" ? "selected" : ""}
+                        onClick={() => handleClickDirection("down")}
+                    >
+                        {downCongestion.nextStation === ""
+                            ? `${stationName(stationInfo.station)} 방향(종점)`
+                            : downCongestion.nextStation}
+                    </DirectionButton>
+                </DirectionContainer>
                 <CongestionInfoContainer>
-                    <DirectionContainer>
-                        <DirectionButton
-                            className={direction === "up" ? "selected" : ""}
-                            onClick={() => handleClickDirection("up")}
-                        >
-                            {upCongestion.nextStation === ""
-                                ? `${stationName(
-                                      stationInfo.station
-                                  )} 방향(종점)`
-                                : upCongestion.nextStation}
-                        </DirectionButton>
-                        <DirectionButton
-                            className={direction === "down" ? "selected" : ""}
-                            onClick={() => handleClickDirection("down")}
-                        >
-                            {downCongestion.nextStation === ""
-                                ? `${stationName(
-                                      stationInfo.station
-                                  )} 방향(종점)`
-                                : downCongestion.nextStation}
-                        </DirectionButton>
-                    </DirectionContainer>
                     <CongestionContainer>
                         <div className="info_title_container">
                             <div>
