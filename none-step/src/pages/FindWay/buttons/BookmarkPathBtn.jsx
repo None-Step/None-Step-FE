@@ -9,7 +9,7 @@ const ButWrapper = styled.div`
   align-items: center;
 
   position: absolute;
-  top: 150px;
+  top: 80px;
   left: ${(props) => (props.isQuickRouteVisible ? '14.5rem' : '1rem')};
   z-index: 2;
   width: calc(100% - 15rem);
