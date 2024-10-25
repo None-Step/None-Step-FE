@@ -10,7 +10,7 @@ export const PageWrapper = styled.div`
 
 // 검색 바
 export const SearchBox = styled.div`
-  position: absolute;
+  position: fixed;
   top: 70px;
   z-index: 4;
   width: 100%;
