@@ -5,12 +5,13 @@ import { FaArrowRight } from 'react-icons/fa';
 export const PageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 150);
+  overflow: hidden;
 `;
 
 // 검색 바
 export const SearchBox = styled.div`
-  position: fixed;
+  position: absolute;
   top: 70px;
   z-index: 4;
   width: 100%;
