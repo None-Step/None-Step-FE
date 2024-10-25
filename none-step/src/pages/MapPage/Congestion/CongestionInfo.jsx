@@ -249,6 +249,24 @@ const CongestionInfo = ({
         setIsDistanceInfoOpen(true);
     };
 
+    const congestion = (congest) => {
+        switch (congest) {
+            case "여유":
+                return "uncrowded";
+
+            case "보통":
+                return "normal";
+
+            case "주의":
+                return "caution";
+
+            case "혼잡":
+                return "congested";
+            default:
+                return "nothing";
+        }
+    };
+
     const separationDistance = (distance) => {
         switch (distance) {
             case "안전":
@@ -347,7 +365,12 @@ const CongestionInfo = ({
                                             {upDistanceInfo.map((_, index) => (
                                                 <span
                                                     key={index}
-                                                    className="car"
+                                                    className={
+                                                        `car ` +
+                                                        congestion(
+                                                            upCongestion.currentTime
+                                                        )
+                                                    }
                                                 >
                                                     {index + 1}
                                                 </span>
@@ -374,7 +397,12 @@ const CongestionInfo = ({
                                                 (_, index) => (
                                                     <span
                                                         key={index}
-                                                        className="car"
+                                                        className={
+                                                            `car ` +
+                                                            congestion(
+                                                                downCongestion.currentTime
+                                                            )
+                                                        }
                                                     >
                                                         {index + 1}
                                                     </span>

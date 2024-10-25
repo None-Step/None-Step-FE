@@ -672,6 +672,26 @@ export const DistanceContainer = styled.div`
         background: ${(props) => props.theme.colors.primary};
     }
 
+    .car.uncrowded {
+        background: #007aff;
+    }
+
+    .car.normal {
+        background: #34c759;
+    }
+
+    .car.caution {
+        background: #ffc500;
+    }
+
+    .car.congested {
+        background: #ff3b30;
+    }
+
+    .car.nothing {
+        background: ${(props) => props.theme.colors.gray01};
+    }
+
     .train .car:first-child {
         border-radius: 20px 4px 4px 4px;
     }
