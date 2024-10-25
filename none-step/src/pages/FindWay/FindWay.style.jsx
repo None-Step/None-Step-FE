@@ -6,6 +6,7 @@ export const PageWrapper = styled.div`
   position: fixed;
   top: 70px;
   width: 100%;
+  max-width: 600px;
   height: ${({ $viewportHeight }) => `calc(${$viewportHeight}px - 70px - 73px)`};
   overflow: hidden;
 `;
