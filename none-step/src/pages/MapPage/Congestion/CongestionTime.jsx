@@ -14,14 +14,14 @@ const CongestionTime = ({ currentTime, after30, after60 }) => {
         }
 
         if (hours == 0) {
-            const amHours = date.getHours() + 12;
+            const amHours = String(date.getHours() + 12).padStart(2, "0");
             return `오전 ${amHours}:${minutes}`;
         } else if (0 < hours && hours < 12) {
             return `오전 ${hours}:${minutes}`;
         } else if (hours == 12) {
             return `오후 ${hours}:${minutes}`;
         } else if (12 < hours && hours < 24) {
-            const pmHours = date.getHours() - 12;
+            const pmHours = String(date.getHours() - 12).padStart(2, "0");
             return `오후 ${pmHours}:${minutes}`;
         }
     };
@@ -66,14 +66,14 @@ const CongestionTime = ({ currentTime, after30, after60 }) => {
         }
 
         if (hours == 0) {
-            const amHours = date.getHours() + 12;
+            const amHours = String(date.getHours() + 12).padStart(2, "0");
             return `오전 ${amHours}:${minutes}`;
         } else if (0 < hours && hours < 12) {
             return `오전 ${hours}:${minutes}`;
         } else if (hours == 12) {
             return `오후 ${hours}:${minutes}`;
         } else if (12 < hours && hours < 24) {
-            const pmHours = date.getHours() - 12;
+            const pmHours = String(date.getHours() - 12).padStart(2, "0");
             return `오후 ${pmHours}:${minutes}`;
         }
     };

@@ -35,6 +35,20 @@ const CongestionInfo = ({
     const [isDistanceInfoOpen, setIsDistanceInfoOpen] = useState(false);
 
     useEffect(() => {
+        if (
+            (stationInfo.line === "6호선" && stationInfo.station === "역촌") ||
+            (stationInfo.line === "6호선" && stationInfo.station === "불광") ||
+            (stationInfo.line === "6호선" &&
+                stationInfo.station === "독바위") ||
+            (stationInfo.line === "6호선" &&
+                stationInfo.station === "연신내") ||
+            (stationInfo.line === "6호선" && stationInfo.station === "구산")
+        ) {
+            setDirection("down");
+        }
+    }, [stationInfo.line, stationInfo.station]);
+
+    useEffect(() => {
         switch (stationInfo.line) {
             case "1호선":
                 setStationLine("1");
@@ -299,14 +313,29 @@ const CongestionInfo = ({
                     </StationNameContainer>
                 </StationNameWrapper>
                 <DirectionContainer>
-                    <DirectionButton
-                        className={direction === "up" ? "selected" : ""}
-                        onClick={() => handleClickDirection("up")}
-                    >
-                        {upCongestion.nextStation === ""
-                            ? `${stationName(stationInfo.station)} 방향(종점)`
-                            : upCongestion.nextStation}
-                    </DirectionButton>
+                    {(stationInfo.line === "6호선" &&
+                        stationInfo.station === "역촌") ||
+                    (stationInfo.line === "6호선" &&
+                        stationInfo.station === "불광") ||
+                    (stationInfo.line === "6호선" &&
+                        stationInfo.station === "독바위") ||
+                    (stationInfo.line === "6호선" &&
+                        stationInfo.station === "연신내") ||
+                    (stationInfo.line === "6호선" &&
+                        stationInfo.station === "구산") ? (
+                        <></>
+                    ) : (
+                        <DirectionButton
+                            className={direction === "up" ? "selected" : ""}
+                            onClick={() => handleClickDirection("up")}
+                        >
+                            {upCongestion.nextStation === ""
+                                ? `${stationName(
+                                      stationInfo.station
+                                  )} 방향(종점)`
+                                : upCongestion.nextStation}
+                        </DirectionButton>
+                    )}
                     <DirectionButton
                         className={direction === "down" ? "selected" : ""}
                         onClick={() => handleClickDirection("down")}
