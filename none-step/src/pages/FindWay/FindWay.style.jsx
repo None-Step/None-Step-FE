@@ -3,16 +3,17 @@ import { FaArrowRight } from 'react-icons/fa';
 
 // 전체 페이지
 export const PageWrapper = styled.div`
-  position: relative;
+  position: fixed;
+  top: 70px;
   width: 100%;
-  height: calc(100vh - 150);
+  height: calc(100vh - 70px - 73px);
   overflow: hidden;
 `;
 
 // 검색 바
 export const SearchBox = styled.div`
   position: absolute;
-  top: 70px;
+  top: 0;
   z-index: 4;
   width: 100%;
   background-color: ${props => props.theme.colors.white};
@@ -88,10 +89,11 @@ export const Reload = styled.div`
   box-shadow: ${props => props.theme.colors.shadow200};
   cursor: pointer;
   position: absolute;
-  top: ${props =>
+  bottom: 3rem;
+  /* top: ${props =>
     `${
       props.$viewportHeight - (80 + 16 + 40)
-    }px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이)
+    }px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이) */
   right: 1rem;
   z-index: 3;
 `;
