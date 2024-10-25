@@ -531,7 +531,6 @@ export const DirectionContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 8px;
-    margin-bottom: 20px;
     padding: 0 20px;
 `;
 
@@ -556,14 +555,14 @@ export const DirectionButton = styled.button`
 `;
 
 export const CongestionInfoContainer = styled.div`
+    height: calc(100% - 130px);
     padding: 20px;
+    overflow-y: auto;
 
-    @media screen and (max-height: 800px) {
-        height: calc(100% - 150px);
+    @media screen and (max-height: 910px) {
         padding-left: 20px;
         padding-right: 6px;
         padding-bottom: 50px;
-        overflow-y: auto;
 
         &::-webkit-scrollbar {
             width: 14px;
