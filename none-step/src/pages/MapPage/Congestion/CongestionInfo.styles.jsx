@@ -532,6 +532,7 @@ export const DirectionContainer = styled.div`
     flex-direction: row;
     gap: 8px;
     padding: 0 20px;
+    margin-bottom: 20px;
 `;
 
 export const DirectionButton = styled.button`
@@ -557,6 +558,7 @@ export const DirectionButton = styled.button`
 export const CongestionInfoContainer = styled.div`
     height: calc(100% - 130px);
     padding: 20px;
+    padding-top: 0;
     overflow-y: auto;
 
     @media screen and (max-height: 910px) {
