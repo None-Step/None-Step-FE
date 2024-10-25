@@ -924,7 +924,7 @@ const FindWay = () => {
   }, [destination, origin, userLocation, updateWeather]);
 
   return (
-    <PageWrapper>
+    <PageWrapper $viewportHeight={viewportHeight}>
       <PageHeader />
 
       <KakaoMapPlaceSearch
