@@ -105,10 +105,11 @@ export const MinWeather = styled.div`
 
   cursor: pointer;
   position: absolute;
-  top: ${props =>
+  bottom: 1rem;
+  /* top: ${props =>
     `${
       props.$viewportHeight - (80 + 16 + 80)
-    }px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이)
+    }px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이) */
   left: 1rem;
   z-index: 3;
 `;
