@@ -29,6 +29,13 @@ const CongestionDetailInfo = ({ handleCloseInfo }) => {
                                 </span>
                             </li>
                             <li>
+                                <span>
+                                    혼잡도는 열차 전체의 평균 혼잡도로 열차 칸
+                                    혼잡도는 상황에 따라 차이가 있을 수
+                                    있습니다.
+                                </span>
+                            </li>
+                            <li>
                                 <span>혼잡도는 총 5단계로 안내됩니다.</span>
                                 <ul className="congestion_info_step">
                                     <li>
