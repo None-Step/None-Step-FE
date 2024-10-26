@@ -94,7 +94,10 @@ const FindWay = () => {
   const [pathDestination, setPathDestination] = useState(null);
 
   // 날씨 관련 ------------------------------------------------------------------
-  const [isFlooding, setIsFlooding] = useState(false);
+  // const [isFlooding, setIsFlooding] = useState(false);
+  const [userLocationFlooding, setUserLocationFlooding] = useState(false);
+  const [originFlooding, setOriginFlooding] = useState(false);
+  const [destinationFlooding, setDestinationFlooding] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -348,6 +351,96 @@ const FindWay = () => {
       }
     );
   }, [userLocation]);
+  // 날씨 : 침수 여부 확인 API -----
+  // 10.26. checkFlooding 함수 수정 - 침수 여부를 반환만 하고 상태 업데이트는 하지 않음
+  const checkFlooding = useCallback(
+    (lat, lng) => {
+      return getStationInfo(lat, lng)
+        .then(stationInfo => {
+          const { region, line, station } = stationInfo;
+          return axiosInstance.get(
+            `/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`
+          );
+        })
+        .then(response => {
+          return response.data.isFlooding === 'y';
+        })
+        .catch(error => {
+          console.error('침수 여부 확인 실패:', error);
+          return false;
+        });
+    },
+    [getStationInfo]
+  );
+
+  // 현재 위치 침수 여부 확인
+  useEffect(() => {
+    if (userLocation) {
+      checkFlooding(userLocation.lat, userLocation.lng).then(isFlooding =>
+        setUserLocationFlooding(isFlooding)
+      );
+    }
+  }, [userLocation, checkFlooding]);
+
+  useEffect(() => {
+    if (origin) {
+      checkFlooding(origin.lat, origin.lng).then(isFlooding =>
+        setOriginFlooding(isFlooding)
+      );
+    }
+  }, [origin, checkFlooding]);
+
+  useEffect(() => {
+    if (destination) {
+      checkFlooding(destination.lat, destination.lng).then(isFlooding =>
+        setDestinationFlooding(isFlooding)
+      );
+    }
+  }, [destination, checkFlooding]);
+
+  // 초단기 날씨 조회 ---------------------------------------------------
+
+  // fetchWeather 함수 수정 - 위경도 직접 전달
+  const fetchWeather = useCallback((latitude, longitude) => {
+    return axiosInstance
+      .post('/nonestep/weather/current-weather', {
+        latitude: latitude,
+        longitude: longitude,
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        handleWeatherError(); // 날씨 오류 모달 표시
+        throw error;
+      });
+  }, []);
+
+  const updateWeather = useCallback(
+    location => {
+      if (!location || !location.lat || !location.lng) {
+        return;
+      }
+
+      fetchWeather(location.lat, location.lng)
+        .then(data => {
+          setWeatherData(data);
+        })
+        .catch(error => {
+          console.error('날씨 데이터 가져오기 오류:', error);
+        });
+    },
+    [fetchWeather]
+  );
+
+  useEffect(() => {
+    const locationToUse = destination || origin || userLocation;
+    if (locationToUse && locationToUse.address) {
+      updateWeather(locationToUse);
+    } else {
+      console.log('유효한 위치 정보가 없습니다');
+    }
+  }, [destination, origin, userLocation, updateWeather]);
 
   const handleSetLocation = useCallback(
     (type, marker) => {
@@ -361,21 +454,31 @@ const FindWay = () => {
         setOrigin(newLocation);
         setOriginInput(newLocation.name);
         updateWeather(newLocation);
+        checkFlooding(newLocation.lat, newLocation.lng).then(isFlooding =>
+          setOriginFlooding(isFlooding)
+        );
+
         if (JSON.stringify(destination) === JSON.stringify(newLocation)) {
           setDestination(null);
           setDestinationInput('');
+          setDestinationFlooding(false); // 목적지 제거 시 침수 상태도 초기화
         }
       } else {
         setDestination(newLocation);
         setDestinationInput(newLocation.name);
         updateWeather(newLocation);
+        checkFlooding(newLocation.lat, newLocation.lng).then(isFlooding =>
+          setDestinationFlooding(isFlooding)
+        );
+
         if (JSON.stringify(origin) === JSON.stringify(newLocation)) {
           setOrigin(null);
           setOriginInput('');
+          setOriginFlooding(false); // 출발지 제거 시 침수 상태도 초기화
         }
       }
     },
-    [destination, origin]
+    [destination, origin, updateWeather, checkFlooding]
   );
 
   // 2. KakaoMapPlaceSearch 컴포넌트로 받은 출발지 정보 처리
@@ -835,94 +938,6 @@ const FindWay = () => {
     [isNavigating, userLocation, setCenter]
   );
 
-  // 날씨 : 침수 여부 확인 API -----
-  // 침수 여부 확인 함수 정의
-  const checkFlooding = useCallback(
-    async (lat, lng) => {
-      try {
-        const stationInfo = await getStationInfo(lat, lng); // 위경도를 이용해 역 정보 가져오기
-        const region = stationInfo.region;
-        const line = stationInfo.line;
-        const station = stationInfo.station;
-
-        const response = await axiosInstance.get(
-          `/nonestep/subway/flooding?region=${region}&line=${line}&station=${station}`
-        );
-
-        // 침수 여부 결과 처리
-        setIsFlooding(response.data.isFlooding === 'y');
-      } catch (error) {
-        // console.error('침수 여부 확인 실패:', error);
-      }
-    },
-    [getStationInfo]
-  );
-
-  // 현재 위치 침수 여부 확인 useEffect
-  useEffect(() => {
-    if (userLocation) {
-      checkFlooding(userLocation.lat, userLocation.lng); // 현재 위치의 위경도를 전달하여 침수 여부 확인
-    }
-  }, [userLocation, checkFlooding]);
-
-  // 출발지 침수 여부 확인 useEffect
-  useEffect(() => {
-    if (origin) {
-      checkFlooding(origin.lat, origin.lng); // 출발지의 위경도를 전달하여 침수 여부 확인
-    }
-  }, [origin, checkFlooding]);
-
-  // 도착지 침수 여부 확인 useEffect
-  useEffect(() => {
-    if (destination) {
-      checkFlooding(destination.lat, destination.lng); // 도착지의 위경도를 전달하여 침수 여부 확인
-    }
-  }, [destination, checkFlooding]);
-
-  // 초단기 날씨 조회 ---------------------------------------------------
-
-  // fetchWeather 함수 수정 - 위경도 직접 전달
-  const fetchWeather = useCallback((latitude, longitude) => {
-    return axiosInstance
-      .post('/nonestep/weather/current-weather', {
-        latitude: latitude,
-        longitude: longitude,
-      })
-      .then(response => {
-        return response.data;
-      })
-      .catch(error => {
-        handleWeatherError(); // 날씨 오류 모달 표시
-        throw error;
-      });
-  }, []);
-
-  const updateWeather = useCallback(
-    location => {
-      if (!location || !location.lat || !location.lng) {
-        return;
-      }
-
-      fetchWeather(location.lat, location.lng)
-        .then(data => {
-          setWeatherData(data);
-        })
-        .catch(error => {
-          console.error('날씨 데이터 가져오기 오류:', error);
-        });
-    },
-    [fetchWeather]
-  );
-
-  useEffect(() => {
-    const locationToUse = destination || origin || userLocation;
-    if (locationToUse && locationToUse.address) {
-      updateWeather(locationToUse);
-    } else {
-      console.log('유효한 위치 정보가 없습니다');
-    }
-  }, [destination, origin, userLocation, updateWeather]);
-
   return (
     <PageWrapper $viewportHeight={viewportHeight}>
       <PageHeader />
@@ -970,10 +985,13 @@ const FindWay = () => {
                 !origin &&
                 !destination &&
                 !isNavigating && (
-                  <CustomOverlayMap position={userLocation} yAnchor={1.62}>
+                  <CustomOverlayMap
+                    position={userLocation}
+                    yAnchor={userLocationFlooding ? 1.4 : 1.62}
+                  >
                     <CustomOverlay>
                       <StationName>현재 위치</StationName>
-                      {isFlooding && (
+                      {userLocationFlooding && (
                         <InfoWrapper>
                           <Warning>
                             <img src={WarningIcon} alt="경고" />
@@ -1009,7 +1027,7 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap position={origin} yAnchor={1.65}>
+              <CustomOverlayMap position={origin} yAnchor={originFlooding ? 1.4 : 1.65}>
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -1033,7 +1051,7 @@ const FindWay = () => {
                   </BookmarkBtn>
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
-                  {isFlooding && (
+                  {originFlooding && (
                     <InfoWrapper>
                       <Warning>
                         <img src={WarningIcon} alt="경고" />
@@ -1085,7 +1103,7 @@ const FindWay = () => {
               }}
             />
             {destination && showDestinationOverlay && (
-              <CustomOverlayMap position={destination} yAnchor={1.62}>
+              <CustomOverlayMap position={destination} yAnchor={destinationFlooding ? 1.4 : 1.62}>
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -1109,7 +1127,7 @@ const FindWay = () => {
                   </BookmarkBtn>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
-                  {isFlooding && (
+                  {destinationFlooding && (
                     <InfoWrapper>
                       <Warning>
                         <img src={WarningIcon} alt="경고" />
