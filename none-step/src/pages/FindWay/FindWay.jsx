@@ -102,6 +102,12 @@ const FindWay = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState(''); // 모달 종류를 저장하는 상태
+  // 1. 침수 상태를 위치별로 관리하는 상태 추가
+  const [floodingStatus, setFloodingStatus] = useState({
+    userLocation: false,
+    origin: false,
+    destination: false,
+  });
 
   // 3분 동안 팝업 제한 시간 설정
   const MODAL_TIMER = 3 * 60 * 1000;
@@ -354,7 +360,7 @@ const FindWay = () => {
   // 날씨 : 침수 여부 확인 API -----
   // 10.26. checkFlooding 함수 수정 - 침수 여부를 반환만 하고 상태 업데이트는 하지 않음
   const checkFlooding = useCallback(
-    (lat, lng) => {
+    (lat, lng, locationType) => {
       return getStationInfo(lat, lng)
         .then(stationInfo => {
           const { region, line, station } = stationInfo;
@@ -363,7 +369,12 @@ const FindWay = () => {
           );
         })
         .then(response => {
-          return response.data.isFlooding === 'y';
+          const isFlooded = response.data.isFlooding === 'y';
+          setFloodingStatus(prev => ({
+            ...prev,
+            [locationType]: isFlooded,
+          }));
+          return isFlooded;
         })
         .catch(error => {
           console.error('침수 여부 확인 실패:', error);
@@ -376,25 +387,25 @@ const FindWay = () => {
   // 현재 위치 침수 여부 확인
   useEffect(() => {
     if (userLocation) {
-      checkFlooding(userLocation.lat, userLocation.lng).then(isFlooding =>
-        setUserLocationFlooding(isFlooding)
-      );
+      checkFlooding(userLocation.lat, userLocation.lng, 'userLocation');
     }
   }, [userLocation, checkFlooding]);
 
   useEffect(() => {
     if (origin) {
-      checkFlooding(origin.lat, origin.lng).then(isFlooding =>
-        setOriginFlooding(isFlooding)
-      );
+      checkFlooding(origin.lat, origin.lng, 'origin');
+    } else {
+      // 출발지가 삭제되면 해당 침수 상태도 초기화
+      setFloodingStatus(prev => ({ ...prev, origin: false }));
     }
   }, [origin, checkFlooding]);
 
   useEffect(() => {
     if (destination) {
-      checkFlooding(destination.lat, destination.lng).then(isFlooding =>
-        setDestinationFlooding(isFlooding)
-      );
+      checkFlooding(destination.lat, destination.lng, 'destination');
+    } else {
+      // 목적지가 삭제되면 해당 침수 상태도 초기화
+      setFloodingStatus(prev => ({ ...prev, destination: false }));
     }
   }, [destination, checkFlooding]);
 
@@ -454,27 +465,25 @@ const FindWay = () => {
         setOrigin(newLocation);
         setOriginInput(newLocation.name);
         updateWeather(newLocation);
-        checkFlooding(newLocation.lat, newLocation.lng).then(isFlooding =>
-          setOriginFlooding(isFlooding)
-        );
+        checkFlooding(newLocation.lat, newLocation.lng, 'origin');
 
         if (JSON.stringify(destination) === JSON.stringify(newLocation)) {
           setDestination(null);
           setDestinationInput('');
-          setDestinationFlooding(false); // 목적지 제거 시 침수 상태도 초기화
+          // 목적지 제거시 해당 침수 상태도 초기화
+          setFloodingStatus(prev => ({ ...prev, destination: false }));
         }
       } else {
         setDestination(newLocation);
         setDestinationInput(newLocation.name);
         updateWeather(newLocation);
-        checkFlooding(newLocation.lat, newLocation.lng).then(isFlooding =>
-          setDestinationFlooding(isFlooding)
-        );
+        checkFlooding(newLocation.lat, newLocation.lng, 'destination');
 
         if (JSON.stringify(origin) === JSON.stringify(newLocation)) {
           setOrigin(null);
           setOriginInput('');
-          setOriginFlooding(false); // 출발지 제거 시 침수 상태도 초기화
+          // 출발지 제거시 해당 침수 상태도 초기화
+          setFloodingStatus(prev => ({ ...prev, origin: false }));
         }
       }
     },
@@ -1027,7 +1036,10 @@ const FindWay = () => {
               }}
             />
             {origin && showOriginOverlay && (
-              <CustomOverlayMap position={origin} yAnchor={originFlooding ? 1.4 : 1.65}>
+              <CustomOverlayMap
+                position={origin}
+                yAnchor={originFlooding ? 1.4 : 1.65}
+              >
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -1103,7 +1115,10 @@ const FindWay = () => {
               }}
             />
             {destination && showDestinationOverlay && (
-              <CustomOverlayMap position={destination} yAnchor={destinationFlooding ? 1.4 : 1.62}>
+              <CustomOverlayMap
+                position={destination}
+                yAnchor={destinationFlooding ? 1.4 : 1.62}
+              >
                 <CustomOverlay>
                   <BookmarkBtn
                     onClick={() =>
@@ -1269,7 +1284,13 @@ const FindWay = () => {
       {/* 날씨 상세 정보 팝업 */}
       {isClicked && weatherData && (
         <WeatherPopup
-          isFlooding={isFlooding}
+          isFlooding={
+            destination
+              ? floodingStatus.destination
+              : origin
+              ? floodingStatus.origin
+              : floodingStatus.userLocation
+          }
           onClose={handleWeatherPopup}
           weatherData={weatherData}
           placeName={
