@@ -4978,103 +4978,19 @@ export const DATALISTS = [
         lists: [
             {
                 name: "표준데이터 역사정보(전체 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=32&keywords=역사정보&page=1&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(네오트랜스 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=41&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(로템에스알에스 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=907&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(서울9호선 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=39&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=32&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
             },
             {
                 name: "표준데이터 역사정보(서울교통공사 기관)",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=40&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
             },
             {
-                name: "표준데이터 역사정보(대전교통공사 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=36&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+                name: "표준데이터 역사정보(서울9호선 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=39&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
             },
             {
                 name: "표준데이터 역사정보(남양주도시공사 기관)",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=905&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "GTX-A 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1279&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "코레일 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1264&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=84&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "용인경량전철 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=87&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=64&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1246&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=80&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "서울교통공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=81&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "부산김해경전철 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=89&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "부산교통공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=88&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=90&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남서울경전철 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1188&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "광주교통공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=77&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=65&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(코레일 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=45&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(용인경전철 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=42&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(의정부경전철 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=43&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(남서울경전철 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1222&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
             },
             {
                 name: "표준데이터 역사정보(공항철도 기관)",
@@ -5085,8 +5001,104 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=913&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
             },
             {
+                name: "표준데이터 역사정보(코레일 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=45&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(네오트랜스 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=41&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(용인경전철 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=42&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(의정부경전철 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=43&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(우이신설선 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=910&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
                 name: "표준데이터 역사정보(김포골드라인 기관)",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=902&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(인천교통공사 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=44&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(로템에스알에스 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=907&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(남서울경전철 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1222&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(부산교통공사 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=37&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(부산김해경전철 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=38&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=5&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(대구도시철도공사 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=35&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(광주도시철도공사 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=34&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "표준데이터 역사정보(대전교통공사 기관)",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=36&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "서울교통공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=81&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "서울메트로9호선 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=80&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "남양주도시공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1213&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=65&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "인천국제공항공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=67&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "코레일 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1264&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "네오트랜스 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=64&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "경기철도 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=85&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "서해철도 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1246&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=84&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "용인경량전철 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=87&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
             },
             {
                 name: "의정부경량전철 역사정보",
@@ -5097,48 +5109,36 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=60&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=3&lcd=&mcd=",
             },
             {
-                name: "대전교통공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=78&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
-            },
-            {
-                name: "남양주도시공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1213&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
-            },
-            {
                 name: "김포골드라인 역사정보",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1200&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
             },
             {
-                name: "표준데이터 역사정보(부산교통공사 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=37&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+                name: "남서울경전철 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1188&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
             },
             {
-                name: "표준데이터 역사정보(우이신설선 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=910&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+                name: "GTX-A 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1279&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=1&lcd=&mcd=",
             },
             {
-                name: "경기철도 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=85&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+                name: "부산교통공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=88&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
             },
             {
-                name: "인천국제공항공사 역사정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=67&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+                name: "부산김해경전철 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=89&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
             },
             {
-                name: "표준데이터 역사정보(대구도시철도공사 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=35&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+                name: "대구교통공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=90&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
             },
             {
-                name: "표준데이터 역사정보(인천교통공사 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=44&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
+                name: "광주교통공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=77&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=2&lcd=&mcd=",
             },
             {
-                name: "표준데이터 역사정보(광주도시철도공사 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=34&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
-            },
-            {
-                name: "표준데이터 역사정보(부산김해경전철 기관)",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=38&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=5&lcd=&mcd=",
+                name: "대전교통공사 역사정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=78&keywords=%ec%97%ad%ec%82%ac%ec%a0%95%eb%b3%b4&page=4&lcd=&mcd=",
             },
         ],
     },
@@ -5150,60 +5150,84 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=933&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "GTX-A 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1278&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "서울교통공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=529&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "코레일 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1069&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "수도권1호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=531&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "인천교통공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1123&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "수도권2호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=532&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "용인경량전철 엘리베이터정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=960&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "수도권3호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=533&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권4호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=534&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권5호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=535&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권6호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=536&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권7호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=537&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=538&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
                 name: "서울메트로9호선 엘리베이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=528&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
+                name: "남양주도시공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1212&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1147&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "인천국제공항공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1011&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "코레일 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1069&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+            },
+            {
                 name: "네오트랜스 엘리베이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1031&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "경기철도 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1105&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
                 name: "서해철도 엘리베이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1247&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "서울교통공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=529&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "인천교통공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1123&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "부산김해경전철 엘리베이터정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=949&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "인천교통공사 2호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=527&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=516&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=521&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남서울경전철 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1187&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "광주교통공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=526&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1147&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+                name: "용인경량전철 엘리베이터정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=960&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
                 name: "의정부경량전철 엘리베이터",
@@ -5214,88 +5238,64 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=530&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "대전교통공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=525&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남양주도시공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1212&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
                 name: "김포골드라인 엘리베이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1199&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "경기철도 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1105&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "남서울경전철 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1187&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "인천국제공항공사 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1011&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "GTX-A 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1278&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "수도권8호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=538&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "부산교통공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=516&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "수도권7호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=537&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=536&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=535&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=534&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=533&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권2호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=532&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권1호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=531&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 2호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=527&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
-            },
-            {
-                name: "대구3호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=524&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
-            },
-            {
-                name: "대구2호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=523&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
-            },
-            {
-                name: "대구1호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=522&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
-            },
-            {
-                name: "부산4호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=520&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
-            },
-            {
-                name: "부산3호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=519&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "부산1호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=517&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
                 name: "부산2호선 엘리베이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=518&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
-                name: "부산1호선 엘리베이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=517&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "부산3호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=519&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=520&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 엘리베이터정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=949&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=521&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=522&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=523&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=524&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "광주교통공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=526&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 엘리베이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=525&keywords=%ec%97%98%eb%a6%ac%eb%b2%a0%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -5303,96 +5303,32 @@ export const DATALISTS = [
         name: "에스컬레이터",
         lists: [
             {
-                name: "GTX-A 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1277&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
                 name: "전국 도시광역철도 역사 에스컬레이터 현황",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=932&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "코레일 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1068&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1122&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "용인경량전철 에스컬레이터정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=959&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1030&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1248&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=505&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
                 name: "서울교통공사 에스컬레이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=506&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "부산김해경전철 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=948&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+                name: "수도권1호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=507&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=494&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+                name: "수도권2호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=508&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "대구교통공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=499&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+                name: "수도권3호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=509&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "남서울경전철 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1186&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+                name: "수도권4호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=510&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "광주교통공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=504&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1146&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "의정부경량전철 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1163&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "우이신설경전철 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=977&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대전교통공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=503&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남양주도시공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1211&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "김포골드라인 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1198&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "경기철도 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1104&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "인천국제공항공사 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1010&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=515&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "수도권5호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=511&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
                 name: "수도권6호선 에스컬레이터",
@@ -5403,56 +5339,116 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=514&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "수도권6호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=512&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "수도권8호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=515&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "수도권5호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=511&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "서울메트로9호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=505&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "수도권4호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=510&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "남양주도시공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1211&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "수도권3호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=509&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "공항철도 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1146&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "수도권2호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=508&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
+                name: "인천국제공항공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1010&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "수도권1호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=507&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "코레일 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1068&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "대구3호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=502&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "네오트랜스 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1030&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "대구2호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=501&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "경기철도 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1104&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "대구1호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=500&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "서해철도 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1248&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "부산4호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=498&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "인천교통공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1122&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "부산3호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=497&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "용인경량전철 에스컬레이터정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=959&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "의정부경량전철 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1163&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "우이신설경전철 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=977&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "김포골드라인 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1198&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "남서울경전철 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1186&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "GTX-A 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1277&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "부산교통공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=494&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "부산1호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=495&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
                 name: "부산2호선 에스컬레이터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=496&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
-                name: "부산1호선 에스컬레이터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=495&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+                name: "부산3호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=497&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=498&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=948&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=499&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=500&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=501&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=502&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "광주교통공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=504&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 에스컬레이터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=503&keywords=%ec%97%90%ec%8a%a4%ec%bb%ac%eb%a0%88%ec%9d%b4%ed%84%b0&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -5460,128 +5456,72 @@ export const DATALISTS = [
         name: "화장실",
         lists: [
             {
-                name: "GTX-A 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1284&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
                 name: "전국 도시광역철도 역사 화장실 현황",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=941&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "코레일 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=366&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=363&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "용인경량전철 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=362&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1039&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1241&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=380&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
             },
             {
                 name: "서울교통공사 화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=381&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
             },
             {
-                name: "부산김해경전철 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=352&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
-            },
-            {
-                name: "부산교통공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=351&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=356&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남서울경전철 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1192&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "광주교통공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=361&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1152&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "의정부경량전철 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1169&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "우이신설경전철 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=982&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대전교통공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=360&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남양주도시공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1218&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "김포골드라인 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1202&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "경기철도 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1110&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "인천국제공항공사 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1013&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권9호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=379&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=378&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권7호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=377&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=376&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=375&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=374&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=373&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+                name: "수도권1호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=371&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
             },
             {
                 name: "수도권2호선 화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=372&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
             },
             {
-                name: "수도권1호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=371&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+                name: "수도권3호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=373&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권4호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=374&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권5호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=375&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권6호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=376&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권7호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=377&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=378&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권9호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=379&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "서울메트로9호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=380&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "남양주도시공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1218&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1152&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "인천국제공항공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1013&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "코레일 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=366&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "경의중앙선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=370&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
             },
             {
                 name: "경춘선 화장실",
@@ -5592,74 +5532,106 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=369&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
             },
             {
-                name: "경의중앙선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=370&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
-            },
-            {
                 name: "분당선 화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=367&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
             },
             {
-                name: "인천2호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=365&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+                name: "네오트랜스 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1039&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "경기철도 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1110&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "서해철도 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1241&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=363&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
             },
             {
                 name: "인천1호선 화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=364&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
             },
             {
-                name: "대구3호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=359&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+                name: "인천2호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=365&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
             },
             {
-                name: "대구2호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=358&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+                name: "용인경량전철 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=362&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
             },
             {
-                name: "대구1호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=357&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+                name: "의정부경량전철 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1169&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "부산4호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=355&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+                name: "우이신설경전철 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=982&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "김포골드라인 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1202&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "남서울경전철 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1192&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "GTX-A 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1284&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "부산교통공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=351&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "부산2호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=353&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
             },
             {
                 name: "부산3호선 화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=354&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
             },
             {
-                name: "부산2호선 화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=353&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+                name: "부산4호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=355&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=352&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=1&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=356&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=357&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=358&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=359&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=4&lcd=&mcd=",
+            },
+            {
+                name: "광주교통공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=361&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=360&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=2&lcd=&mcd=",
             },
         ],
     },
     {
         name: "장애인 화장실",
         lists: [
-            {
-                name: "의정부경전철 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=350&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
-            },
-            {
-                name: "수도권9호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=348&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=347&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
-            },
-            {
-                name: "수도권7호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=346&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=345&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=344&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
-            },
             {
                 name: "서울도시철도공사 장애인화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=343&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
@@ -5669,52 +5641,120 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=342&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
             },
             {
-                name: "수도권4호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=341&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=340&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+                name: "수도권1호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=338&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
             },
             {
                 name: "수도권2호선 장애인화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=339&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
             },
             {
-                name: "수도권1호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=338&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+                name: "수도권3호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=340&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
             },
             {
-                name: "경의중앙선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=337&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+                name: "수도권4호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=341&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
             },
             {
-                name: "수인선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=336&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+                name: "수도권5호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=344&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
             },
             {
-                name: "경춘선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=335&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+                name: "수도권6호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=345&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
             },
             {
-                name: "분당선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=334&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+                name: "수도권7호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=346&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=347&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+            },
+            {
+                name: "수도권9호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=348&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=317&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
             },
             {
                 name: "코레일 장애인화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=333&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
             },
             {
-                name: "인천2호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=332&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+                name: "경의중앙선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=337&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+            },
+            {
+                name: "경춘선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=335&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+            },
+            {
+                name: "수인선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=336&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+            },
+            {
+                name: "분당선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=334&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=6&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=330&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
             },
             {
                 name: "인천1호선 장애인화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=331&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
             },
             {
-                name: "인천교통공사 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=330&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+                name: "인천2호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=332&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+            },
+            {
+                name: "의정부경전철 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=350&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=5&lcd=&mcd=",
+            },
+            {
+                name: "부산교통공사 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=319&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
+            },
+            {
+                name: "부산1호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=320&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
+            },
+            {
+                name: "부산2호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=321&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
+            },
+            {
+                name: "부산3호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=322&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=323&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=318&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
+            },
+            {
+                name: "대구도시철도공사 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=324&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=325&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=326&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 장애인화장실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=327&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
             },
             {
                 name: "광주도시철도공사 장애인화장실",
@@ -5723,50 +5763,6 @@ export const DATALISTS = [
             {
                 name: "대전도시철도공사 장애인화장실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=328&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
-            },
-            {
-                name: "대구3호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=327&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
-            },
-            {
-                name: "대구2호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=326&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
-            },
-            {
-                name: "대구1호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=325&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
-            },
-            {
-                name: "대구도시철도공사 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=324&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
-            },
-            {
-                name: "부산4호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=323&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=7&lcd=&mcd=",
-            },
-            {
-                name: "부산3호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=322&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
-            },
-            {
-                name: "부산2호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=321&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
-            },
-            {
-                name: "부산1호선 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=320&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
-            },
-            {
-                name: "부산교통공사 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=319&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
-            },
-            {
-                name: "부산김해경전철 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=318&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 장애인화장실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=317&keywords=%ed%99%94%ec%9e%a5%ec%8b%a4&page=8&lcd=&mcd=",
             },
         ],
     },
@@ -5778,6 +5774,46 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=943&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
             },
             {
+                name: "서울교통공사 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=575&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
+            },
+            {
+                name: "수도권1호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=576&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권2호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=577&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권3호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=578&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권4호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=579&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권5호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=580&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권6호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=581&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권7호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=582&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=583&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
+            },
+            {
+                name: "서울메트로9호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=574&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
+            },
+            {
                 name: "코레일 휠체어리프트",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1076&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
             },
@@ -5786,68 +5822,28 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1131&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
             },
             {
-                name: "서울교통공사 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=575&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
-            },
-            {
                 name: "부산교통공사 휠체어리프트",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1053&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
+            },
+            {
+                name: "부산교통공사 2호선 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=571&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
             },
             {
                 name: "대구교통공사 휠체어리프트",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1179&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
             },
             {
-                name: "광주교통공사 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=573&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=574&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
-            },
-            {
-                name: "대전교통공사 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=970&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=583&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
-            },
-            {
-                name: "수도권7호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=582&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=581&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=580&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=579&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=578&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권2호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=577&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권1호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=576&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
-            },
-            {
                 name: "대구도시철도공사 1호선 휠체어리프트",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=572&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 2호선 휠체어리프트",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=571&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&page=2&lcd=&mcd=",
+                name: "광주교통공사 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=573&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 휠체어리프트",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=970&keywords=%eb%a6%ac%ed%94%84%ed%8a%b8&lcd=&mcd=",
             },
         ],
     },
@@ -5855,60 +5851,44 @@ export const DATALISTS = [
         name: "전동 휠체어 충전기",
         lists: [
             {
-                name: "대구교통공사 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=397&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권9호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=410&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=409&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권7호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=408&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=407&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=406&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=405&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=404&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
+                name: "수도권1호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=402&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
             },
             {
                 name: "수도권2호선 전동휠체어 충전설비",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=403&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
             },
             {
-                name: "수도권1호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=402&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
+                name: "수도권3호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=404&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
             },
             {
-                name: "대구3호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=400&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+                name: "수도권4호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=405&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
             },
             {
-                name: "대구2호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=399&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+                name: "수도권5호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=406&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
             },
             {
-                name: "대구1호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=398&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+                name: "수도권6호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=407&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
             },
             {
-                name: "부산4호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=396&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+                name: "수도권7호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=408&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=409&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
+            },
+            {
+                name: "수도권9호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=410&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
+            },
+            {
+                name: "부산1호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=393&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
             },
             {
                 name: "부산2호선 전동휠체어 충전설비",
@@ -5919,8 +5899,24 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=395&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
             },
             {
-                name: "부산1호선 전동휠체어 충전설비",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=393&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+                name: "부산4호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=396&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=397&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=398&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=399&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 전동휠체어 충전설비",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=400&keywords=%ed%9c%a0%ec%b2%b4%ec%96%b4+%ec%b6%a9%ec%a0%84%ec%84%a4%eb%b9%84&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -5928,84 +5924,84 @@ export const DATALISTS = [
         name: "ATM",
         lists: [
             {
-                name: "GTX-A ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1268&keywords=ATM&lcd=&mcd=",
-            },
-            {
                 name: "전국 도시광역철도 역사 ATM 현황",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=916&keywords=ATM&lcd=&mcd=",
-            },
-            {
-                name: "코레일 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1054&keywords=ATM&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1111&keywords=ATM&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1015&keywords=ATM&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1260&keywords=ATM&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1078&keywords=ATM&lcd=&mcd=",
             },
             {
                 name: "서울교통공사 ATM",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=983&keywords=ATM&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=382&keywords=ATM&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=387&keywords=ATM&lcd=&mcd=",
+                name: "서울메트로9호선 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1078&keywords=ATM&lcd=&mcd=",
             },
             {
                 name: "공항철도 ATM",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1133&keywords=ATM&page=2&lcd=&mcd=",
             },
             {
-                name: "대전교통공사 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=390&keywords=ATM&page=2&lcd=&mcd=",
+                name: "코레일 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1054&keywords=ATM&lcd=&mcd=",
+            },
+            {
+                name: "네오트랜스 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1015&keywords=ATM&lcd=&mcd=",
             },
             {
                 name: "경기철도 ATM",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1091&keywords=ATM&page=2&lcd=&mcd=",
             },
             {
+                name: "서해철도 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1260&keywords=ATM&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1111&keywords=ATM&lcd=&mcd=",
+            },
+            {
                 name: "인천1호선 ATM",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=391&keywords=ATM&page=2&lcd=&mcd=",
             },
             {
-                name: "대구2호선 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=389&keywords=ATM&page=2&lcd=&mcd=",
+                name: "GTX-A ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1268&keywords=ATM&lcd=&mcd=",
             },
             {
-                name: "대구1호선 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=388&keywords=ATM&page=2&lcd=&mcd=",
+                name: "부산교통공사 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=382&keywords=ATM&lcd=&mcd=",
             },
             {
-                name: "부산4호선 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=386&keywords=ATM&page=2&lcd=&mcd=",
-            },
-            {
-                name: "부산3호선 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=385&keywords=ATM&page=2&lcd=&mcd=",
+                name: "부산1호선 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=383&keywords=ATM&page=2&lcd=&mcd=",
             },
             {
                 name: "부산2호선 ATM",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=384&keywords=ATM&page=2&lcd=&mcd=",
             },
             {
-                name: "부산1호선 ATM",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=383&keywords=ATM&page=2&lcd=&mcd=",
+                name: "부산3호선 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=385&keywords=ATM&page=2&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=386&keywords=ATM&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=387&keywords=ATM&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=388&keywords=ATM&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=389&keywords=ATM&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 ATM",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=390&keywords=ATM&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -6013,64 +6009,52 @@ export const DATALISTS = [
         name: "AED",
         lists: [
             {
-                name: "GTX-A 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1281&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
                 name: "전국 도시광역철도 역사 제세동기 현황",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=937&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
-                name: "코레일 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1072&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1126&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
-                name: "용인경량전철 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=962&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1035&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1243&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1087&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
             },
             {
                 name: "서울교통공사 제세동기",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=996&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
             },
             {
-                name: "부산김해경전철 제세동기정보",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=951&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
+                name: "서울메트로9호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1087&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=669&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=674&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남서울경전철 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1190&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "광주교통공사 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=679&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
+                name: "남양주도시공사 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1215&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
             },
             {
                 name: "공항철도 제세동기",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1149&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "코레일 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1072&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
+            },
+            {
+                name: "네오트랜스 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1035&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
+            },
+            {
+                name: "경기철도 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1107&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "서해철도 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1243&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1126&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사1호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=680&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "용인경량전철 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=962&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
             },
             {
                 name: "의정부경량전철 제세동기",
@@ -6081,52 +6065,64 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=979&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "대전교통공사 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=678&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남양주도시공사 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1215&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
-            },
-            {
                 name: "김포골드라인 제세동기",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1201&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "경기철도 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1107&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+                name: "남서울경전철 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1190&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "인천교통공사1호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=680&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+                name: "GTX-A 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1281&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
             },
             {
-                name: "대구3호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=677&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+                name: "부산교통공사 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=669&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "대구2호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=676&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "대구1호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=675&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산4호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=673&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산3호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=672&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+                name: "부산1호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=670&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
             },
             {
                 name: "부산2호선 제세동기",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=671&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "부산1호선 제세동기",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=670&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+                name: "부산3호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=672&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=673&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 제세동기정보",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=951&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=674&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=675&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=676&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=677&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "광주교통공사 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=679&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 제세동기",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=678&keywords=%ec%a0%9c%ec%84%b8%eb%8f%99%ea%b8%b0&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -6134,108 +6130,108 @@ export const DATALISTS = [
         name: "수유실",
         lists: [
             {
-                name: "GTX-A 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1275&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
                 name: "전국 도시광역철도 역사 수유실 현황",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=929&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "코레일 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1065&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1120&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "용인경량전철 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=957&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1027&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1251&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
                 name: "서울교통공사 수유실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=992&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=469&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=473&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
-            },
-            {
-                name: "남서울경전철 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1184&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
-            },
-            {
-                name: "광주교통공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=478&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+                name: "남양주도시공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1208&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
                 name: "공항철도 수유실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1143&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "대전교통공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=477&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+                name: "인천국제공항공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1008&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "남양주도시공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1208&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+                name: "코레일 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1065&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
-                name: "김포골드라인 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1196&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+                name: "네오트랜스 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1027&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
                 name: "경기철도 수유실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1102&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "인천국제공항공사 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1008&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+                name: "서해철도 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1251&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1120&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
                 name: "인천교통공사 1호선 수유실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=479&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "대구3호선 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=476&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+                name: "용인경량전철 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=957&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
-                name: "대구2호선 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=475&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+                name: "김포골드라인 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1196&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "대구1호선 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=474&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+                name: "남서울경전철 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1184&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
             {
-                name: "부산3호선 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=472&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+                name: "GTX-A 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1275&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
-                name: "부산2호선 수유실",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=471&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+                name: "부산교통공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=469&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
             },
             {
                 name: "부산1호선 수유실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=470&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
             },
             {
+                name: "부산2호선 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=471&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "부산3호선 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=472&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
                 name: "부산김해경전철 수유실",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=468&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=473&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=474&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=475&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=476&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "광주교통공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=478&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 수유실",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=477&keywords=%ec%88%98%ec%9c%a0%ec%8b%a4&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -6247,148 +6243,148 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=917&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "코레일 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=555&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1112&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "용인경량전철 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=551&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "네오트랜스 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1016&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "서해철도 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1259&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "서울메트로9호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=556&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
                 name: "서울교통공사 고객센터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=557&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "부산김해경전철 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=540&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "부산교통공사 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=541&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
-            },
-            {
-                name: "대구교통공사고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=546&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "광주교통공사 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=553&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=539&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "의정부경량전철 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1154&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "대전교통공사 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1234&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "남양주도시공사 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1203&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "김포골드라인 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1224&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "경기철도 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1092&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권9호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=566&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=565&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
-            },
-            {
-                name: "수도권7호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=564&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=563&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=562&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=561&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=560&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
-            },
-            {
-                name: "수도권2호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=559&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
                 name: "수도권1호선 고객센터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=558&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "대전도시철도공사 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=550&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+                name: "수도권2호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=559&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "우이신설 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=552&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+                name: "수도권3호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=560&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권4호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=561&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권5호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=562&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권6호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=563&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권7호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=564&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=565&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "수도권9호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=566&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "서울메트로9호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=556&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "남양주도시공사 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1203&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=539&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "코레일 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=555&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "네오트랜스 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1016&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "경기철도 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1092&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "서해철도 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1259&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "인천교통공사 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1112&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
             },
             {
                 name: "인천교통공사1호선 고객센터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=554&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "대구3호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=549&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+                name: "용인경량전철 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=551&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
             },
             {
-                name: "대구2호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=548&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+                name: "의정부경량전철 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1154&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "대구1호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=547&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+                name: "우이신설 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=552&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
             },
             {
-                name: "부산4호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=545&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+                name: "김포골드라인 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1224&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
             },
             {
-                name: "부산3호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=544&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+                name: "부산교통공사 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=541&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "부산1호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=542&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
                 name: "부산2호선 고객센터",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=543&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
             },
             {
-                name: "부산1호선 고객센터",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=542&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+                name: "부산3호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=544&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=545&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=540&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&lcd=&mcd=",
+            },
+            {
+                name: "대구교통공사고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=546&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=547&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=548&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=549&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=4&lcd=&mcd=",
+            },
+            {
+                name: "광주교통공사 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=553&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
+            },
+            {
+                name: "대전도시철도공사 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=550&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대전교통공사 고객센터",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=1234&keywords=%ea%b3%a0%ea%b0%9d%ec%84%bc%ed%84%b0&page=2&lcd=&mcd=",
             },
         ],
     },
@@ -6396,44 +6392,64 @@ export const DATALISTS = [
         name: "시간표",
         lists: [
             {
-                name: "수도권5호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=784&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=783&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=782&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
-            },
-            {
-                name: "수도권2호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=781&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
-            },
-            {
-                name: "수도권1호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=780&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
-            },
-            {
                 name: "서울도시철도공사 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=779&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
-            },
-            {
-                name: "용인경전철 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=768&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
             },
             {
                 name: "서울메트로 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=778&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
             },
             {
+                name: "수도권1호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=780&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
+            },
+            {
+                name: "수도권2호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=781&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
+            },
+            {
+                name: "수도권3호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=782&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
+            },
+            {
+                name: "수도권4호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=783&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
+            },
+            {
+                name: "수도권5호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=784&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
+            },
+            {
+                name: "수도권6호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=786&keywords=%ec%97%b4%ec%b0%a8%ec%9a%94%ec%9d%bc%eb%b3%84&lcd=&mcd=",
+            },
+            {
+                name: "수도권7호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=787&keywords=%ec%97%b4%ec%b0%a8%ec%9a%94%ec%9d%bc%eb%b3%84&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=788&keywords=%ec%97%b4%ec%b0%a8%ec%9a%94%ec%9d%bc%eb%b3%84&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=761&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+            },
+            {
+                name: "공항철도_공항철도 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=762&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+            },
+            {
+                name: "공항철도_자기부상 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=763&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+            },
+            {
                 name: "코레일 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=777&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
             },
             {
-                name: "분당선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=776&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
+                name: "경의중앙선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=773&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
             },
             {
                 name: "경춘선 열차요일별시각",
@@ -6444,16 +6460,28 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=774&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
             },
             {
-                name: "경의중앙선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=773&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
+                name: "분당선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=776&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
             },
             {
                 name: "경강선 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=772&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
             },
             {
-                name: "부산동해선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=771&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
+                name: "인천교통공사 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=764&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+            },
+            {
+                name: "인천1호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=765&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
+            },
+            {
+                name: "인천2호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=766&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
+            },
+            {
+                name: "용인경전철 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=768&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&lcd=&mcd=",
             },
             {
                 name: "의정부경전철 열차요일별시각",
@@ -6464,76 +6492,56 @@ export const DATALISTS = [
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=769&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
             },
             {
-                name: "부산김해경전철 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=767&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
-            },
-            {
-                name: "인천2호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=766&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
-            },
-            {
-                name: "인천1호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=765&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
-            },
-            {
-                name: "인천교통공사 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=764&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
-            },
-            {
-                name: "공항철도_자기부상 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=763&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
-            },
-            {
-                name: "공항철도_공항철도 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=762&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=761&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산4호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=785&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산3호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=760&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산2호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=759&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+                name: "부산교통공사 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=757&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
             },
             {
                 name: "부산1호선 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=758&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
             },
             {
-                name: "부산교통공사 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=757&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+                name: "부산2호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=759&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
             },
             {
-                name: "대구3호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=756&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
+                name: "부산3호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=760&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
             },
             {
-                name: "대구2호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=755&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
+                name: "부산4호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=785&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
             },
             {
-                name: "대구1호선 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=754&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
+                name: "부산동해선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=771&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=767&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=2&lcd=&mcd=",
             },
             {
                 name: "대구도시철도공사 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=753&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
             },
             {
-                name: "대전도시철도공사 열차요일별시각",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=751&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
+                name: "대구1호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=754&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=755&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=756&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=3&lcd=&mcd=",
             },
             {
                 name: "광주도시철도공사 열차요일별시각",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=752&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대전도시철도공사 열차요일별시각",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=751&keywords=%ec%8b%9c%ea%b0%84%ed%91%9c&page=4&lcd=&mcd=",
             },
         ],
     },
@@ -6541,92 +6549,136 @@ export const DATALISTS = [
         name: "이격거리 및 편의정보",
         lists: [
             {
-                name: "서울메트로 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=725&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
                 name: "서울도시철도공사 승강장이격거리",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=726&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
             },
             {
-                name: "의정부경전철 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=727&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권9호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=724&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권8호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=723&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권7호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=722&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권6호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=721&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권5호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=720&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권4호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=719&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권3호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=718&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
-            },
-            {
-                name: "수도권2호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=717&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "서울메트로 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=725&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
             },
             {
                 name: "수도권1호선 승강장이격거리",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=716&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
             },
             {
-                name: "경의중앙선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=715&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "수도권2호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=717&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
             },
             {
-                name: "수인선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=714&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "수도권3호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=718&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
             },
             {
-                name: "경춘선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=713&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "수도권4호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=719&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
             },
             {
-                name: "분당선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=712&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "수도권5호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=720&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
+            },
+            {
+                name: "수도권6호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=721&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
+            },
+            {
+                name: "수도권7호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=722&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
+            },
+            {
+                name: "수도권8호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=723&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
+            },
+            {
+                name: "수도권9호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=724&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
+            },
+            {
+                name: "공항철도 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=693&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
             },
             {
                 name: "코레일 승강장이격거리",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=711&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
             },
             {
-                name: "인천2호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=710&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "경의중앙선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=715&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
             },
             {
-                name: "인천1호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=709&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "경춘선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=713&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
             },
             {
-                name: "인천교통공사 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=708&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+                name: "수인선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=714&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+            },
+            {
+                name: "분당선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=712&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
             },
             {
                 name: "신분당선 승강장이격거리",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=705&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
             },
             {
+                name: "인천교통공사 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=708&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+            },
+            {
+                name: "인천1호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=709&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+            },
+            {
+                name: "인천2호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=710&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=2&lcd=&mcd=",
+            },
+            {
                 name: "용인경전철 승강장이격거리",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=706&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
+            },
+            {
+                name: "의정부경전철 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=727&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&lcd=&mcd=",
+            },
+            {
+                name: "부산교통공사 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=695&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산1호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=696&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산2호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=697&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
+            },
+            {
+                name: "부산3호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=698&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
+            },
+            {
+                name: "부산4호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=699&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
+            },
+            {
+                name: "부산김해경전철 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=694&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
+            },
+            {
+                name: "대구도시철도공사 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=700&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구1호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=701&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구2호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=702&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
+            },
+            {
+                name: "대구3호선 승강장이격거리",
+                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=703&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
             },
             {
                 name: "광주도시철도공사 승강장이격거리",
@@ -6635,50 +6687,6 @@ export const DATALISTS = [
             {
                 name: "대전도시철도공사 승강장이격거리",
                 link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=704&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "대구3호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=703&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "대구2호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=702&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "대구1호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=701&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "대구도시철도공사 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=700&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산4호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=699&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산3호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=698&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=3&lcd=&mcd=",
-            },
-            {
-                name: "부산2호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=697&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
-            },
-            {
-                name: "부산1호선 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=696&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
-            },
-            {
-                name: "부산교통공사 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=695&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
-            },
-            {
-                name: "공항철도 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=693&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
-            },
-            {
-                name: "부산김해경전철 승강장이격거리",
-                link: "https://data.kric.go.kr/rips/M_01_01/detail.do?id=694&keywords=%ec%9d%b4%ea%b2%a9%ea%b1%b0%eb%a6%ac&page=4&lcd=&mcd=",
             },
         ],
     },
@@ -6690,12 +6698,12 @@ export const DATALISTS = [
                 link: "https://www.data.go.kr/data/15071311/fileData.do",
             },
             {
-                name: "경기도 의정부시_의정부경전철 혼잡도",
-                link: "https://www.data.go.kr/data/15069808/fileData.do",
-            },
-            {
                 name: "서울특별시_9호선혼잡도정보",
                 link: "https://www.data.go.kr/data/15112492/fileData.do",
+            },
+            {
+                name: "경기도 의정부시_의정부경전철 혼잡도",
+                link: "https://www.data.go.kr/data/15069808/fileData.do",
             },
         ],
     },
@@ -6752,7 +6760,7 @@ export const DATALISTS = [
         name: "지하철 경로검색",
         lists: [
             {
-                name: "지하철 경로검색 조회(지하철 노선도)",
+                name: "Odsay 지하철 경로검색 조회(지하철 노선도)",
                 link: "https://lab.odsay.com/guide/console#subwayPath",
             },
         ],
