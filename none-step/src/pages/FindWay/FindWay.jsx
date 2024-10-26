@@ -996,11 +996,11 @@ const FindWay = () => {
                 !isNavigating && (
                   <CustomOverlayMap
                     position={userLocation}
-                    yAnchor={userLocationFlooding ? 1.4 : 1.62}
+                    yAnchor={floodingStatus.userLocation ? 1.4 : 1.62}
                   >
                     <CustomOverlay>
                       <StationName>현재 위치</StationName>
-                      {userLocationFlooding && (
+                      {floodingStatus.userLocation && (
                         <InfoWrapper>
                           <Warning>
                             <img src={WarningIcon} alt="경고" />
@@ -1038,7 +1038,7 @@ const FindWay = () => {
             {origin && showOriginOverlay && (
               <CustomOverlayMap
                 position={origin}
-                yAnchor={originFlooding ? 1.4 : 1.65}
+                yAnchor={floodingStatus.origin ? 1.4 : 1.65}
               >
                 <CustomOverlay>
                   <BookmarkBtn
@@ -1063,7 +1063,7 @@ const FindWay = () => {
                   </BookmarkBtn>
                   <StationName>{origin.name}</StationName>
                   <StationAddress>{origin.address}</StationAddress>
-                  {originFlooding && (
+                  {floodingStatus.origin && (
                     <InfoWrapper>
                       <Warning>
                         <img src={WarningIcon} alt="경고" />
@@ -1117,7 +1117,7 @@ const FindWay = () => {
             {destination && showDestinationOverlay && (
               <CustomOverlayMap
                 position={destination}
-                yAnchor={destinationFlooding ? 1.4 : 1.62}
+                yAnchor={floodingStatus.destination ? 1.4 : 1.62}
               >
                 <CustomOverlay>
                   <BookmarkBtn
@@ -1142,7 +1142,7 @@ const FindWay = () => {
                   </BookmarkBtn>
                   <StationName>{destination.name}</StationName>
                   <StationAddress>{destination.address}</StationAddress>
-                  {destinationFlooding && (
+                  {floodingStatus.destination && (
                     <InfoWrapper>
                       <Warning>
                         <img src={WarningIcon} alt="경고" />
