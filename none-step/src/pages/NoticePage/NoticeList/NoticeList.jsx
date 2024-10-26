@@ -42,7 +42,7 @@ const NoticeList = () => {
             .get(`/nonestep/board/list?page=${pages}`)
             .then((response) => {
                 setNotices(response.data);
-                navigate(`/notice?page=${pages}`);
+                navigate(`/notice?page=${pages}`, { replace: true });
             })
             .catch((error) => {
                 console.log(error);
