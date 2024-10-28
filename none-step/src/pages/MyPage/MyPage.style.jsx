@@ -166,6 +166,28 @@ export const ProfileImageLagrge = styled(ProfileImage)`
 export const EditIconWrapper = styled.div`
     position: relative;
     cursor: pointer;
+
+    .profile_img_reset button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border: none;
+        border-radius: 100%;
+        background: #ff8c86;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .profile_img_reset button svg {
+        width: 16px;
+        height: 16px;
+        color: #fff;
+    }
 `;
 
 export const EditIcon = styled.svg.attrs({
