@@ -152,6 +152,73 @@ export const CategoryBtn = styled.button`
     }
 `;
 
+export const WeatherWrapper = styled.div`
+    padding: 20px;
+    background: ${(props) => props.theme.colors.white};
+`;
+
+export const WeatherContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .weather_icon {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: 60px;
+        height: 60px;
+    }
+
+    .weather_icon img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .weather {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 10px;
+    }
+
+    .weather span:first-child {
+        font-size: 2.6rem;
+    }
+
+    .weather span:last-child {
+        display: block;
+        font-size: 1.4rem;
+        word-break: keep-all;
+    }
+
+    .weather_info {
+        font-size: 1.6rem;
+    }
+
+    .weather_info div span:first-child {
+        margin-right: 5px;
+    }
+
+    .weather_info div span:last-child {
+        color: ${(props) => props.theme.colors.gray01};
+    }
+
+    .weather_info .precipitation span {
+    }
+
+    .weather_info .wind {
+    }
+
+    .weather_info .wind span {
+    }
+
+    .no_weather p {
+        font-size: 1.6rem;
+        margin: 20px 0;
+    }
+`;
+
 export const ChatWrapper = styled.div`
     padding: 20px;
     background: ${(props) => props.theme.colors.white};
@@ -192,7 +259,7 @@ export const ChatBtn = styled.button`
         bottom: 5px;
         right: 5px;
         width: 60px;
-        opacity: 0.2;
+        /* opacity: 0.3; */
     }
 
     span {

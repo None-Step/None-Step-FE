@@ -13,6 +13,8 @@ import {
     MainSection,
     MainWrapper,
     NoticeWrapper,
+    WeatherContainer,
+    WeatherWrapper,
 } from "./MainPage.styles";
 import MenuBar from "@components/menuBar/MenuBar";
 import LocationTracker from "@components/location/LocationTracker";
@@ -28,6 +30,14 @@ import atmIcon from "@assets/icons/atm-icon.svg";
 import aedIcon from "@assets/icons/aed-icon.svg";
 import wheelchairChargerIcon from "@assets/icons/wheelchair-charger-icon.svg";
 import customerServiceIcon from "@assets/icons/customer-service-icon.svg";
+import sunnyIcon from "./icons/sunny.svg";
+import cloudyIcon from "./icons/cloudy.svg";
+import lightningIcon from "./icons/lightning.svg";
+import littleCloudyIcon from "./icons/little-cloudy.svg";
+import snowRainyIcon from "./icons/snow-rainy.svg";
+import snowWindyIcon from "./icons/snow-windy.svg";
+import snowyIcon from "./icons/snowy.svg";
+import windyIcon from "./icons/windy.svg";
 import seoulMetroIcon from "@assets/icons/seoul-metro-logo.svg";
 import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
@@ -46,6 +56,16 @@ const MainPage = () => {
     const [noticeTitle, setNoticeTitle] = useState("");
     const [isScrollLeft, setIsScrollLeft] = useState(false);
     const [isScrollRight, setIsScrollRight] = useState(true);
+    const [center, setCenter] = useState({
+        lat: null,
+        lng: null,
+    });
+    const [sky, setSky] = useState(null);
+    const [rainy, setRainy] = useState(null);
+    const [lightning, setLightning] = useState(null);
+    const [windy, setWindy] = useState(null);
+    const [precipitation, setPrecipitation] = useState(null);
+    const [temperature, setTemperature] = useState(null);
 
     const scrollRef = useRef(null);
 
@@ -72,6 +92,58 @@ const MainPage = () => {
                 console.log(error);
             });
     }, []);
+
+    useEffect(() => {
+        const getLocation = () => {
+            const geoSuccess = (position) => {
+                setCenter({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            };
+
+            const geoError = () => {
+                console.log("");
+            };
+
+            const geoOptions = {
+                enableHighAccuracy: true,
+                timeout: 1000 * 5,
+                maximumAge: 1000 * 3600 * 12,
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                geoSuccess,
+                geoError,
+                geoOptions
+            );
+
+            if (center.lat && center.lng) {
+                axiosInstance
+                    .post("/nonestep/weather/current-weather", {
+                        latitude: center.lat,
+                        longitude: center.lng,
+                    })
+                    .then((response) => {
+                        const weatherData = response.data
+                            .filter((_, index) => index % 3 === 0)
+                            .map((data) => data.fcstValue);
+
+                        setSky(weatherData[0]);
+                        setRainy(weatherData[1]);
+                        setLightning(weatherData[2]);
+                        setWindy(weatherData[3]);
+                        setPrecipitation(weatherData[4]);
+                        setTemperature(weatherData[5]);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        };
+
+        getLocation();
+    }, [center.lat, center.lng]);
 
     const handleClickNotice = () => {
         navigate("/notice");
@@ -127,6 +199,67 @@ const MainPage = () => {
     const handleClickMap = (category) => {
         navigate("/map");
         dispatch(selectedCategory({ category: category }));
+    };
+
+    // 하늘 상태 텍스트 변환 함수
+    const getSkyText = (value) => {
+        switch (value) {
+            case "1":
+                return "맑음";
+            case "3":
+                return "구름많음";
+            case "4":
+                return "흐림";
+            default:
+                return "";
+        }
+    };
+
+    // 강수 형태 텍스트 변환 함수
+    const getPrecipitationText = (value) => {
+        switch (value) {
+            case "1":
+                return "비";
+            case "2":
+                return "비/눈";
+            case "3":
+                return "눈";
+            case "5":
+                return "빗방울";
+            case "6":
+                return "빗방울/눈날림";
+            case "7":
+                return "눈날림";
+            default:
+                return "";
+        }
+    };
+
+    const getWeatherIcon = (value) => {
+        switch (value) {
+            case "맑음":
+                return sunnyIcon;
+            case "구름많음":
+                return littleCloudyIcon;
+            case "흐림":
+                return cloudyIcon;
+            case "비":
+                return littleCloudyIcon;
+            case "비/눈":
+                return snowRainyIcon;
+            case "눈":
+                return sunnyIcon;
+            case "빗방울":
+                return sunnyIcon;
+            case "빗방울/눈날림":
+                return snowyIcon;
+            case "눈날림":
+                return snowWindyIcon;
+            case "낙뢰":
+                return lightningIcon;
+            default:
+                return "";
+        }
     };
 
     const handleClickChat = (region) => {
@@ -293,6 +426,51 @@ const MainPage = () => {
                     )}
                 </CategoryWrapper>
                 <LocationTracker />
+                <WeatherWrapper>
+                    <h3>현재 위치 날씨</h3>
+                    <WeatherContainer>
+                        {sky &&
+                        rainy &&
+                        lightning &&
+                        windy &&
+                        precipitation &&
+                        temperature ? (
+                            <>
+                                <div className="weather_icon">
+                                    <img
+                                        src={getWeatherIcon(getSkyText(sky))}
+                                        alt="weather_icon"
+                                    />
+                                    <div className="weather">
+                                        <span>
+                                            {temperature}
+                                            &#186;
+                                        </span>
+                                        <span>{getSkyText(sky)}</span>
+                                    </div>
+                                </div>
+                                <div className="weather_info">
+                                    <div className="precipitation">
+                                        <span>강수량</span>
+                                        <span>
+                                            {rainy === "강수없음"
+                                                ? "강수없음"
+                                                : `${rainy}mm`}
+                                        </span>
+                                    </div>
+                                    <div className="wind">
+                                        <span>풍속</span>
+                                        <span>{windy}m/s</span>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="no_weather">
+                                <p>현재 위치의 날씨를 불러올 수 없습니다.</p>
+                            </div>
+                        )}
+                    </WeatherContainer>
+                </WeatherWrapper>
                 <ChatWrapper>
                     <h3>채팅 바로가기</h3>
                     <ChatContainer>
@@ -343,7 +521,6 @@ const MainPage = () => {
                         </li>
                     </ChatContainer>
                 </ChatWrapper>
-
                 <FooterWrapper>
                     <FooterContainer>
                         <p className="qna">
