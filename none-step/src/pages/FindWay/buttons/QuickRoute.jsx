@@ -21,7 +21,7 @@ const QuickRouteButton = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.colors.shadow200};
   position: absolute;
-  top: 150px;
+  top: 80px;
   left: 1rem;
   z-index: 2;
   cursor: pointer;

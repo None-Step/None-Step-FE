@@ -54,12 +54,12 @@ const FindPWResetting = () => {
   // 비밀번호 변경 요청 함수
   const handleChangePassword = (event) => {
     event.preventDefault();
-    console.log('변경 요청 전에 상태 확인:', {
-      memberID,
-      memberName,
-      memberPhone,
-      memberPass: password
-    });
+    // console.log('변경 요청 전에 상태 확인:', {
+    //   memberID,
+    //   memberName,
+    //   memberPhone,
+    //   memberPass: password
+    // });
     axiosInstance
       .put('/nonestep/member/modify-pass', {
         memberID: memberID,
@@ -79,12 +79,6 @@ const FindPWResetting = () => {
         alert('비밀번호 변경 중 오류가 발생했습니다.');
         console.error('에러 응답:', error.response.data);
         console.error('에러 상태:', error.response.status);
-        console.log('변경 요청',{
-          memberID: memberID,
-            memberName: memberName,
-            memberPhone: memberPhone,
-            memberPass: password
-        })
       });
   }
 

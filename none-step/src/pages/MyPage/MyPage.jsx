@@ -100,7 +100,7 @@ const MyPage = () => {
                         );
                     });
             } else {
-                console.error("액세스 토큰이 없습니다.");
+                // console.error("액세스 토큰이 없습니다.");
                 navigate("/login");
             }
         };

@@ -87,15 +87,15 @@ const BookmarkPathModal = ({ onClick, origin, destination }) => {
 
     const selectedColor = colorPalette[selectColor];
 
-    console.log("전송할 데이터:", {
-        startLatitude: origin.lat,
-        startLongitude: origin.lng,
-        endLatitude: destination.lat,
-        endLongitude: destination.lng,
-        pathStartNickName: startNameInput,
-        pathEndNickName: endNameInput,
-        pathColor: selectedColor
-    })
+    // console.log("전송할 데이터:", {
+    //     startLatitude: origin.lat,
+    //     startLongitude: origin.lng,
+    //     endLatitude: destination.lat,
+    //     endLongitude: destination.lng,
+    //     pathStartNickName: startNameInput,
+    //     pathEndNickName: endNameInput,
+    //     pathColor: selectedColor
+    // })
 
     try {
       const response = await axiosInstance.post('nonestep/book-mark/path-register', {
@@ -117,11 +117,11 @@ const BookmarkPathModal = ({ onClick, origin, destination }) => {
     } catch (error) {
       if (error.response) {
         // 서버 응답이 있는 경우
-        console.error("서버 응답 에러:", error.response.data);
+        // console.error("서버 응답 에러:", error.response.data);
         alert(error.response.data);
       } else {
         // 서버 응답이 없는 경우
-        console.error("요청 에러:", error.message);
+        // console.error("요청 에러:", error.message);
         alert("즐겨찾기 등록에 실패했습니다. 다시 시도해주세요.");
       }
     }

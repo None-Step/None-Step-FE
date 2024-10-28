@@ -1,21 +1,24 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { FaArrowRight } from 'react-icons/fa';
 
 // 전체 페이지
 export const PageWrapper = styled.div`
-  position: relative;
+  position: fixed;
+  top: 70px;
   width: 100%;
-  height: 100vh;
+  max-width: 600px;
+  height: ${({ $viewportHeight }) => `calc(${$viewportHeight}px - 70px - 73px)`};
+  overflow: hidden;
 `;
 
 // 검색 바
 export const SearchBox = styled.div`
   position: absolute;
-  top: 70px;
+  top: 0;
   z-index: 4;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.white};
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray05};
+  background-color: ${props => props.theme.colors.white};
+  border-bottom: 1px solid ${props => props.theme.colors.gray05};
   padding-inline: 0.8rem;
   box-sizing: border-box;
 
@@ -30,7 +33,7 @@ export const LoadingMessage = styled(SearchBox)`
   font-size: 1.4rem;
   margin-inline: 1rem;
   width: calc(100% - 2rem);
-`
+`;
 
 export const SearchForm = styled.form`
   display: flex;
@@ -51,19 +54,19 @@ export const SearchIndex = styled.input`
 export const Hr = styled.hr`
   width: 100%;
   border: none;
-  border-top: 1px solid ${(props => props.theme.colors.gray06)} ;
-`
+  border-top: 1px solid ${props => props.theme.colors.gray06};
+`;
 
 const SVGWrapper = styled.svg`
   cursor: pointer;
-  fill: ${(props) => props.theme.colors.gray01};
+  fill: ${props => props.theme.colors.gray01};
   transition: fill 0.3s ease;
   &:hover {
-    fill: ${(props) => props.theme.colors.primary};
+    fill: ${props => props.theme.colors.primary};
   }
 `;
 
-export const SearchIcon = (props) => (
+export const SearchIcon = props => (
   <SVGWrapper
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -82,12 +85,16 @@ export const Reload = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.white};
   border-radius: 40px;
-  box-shadow: ${(props) => props.theme.colors.shadow200};
+  box-shadow: ${props => props.theme.colors.shadow200};
   cursor: pointer;
   position: absolute;
-  top: ${props => `${props.$viewportHeight - (80 + 16 + 40)}px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이)
+  bottom: 3rem;
+  /* top: ${props =>
+    `${
+      props.$viewportHeight - (80 + 16 + 40)
+    }px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이) */
   right: 1rem;
   z-index: 3;
 `;
@@ -97,7 +104,7 @@ export const InputReload = styled(Reload)`
   height: fit-content;
   padding: 0.5rem;
   box-shadow: none;
-  border: 1px solid ${(props) => props.theme.colors.gray06};
+  border: 1px solid ${props => props.theme.colors.gray06};
 `;
 
 // 커스텀 인포윈도우 스타일
@@ -107,7 +114,7 @@ export const CustomOverlay = styled.div`
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: ${(props) => props.theme.colors.shadow200};
+  box-shadow: ${props => props.theme.colors.shadow200};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,12 +129,12 @@ export const StationName = styled.h4`
 
 export const StationAddress = styled.p`
   font-size: 1.2rem;
-  color: ${(props) => props.theme.colors.gray01};
+  color: ${props => props.theme.colors.gray01};
 `;
 
 export const Confirm = styled.p`
   font-size: 1.4rem;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${props => props.theme.colors.primary};
 `;
 
 export const ButtonContainer = styled.div`
@@ -142,7 +149,7 @@ export const Button = styled.button`
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 2px;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors.primary};
   color: white;
   cursor: pointer;
   &:hover {
@@ -171,9 +178,8 @@ export const BookmarkIcon = styled.img`
 
 export const BookmarkSpan = styled.span`
   font-size: 1.2rem;
-  color : ${(props) => props.color}
+  color: ${props => props.color};
 `;
-
 
 export const RouteInfoBar = styled.div`
   position: absolute;
@@ -185,13 +191,14 @@ export const RouteInfoBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 `;
 
 export const LocationText = styled.span`
   font-size: 14px;
   color: #333;
+  margin-top: 1rem;
 `;
 
 export const ArrowIcon = styled(FaArrowRight)`
@@ -202,4 +209,4 @@ export const ArrowIcon = styled(FaArrowRight)`
 
 export const UserLocationStart = styled(LocationText)`
   color: ${props => props.theme.colors.primary};
-`
+`;
