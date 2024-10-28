@@ -71,6 +71,7 @@ export const ContentContainer = styled.div`
     p a {
         color: ${(props) => props.theme.colors.primary};
         text-decoration: underline;
+        word-break: break-all;
     }
 
     p ul li {
