@@ -1,4 +1,3 @@
-import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectedCategory } from "@store/slices/categorySlice";
@@ -76,7 +75,6 @@ const DaejeonChatMenu = () => {
                 <span>1호선</span>
                 <span className="chatting_time">{chattingDate("line1")}</span>
             </li>
-            <img src={daejeonMetroIcon} alt="daejeon-metro-icon" />
         </>
     );
 };

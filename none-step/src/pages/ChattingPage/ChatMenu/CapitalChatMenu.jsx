@@ -1,4 +1,3 @@
-import seoulMetroIcon from "@assets/icons/seoul-metro-logo.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectedCategory } from "@store/slices/categorySlice";
@@ -288,7 +287,6 @@ const CapitalChatMenu = () => {
                 <span>GTX-A</span>
                 <span className="chatting_time">{chattingDate("gtxA")}</span>
             </li>
-            <img src={seoulMetroIcon} alt="seoul-metro-icon" />
         </>
     );
 };

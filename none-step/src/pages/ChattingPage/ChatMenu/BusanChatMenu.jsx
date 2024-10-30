@@ -1,4 +1,3 @@
-import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectedCategory } from "@store/slices/categorySlice";
@@ -120,7 +119,6 @@ const BusanChatMenu = () => {
                     {chattingDate("buSanGimHae")}
                 </span>
             </li>
-            <img src={busanMetroIcon} alt="busan-metro-icon" />
         </>
     );
 };
