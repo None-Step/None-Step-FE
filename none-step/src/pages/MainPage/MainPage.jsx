@@ -446,7 +446,7 @@ const MainPage = () => {
                                 <p>현재 위치의 날씨를 불러올 수 없습니다.</p>
                             </div>
                         )}
-                        {isLocation == null && (
+                        {isLocation == null && isWeather == null && (
                             <div className="no_weather">
                                 <SpinnerBlue
                                     src={spinnerBlueIcon}
