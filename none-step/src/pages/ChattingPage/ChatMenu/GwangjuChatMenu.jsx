@@ -1,4 +1,3 @@
-import gwangjuMetroIcon from "@assets/icons/gwangju-transp-corp-logo.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectedCategory } from "@store/slices/categorySlice";
@@ -76,7 +75,6 @@ const GwangjuChatMenu = () => {
                 <span>1호선</span>
                 <span className="chatting_time">{chattingDate("line1")}</span>
             </li>
-            <img src={gwangjuMetroIcon} alt="gwangju-metro-icon" />
         </>
     );
 };
