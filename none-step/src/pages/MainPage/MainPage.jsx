@@ -13,6 +13,7 @@ import {
     MainSection,
     MainWrapper,
     NoticeWrapper,
+    SpinnerBlue,
     WeatherContainer,
     WeatherWrapper,
 } from "./MainPage.styles";
@@ -37,7 +38,6 @@ import littleCloudyIcon from "./icons/little-cloudy.svg";
 import snowRainyIcon from "./icons/snow-rainy.svg";
 import snowWindyIcon from "./icons/snow-windy.svg";
 import snowyIcon from "./icons/snowy.svg";
-import windyIcon from "./icons/windy.svg";
 import seoulMetroIcon from "@assets/icons/seoul-metro-logo.svg";
 import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
@@ -51,6 +51,7 @@ import { fetchUserInfo } from "@hooks/auth";
 import { HiOutlineSpeakerWave } from "react-icons/hi2";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import axiosInstance from "@apis/axiosInstance";
+import spinnerBlueIcon from "@assets/img/spinner-blue.png";
 
 const MainPage = () => {
     const [noticeTitle, setNoticeTitle] = useState("");
@@ -62,10 +63,10 @@ const MainPage = () => {
     });
     const [sky, setSky] = useState(null);
     const [rainy, setRainy] = useState(null);
-    const [lightning, setLightning] = useState(null);
     const [windy, setWindy] = useState(null);
-    const [precipitation, setPrecipitation] = useState(null);
     const [temperature, setTemperature] = useState(null);
+    const [isLocation, setIsLocation] = useState(null);
+    const [isWeather, setIsWeather] = useState(null);
 
     const scrollRef = useRef(null);
 
@@ -100,10 +101,11 @@ const MainPage = () => {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                 });
+                setIsLocation(true);
             };
 
             const geoError = () => {
-                console.log("");
+                setIsLocation(false);
             };
 
             const geoOptions = {
@@ -131,13 +133,13 @@ const MainPage = () => {
 
                         setSky(weatherData[0]);
                         setRainy(weatherData[1]);
-                        setLightning(weatherData[2]);
                         setWindy(weatherData[3]);
-                        setPrecipitation(weatherData[4]);
                         setTemperature(weatherData[5]);
+                        setIsWeather(true);
                     })
                     .catch((error) => {
                         console.log(error);
+                        setIsWeather(false);
                     });
             }
         };
@@ -201,7 +203,6 @@ const MainPage = () => {
         dispatch(selectedCategory({ category: category }));
     };
 
-    // 하늘 상태 텍스트 변환 함수
     const getSkyText = (value) => {
         switch (value) {
             case "1":
@@ -210,26 +211,6 @@ const MainPage = () => {
                 return "구름많음";
             case "4":
                 return "흐림";
-            default:
-                return "";
-        }
-    };
-
-    // 강수 형태 텍스트 변환 함수
-    const getPrecipitationText = (value) => {
-        switch (value) {
-            case "1":
-                return "비";
-            case "2":
-                return "비/눈";
-            case "3":
-                return "눈";
-            case "5":
-                return "빗방울";
-            case "6":
-                return "빗방울/눈날림";
-            case "7":
-                return "눈날림";
             default:
                 return "";
         }
@@ -429,12 +410,7 @@ const MainPage = () => {
                 <WeatherWrapper>
                     <h3>현재 위치 날씨</h3>
                     <WeatherContainer>
-                        {sky &&
-                        rainy &&
-                        lightning &&
-                        windy &&
-                        precipitation &&
-                        temperature ? (
+                        {isLocation && isWeather && (
                             <>
                                 <div className="weather_icon">
                                     <img
@@ -464,9 +440,18 @@ const MainPage = () => {
                                     </div>
                                 </div>
                             </>
-                        ) : (
+                        )}
+                        {(isLocation === false || isWeather === false) && (
                             <div className="no_weather">
                                 <p>현재 위치의 날씨를 불러올 수 없습니다.</p>
+                            </div>
+                        )}
+                        {isLocation == null && (
+                            <div className="no_weather">
+                                <SpinnerBlue
+                                    src={spinnerBlueIcon}
+                                    alt="loading_icon"
+                                />
                             </div>
                         )}
                     </WeatherContainer>

@@ -153,7 +153,8 @@ export const CategoryBtn = styled.button`
 `;
 
 export const WeatherWrapper = styled.div`
-    padding: 20px;
+    min-height: 150px;
+    padding: 20px 20px 30px;
     background: ${(props) => props.theme.colors.white};
 `;
 
@@ -219,6 +220,21 @@ export const WeatherContainer = styled.div`
     }
 `;
 
+export const SpinnerBlue = styled.img`
+    width: 40px;
+    height: 40px;
+    animation: rotate 1s linear infinite;
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+`;
+
 export const ChatWrapper = styled.div`
     padding: 20px;
     background: ${(props) => props.theme.colors.white};
@@ -241,6 +257,13 @@ export const ChatContainer = styled.ul`
     li:nth-child(even) {
         margin-bottom: 15px;
     }
+
+    .daegu_chat img {
+        position: absolute;
+        bottom: 10px;
+        right: 5px;
+        width: 90px;
+    }
 `;
 
 export const ChatBtn = styled.button`
@@ -254,20 +277,19 @@ export const ChatBtn = styled.button`
     outline: none;
     cursor: pointer;
 
-    img {
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-        width: 60px;
-        /* opacity: 0.3; */
-    }
-
     span {
         position: absolute;
         top: 10px;
         left: 10px;
         font-size: 1.8rem;
         font-weight: 600;
+    }
+
+    img {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 60px;
     }
 `;
 

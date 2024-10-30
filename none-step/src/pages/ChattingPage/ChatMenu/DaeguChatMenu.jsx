@@ -1,4 +1,3 @@
-import daeguMetroIcon from "@assets/icons/daegu-transp-corp-logo.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectedCategory } from "@store/slices/categorySlice";
@@ -92,7 +91,6 @@ const DaeguChatMenu = () => {
                 <span>3호선</span>
                 <span className="chatting_time">{chattingDate("line3")}</span>
             </li>
-            <img src={daeguMetroIcon} alt="daegu-metro-icon" />
         </>
     );
 };
