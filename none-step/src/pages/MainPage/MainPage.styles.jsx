@@ -154,8 +154,70 @@ export const CategoryBtn = styled.button`
 
 export const WeatherWrapper = styled.div`
     min-height: 150px;
-    padding: 20px 20px 30px;
+    padding: 20px 20px 35px;
     background: ${(props) => props.theme.colors.white};
+`;
+
+export const WeatherRefreshBtn = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 100%;
+    background: transparent;
+    box-shadow: ${(props) => props.theme.colors.shadow200};
+    outline: none;
+    cursor: pointer;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    svg.refresh {
+        animation: rotate 0.4s ease-out;
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+`;
+
+export const WeatherTitle = styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+        margin-bottom: 20px;
+    }
+`;
+
+export const WeatherAddress = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+    margin-bottom: 20px;
+
+    svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 5px;
+        color: #409bff;
+    }
+
+    .address {
+        display: inline-block;
+        color: #424242;
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
 `;
 
 export const WeatherContainer = styled.div`
@@ -184,7 +246,7 @@ export const WeatherContainer = styled.div`
     }
 
     .weather span:first-child {
-        font-size: 2.6rem;
+        font-size: 2.8rem;
     }
 
     .weather span:last-child {
@@ -194,24 +256,16 @@ export const WeatherContainer = styled.div`
     }
 
     .weather_info {
+        line-height: 1.5;
         font-size: 1.6rem;
     }
 
     .weather_info div span:first-child {
-        margin-right: 5px;
+        margin-right: 7px;
     }
 
     .weather_info div span:last-child {
         color: ${(props) => props.theme.colors.gray01};
-    }
-
-    .weather_info .precipitation span {
-    }
-
-    .weather_info .wind {
-    }
-
-    .weather_info .wind span {
     }
 
     .no_weather p {
