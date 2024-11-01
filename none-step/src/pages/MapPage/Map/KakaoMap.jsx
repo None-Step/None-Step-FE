@@ -84,6 +84,8 @@ const KakaoMap = () => {
     const [downCongestion, setDownCongestion] = useState([]);
     const [upCongestionInfo, setUpCongestionInfo] = useState({});
     const [downCongestionInfo, setDownCongestionInfo] = useState({});
+    const [upCongestionCars, setUpCongestionCars] = useState([]);
+    const [downCongestionCars, setDownCongestionCars] = useState([]);
     const [upDistanceInfo, setUpDistanceInfo] = useState([]);
     const [downDistanceInfo, setDownDistanceInfo] = useState([]);
     const [isCongestionOpen, setIsCongestionOpen] = useState(false);
@@ -715,6 +717,7 @@ const KakaoMap = () => {
             return `${weekList[week]}`;
         };
 
+        // 상행선 열차 혼잡도
         axiosInstance
             .get(
                 `/nonestep/congestion/up-time?region=${marker.region}&line=${
@@ -729,6 +732,7 @@ const KakaoMap = () => {
                 console.log(error);
             });
 
+        // 하행선 열차 혼잡도
         axiosInstance
             .get(
                 `/nonestep/congestion/down-time?region=${marker.region}&line=${
@@ -742,6 +746,7 @@ const KakaoMap = () => {
                 console.log(error);
             });
 
+        // 상행선 이격거리 및 편의정보
         axiosInstance
             .get(
                 `/nonestep/congestion/up-info?region=${marker.region}&line=${marker.line}&station=${marker.station}`
@@ -753,12 +758,41 @@ const KakaoMap = () => {
                 console.log(error);
             });
 
+        // 하행선 이격거리 및 편의정보
         axiosInstance
             .get(
                 `/nonestep/congestion/down-info?region=${marker.region}&line=${marker.line}&station=${marker.station}`
             )
             .then((response) => {
                 setDownDistanceInfo(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // 상행선 칸 혼잡도
+        axiosInstance
+            .get(
+                `/nonestep/congestion/up-car?region=${marker.region}&line=${
+                    marker.line
+                }&station=${marker.station}&type=${nowWeek()}`
+            )
+            .then((response) => {
+                setUpCongestionCars(response.data.congestion);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // 하행선 칸 혼잡도
+        axiosInstance
+            .get(
+                `/nonestep/congestion/down-car?region=${marker.region}&line=${
+                    marker.line
+                }&station=${marker.station}&type=${nowWeek()}`
+            )
+            .then((response) => {
+                setDownCongestionCars(response.data.congestion);
             })
             .catch((error) => {
                 console.log(error);
@@ -1168,6 +1202,8 @@ const KakaoMap = () => {
                                     downCongestion={downCongestionInfo}
                                     upDistanceInfo={upDistanceInfo}
                                     downDistanceInfo={downDistanceInfo}
+                                    upCongestionCars={upCongestionCars}
+                                    downCongestionCars={downCongestionCars}
                                     handleClose={() =>
                                         setIsCongestionOpen(false)
                                     }
