@@ -26,6 +26,8 @@ const CongestionInfo = ({
     downCongestion,
     upDistanceInfo,
     downDistanceInfo,
+    upCongestionCars,
+    downCongestionCars,
     handleClose,
 }) => {
     const [stationLine, setStationLine] = useState("");
@@ -391,19 +393,43 @@ const CongestionInfo = ({
                                 {direction === "up" && (
                                     <>
                                         <div className="train">
-                                            {upDistanceInfo.map((_, index) => (
-                                                <span
-                                                    key={index}
-                                                    className={
-                                                        `car ` +
-                                                        congestion(
-                                                            upCongestion.currentTime
+                                            {upCongestionCars.length ? (
+                                                <>
+                                                    {upCongestionCars.map(
+                                                        (car, index) => (
+                                                            <span
+                                                                key={index}
+                                                                className={
+                                                                    `car ` +
+                                                                    congestion(
+                                                                        car
+                                                                    )
+                                                                }
+                                                            >
+                                                                {index + 1}
+                                                            </span>
                                                         )
-                                                    }
-                                                >
-                                                    {index + 1}
-                                                </span>
-                                            ))}
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {upDistanceInfo.map(
+                                                        (_, index) => (
+                                                            <span
+                                                                key={index}
+                                                                className={
+                                                                    `car ` +
+                                                                    congestion(
+                                                                        upCongestion.currentTime
+                                                                    )
+                                                                }
+                                                            >
+                                                                {index + 1}
+                                                            </span>
+                                                        )
+                                                    )}
+                                                </>
+                                            )}
                                         </div>
                                         <div className="distance">
                                             {upDistanceInfo.map(
@@ -422,20 +448,42 @@ const CongestionInfo = ({
                                 {direction === "down" && (
                                     <>
                                         <div className="train">
-                                            {downDistanceInfo.map(
-                                                (_, index) => (
-                                                    <span
-                                                        key={index}
-                                                        className={
-                                                            `car ` +
-                                                            congestion(
-                                                                downCongestion.currentTime
-                                                            )
-                                                        }
-                                                    >
-                                                        {index + 1}
-                                                    </span>
-                                                )
+                                            {downCongestionCars.length ? (
+                                                <>
+                                                    {downCongestionCars.map(
+                                                        (car, index) => (
+                                                            <span
+                                                                key={index}
+                                                                className={
+                                                                    `car ` +
+                                                                    congestion(
+                                                                        car
+                                                                    )
+                                                                }
+                                                            >
+                                                                {index + 1}
+                                                            </span>
+                                                        )
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {downDistanceInfo.map(
+                                                        (_, index) => (
+                                                            <span
+                                                                key={index}
+                                                                className={
+                                                                    `car ` +
+                                                                    congestion(
+                                                                        upCongestion.currentTime
+                                                                    )
+                                                                }
+                                                            >
+                                                                {index + 1}
+                                                            </span>
+                                                        )
+                                                    )}
+                                                </>
                                             )}
                                         </div>
                                         <div className="distance">
