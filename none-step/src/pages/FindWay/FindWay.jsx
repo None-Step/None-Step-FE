@@ -17,6 +17,7 @@ import {
     BookmarkBtn,
     BookmarkSpan,
     BookmarkIcon,
+    MapComponents,
 } from "./FindWay.style";
 import { PageHeader } from "@/components/header/Headers";
 import MenuBar from "@/components/menuBar/MenuBar";
@@ -1363,15 +1364,8 @@ const FindWay = () => {
                                 )}
                         </>
                     )}
-
-                    {/* 현재 위치로 이동 버튼 */}
-                    <Reload
-                        onClick={handleReloadLocation}
-                        $viewportHeight={viewportHeight}
-                    >
-                        <img src={ReloadIcon} alt="현재위치 새로고침" />
-                    </Reload>
-
+                </Map>
+                <MapComponents>
                     {/* 날씨 작은 화면 */}
                     {userLocation && (
                         <WeatherPreview
@@ -1380,7 +1374,15 @@ const FindWay = () => {
                             weatherData={weatherData}
                         />
                     )}
-                </Map>
+
+                    {/* 현재 위치로 이동 버튼 */}
+                    <Reload
+                        onClick={handleReloadLocation}
+                        $viewportHeight={viewportHeight}
+                    >
+                        <img src={ReloadIcon} alt="현재위치 새로고침" />
+                    </Reload>
+                </MapComponents>
 
                 {/* 로딩 중일 때 스피너 표시 */}
                 {loading && <Loading />}

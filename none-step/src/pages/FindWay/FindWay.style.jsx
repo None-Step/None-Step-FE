@@ -79,24 +79,27 @@ export const SearchIcon = (props) => (
     </SVGWrapper>
 );
 
+export const MapComponents = styled.div`
+    display: grid;
+    width: 100%;
+    max-width: 600px;
+`;
+
 // 현재 위치 다시 불러오기
 export const Reload = styled.div`
-    width: 40px;
-    height: 40px;
+    position: fixed;
+    bottom: 95px;
     display: flex;
+    justify-self: flex-end;
     justify-content: center;
     align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
     background-color: ${(props) => props.theme.colors.white};
     border-radius: 40px;
     box-shadow: ${(props) => props.theme.colors.shadow200};
     cursor: pointer;
-    position: absolute;
-    bottom: 3rem;
-    /* top: ${(props) =>
-        `${
-            props.$viewportHeight - (80 + 16 + 40)
-        }px`}; // 뷰포트 높이 - (메뉴바 높이 + 여백 + 버튼 높이) */
-    right: 1rem;
     z-index: 3;
 `;
 
