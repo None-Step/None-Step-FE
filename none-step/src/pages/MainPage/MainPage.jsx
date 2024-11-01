@@ -14,7 +14,10 @@ import {
     MainWrapper,
     NoticeWrapper,
     SpinnerBlue,
+    WeatherAddress,
     WeatherContainer,
+    WeatherRefreshBtn,
+    WeatherTitle,
     WeatherWrapper,
 } from "./MainPage.styles";
 import MenuBar from "@components/menuBar/MenuBar";
@@ -48,8 +51,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedCategory } from "@store/slices/categorySlice";
 import { fetchUserInfo } from "@hooks/auth";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { HiOutlineSpeakerWave } from "react-icons/hi2";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoRefresh } from "react-icons/io5";
 import axiosInstance from "@apis/axiosInstance";
 import spinnerBlueIcon from "@assets/img/spinner-blue.png";
 
@@ -57,10 +62,11 @@ const MainPage = () => {
     const [noticeTitle, setNoticeTitle] = useState("");
     const [isScrollLeft, setIsScrollLeft] = useState(false);
     const [isScrollRight, setIsScrollRight] = useState(true);
-    const [center, setCenter] = useState({
+    const [location, setLocation] = useState({
         lat: null,
         lng: null,
     });
+    const [locationAddress, setLocationAddress] = useState("");
     const [sky, setSky] = useState(null);
     const [rainy, setRainy] = useState(null);
     const [windy, setWindy] = useState(null);
@@ -95,57 +101,84 @@ const MainPage = () => {
     }, []);
 
     useEffect(() => {
-        const getLocation = () => {
-            const geoSuccess = (position) => {
-                setCenter({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                });
-                setIsLocation(true);
-            };
+        getLocation();
+    }, [location.lat, location.lng]);
 
-            const geoError = () => {
-                setIsLocation(false);
-            };
-
-            const geoOptions = {
-                enableHighAccuracy: true,
-                timeout: 1000 * 5,
-                maximumAge: 1000 * 3600 * 12,
-            };
-
-            navigator.geolocation.getCurrentPosition(
-                geoSuccess,
-                geoError,
-                geoOptions
-            );
-
-            if (center.lat && center.lng) {
-                axiosInstance
-                    .post("/nonestep/weather/current-weather", {
-                        latitude: center.lat,
-                        longitude: center.lng,
-                    })
-                    .then((response) => {
-                        const weatherData = response.data
-                            .filter((_, index) => index % 3 === 0)
-                            .map((data) => data.fcstValue);
-
-                        setSky(weatherData[0]);
-                        setRainy(weatherData[1]);
-                        setWindy(weatherData[3]);
-                        setTemperature(weatherData[5]);
-                        setIsWeather(true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setIsWeather(false);
-                    });
-            }
+    const getLocation = () => {
+        const geoSuccess = (position) => {
+            setLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            });
+            setIsLocation(true);
         };
 
-        getLocation();
-    }, [center.lat, center.lng]);
+        const geoError = () => {
+            setIsLocation(false);
+        };
+
+        const geoOptions = {
+            enableHighAccuracy: true,
+            timeout: 1000 * 5,
+            maximumAge: 1000 * 3600 * 12,
+        };
+
+        navigator.geolocation.getCurrentPosition(
+            geoSuccess,
+            geoError,
+            geoOptions
+        );
+
+        if (location.lat && location.lng) {
+            axiosInstance
+                .post("/nonestep/weather/current-weather", {
+                    latitude: location.lat,
+                    longitude: location.lng,
+                })
+                .then((response) => {
+                    const weatherData = response.data
+                        .filter((_, index) => index % 3 === 0)
+                        .map((data) => data.fcstValue);
+
+                    setSky(weatherData[0]);
+                    setRainy(weatherData[1]);
+                    setWindy(weatherData[3]);
+                    setTemperature(weatherData[5]);
+
+                    if (response.status === 200) {
+                        setIsWeather(true);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setIsWeather(false);
+                });
+
+            getAddressFromCoords(location.lat, location.lng);
+        }
+    };
+
+    const { kakao } = window;
+
+    const getAddressFromCoords = (latitude, longitude) => {
+        const geocoder = new kakao.maps.services.Geocoder();
+
+        geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
+            if (status === kakao.maps.services.Status.OK) {
+                const address = result.find(
+                    (region) => region.region_type === "H"
+                );
+
+                if (address) {
+                    setLocationAddress(
+                        `${address.region_2depth_name} ${address.region_3depth_name}`
+                    );
+                }
+            } else {
+                console.log("주소 변환 실패:", status);
+            }
+        });
+    };
 
     const handleClickNotice = () => {
         navigate("/notice");
@@ -201,6 +234,34 @@ const MainPage = () => {
     const handleClickMap = (category) => {
         navigate("/map");
         dispatch(selectedCategory({ category: category }));
+    };
+
+    const handleClickRefresh = (e) => {
+        if (e.target.tagName === "BUTTON") {
+            const child = e.target.querySelector("svg");
+
+            child.classList.add("refresh");
+
+            setTimeout(() => {
+                child.classList.remove("refresh");
+            }, 1000);
+        } else if (e.target.tagName === "svg") {
+            e.target.classList.add("refresh");
+
+            setTimeout(() => {
+                e.target.classList.remove("refresh");
+            }, 1000);
+        } else if (e.target.tagName === "path") {
+            const parent = e.target.parentNode;
+
+            parent.classList.add("refresh");
+
+            setTimeout(() => {
+                parent.classList.remove("refresh");
+            }, 1000);
+        }
+
+        getLocation();
     };
 
     const getSkyText = (value) => {
@@ -291,7 +352,7 @@ const MainPage = () => {
                     <h3>편의시설 바로가기</h3>
                     {isScrollLeft && (
                         <CategoryArrowLeft onClick={handleClickLeft}>
-                            <IoIosArrowBack />
+                            <IoIosArrowBack onClick={handleClickLeft} />
                         </CategoryArrowLeft>
                     )}
                     <CategoryContainer
@@ -408,21 +469,36 @@ const MainPage = () => {
                 </CategoryWrapper>
                 <LocationTracker />
                 <WeatherWrapper>
-                    <h3>현재 위치 날씨</h3>
+                    <WeatherTitle>
+                        <h3>현재 위치 날씨</h3>
+                        <WeatherRefreshBtn onClick={handleClickRefresh}>
+                            <IoRefresh onClick={handleClickRefresh} />
+                        </WeatherRefreshBtn>
+                    </WeatherTitle>
+                    {isLocation && isWeather && (
+                        <WeatherAddress>
+                            <FaMapMarkerAlt />
+                            <span className="address">{locationAddress}</span>
+                        </WeatherAddress>
+                    )}
                     <WeatherContainer>
                         {isLocation && isWeather && (
                             <>
-                                <div className="weather_icon">
-                                    <img
-                                        src={getWeatherIcon(getSkyText(sky))}
-                                        alt="weather_icon"
-                                    />
-                                    <div className="weather">
-                                        <span>
-                                            {temperature}
-                                            &#186;
-                                        </span>
-                                        <span>{getSkyText(sky)}</span>
+                                <div className="location_weather">
+                                    <div className="weather_icon">
+                                        <img
+                                            src={getWeatherIcon(
+                                                getSkyText(sky)
+                                            )}
+                                            alt="weather_icon"
+                                        />
+                                        <div className="weather">
+                                            <span>
+                                                {temperature}
+                                                &#186;
+                                            </span>
+                                            <span>{getSkyText(sky)}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="weather_info">
