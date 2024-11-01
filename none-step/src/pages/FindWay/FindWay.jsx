@@ -977,311 +977,302 @@ const FindWay = () => {
     );
 
     return (
-        <PageWrapper>
+        <>
             <PageHeader />
+            <PageWrapper>
+                <KakaoMapPlaceSearch
+                    onSelectOrigin={handleSelectOrigin}
+                    onSelectDestination={handleSelectDestination}
+                    originName={originInput}
+                    destinationName={destinationInput}
+                    setOriginName={setOriginInput}
+                    setDestinationName={setDestinationInput}
+                    bookmarkedPlaces={bookmarkedPlaces}
+                    pathOrigin={pathOrigin}
+                    pathDestination={pathDestination}
+                />
 
-            <KakaoMapPlaceSearch
-                onSelectOrigin={handleSelectOrigin}
-                onSelectDestination={handleSelectDestination}
-                originName={originInput}
-                destinationName={destinationInput}
-                setOriginName={setOriginInput}
-                setDestinationName={setDestinationInput}
-                bookmarkedPlaces={bookmarkedPlaces}
-                pathOrigin={pathOrigin}
-                pathDestination={pathDestination}
-            />
+                {/* 빠른 경로 버튼 */}
+                {!isNavigating && <QuickRoute userLocation={userLocation} />}
+                <BookmarkPathBtn
+                    isQuickRouteVisible={!isNavigating}
+                    onPathOrigin={handlePathOrigin}
+                    onPathDestination={handlePathDestination}
+                />
 
-            {/* 빠른 경로 버튼 */}
-            {!isNavigating && <QuickRoute userLocation={userLocation} />}
-            <BookmarkPathBtn
-                isQuickRouteVisible={!isNavigating}
-                onPathOrigin={handlePathOrigin}
-                onPathDestination={handlePathDestination}
-            />
+                <Map
+                    center={center}
+                    style={{
+                        width: "100%",
+                        height: "100vh",
+                    }}
+                    level={mapLevel}
+                    onCenterChanged={handleCenterChanged}
+                >
+                    {/* 사용자 위치 마커 및 오버레이 */}
+                    {userLocation &&
+                        (!origin ||
+                            origin.lat !== userLocation.lat ||
+                            origin.lng !== userLocation.lng) && (
+                            <>
+                                <MapMarker
+                                    position={userLocation}
+                                    onClick={() =>
+                                        handleMarkerClick("userLocation")
+                                    }
+                                />
+                                {showUserLocationOverlay &&
+                                    !origin &&
+                                    !destination &&
+                                    !isNavigating && (
+                                        <CustomOverlayMap
+                                            position={userLocation}
+                                            yAnchor={
+                                                floodingStatus.userLocation
+                                                    ? 1.4
+                                                    : 1.62
+                                            }
+                                        >
+                                            <CustomOverlay>
+                                                <StationName>
+                                                    현재 위치
+                                                </StationName>
+                                                {floodingStatus.userLocation && (
+                                                    <InfoWrapper>
+                                                        <Warning>
+                                                            <img
+                                                                src={
+                                                                    WarningIcon
+                                                                }
+                                                                alt="경고"
+                                                            />
+                                                            침수 주의
+                                                        </Warning>
+                                                    </InfoWrapper>
+                                                )}
+                                                <UserLocationStart
+                                                    onClick={() =>
+                                                        handleSetLocation(
+                                                            "origin",
+                                                            userLocation
+                                                        )
+                                                    }
+                                                >
+                                                    출발지로 설정하기
+                                                </UserLocationStart>
+                                            </CustomOverlay>
+                                        </CustomOverlayMap>
+                                    )}
+                            </>
+                        )}
 
-            <Map
-                center={center}
-                style={{
-                    width: "100%",
-                    height: "100vh",
-                }}
-                level={mapLevel}
-                onCenterChanged={handleCenterChanged}
-            >
-                {/* 사용자 위치 마커 및 오버레이 */}
-                {userLocation &&
-                    (!origin ||
-                        origin.lat !== userLocation.lat ||
-                        origin.lng !== userLocation.lng) && (
+                    {/* 출발지 마커 */}
+                    {origin && (
                         <>
                             <MapMarker
-                                position={userLocation}
-                                onClick={() =>
-                                    handleMarkerClick("userLocation")
-                                }
+                                position={origin}
+                                onClick={() => handleMarkerClick("origin")}
+                                image={{
+                                    src: OriginMarker,
+                                    size: {
+                                        width: 50,
+                                        height: 65,
+                                    },
+                                }}
                             />
-                            {showUserLocationOverlay &&
-                                !origin &&
-                                !destination &&
-                                !isNavigating && (
-                                    <CustomOverlayMap
-                                        position={userLocation}
-                                        yAnchor={
-                                            floodingStatus.userLocation
-                                                ? 1.4
-                                                : 1.62
-                                        }
-                                    >
-                                        <CustomOverlay>
-                                            <StationName>현재 위치</StationName>
-                                            {floodingStatus.userLocation && (
-                                                <InfoWrapper>
-                                                    <Warning>
-                                                        <img
-                                                            src={WarningIcon}
-                                                            alt="경고"
-                                                        />
-                                                        침수 주의
-                                                    </Warning>
-                                                </InfoWrapper>
-                                            )}
-                                            <UserLocationStart
+                            {origin && showOriginOverlay && (
+                                <CustomOverlayMap
+                                    position={origin}
+                                    yAnchor={floodingStatus.origin ? 1.4 : 1.65}
+                                >
+                                    <CustomOverlay>
+                                        <BookmarkBtn
+                                            onClick={() =>
+                                                handleBookmarkClick(
+                                                    origin.name,
+                                                    origin.address,
+                                                    origin.lat,
+                                                    origin.lng
+                                                )
+                                            }
+                                        >
+                                            <BookmarkIcon
+                                                src={
+                                                    isOriginBookmarked
+                                                        ? yellowStar
+                                                        : emptyStar
+                                                }
+                                                alt="북마크 아이콘"
+                                            />
+                                            <BookmarkSpan
+                                                color={
+                                                    isOriginBookmarked
+                                                        ? "#007AFF"
+                                                        : "#8E8E93"
+                                                }
+                                            >
+                                                즐겨찾기
+                                            </BookmarkSpan>
+                                        </BookmarkBtn>
+                                        <StationName>{origin.name}</StationName>
+                                        <StationAddress>
+                                            {origin.address}
+                                        </StationAddress>
+                                        {floodingStatus.origin && (
+                                            <InfoWrapper>
+                                                <Warning>
+                                                    <img
+                                                        src={WarningIcon}
+                                                        alt="경고"
+                                                    />
+                                                    침수 주의
+                                                </Warning>
+                                            </InfoWrapper>
+                                        )}
+                                        <ButtonContainer>
+                                            <Button
                                                 onClick={() =>
                                                     handleSetLocation(
                                                         "origin",
-                                                        userLocation
+                                                        origin
                                                     )
                                                 }
                                             >
-                                                출발지로 설정하기
-                                            </UserLocationStart>
-                                        </CustomOverlay>
-                                    </CustomOverlayMap>
-                                )}
+                                                출발
+                                            </Button>
+                                            <Button
+                                                onClick={() =>
+                                                    handleSetLocation(
+                                                        "destination",
+                                                        origin
+                                                    )
+                                                }
+                                            >
+                                                도착
+                                            </Button>
+                                        </ButtonContainer>
+                                    </CustomOverlay>
+                                </CustomOverlayMap>
+                            )}
                         </>
                     )}
 
-                {/* 출발지 마커 */}
-                {origin && (
-                    <>
-                        <MapMarker
-                            position={origin}
-                            onClick={() => handleMarkerClick("origin")}
-                            image={{
-                                src: OriginMarker,
-                                size: {
-                                    width: 50,
-                                    height: 65,
-                                },
-                            }}
-                        />
-                        {origin && showOriginOverlay && (
-                            <CustomOverlayMap
-                                position={origin}
-                                yAnchor={floodingStatus.origin ? 1.4 : 1.65}
-                            >
-                                <CustomOverlay>
-                                    <BookmarkBtn
-                                        onClick={() =>
-                                            handleBookmarkClick(
-                                                origin.name,
-                                                origin.address,
-                                                origin.lat,
-                                                origin.lng
-                                            )
-                                        }
-                                    >
-                                        <BookmarkIcon
-                                            src={
-                                                isOriginBookmarked
-                                                    ? yellowStar
-                                                    : emptyStar
-                                            }
-                                            alt="북마크 아이콘"
-                                        />
-                                        <BookmarkSpan
-                                            color={
-                                                isOriginBookmarked
-                                                    ? "#007AFF"
-                                                    : "#8E8E93"
-                                            }
-                                        >
-                                            즐겨찾기
-                                        </BookmarkSpan>
-                                    </BookmarkBtn>
-                                    <StationName>{origin.name}</StationName>
-                                    <StationAddress>
-                                        {origin.address}
-                                    </StationAddress>
-                                    {floodingStatus.origin && (
-                                        <InfoWrapper>
-                                            <Warning>
-                                                <img
-                                                    src={WarningIcon}
-                                                    alt="경고"
-                                                />
-                                                침수 주의
-                                            </Warning>
-                                        </InfoWrapper>
-                                    )}
-                                    <ButtonContainer>
-                                        <Button
-                                            onClick={() =>
-                                                handleSetLocation(
-                                                    "origin",
-                                                    origin
-                                                )
-                                            }
-                                        >
-                                            출발
-                                        </Button>
-                                        <Button
-                                            onClick={() =>
-                                                handleSetLocation(
-                                                    "destination",
-                                                    origin
-                                                )
-                                            }
-                                        >
-                                            도착
-                                        </Button>
-                                    </ButtonContainer>
-                                </CustomOverlay>
-                            </CustomOverlayMap>
-                        )}
-                    </>
-                )}
-
-                {/* 북마크 모달 */}
-                {isBookmarked && (
-                    <>
-                        <BookmarkModal
-                            onClick={handleBookmarkClick}
-                            placeName={bookmarkPlaceName}
-                            placeAddress={bookmarkPlaceAddress}
-                            lat={bookmarkLat}
-                            lng={bookmarkLng}
-                        />
-                    </>
-                )}
-
-                {/* 도착지 마커 */}
-                {destination && (
-                    <>
-                        <MapMarker
-                            position={destination}
-                            onClick={() => handleMarkerClick("destination")}
-                            image={{
-                                src: DestinationMarker,
-                                size: {
-                                    width: 50,
-                                    height: 65,
-                                },
-                            }}
-                        />
-                        {destination && showDestinationOverlay && (
-                            <CustomOverlayMap
-                                position={destination}
-                                yAnchor={
-                                    floodingStatus.destination ? 1.4 : 1.62
-                                }
-                            >
-                                <CustomOverlay>
-                                    <BookmarkBtn
-                                        onClick={() =>
-                                            handleBookmarkClick(
-                                                destination.name,
-                                                destination.address,
-                                                destination.lat,
-                                                destination.lng
-                                            )
-                                        }
-                                    >
-                                        <BookmarkIcon
-                                            src={
-                                                isDestinationBookmarked
-                                                    ? yellowStar
-                                                    : emptyStar
-                                            }
-                                            alt="북마크 아이콘"
-                                        />
-                                        <BookmarkSpan
-                                            color={
-                                                isDestinationBookmarked
-                                                    ? "#007AFF"
-                                                    : "#8E8E93"
-                                            }
-                                        >
-                                            즐겨찾기
-                                        </BookmarkSpan>
-                                    </BookmarkBtn>
-                                    <StationName>
-                                        {destination.name}
-                                    </StationName>
-                                    <StationAddress>
-                                        {destination.address}
-                                    </StationAddress>
-                                    {floodingStatus.destination && (
-                                        <InfoWrapper>
-                                            <Warning>
-                                                <img
-                                                    src={WarningIcon}
-                                                    alt="경고"
-                                                />
-                                                침수 주의
-                                            </Warning>
-                                        </InfoWrapper>
-                                    )}
-                                    <ButtonContainer>
-                                        <Button
-                                            onClick={() =>
-                                                handleSetLocation(
-                                                    "origin",
-                                                    destination
-                                                )
-                                            }
-                                        >
-                                            출발
-                                        </Button>
-                                        <Button
-                                            onClick={() =>
-                                                handleSetLocation(
-                                                    "destination",
-                                                    destination
-                                                )
-                                            }
-                                        >
-                                            도착
-                                        </Button>
-                                    </ButtonContainer>
-                                </CustomOverlay>
-                            </CustomOverlayMap>
-                        )}
-                    </>
-                )}
-
-                {/* 경로 렌더링 */}
-                {isRouteCalculated && routeData && (
-                    <>
-                        {/* 도보 경로 (파란색) */}
-                        {selectedRoute === "walk" && routeData.walk && (
-                            <Polyline
-                                path={getPolylinePath(routeData.walk, "walk")}
-                                strokeWeight={5}
-                                strokeColor={"#007AFF"}
-                                strokeOpacity={0.7}
-                                strokeStyle={"solid"}
+                    {/* 북마크 모달 */}
+                    {isBookmarked && (
+                        <>
+                            <BookmarkModal
+                                onClick={handleBookmarkClick}
+                                placeName={bookmarkPlaceName}
+                                placeAddress={bookmarkPlaceAddress}
+                                lat={bookmarkLat}
+                                lng={bookmarkLng}
                             />
-                        )}
+                        </>
+                    )}
 
-                        {/* 도보 + 자전거 경로 */}
-                        {selectedRoute === "bike" && routeData.bike && (
-                            <>
-                                {/* 도보 부분 (파란색) */}
+                    {/* 도착지 마커 */}
+                    {destination && (
+                        <>
+                            <MapMarker
+                                position={destination}
+                                onClick={() => handleMarkerClick("destination")}
+                                image={{
+                                    src: DestinationMarker,
+                                    size: {
+                                        width: 50,
+                                        height: 65,
+                                    },
+                                }}
+                            />
+                            {destination && showDestinationOverlay && (
+                                <CustomOverlayMap
+                                    position={destination}
+                                    yAnchor={
+                                        floodingStatus.destination ? 1.4 : 1.62
+                                    }
+                                >
+                                    <CustomOverlay>
+                                        <BookmarkBtn
+                                            onClick={() =>
+                                                handleBookmarkClick(
+                                                    destination.name,
+                                                    destination.address,
+                                                    destination.lat,
+                                                    destination.lng
+                                                )
+                                            }
+                                        >
+                                            <BookmarkIcon
+                                                src={
+                                                    isDestinationBookmarked
+                                                        ? yellowStar
+                                                        : emptyStar
+                                                }
+                                                alt="북마크 아이콘"
+                                            />
+                                            <BookmarkSpan
+                                                color={
+                                                    isDestinationBookmarked
+                                                        ? "#007AFF"
+                                                        : "#8E8E93"
+                                                }
+                                            >
+                                                즐겨찾기
+                                            </BookmarkSpan>
+                                        </BookmarkBtn>
+                                        <StationName>
+                                            {destination.name}
+                                        </StationName>
+                                        <StationAddress>
+                                            {destination.address}
+                                        </StationAddress>
+                                        {floodingStatus.destination && (
+                                            <InfoWrapper>
+                                                <Warning>
+                                                    <img
+                                                        src={WarningIcon}
+                                                        alt="경고"
+                                                    />
+                                                    침수 주의
+                                                </Warning>
+                                            </InfoWrapper>
+                                        )}
+                                        <ButtonContainer>
+                                            <Button
+                                                onClick={() =>
+                                                    handleSetLocation(
+                                                        "origin",
+                                                        destination
+                                                    )
+                                                }
+                                            >
+                                                출발
+                                            </Button>
+                                            <Button
+                                                onClick={() =>
+                                                    handleSetLocation(
+                                                        "destination",
+                                                        destination
+                                                    )
+                                                }
+                                            >
+                                                도착
+                                            </Button>
+                                        </ButtonContainer>
+                                    </CustomOverlay>
+                                </CustomOverlayMap>
+                            )}
+                        </>
+                    )}
+
+                    {/* 경로 렌더링 */}
+                    {isRouteCalculated && routeData && (
+                        <>
+                            {/* 도보 경로 (파란색) */}
+                            {selectedRoute === "walk" && routeData.walk && (
                                 <Polyline
                                     path={getPolylinePath(
-                                        routeData.bike,
+                                        routeData.walk,
                                         "walk"
                                     )}
                                     strokeWeight={5}
@@ -1289,150 +1280,169 @@ const FindWay = () => {
                                     strokeOpacity={0.7}
                                     strokeStyle={"solid"}
                                 />
-                                {/* 자전거 부분 (초록색) */}
-                                <Polyline
-                                    path={getPolylinePath(
-                                        routeData.bike,
-                                        "bike"
-                                    )}
-                                    strokeWeight={5}
-                                    strokeColor={"#00FF00"}
-                                    strokeOpacity={0.7}
-                                    strokeStyle={"solid"}
-                                />
-                            </>
-                        )}
-                    </>
-                )}
+                            )}
 
-                {/* 자전거 보관소 마커 */}
-                {routeInfo?.bikeStation && selectedRoute === "bike" && (
-                    <>
-                        <MapMarker
-                            position={routeInfo.bikeStation}
-                            onClick={() => handleMarkerClick("bikeStation")}
-                            image={{
-                                src: BicycleMarker,
-                                size: {
-                                    width: 50,
-                                    height: 65,
-                                },
-                            }}
-                        />
-                        {routeInfo?.bikeStation && showBikeStationOverlay && (
-                            <CustomOverlayMap
+                            {/* 도보 + 자전거 경로 */}
+                            {selectedRoute === "bike" && routeData.bike && (
+                                <>
+                                    {/* 도보 부분 (파란색) */}
+                                    <Polyline
+                                        path={getPolylinePath(
+                                            routeData.bike,
+                                            "walk"
+                                        )}
+                                        strokeWeight={5}
+                                        strokeColor={"#007AFF"}
+                                        strokeOpacity={0.7}
+                                        strokeStyle={"solid"}
+                                    />
+                                    {/* 자전거 부분 (초록색) */}
+                                    <Polyline
+                                        path={getPolylinePath(
+                                            routeData.bike,
+                                            "bike"
+                                        )}
+                                        strokeWeight={5}
+                                        strokeColor={"#00FF00"}
+                                        strokeOpacity={0.7}
+                                        strokeStyle={"solid"}
+                                    />
+                                </>
+                            )}
+                        </>
+                    )}
+
+                    {/* 자전거 보관소 마커 */}
+                    {routeInfo?.bikeStation && selectedRoute === "bike" && (
+                        <>
+                            <MapMarker
                                 position={routeInfo.bikeStation}
-                                yAnchor={1.75}
-                            >
-                                <CustomOverlay>
-                                    <StationName>자전거 보관소</StationName>
-                                    <ButtonContainer>
-                                        <Button
-                                            onClick={() =>
-                                                handleSetLocation(
-                                                    "origin",
-                                                    routeInfo.bikeStation
-                                                )
-                                            }
-                                        >
-                                            출발
-                                        </Button>
-                                        <Button
-                                            onClick={() =>
-                                                handleSetLocation(
-                                                    "destination",
-                                                    routeInfo.bikeStation
-                                                )
-                                            }
-                                        >
-                                            도착
-                                        </Button>
-                                    </ButtonContainer>
-                                </CustomOverlay>
-                            </CustomOverlayMap>
-                        )}
-                    </>
-                )}
+                                onClick={() => handleMarkerClick("bikeStation")}
+                                image={{
+                                    src: BicycleMarker,
+                                    size: {
+                                        width: 50,
+                                        height: 65,
+                                    },
+                                }}
+                            />
+                            {routeInfo?.bikeStation &&
+                                showBikeStationOverlay && (
+                                    <CustomOverlayMap
+                                        position={routeInfo.bikeStation}
+                                        yAnchor={1.75}
+                                    >
+                                        <CustomOverlay>
+                                            <StationName>
+                                                자전거 보관소
+                                            </StationName>
+                                            <ButtonContainer>
+                                                <Button
+                                                    onClick={() =>
+                                                        handleSetLocation(
+                                                            "origin",
+                                                            routeInfo.bikeStation
+                                                        )
+                                                    }
+                                                >
+                                                    출발
+                                                </Button>
+                                                <Button
+                                                    onClick={() =>
+                                                        handleSetLocation(
+                                                            "destination",
+                                                            routeInfo.bikeStation
+                                                        )
+                                                    }
+                                                >
+                                                    도착
+                                                </Button>
+                                            </ButtonContainer>
+                                        </CustomOverlay>
+                                    </CustomOverlayMap>
+                                )}
+                        </>
+                    )}
 
-                {/* 현재 위치로 이동 버튼 */}
-                <Reload
-                    onClick={handleReloadLocation}
-                    $viewportHeight={viewportHeight}
-                >
-                    <img src={ReloadIcon} alt="현재위치 새로고침" />
-                </Reload>
-
-                {/* 날씨 작은 화면 */}
-                {userLocation && (
-                    <WeatherPreview
+                    {/* 현재 위치로 이동 버튼 */}
+                    <Reload
+                        onClick={handleReloadLocation}
                         $viewportHeight={viewportHeight}
-                        onClick={handleWeatherPopup}
-                        weatherData={weatherData}
+                    >
+                        <img src={ReloadIcon} alt="현재위치 새로고침" />
+                    </Reload>
+
+                    {/* 날씨 작은 화면 */}
+                    {userLocation && (
+                        <WeatherPreview
+                            $viewportHeight={viewportHeight}
+                            onClick={handleWeatherPopup}
+                            weatherData={weatherData}
+                        />
+                    )}
+                </Map>
+
+                {/* 로딩 중일 때 스피너 표시 */}
+                {loading && <Loading />}
+
+                {/* 경로 정보 팝업 */}
+                {showRoutePopup && routeInfo && (
+                    <FindWayPopup
+                        routeInfo={routeInfo}
+                        onClose={() => setShowRoutePopup(false)}
+                        // 선택된 경로 타입을 전달
+                        onNavigate={(routeType) => {
+                            setSelectedRoute(routeType);
+                            handleStartNavigation();
+                        }}
+                        origin={origin ? origin : ""}
+                        destination={destination ? destination : ""}
                     />
                 )}
-            </Map>
 
-            {/* 로딩 중일 때 스피너 표시 */}
-            {loading && <Loading />}
+                {/* 날씨 상세 정보 팝업 */}
+                {isClicked && weatherData && (
+                    <WeatherPopup
+                        isFlooding={
+                            destination
+                                ? floodingStatus.destination
+                                : origin
+                                ? floodingStatus.origin
+                                : floodingStatus.userLocation
+                        }
+                        onClose={handleWeatherPopup}
+                        weatherData={weatherData}
+                        placeName={
+                            destination
+                                ? destination.name
+                                : origin
+                                ? origin.name
+                                : userLocation
+                                ? userLocation.name
+                                : "현재 위치"
+                        }
+                    />
+                )}
 
-            {/* 경로 정보 팝업 */}
-            {showRoutePopup && routeInfo && (
-                <FindWayPopup
-                    routeInfo={routeInfo}
-                    onClose={() => setShowRoutePopup(false)}
-                    // 선택된 경로 타입을 전달
-                    onNavigate={(routeType) => {
-                        setSelectedRoute(routeType);
-                        handleStartNavigation();
-                    }}
-                    origin={origin ? origin : ""}
-                    destination={destination ? destination : ""}
-                />
-            )}
-
-            {/* 날씨 상세 정보 팝업 */}
-            {isClicked && weatherData && (
-                <WeatherPopup
-                    isFlooding={
-                        destination
-                            ? floodingStatus.destination
-                            : origin
-                            ? floodingStatus.origin
-                            : floodingStatus.userLocation
-                    }
-                    onClose={handleWeatherPopup}
-                    weatherData={weatherData}
-                    placeName={
-                        destination
-                            ? destination.name
-                            : origin
-                            ? origin.name
-                            : userLocation
-                            ? userLocation.name
-                            : "현재 위치"
-                    }
-                />
-            )}
-
-            {/* 날씨 데이터를 불러올 수 없을 때 or 현재 위치 정보가 없을 때 팝업 표시 */}
-            {isModalVisible && (
-                <WeatherErrorModal
-                    onClose={handleCloseModal}
-                    title={
-                        modalType === "locationError"
-                            ? "위치 정보"
-                            : "날씨 정보"
-                    }
-                    message={
-                        modalType === "locationError"
-                            ? `현재 위치를 불러올 수 없습니다.\n위치 정보 접근을 허용해주세요.`
-                            : "날씨 정보를 조회하는 데 실패했습니다."
-                    }
-                />
-            )}
-
+                {/* 날씨 데이터를 불러올 수 없을 때 or 현재 위치 정보가 없을 때 팝업 표시 */}
+                {isModalVisible && (
+                    <WeatherErrorModal
+                        onClose={handleCloseModal}
+                        title={
+                            modalType === "locationError"
+                                ? "위치 정보"
+                                : "날씨 정보"
+                        }
+                        message={
+                            modalType === "locationError"
+                                ? `현재 위치를 불러올 수 없습니다.\n위치 정보 접근을 허용해주세요.`
+                                : "날씨 정보를 조회하는 데 실패했습니다."
+                        }
+                    />
+                )}
+            </PageWrapper>
             <MenuBar />
-        </PageWrapper>
+        </>
     );
 };
 
