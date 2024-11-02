@@ -167,18 +167,18 @@ const Chatting = () => {
     const KST = (time) => {
         const date = new Date(time);
         date.setHours(date.getHours() + 9);
-        const hours = String(date.getHours()).padStart(2, "0");
+        const hours = date.getHours();
         const minutes = String(date.getMinutes()).padStart(2, "0");
 
         if (hours == 0) {
-            const amHours = date.getHours() + 12;
+            const amHours = hours + 12;
             return `오전 ${amHours}:${minutes}`;
         } else if (0 < hours && hours < 12) {
             return `오전 ${hours}:${minutes}`;
         } else if (hours == 12) {
             return `오후 ${hours}:${minutes}`;
         } else if (12 < hours && hours < 24) {
-            const pmHours = date.getHours() - 12;
+            const pmHours = hours - 12;
             return `오후 ${pmHours}:${minutes}`;
         }
     };

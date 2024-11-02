@@ -4,12 +4,12 @@ export const ChattingWrapper = styled.div`
     position: relative;
     width: 100%;
     max-width: 100%;
-    margin-top: 64px;
+    margin-top: 70px;
 `;
 
 export const ChatCategoryWrapper = styled.div`
     position: fixed;
-    top: 64px;
+    top: 70px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -108,9 +108,9 @@ export const MyChattingMessageContainer = styled.div`
     .line_container .line {
         display: inline-flex;
         justify-content: center;
+        align-items: center;
         min-width: 16px;
         height: 16px;
-        line-height: 14px;
         margin-left: 6px;
         padding: 0 4px;
         border-radius: 8px;
@@ -361,9 +361,9 @@ export const ChattingMessageContainer = styled.div`
     .nickname_container .line {
         display: inline-flex;
         justify-content: center;
+        align-items: center;
         min-width: 16px;
         height: 16px;
-        line-height: 14px;
         margin-left: 6px;
         padding: 0 4px;
         border-radius: 8px;

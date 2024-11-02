@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+    BookmarkContainer,
     StationContainer,
     StationInfoCloseBtn,
     StationInfoContainer,
@@ -10,24 +11,36 @@ import {
     StationScheduleBtnContainer,
     StationScheduleContainer,
     StationScheduleWrapper,
+    ToastContainer,
 } from "./StationInfo.styles";
 import difToiletIcon from "../icons/dif-toilet-icon-gray.svg";
 import { BsTelephoneFill } from "react-icons/bs";
 import { FaMapMarkerAlt, FaRestroom, FaWheelchair } from "react-icons/fa";
 import { FaWonSign, FaHeartPulse } from "react-icons/fa6";
 import { IoClose, IoTime, IoMoon } from "react-icons/io5";
-import { LuBaby } from "react-icons/lu";
 import { MdSunny } from "react-icons/md";
 import { PiElevatorFill } from "react-icons/pi";
 import { RiBattery2ChargeFill, RiCustomerService2Fill } from "react-icons/ri";
-import { TbEscalator } from "react-icons/tb";
+import { TbEscalator, TbBabyBottle } from "react-icons/tb";
+import { IoIosStarOutline, IoIosStar } from "react-icons/io";
+import axiosInstance from "@apis/axiosInstance";
 
-const StationInfo = ({ stationInfo, handleClose }) => {
+const StationInfo = ({
+    stationInfo,
+    stationUpTime,
+    stationDownTime,
+    climateCard,
+    handleClose,
+}) => {
+    const toastRef = useRef(null);
+
     const [stationLine, setStationLine] = useState("");
     const [transferLine, setTransferLine] = useState([]);
     const [lineColor, setLineColor] = useState("");
     const [transferLineColor, setTransferLineColor] = useState([]);
     const [selectedDay, setselectedDay] = useState("weekday");
+    const [bookmarkList, setBookmarkList] = useState([]);
+    const [isBookmark, setIsBookmark] = useState(false);
 
     const info = stationInfo;
     const elevators = stationInfo.elevator;
@@ -40,6 +53,37 @@ const StationInfo = ({ stationInfo, handleClose }) => {
     const aeds = stationInfo.aed;
     const chargers = stationInfo.charger;
     const centers = stationInfo.center;
+
+    const access = sessionStorage.getItem("accessToken");
+
+    useEffect(() => {
+        if (access) {
+            axiosInstance
+                .get("/nonestep/book-mark/subway-list", {
+                    headers: {
+                        Authorization: `${access}`,
+                    },
+                })
+                .then((response) => {
+                    setBookmarkList(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [access]);
+
+    useEffect(() => {
+        setIsBookmark(
+            bookmarkList.some((bookmark) => {
+                return (
+                    info.infoRegion === bookmark.region &&
+                    info.infoLine === bookmark.line &&
+                    info.infoStation === bookmark.station
+                );
+            })
+        );
+    }, [bookmarkList]);
 
     useEffect(() => {
         switch (stationInfo.infoLine) {
@@ -424,6 +468,58 @@ const StationInfo = ({ stationInfo, handleClose }) => {
         });
     }, [stationInfo.infoRegion, stationInfo.infoTransfer]);
 
+    const handleClickBookmark = () => {
+        if (access && !isBookmark) {
+            axiosInstance
+                .post(
+                    "/nonestep/book-mark/subway-register",
+                    {
+                        region: info.infoRegion,
+                        line: info.infoLine,
+                        station: info.infoStation,
+                    },
+                    {
+                        headers: {
+                            Authorization: `${access}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    setIsBookmark(true);
+                })
+                .catch((error) => {
+                    toastPop();
+                });
+        } else if (access && isBookmark) {
+            axiosInstance
+                .delete(
+                    `/nonestep/book-mark/subway-delete?region=${info.infoRegion}&line=${info.infoLine}&station=${info.infoStation}`
+                )
+                .then((response) => {
+                    setIsBookmark(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else if (!access) {
+            toastPop();
+        }
+    };
+
+    const toastPop = () => {
+        if (toastRef.current) {
+            toastRef.current.classList.remove("opacity");
+
+            setTimeout(() => {
+                toastRef.current.classList.add("opacity");
+            }, 2300);
+        }
+    };
+
+    const stationName = (station) => {
+        return station.replace(",", "·");
+    };
+
     const handleClickWeekday = () => {
         setselectedDay("weekday");
     };
@@ -436,8 +532,55 @@ const StationInfo = ({ stationInfo, handleClose }) => {
         setselectedDay("holiday");
     };
 
+    const scheduleDirection = (schedule) => {
+        if (schedule.length === 2) {
+            return (
+                schedule[0].direction.replace(" 방향", "/") +
+                schedule[1].direction
+            );
+        } else {
+            return schedule[0].direction;
+        }
+    };
+
+    const scheduleTime = (schedule) => {
+        const scheduleData = schedule.split(" ");
+
+        return scheduleData[0];
+    };
+
+    const scheduleExpress = (schedule) => {
+        const scheduleData = schedule.split(" ");
+
+        return scheduleData[1];
+    };
+
+    const scheduleStation = (schedule) => {
+        const scheduleData = schedule.split(" ");
+
+        if (scheduleData.length === 2) {
+            return scheduleData[1].replace(">", " > ");
+        } else {
+            return scheduleData[2].replace(">", " > ");
+        }
+    };
+
     return (
         <StationInfoWrapper>
+            {isBookmark ? (
+                <BookmarkContainer
+                    className="selected"
+                    onClick={handleClickBookmark}
+                >
+                    <IoIosStar />
+                    <span>즐겨찾기</span>
+                </BookmarkContainer>
+            ) : (
+                <BookmarkContainer onClick={handleClickBookmark}>
+                    <IoIosStarOutline />
+                    <span>즐겨찾기</span>
+                </BookmarkContainer>
+            )}
             <StationInfoCloseBtn onClick={handleClose}>
                 <IoClose />
             </StationInfoCloseBtn>
@@ -446,85 +589,873 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                     <div className={`station_line ${lineColor}`}>
                         <span>{stationLine}</span>
                     </div>
-                    <h2 className="station_name">{info.infoStation}</h2>
+                    <h2 className="station_name">
+                        {stationName(info.infoStation)}
+                    </h2>
                 </StationNameContainer>
             </StationNameWrapper>
-            <StationScheduleWrapper>
-                <StationScheduleBtnContainer>
-                    <button
-                        className={
-                            "weekday " +
-                            (selectedDay === "weekday" ? "selected" : "")
-                        }
-                        onClick={handleClickWeekday}
-                    >
-                        평일
-                    </button>
-                    <button
-                        className={
-                            "weekend " +
-                            (selectedDay === "weekend" ? "selected" : "")
-                        }
-                        onClick={handleClickWeekend}
-                    >
-                        토요일
-                    </button>
-                    <button
-                        className={
-                            "holiday " +
-                            (selectedDay === "holiday" ? "selected" : "")
-                        }
-                        onClick={handleClickHoliday}
-                    >
-                        공휴일
-                    </button>
-                </StationScheduleBtnContainer>
-                <StationScheduleContainer>
-                    <table className="station_schedule">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <MdSunny className="sun_icon" />
-                                    <span>첫차</span>
-                                </th>
-                                <th>
-                                    <IoMoon className="moon_icon" />
-                                    <span>막차</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                {selectedDay === "weekday" ? (
-                                    <>
-                                        <td>{info.infoWeekDayStart}</td>
-                                        <td>{info.infoWeekDayEnd}</td>
-                                    </>
-                                ) : (
-                                    <></>
-                                )}
-                                {selectedDay === "weekend" ? (
-                                    <>
-                                        <td>{info.infoSatStart}</td>
-                                        <td>{info.infoSatEnd}</td>
-                                    </>
-                                ) : (
-                                    <></>
-                                )}
-                                {selectedDay === "holiday" ? (
-                                    <>
-                                        <td>{info.infoHolidayStart}</td>
-                                        <td>{info.infoHolidayEnd}</td>
-                                    </>
-                                ) : (
-                                    <></>
-                                )}
-                            </tr>
-                        </tbody>
-                    </table>
-                </StationScheduleContainer>
-            </StationScheduleWrapper>
             <StationInfoContainer>
+                <StationScheduleWrapper>
+                    <StationScheduleBtnContainer>
+                        <button
+                            className={
+                                "weekday " +
+                                (selectedDay === "weekday" ? "selected" : "")
+                            }
+                            onClick={handleClickWeekday}
+                        >
+                            평일
+                        </button>
+                        <button
+                            className={
+                                "weekend " +
+                                (selectedDay === "weekend" ? "selected" : "")
+                            }
+                            onClick={handleClickWeekend}
+                        >
+                            토요일
+                        </button>
+                        <button
+                            className={
+                                "holiday " +
+                                (selectedDay === "holiday" ? "selected" : "")
+                            }
+                            onClick={handleClickHoliday}
+                        >
+                            공휴일
+                        </button>
+                    </StationScheduleBtnContainer>
+                    <StationScheduleContainer>
+                        <table className="station_schedule">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span>
+                                            {scheduleDirection(stationUpTime)}
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span>
+                                            {scheduleDirection(stationDownTime)}
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {selectedDay === "weekday" && (
+                                    <>
+                                        <tr>
+                                            <th colSpan={2}>
+                                                <MdSunny className="sun_icon" />
+                                                <span>첫차</span>
+                                            </th>
+                                        </tr>
+                                        <tr className="timeline">
+                                            {stationUpTime[0].weekdayStart ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[0]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[0].weekdayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[0]
+                                                                    .weekdayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[0]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {stationDownTime[0].weekdayStart ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[0]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[0].weekdayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[0]
+                                                                    .weekdayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[0]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="timeline">
+                                            {1 < stationDownTime.length &&
+                                                stationUpTime.length === 1 && (
+                                                    <td></td>
+                                                )}
+                                            {1 < stationUpTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[1]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[1].weekdayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[1]
+                                                                    .weekdayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[1]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {1 < stationUpTime.length &&
+                                                stationDownTime.length ===
+                                                    1 && <td></td>}
+                                            {1 < stationDownTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[1]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[1].weekdayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[1]
+                                                                    .weekdayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[1]
+                                                                .weekdayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr>
+                                            <th colSpan={2}>
+                                                <IoMoon className="moon_icon" />
+                                                <span>막차</span>
+                                            </th>
+                                        </tr>
+                                        <tr className="timeline">
+                                            {stationUpTime[0].weekdayEnd ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[0]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[0].weekdayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[0]
+                                                                    .weekdayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[0]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {stationDownTime[0].weekdayEnd ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[0]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[0].weekdayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[0]
+                                                                    .weekdayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[0]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="timeline">
+                                            {1 < stationDownTime.length &&
+                                                stationUpTime.length === 1 && (
+                                                    <td></td>
+                                                )}
+                                            {1 < stationUpTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[1]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[1].weekdayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[1]
+                                                                    .weekdayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[1]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {1 < stationUpTime.length &&
+                                                stationDownTime.length ===
+                                                    1 && <td></td>}
+                                            {1 < stationDownTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[1]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[1].weekdayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[1]
+                                                                    .weekdayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[1]
+                                                                .weekdayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    </>
+                                )}
+                                {selectedDay === "weekend" && (
+                                    <>
+                                        <tr>
+                                            <th colSpan={2}>
+                                                <MdSunny className="sun_icon" />
+                                                <span>첫차</span>
+                                            </th>
+                                        </tr>
+                                        <tr className="timeline">
+                                            {stationUpTime[0].satStart ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[0]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[0].satStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[0]
+                                                                    .satStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[0]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {stationDownTime[0].satStart ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[0]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[0].satStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[0]
+                                                                    .satStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[0]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="timeline">
+                                            {1 < stationDownTime.length &&
+                                                stationUpTime.length === 1 && (
+                                                    <td></td>
+                                                )}
+                                            {1 < stationUpTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[1]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[1].satStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[1]
+                                                                    .satStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[1]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {1 < stationUpTime.length &&
+                                                stationDownTime.length ===
+                                                    1 && <td></td>}
+                                            {1 < stationDownTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[1]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[1].satStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[1]
+                                                                    .satStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[1]
+                                                                .satStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr>
+                                            <th colSpan={2}>
+                                                <IoMoon className="moon_icon" />
+                                                <span>막차</span>
+                                            </th>
+                                        </tr>
+                                        <tr className="timeline">
+                                            {stationUpTime[0].satEnd ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[0]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[0].satEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[0]
+                                                                    .satEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[0]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {stationDownTime[0].satEnd ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[0]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[0].satEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[0]
+                                                                    .satEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[0]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="timeline">
+                                            {1 < stationDownTime.length &&
+                                                stationUpTime.length === 1 && (
+                                                    <td></td>
+                                                )}
+                                            {1 < stationUpTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[1]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[1].satEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[1]
+                                                                    .satEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[1]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {1 < stationUpTime.length &&
+                                                stationDownTime.length ===
+                                                    1 && <td></td>}
+                                            {1 < stationDownTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[1]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[1].satEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[1]
+                                                                    .satEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[1]
+                                                                .satEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    </>
+                                )}
+                                {selectedDay === "holiday" && (
+                                    <>
+                                        <tr>
+                                            <th colSpan={2}>
+                                                <MdSunny className="sun_icon" />
+                                                <span>첫차</span>
+                                            </th>
+                                        </tr>
+                                        <tr className="timeline">
+                                            {stationUpTime[0].holidayStart ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[0]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[0].holidayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[0]
+                                                                    .holidayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[0]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {stationDownTime[0].holidayStart ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[0]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[0].holidayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[0]
+                                                                    .holidayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[0]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="timeline">
+                                            {1 < stationDownTime.length &&
+                                                stationUpTime.length === 1 && (
+                                                    <td></td>
+                                                )}
+                                            {1 < stationUpTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[1]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[1].holidayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[1]
+                                                                    .holidayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[1]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {1 < stationUpTime.length &&
+                                                stationDownTime.length ===
+                                                    1 && <td></td>}
+                                            {1 < stationDownTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[1]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[1].holidayStart.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[1]
+                                                                    .holidayStart
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[1]
+                                                                .holidayStart
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr>
+                                            <th colSpan={2}>
+                                                <IoMoon className="moon_icon" />
+                                                <span>막차</span>
+                                            </th>
+                                        </tr>
+                                        <tr className="timeline">
+                                            {stationUpTime[0].holidayEnd ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[0]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[0].holidayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[0]
+                                                                    .holidayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[0]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {stationDownTime[0].holidayEnd ? (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[0]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[0].holidayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[0]
+                                                                    .holidayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[0]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="no_train">
+                                                    <span>
+                                                        열차가 없습니다.
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        <tr className="timeline">
+                                            {1 < stationDownTime.length &&
+                                                stationUpTime.length === 1 && (
+                                                    <td></td>
+                                                )}
+                                            {1 < stationUpTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationUpTime[1]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationUpTime[1].holidayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationUpTime[1]
+                                                                    .holidayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationUpTime[1]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            {1 < stationUpTime.length &&
+                                                stationDownTime.length ===
+                                                    1 && <td></td>}
+                                            {1 < stationDownTime.length && (
+                                                <td>
+                                                    <span className="time">
+                                                        {scheduleTime(
+                                                            stationDownTime[1]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                    {stationDownTime[1].holidayEnd.split(
+                                                        " "
+                                                    ).length === 3 && (
+                                                        <span className="express">
+                                                            {scheduleExpress(
+                                                                stationDownTime[1]
+                                                                    .holidayEnd
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                    <span className="station">
+                                                        {scheduleStation(
+                                                            stationDownTime[1]
+                                                                .holidayEnd
+                                                        )}
+                                                    </span>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    </>
+                                )}
+                            </tbody>
+                        </table>
+                    </StationScheduleContainer>
+                </StationScheduleWrapper>
                 <StationContainer>
                     {stationInfo.infoTransfer && (
                         <div className="transfer_station">
@@ -539,6 +1470,30 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                             ))}
                         </div>
                     )}
+                    {stationInfo.infoRegion === "수도권" &&
+                        climateCard.getOff === "y" &&
+                        climateCard.getOn === "y" && (
+                            <div className="climate_card">
+                                <h2 className="info_title">기후동행카드</h2>
+                                <span>승 &#183; 하차 가능</span>
+                            </div>
+                        )}
+                    {stationInfo.infoRegion === "수도권" &&
+                        climateCard.getOff === "y" &&
+                        climateCard.getOn === "n" && (
+                            <div className="climate_card">
+                                <h2 className="info_title">기후동행카드</h2>
+                                <span>하차만 가능</span>
+                            </div>
+                        )}
+                    {stationInfo.infoRegion === "수도권" &&
+                        climateCard.getOff === "n" &&
+                        climateCard.getOn === "n" && (
+                            <div className="climate_card">
+                                <h2 className="info_title">기후동행카드</h2>
+                                <span className="no_support">미지원</span>
+                            </div>
+                        )}
                     <h2 className="info_title">상세정보</h2>
                     <div className="info address_container">
                         <span>
@@ -662,7 +1617,7 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                     </div>
                     <div className="info nursing_rooms_container">
                         <span>
-                            <LuBaby />
+                            <TbBabyBottle />
                         </span>
                         <span>수유실</span>
                         <div className="detail_info nursing_room_info">
@@ -798,22 +1753,31 @@ const StationInfo = ({ stationInfo, handleClose }) => {
                                 <span>-</span>
                             ) : (
                                 <>
-                                    {centers.map((center, index) => (
-                                        <p
-                                            key={`centerTel${index}`}
-                                            className="center_tel"
-                                        >
-                                            {center.centerTel === ""
-                                                ? "-"
-                                                : center.centerTel}
-                                        </p>
-                                    ))}
+                                    {centers.map((center, index) =>
+                                        center.centerTel === "" ? (
+                                            <p key={`centerTel${index}`}>-</p>
+                                        ) : (
+                                            <a
+                                                key={`centerTel${index}`}
+                                                href={`tel:${center.centerTel}`}
+                                            >
+                                                {center.centerTel}
+                                            </a>
+                                        )
+                                    )}
                                 </>
                             )}
                         </div>
                     </div>
                 </StationContainer>
             </StationInfoContainer>
+            <ToastContainer ref={toastRef} className="opacity">
+                {!access ? (
+                    <p>로그인 후 이용 가능합니다.</p>
+                ) : (
+                    <p>즐겨찾기는 최대 5개까지 등록할 수 있습니다.</p>
+                )}
+            </ToastContainer>
         </StationInfoWrapper>
     );
 };

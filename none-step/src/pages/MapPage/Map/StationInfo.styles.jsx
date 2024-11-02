@@ -7,7 +7,7 @@ export const StationInfoWrapper = styled.div`
     transform: translateX(-50%);
     width: 80%;
     height: calc(100vh - 287px);
-    padding: 30px 20px 10px;
+    padding: 30px 0 10px;
     border: 1px solid ${(props) => props.theme.colors.gray05};
     border-radius: 7px;
     background: ${(props) => props.theme.colors.white};
@@ -20,9 +20,38 @@ export const StationInfoWrapper = styled.div`
         left: 0;
         transform: translateX(0);
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 142px);
         border: none;
         border-radius: 0;
+    }
+`;
+
+export const BookmarkContainer = styled.div`
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.colors.gray01};
+    cursor: pointer;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    span {
+        margin-left: 6px;
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+
+    &.selected svg {
+        color: #ffcc00;
+    }
+
+    &.selected span {
+        color: ${(props) => props.theme.colors.primary};
     }
 `;
 
@@ -527,6 +556,25 @@ export const StationNameContainer = styled.div`
     }
 `;
 
+export const StationInfoContainer = styled.div`
+    height: calc(100% - 100px);
+    padding-left: 20px;
+    padding-right: 6px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        height: 40px;
+        border: 4px solid transparent;
+        border-radius: 10px;
+        background-color: #e7e7e7;
+        background-clip: padding-box;
+    }
+`;
+
 export const StationScheduleWrapper = styled.div`
     margin-bottom: 30px;
 `;
@@ -558,7 +606,7 @@ export const StationScheduleContainer = styled.div`
     table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     th,
@@ -566,6 +614,7 @@ export const StationScheduleContainer = styled.div`
         width: 50%;
         height: 40px;
         border: 1px solid ${(props) => props.theme.colors.gray06};
+        word-break: keep-all;
     }
 
     th {
@@ -589,28 +638,45 @@ export const StationScheduleContainer = styled.div`
     }
 
     td {
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    td span {
+        display: block;
+        line-height: 2.2rem;
+    }
+
+    td span.time {
+        display: inline-block;
+        color: #444;
+        font-weight: 600;
+    }
+
+    td span.express {
+        display: inline-block;
+        margin-left: 4px;
+        color: #fa5309;
+    }
+
+    td span.station {
+        color: ${(props) => props.theme.colors.gray01};
+        word-break: keep-all;
+    }
+
+    td.no_train {
         text-align: center;
-    }
-`;
-
-export const StationInfoContainer = styled.div`
-    height: calc(100% - 280px);
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-        width: 14px;
+        vertical-align: middle;
     }
 
-    &::-webkit-scrollbar-thumb {
-        height: 40px;
-        border: 4px solid transparent;
-        border-radius: 10px;
-        background-color: #e7e7e7;
-        background-clip: padding-box;
+    td.no_train span {
+        color: ${(props) => props.theme.colors.gray01};
     }
 `;
 
 export const StationContainer = styled.div`
+    margin-bottom: 30px;
+
     .transfer_station {
         display: flex;
         align-items: center;
@@ -781,6 +847,31 @@ export const StationContainer = styled.div`
         background: ${(props) => props.theme.gwangjuLines.one};
     }
 
+    /* climate card */
+    .climate_card {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .climate_card h2 {
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    .climate_card span {
+        margin-left: 8px;
+        color: ${(props) => props.theme.colors.primary};
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+
+    .climate_card .no_support {
+        color: #ff3b30;
+    }
+
+    /* info */
     .info_title {
         font-size: 1.6rem;
         margin-bottom: 20px;
@@ -837,5 +928,39 @@ export const StationContainer = styled.div`
 
     .lift_info p > span:first-child {
         margin-right: 7px;
+    }
+
+    .center_tel_info a {
+        font-size: 1.5rem;
+        color: ${(props) => props.theme.colors.primary};
+        text-decoration: underline;
+    }
+`;
+
+export const ToastContainer = styled.div`
+    position: fixed;
+    bottom: 130px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    z-index: 999;
+
+    &.opacity {
+        opacity: 0;
+    }
+
+    p {
+        position: absolute;
+        top: 0;
+        line-height: 2.1rem;
+        padding: 12px 18px;
+        border-radius: 25px;
+        background: rgba(34, 34, 34, 0.9);
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 500;
+        word-break: keep-all;
     }
 `;

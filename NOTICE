@@ -1,0 +1,161 @@
+This product includes software developed by various open-source projects under different licenses.
+
+The following third-party components are used in this project:
+
+1. **reduxjs/toolkit**
+   - Version: 2.2.6
+   - License: MIT License
+   - URL: https://github.com/reduxjs/redux-toolkit
+
+2. **stomp/stompjs**
+   - Version: 7.0.0
+   - License: Apache License 2.0
+   - URL: https://github.com/stomp-js/stompjs
+
+3. **axios**
+   - Version: 1.7.7
+   - License: MIT License
+   - URL: https://github.com/axios/axios
+
+4. **dompurify**
+   - Version: 3.1.7
+   - License: Apache License 2.0
+   - URL: https://github.com/cure53/DOMPurify
+
+5. **lodash**
+   - Version: 4.17.21
+   - License: MIT License
+   - URL: https://github.com/lodash/lodash
+
+6. **react**
+   - Version: 18.3.1
+   - License: MIT License
+   - URL: https://github.com/facebook/react
+
+7. **react-dom**
+   - Version: 18.3.1
+   - License: MIT License
+   - URL: https://github.com/facebook/react
+
+8. **react-icons**
+   - Version: 5.2.1
+   - License: MIT License
+   - URL: https://github.com/react-icons/react-icons
+
+9. **react-kakao-maps-sdk**
+   - Version: 1.1.27
+   - License: MIT License
+   - URL: https://github.com/JaeSeoKim/react-kakao-maps-sdk
+
+10. **react-quill**
+   - Version: 2.0.0
+   - License: MIT License
+   - URL: https://github.com/zenoamaro/react-quill
+
+11. **react-redux**
+   - Version: 9.1.2
+   - License: MIT License
+   - URL: https://github.com/reduxjs/react-redux
+
+12. **react-router-dom**
+   - Version: 6.24.1
+   - License: MIT License
+   - URL: https://github.com/remix-run/react-router
+
+13. **redux**
+   - Version: 5.0.1
+   - License: MIT License
+   - URL: https://github.com/reduxjs/redux
+
+14. **redux-persist**
+   - Version: 6.0.0
+   - License: MIT License
+   - URL: https://github.com/rt2zz/redux-persist
+
+15. **styled-components**
+   - Version: 6.1.11
+   - License: MIT License
+   - URL: https://github.com/styled-components/styled-components
+
+16. **eslint**
+   - Version: 8.57.0
+   - License: MIT License
+   - URL: https://github.com/eslint/eslint
+
+17. **vite**
+   - Version: 5.3.1
+   - License: MIT License
+   - URL: https://github.com/vitejs/vite
+
+18. **vitejs/plugin-react**
+   - Version: 4.3.1
+   - License: MIT License
+   - URL: https://github.com/vitejs/vite-plugin-react
+
+19. **vitejs/plugin-react-swc**
+   - Version: 3.7.0
+   - License: MIT License
+   - URL: https://github.com/vitejs/vite-plugin-react-swc
+
+20. **Bootstrap Icons**
+   - Version: 1.11.3
+   - License: MIT License
+   - URL: https://github.com/twbs/icons
+
+21. **Font Awesome 5**
+   - Version: 5.15.4-3-gafecf2a
+   - License: MIT License
+   - URL: https://fontawesome.com/
+
+22. **Font Awesome 6**
+   - Version: 6.5.2
+   - License: MIT License
+   - URL: https://fontawesome.com/
+
+23. **Github Octicons icons**
+   - Version: 18.3.0
+   - License: MIT License
+   - URL: https://octicons.github.com/
+
+24. **Heroicons**
+   - Version: 1.0.6
+   - License: MIT License
+   - URL: https://github.com/tailwindlabs/heroicons
+
+25. **Heroicons 2**
+   - Version: 2.1.3
+   - License: MIT License
+   - URL: https://github.com/tailwindlabs/heroicons
+
+26. **Ionicons 4**
+   - Version: 4.6.3
+   - License: MIT License
+   - URL: https://ionicons.com/
+
+27. **Ionicons 5**
+   - Version: 5.5.4
+   - License: MIT License
+   - URL: https://ionicons.com/
+
+28. **Material Design icons**
+   - Version: 4.0.0-98-g9beae745bb
+   - License: Apache License Version 2.0
+   - URL: https://github.com/google/material-design-icons
+
+29. **Phosphor Icons**
+   - Version: 2.1.1
+   - License: MIT License
+   - URL: https://github.com/phosphor-icons/core
+
+30. **Remix Icon**
+   - Version: 4.2.0
+   - License: Apache License Version 2.0
+   - URL: https://github.com/Remix-Design/RemixIcon
+
+31. **Tabler Icons**
+   - Version: 3.2.0
+   - License: MIT License
+   - URL: https://github.com/tabler/tabler-icons
+
+The full text of each library's license is included in the project's licenses folder.
+For further details about the licenses of each component, please refer to the official documentation of each library.
