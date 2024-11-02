@@ -8,6 +8,7 @@ import SnowWindy from './icons/snow-windy.svg';
 import Snowy from './icons/snowy.svg';
 import Windy from './icons/windy.svg';
 import Slash from './icons/slash.svg';
+import Rainy from './icons/rainy.svg';
 import WarningIcon from '../weather/icons/warning.svg';
 
 import {
@@ -139,7 +140,7 @@ const getWeatherIcon = value => {
     case '흐림':
       return Cloudy;
     case '비':
-      return LittleCloudy;
+      return Rainy;
     case '비/눈':
       return SnowRainy;
     case '눈':
@@ -335,8 +336,7 @@ export const WeatherPopup = ({
         // </FloodingWrapper>
         <FloodingWrapper>
           <WeatherBlack>
-            <strong>[침수 주의]</strong> 5년 내 침수 피해가 있었던
-            지역입니다.
+            <strong>[침수 주의]</strong> 5년 내 침수 피해가 있었던 지역입니다.
           </WeatherBlack>
         </FloodingWrapper>
       )}
