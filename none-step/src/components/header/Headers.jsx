@@ -19,6 +19,11 @@ export const MainHeader = () => {
     const navigate = useNavigate();
     const handleLogout = useLogout();
 
+    const handleClickLogo = () => {
+        navigate("/");
+        window.scrollTo(0, 0);
+    };
+
     const handleIconClick = () => {
         if (isAuthorized) {
             handleLogout();
@@ -29,7 +34,12 @@ export const MainHeader = () => {
 
     return (
         <MainWrapper>
-            <img src={logoImage} width="130px" alt="로고" />
+            <img
+                src={logoImage}
+                width="130px"
+                alt="로고"
+                onClick={handleClickLogo}
+            />
             <IconAuthState
                 src={isAuthorized ? LogOutIcon : LogInIcon}
                 alt={isAuthorized ? "로그아웃 아이콘" : "로그인 아이콘"}
