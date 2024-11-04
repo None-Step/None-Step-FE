@@ -9,6 +9,7 @@ import Snowy from './icons/snowy.svg';
 import Windy from './icons/windy.svg';
 import Slash from './icons/slash.svg';
 import Rainy from './icons/rainy.svg';
+import Raindrop from './icons/raindrop.svg';
 import WarningIcon from '../weather/icons/warning.svg';
 
 import {
@@ -144,11 +145,11 @@ const getWeatherIcon = value => {
     case '비/눈':
       return SnowRainy;
     case '눈':
-      return Sunny;
-    case '빗방울':
-      return Sunny;
-    case '빗방울/눈날림':
       return Snowy;
+    case '빗방울':
+      return Raindrop;
+    case '빗방울/눈날림':
+      return SnowRainy;
     case '눈날림':
       return SnowWindy;
     case '낙뢰':
