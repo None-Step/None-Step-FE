@@ -1,4 +1,4 @@
-import { BG, PageContainer } from "../MyPage.style";
+import { PageContainer } from "../MyPage.style";
 import MenuBar from "@components/menuBar/MenuBar";
 import { PageHeader } from "@components/header/Headers";
 import {
@@ -242,9 +242,9 @@ const BookmarkMap = () => {
     };
 
     return (
-        <BG>
+        <>
+            <PageHeader />
             <PageContainer>
-                <PageHeader />
                 <BookmarkMapContainer>
                     {bookmarkList.length !== 0 ? (
                         <BookmarkList>
@@ -294,9 +294,9 @@ const BookmarkMap = () => {
                     )}
                     <Span>즐겨찾기 장소는 최대 5곳 등록 가능합니다.</Span>
                 </BookmarkMapContainer>
-                <MenuBar />
             </PageContainer>
-        </BG>
+            <MenuBar />
+        </>
     );
 };
 

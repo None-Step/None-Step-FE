@@ -6,15 +6,13 @@ export const RightIcon = styled(FaChevronRight)`
     cursor: pointer;
 `;
 
-export const BG = styled.div`
-    width: 100%;
-    height: 100vh;
-    background-color: ${(props) => props.theme.colors.gray06};
-`;
-
 export const PageContainer = styled.div`
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 142px);
+    margin-top: 70px;
+    margin-bottom: 72px;
+    padding-bottom: 30px;
+    background-color: ${(props) => props.theme.colors.gray06};
     overflow: scroll;
     position: relative;
     top: 0;
@@ -31,10 +29,8 @@ export const PageContainer = styled.div`
 `;
 
 export const ProfileSection = styled.section`
-    margin-top: 70px;
     padding: 20px;
     background-color: white;
-    margin-bottom: 20px;
 `;
 
 export const ProfileImage = styled.img`
@@ -126,11 +122,11 @@ export const Withdraw = styled(SignActionSpan)`
 
 export const ModalBG = styled.div`
     width: 100%;
-    height: 100%;
+    max-width: 600px;
+    height: calc(100vh - 142px);
     background-color: ${(props) => props.theme.colors.modalLayer};
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 70px;
     z-index: 2;
 `;
 
@@ -248,9 +244,9 @@ export const WithdrawContainer = styled.div`
     max-width: 350px;
     min-width: 270px;
     height: fit-content;
-    padding: 1.6rem;
-    position: absolute;
+    padding: 2rem;
     z-index: 3;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -268,7 +264,8 @@ export const Title = styled.h3`
 
 export const Notice = styled.p`
     padding: 2rem 0;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
     justify-content: center;
