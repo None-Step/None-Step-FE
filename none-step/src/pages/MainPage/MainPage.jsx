@@ -23,6 +23,11 @@ import {
 import MenuBar from "@components/menuBar/MenuBar";
 import LocationTracker from "@components/location/LocationTracker";
 import mainBanner from "@assets/img/main-banner.png";
+import mainBanner2 from "@assets/img/mainBanner2.png";
+import mainBanner3 from "@assets/img/mainBanner3.png";
+import mainBanner4 from "@assets/img/mainBanner4.png";
+import play from "@assets/img/play.svg";
+import pause from "@assets/img/pause.svg";
 import congestionIcon from "@assets/icons/congestion-main-icon.svg";
 import elevatorIcon from "@assets/icons/elevator-icon.svg";
 import escalatorIcon from "@assets/icons/escalator-icon.svg";
@@ -41,6 +46,8 @@ import littleCloudyIcon from "./icons/little-cloudy.svg";
 import snowRainyIcon from "./icons/snow-rainy.svg";
 import snowWindyIcon from "./icons/snow-windy.svg";
 import snowyIcon from "./icons/snowy.svg";
+import rainyIcon from "./icons/rainy.svg";
+import raindropIcon from "./icons/raindrop.svg";
 import seoulMetroIcon from "@assets/icons/seoul-metro-logo.svg";
 import busanMetroIcon from "@assets/icons/busan-transp-corp-logo.svg";
 import daejeonMetroIcon from "@assets/icons/daejeon-transp-corp-logo.svg";
@@ -69,15 +76,44 @@ const MainPage = () => {
     const [locationAddress, setLocationAddress] = useState("");
     const [sky, setSky] = useState(null);
     const [rainy, setRainy] = useState(null);
+    const [precipitation, setPrecipitation] = useState(null);
     const [windy, setWindy] = useState(null);
     const [temperature, setTemperature] = useState(null);
     const [isLocation, setIsLocation] = useState(null);
     const [isWeather, setIsWeather] = useState(null);
 
+    // 메인 배너 추가 부분
+    const [currentBanner, setCurrentBanner] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(true);
+
+    const banners = [
+        { src: mainBanner, alt: "main-banner-01" },
+        { src: mainBanner2, alt: "main-banner-02" },
+        { src: mainBanner3, alt: "main-banner-03" },
+        { src: mainBanner4, alt: "main-banner-04" },
+    ];
+    // 메인 배너 추가 부분 끝
+
     const scrollRef = useRef(null);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    // 메인 배너 타이머
+    useEffect(() => {
+        let timer;
+        if (isPlaying) {
+            timer = setInterval(() => {
+                setCurrentBanner((prev) => (prev + 1) % banners.length);
+            }, 5000);
+        }
+        return () => clearInterval(timer);
+    }, [isPlaying, banners.length]);
+
+    const togglePlayPause = () => {
+        setIsPlaying(!isPlaying);
+    };
+    // 메인 배너 타이머 끝
 
     useEffect(() => {
         const accessToken = sessionStorage.getItem("accessToken");
@@ -142,7 +178,8 @@ const MainPage = () => {
 
                     setSky(weatherData[0]);
                     setRainy(weatherData[1]);
-                    setWindy(weatherData[3]);
+                    setPrecipitation(weatherData[2]);
+                    setWindy(weatherData[4]);
                     setTemperature(weatherData[5]);
 
                     if (response.status === 200) {
@@ -277,6 +314,25 @@ const MainPage = () => {
         }
     };
 
+    const getPrecipitationText = (value) => {
+        switch (value) {
+            case "1":
+                return "비";
+            case "2":
+                return "비/눈";
+            case "3":
+                return "눈";
+            case "5":
+                return "빗방울";
+            case "6":
+                return "빗방울/눈날림";
+            case "7":
+                return "눈날림";
+            default:
+                return "";
+        }
+    };
+
     const getWeatherIcon = (value) => {
         switch (value) {
             case "맑음":
@@ -286,15 +342,15 @@ const MainPage = () => {
             case "흐림":
                 return cloudyIcon;
             case "비":
-                return littleCloudyIcon;
+                return rainyIcon;
             case "비/눈":
                 return snowRainyIcon;
             case "눈":
-                return sunnyIcon;
-            case "빗방울":
-                return sunnyIcon;
-            case "빗방울/눈날림":
                 return snowyIcon;
+            case "빗방울":
+                return raindropIcon;
+            case "빗방울/눈날림":
+                return snowRainyIcon;
             case "눈날림":
                 return snowWindyIcon;
             case "낙뢰":
@@ -341,13 +397,38 @@ const MainPage = () => {
                     <p>{noticeTitle}</p>
                 </NoticeWrapper>
                 <MainSection>
-                    <img
-                        loading="lazy"
-                        decoding="async"
-                        src={mainBanner}
-                        alt="main-banner-01"
-                    />
-                </MainSection>
+                    <div
+                        className="banner-container"
+                        style={{
+                            transform: `translateX(-${currentBanner * 25}%)`,
+                        }}
+                    >
+                        {banners.map((banner, index) => (
+                            <div key={index} className="banner-wrapper">
+                                <img
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                    decoding="async"
+                                    src={banner.src}
+                                    alt={banner.alt}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="controller">
+                        <button
+                            className="play-pause-btn"
+                            onClick={togglePlayPause}
+                        >
+                            <img
+                                src={isPlaying ? pause : play}
+                                alt="play-pause"
+                            />
+                        </button>
+                        <div className="page-indicator">
+                            {currentBanner + 1} / {banners.length}
+                        </div>
+                    </div>
+                </MainSection>{" "}
                 <CategoryWrapper>
                     <h3>편의시설 바로가기</h3>
                     {isScrollLeft && (
@@ -488,7 +569,11 @@ const MainPage = () => {
                                     <div className="weather_icon">
                                         <img
                                             src={getWeatherIcon(
-                                                getSkyText(sky)
+                                                precipitation !== "0"
+                                                    ? getPrecipitationText(
+                                                          precipitation
+                                                      )
+                                                    : getSkyText(sky)
                                             )}
                                             alt="weather_icon"
                                         />
@@ -497,7 +582,13 @@ const MainPage = () => {
                                                 {temperature}
                                                 &#186;
                                             </span>
-                                            <span>{getSkyText(sky)}</span>
+                                            <span>
+                                                {precipitation !== "0"
+                                                    ? getPrecipitationText(
+                                                          precipitation
+                                                      )
+                                                    : getSkyText(sky)}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
