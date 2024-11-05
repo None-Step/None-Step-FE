@@ -261,6 +261,8 @@ npm run dev
 ## 💡 <ERD 다이어그램>
 ![image](https://github.com/user-attachments/assets/2a30832e-cc69-40b9-bc5a-52ed69598e6e)
 
+<br>
+
 ## 💡 사용한 공공 데이터 목록
 
 * 데이터의 경우, [공공데이터 포털](https://www.data.go.kr/) 및 [철도 데이터 포털](https://data.kric.go.kr/rips/) 에서 <br>
@@ -809,13 +811,15 @@ npm run dev
 
 <details>
 <summary>📌 16. 침수 피해</summary>
-  <br>
+ <br>
  ✔ 2020년부터 해당 역의 침수 피해 여부에 대해 참고했습니다. 
  <br>
  
 * 행정안전부_침수흔적도(2020년) <br>
 
 </details>
+
+<br>
 
 ## 📄 라이선스
 * Apache License 2.0, Copyright (c) 2024 NONESTEP, see this [link](https://github.com/None-Step/None-Step-FE/blob/main/LICENSE) for more details
