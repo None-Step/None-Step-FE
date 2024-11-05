@@ -249,7 +249,7 @@ cd none-step
 ```
 npm install
 ```
-### 4. npm run dev
+### 4. 애플리케이션 실행
 ```
 npm run dev
 ```
