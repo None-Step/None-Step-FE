@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const BookmarkMapContainer = styled.div`
     width: 100%;
     max-width: 600px;
-    height: calc(100vh - 142px);
-    margin-top: 70px;
 `;
 
 export const BookmarkList = styled.ul`
