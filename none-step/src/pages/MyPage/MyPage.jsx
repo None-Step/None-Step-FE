@@ -30,11 +30,11 @@ import Close, {
     SubmitButton,
     RightIcon,
     EditIconWrapper,
-    BG,
 } from "./MyPage.style";
 import Button from "@/components/Button";
 import InputForm from "./MyPageInputForm";
 import useLogout from "@/hooks/logout";
+import { logout } from "@/store/slices/memberSlice";
 import axiosInstance from "@/apis/axiosInstance";
 import MenuBar from "@/components/menuBar/MenuBar";
 import { PageHeader } from "@/components/header/Headers";
@@ -385,8 +385,19 @@ const MyPage = () => {
     // 회원 탈퇴 완료 후 메인 페이지로 이동하기
     const handleWithdrawComplete = useCallback(() => {
         setIsWithdrawCompleteOpen(false);
+
+        // 리덕스 스토어에서 사용자 정보 제거
+        dispatch(logout());
+
+        // 세션 스토리지에서 관련 데이터 제거
+        sessionStorage.removeItem("persist:root");
+        sessionStorage.removeItem("accessToken");
+
+        // axios 인스턴스의 기본 헤더에서 Authorization 제거
+        delete axiosInstance.defaults.headers.common["Authorization"];
+
         navigate("/");
-    }, [navigate]);
+    }, [dispatch, navigate]);
 
     // 프로필 변경 항목 선택하기
     const handleEditClick = useCallback(
@@ -417,10 +428,9 @@ const MyPage = () => {
     }
 
     return (
-        <BG>
+        <>
+            <PageHeader />
             <PageContainer ref={scrollRef}>
-                <PageHeader />
-
                 {memberInfo && (
                     <ProfileSection>
                         <ProfileInfoWrap>
@@ -702,23 +712,25 @@ const MyPage = () => {
 
                 {/* 회원 탈퇴 step.2 팝업 */}
                 {isWithdrawCompleteOpen && (
-                    <WithdrawContainer>
-                        <Title>회원 탈퇴 완료</Title>
-                        <Notice>
-                            <span>그동안 이호선을 이용해 주셔서</span>
-                            <span>진심으로 감사합니다.</span>
-                        </Notice>
-                        <ButWrap>
-                            <SubmitButton onClick={handleWithdrawComplete}>
-                                확인
-                            </SubmitButton>
-                        </ButWrap>
-                    </WithdrawContainer>
+                    <>
+                        <ModalBG onClick={handleWithdrawComplete} />
+                        <WithdrawContainer>
+                            <Title>회원 탈퇴 완료</Title>
+                            <Notice>
+                                <span>그동안 이번역을 이용해 주셔서</span>
+                                <span>진심으로 감사합니다.</span>
+                            </Notice>
+                            <ButWrap>
+                                <SubmitButton onClick={handleWithdrawComplete}>
+                                    확인
+                                </SubmitButton>
+                            </ButWrap>
+                        </WithdrawContainer>
+                    </>
                 )}
-
-                <MenuBar />
             </PageContainer>
-        </BG>
+            <MenuBar />
+        </>
     );
 };
 
