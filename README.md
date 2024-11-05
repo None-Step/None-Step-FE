@@ -817,3 +817,5 @@ npm run dev
 
 </details>
 
+## 📄 라이선스
+* Apache License 2.0, Copyright (c) 2024 NONESTEP, see this [link](https://github.com/None-Step/None-Step-FE?tab=Apache-2.0-1-ov-file) for more details
