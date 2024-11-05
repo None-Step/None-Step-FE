@@ -36,9 +36,10 @@
 
 ## < 기술 스택 >
 ### ✔️Frond-end
-        * Library : React
-        * Styling : styled-components
+        * Library : React, react-kakao-maps-sdk, react-quill, dompurify, lodash
+        * Styling : styled-components, react-icons
         * Data Fetching : axios
+        * WebSocket : stompjs
         * State Management : redux js toolkit
         * State Form : React Hook Form
         * Module Bundler : Vite
@@ -51,8 +52,6 @@
         * Language : Java 17 
         
 <br>
-
-</details>
 
 ## < 아키텍쳐 >
 <img src="https://github.com/None-Step/None-Step-BE/blob/main/Architecture.png" width="600" height="400"/>
@@ -94,7 +93,7 @@
 ![info](https://github.com/user-attachments/assets/bee205f5-4c86-4aa7-ad97-7107c52e1151)
 
 
-* **구형좌표계**를 이용하여 지도의 일정 반경 내 위치한 역 조회 가능
+* **구형 좌표계**를 이용하여 지도의 일정 반경 내 위치한 역 조회 가능
   * 지도에서 **마커 별 정보 조회 가능**
   * 조회 가능한 편의 시설
     * 역 정보 전체
@@ -236,6 +235,27 @@
 
 ---
 
+## 💻 배포가이드
+
+### 1. 레포지토리 clone
+```
+git clone https://github.com/None-Step/None-Step-FE.git
+```
+### 2. 프로젝트 디렉토리로 이동
+```
+cd none-step
+```
+### 3. npm 패키지 다운로드
+```
+npm install
+```
+### 4. npm run dev
+```
+npm run dev
+```
+
+---
+
 ## 💡 <ERD 다이어그램>
 ![image](https://github.com/user-attachments/assets/2a30832e-cc69-40b9-bc5a-52ed69598e6e)
 
@@ -246,7 +266,6 @@
 
 <details>
 <summary>📌 01. 기본 정보</summary>
-## 기본 정보
  
 <br>
 ✔ 해당 역의 호선, 역 명, 도로명 주소, 환승 가능 호선 등 참고 하였습니다.
