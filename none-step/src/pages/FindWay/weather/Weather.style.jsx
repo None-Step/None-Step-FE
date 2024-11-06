@@ -101,7 +101,6 @@ export const MinWeather = styled.div`
     gap: 0.5rem;
 
     width: 50px;
-    margin-left: 10px;
     padding: 0.8rem 1rem;
     border-radius: 4px;
     box-shadow: ${(props) => props.theme.colors.shadow200};
