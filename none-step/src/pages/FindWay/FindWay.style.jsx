@@ -93,6 +93,7 @@ export const MapItemsContainer = styled.div`
 // 현재 위치 다시 불러오기
 export const Reload = styled.div`
     position: fixed;
+    right: 1rem;
     bottom: 95px;
     display: flex;
     justify-self: flex-end;
