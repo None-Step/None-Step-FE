@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { Span } from '../../Login/Login.style';
+import styled from "styled-components";
 
 export const PopupContainer = styled.div`
     position: absolute;
@@ -201,15 +200,3 @@ export const LaneName = styled.span`
     color: white;
     border-radius: 50px;
 `;
-
-export const Italic = styled.em`
-  font-weight: 600;
-`;
-
-export const Copyright = styled(Span)`
-  width: fit-content;
-  height: fit-content;
-  position: static;
-  transform: none;
-  margin-top: 1rem;
-` ;
