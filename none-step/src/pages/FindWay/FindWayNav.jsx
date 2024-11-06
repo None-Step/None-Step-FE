@@ -35,6 +35,17 @@ const ArrowIcon = styled(FaArrowRight)`
     color: #333;
 `;
 
+const ReloadWrapper = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+`;
+
+const ReloadContainer = styled.div`
+    display: grid;
+    margin: 0 10px;
+`;
+
 const TIMEOUT_DURATION = 8000; // 8초
 const DEFAULT_CENTER = { lat: 37.56682420267543, lng: 126.978652258823 };
 const DEFAULT_LEVEL = 3;
@@ -201,12 +212,16 @@ const FindWayNav = () => {
                         strokeStyle={"solid"}
                     />
                 )}
-                <Reload
-                    onClick={handleReloadLocation}
-                    $viewportHeight={viewportHeight}
-                >
-                    <img src={ReloadIcon} alt="현재위치 새로고침" />
-                </Reload>
+                <ReloadWrapper>
+                    <ReloadContainer>
+                        <Reload
+                            onClick={handleReloadLocation}
+                            $viewportHeight={viewportHeight}
+                        >
+                            <img src={ReloadIcon} alt="현재위치 새로고침" />
+                        </Reload>
+                    </ReloadContainer>
+                </ReloadWrapper>
             </Map>
             <MenuBar />
         </PageWrapper>

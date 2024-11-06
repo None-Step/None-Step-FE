@@ -17,7 +17,8 @@ import {
     BookmarkBtn,
     BookmarkSpan,
     BookmarkIcon,
-    MapComponents,
+    MapItemsWrapper,
+    MapItemsContainer,
 } from "./FindWay.style";
 import { PageHeader } from "@/components/header/Headers";
 import MenuBar from "@/components/menuBar/MenuBar";
@@ -1365,24 +1366,26 @@ const FindWay = () => {
                         </>
                     )}
                 </Map>
-                <MapComponents>
-                    {/* 날씨 작은 화면 */}
-                    {userLocation && (
-                        <WeatherPreview
-                            $viewportHeight={viewportHeight}
-                            onClick={handleWeatherPopup}
-                            weatherData={weatherData}
-                        />
-                    )}
+                <MapItemsWrapper>
+                    <MapItemsContainer>
+                        {/* 날씨 작은 화면 */}
+                        {userLocation && (
+                            <WeatherPreview
+                                $viewportHeight={viewportHeight}
+                                onClick={handleWeatherPopup}
+                                weatherData={weatherData}
+                            />
+                        )}
 
-                    {/* 현재 위치로 이동 버튼 */}
-                    <Reload
-                        onClick={handleReloadLocation}
-                        $viewportHeight={viewportHeight}
-                    >
-                        <img src={ReloadIcon} alt="현재위치 새로고침" />
-                    </Reload>
-                </MapComponents>
+                        {/* 현재 위치로 이동 버튼 */}
+                        <Reload
+                            onClick={handleReloadLocation}
+                            $viewportHeight={viewportHeight}
+                        >
+                            <img src={ReloadIcon} alt="현재위치 새로고침" />
+                        </Reload>
+                    </MapItemsContainer>
+                </MapItemsWrapper>
 
                 {/* 로딩 중일 때 스피너 표시 */}
                 {loading && <Loading />}
