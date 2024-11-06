@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SignActionSpan } from "../pages/Login/Login.style";
+import { SignActionSpan } from "@/pages/Login/Login.style";
 
 export const Container = styled.div`
 position: absolute;

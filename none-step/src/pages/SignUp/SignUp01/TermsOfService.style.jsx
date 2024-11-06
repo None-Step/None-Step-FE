@@ -1,4 +1,4 @@
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 
 export const TermsWrap = styled.div`
   position: absolute;

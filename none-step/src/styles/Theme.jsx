@@ -13,10 +13,10 @@ export const theme = {
         shadow100: "0 1px 4px rgba(12, 12, 13, 0.05)",
         shadow200:
             "0 1px 4px rgba(12, 12, 13, 0.1), 0 1px 4px rgba(12, 12, 13, 0.05)",
-        shadow300: "4px 4px 15px 6px rgba(12, 12, 13, 0.4)",
+        shadow300: "4px 4px 15px 6px rgba(12, 12, 13, 0.04)",
         shadow400:
-            "4px 16px 32px -4px rgba(12, 12, 13, 0.1), 4px 4px 4px -4px rgba(12, 12, 13, 0.05)", 
-        modalLayer : "rgba(55, 56, 60, 0.6)"
+            "4px 16px 32px -4px rgba(12, 12, 13, 0.1), 4px 4px 4px -4px rgba(12, 12, 13, 0.05)",
+        modalLayer: "rgba(55, 56, 60, 0.6)",
     },
     capitalLines: {
         one: "#263C96",
@@ -49,6 +49,7 @@ export const theme = {
         two: "#3DB449",
         three: "#D4A555",
         four: "#416FB4",
+        donghae: "#A3C3E2",
         gimhae: "#7F499C",
     },
     daeguLines: {
@@ -64,7 +65,6 @@ export const theme = {
     },
     social: {
         kakao: "#fae500",
-        naver:"#03c75a",
-    }
-
+        naver: "#03c75a",
+    },
 };

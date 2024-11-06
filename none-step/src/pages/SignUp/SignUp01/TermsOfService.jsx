@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import Button from '../../../components/Button';
+import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../../components/Logo';
+import Logo from '@/components/Logo';
 import { TermsWrap, TermsTitleWrap, Title, Strong, Success, TermsTextBox, TermsTitle, TermsStrong } from './TermsOfService.style';
 import { Wrapper } from '../../Login/Login.style';
-import MenuBar from '../../../components/menuBar/MenuBar';
+import MenuBar from '@/components/menuBar/MenuBar';
 
 const TermsOfService = () => {
   const theme = useContext(ThemeContext);  // theme 객체를 불러옵니다
@@ -40,7 +40,7 @@ const TermsOfService = () => {
 
   // 다음 버튼 클릭시 페이지 이동
   const handleButtonClick = () => {
-    navigate('/signUp');
+    navigate('/signup');
   };
 
   return (

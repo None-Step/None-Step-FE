@@ -41,17 +41,28 @@ export const Span = styled.span`
 `;
 
 export const SignAction = styled.p`
-  width: 200px;
+  width: fit-content;
+  min-width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size : 1.2rem;
   color: ${(props) => props.theme.colors.gray01};
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+
+  @media screen and (max-height: 660px) {
+    &:last-of-type {
+      margin-bottom: 5vh;
+    }
+  }
+
 `;
 
 export const SignActionSpan = styled(Link)`
+  display: inline-block;
   margin-inline : 0.5rem;
   cursor: pointer;
   color: inherit;
+  word-break: keep-all;
 `;
+

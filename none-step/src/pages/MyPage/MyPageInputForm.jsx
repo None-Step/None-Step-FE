@@ -16,11 +16,9 @@ const InputWrap = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   transition: border .4s;
   margin-top: 0.5rem;
-
   &:focus-within {
     border: 1px solid ${(props) => props.theme.colors.gray01};
   }
-
   &:focus-within Label {
     opacity: 1;
     transform: translate(0, 0);
@@ -42,11 +40,9 @@ const InputText = styled.input`
   color: ${(props) => props.theme.colors.black};
   transform: translate(0, -25%);
   transition: all .4s;
-
   &:focus {
     transform: translate(0, 0%);
   }
-
   &::placeholder {
     color: ${(props) => props.theme.colors.gray02};
   }
@@ -58,10 +54,20 @@ const ErrorMessageWrap = styled.div`
   font-size: 1.2rem;
 `;
 
-const InputForm = React.memo(({ label, type, placeholder, value, onValidationChange, onChange, className, password }) => {
+const InputForm = React.memo(({ 
+  label, 
+  type, 
+  placeholder, 
+  value, 
+  onValidationChange, 
+  onChange, 
+  className, 
+  password 
+}) => {
   const [internalValue, setInternalValue] = useState(value || '');
   const [isValid, setIsValid] = useState(true);
 
+  // value prop이 변경될 때 internalValue 업데이트
   useEffect(() => {
     if (value !== undefined) {
       setInternalValue(value);
@@ -69,44 +75,60 @@ const InputForm = React.memo(({ label, type, placeholder, value, onValidationCha
   }, [value]);
 
   const handleChange = (e) => {
-    const newValue = e.target.value;
-    setInternalValue(newValue);
+    // 원래 입력값 저장
+    const inputValue = e.target.value;
+    
+    // 입력된 값 그대로 internal state에 저장 (공백 유지)
+    setInternalValue(inputValue);
+    
+    // 유효성 검사를 위한 값 (공백 제거)
+    const processedValue = inputValue.replace(/\s/g, '');
+    
     let valid = false;
 
-    switch (label) {
-      case "아이디":
-        valid = /^[A-Za-z0-9]{4,12}$/.test(newValue);
-        break;
-      case "이메일":
-        valid = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(newValue);
-        break;
-      case "비밀번호":
-        valid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[$`~!@$!%*#^?&\-_=+]).{8,20}$/.test(newValue);
-        break;
-      case "비밀번호 확인":
-        valid = newValue === password;
-        break;
-      case "이름":
-        valid = newValue.trim().length >= 2;
-        break;
-      case "휴대폰 번호":
-        valid = /^\d{11}$/.test(newValue);
-        break;
-      case "닉네임":
-        valid = newValue.length <= 8 && !/\s/.test(newValue);
-        break;
-      default:
-        valid = true;
+    if (processedValue === '') {
+      valid = false;
+    } else {
+      switch (label) {
+        case "아이디":
+          valid = /^[A-Za-z0-9]{4,12}$/.test(processedValue);
+          break;
+        case "이메일":
+          valid = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(processedValue);
+          break;
+        case "비밀번호":
+          valid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[$`~!@$!%*#^?&\-_=+]).{8,20}$/.test(processedValue);
+          break;
+        case "비밀번호 확인":
+          valid = processedValue === password;
+          break;
+        case "이름":
+          valid = processedValue.length >= 2;
+          break;
+        case "휴대폰 번호":
+          valid = /^\d{11}$/.test(processedValue);
+          break;
+        case "닉네임":
+          valid = processedValue.length <= 8;
+          break;
+        case "인증번호":
+          valid = processedValue.length > 0;
+          break;
+        default:
+          valid = true;
+      }
     }
 
     setIsValid(valid);
 
-    if (typeof onValidationChange === 'function') {
-      onValidationChange(valid);
+    // 부모 컴포넌트에 처리된 값(공백 제거된)과 유효성 상태 전달
+    if (onValidationChange) {
+      onValidationChange(valid, processedValue);
     }
 
-    if (typeof onChange === 'function') {
-      onChange(newValue);
+    // 부모 컴포넌트에 처리된 값(공백 제거된) 전달
+    if (onChange) {
+      onChange(processedValue);
     }
   };
 

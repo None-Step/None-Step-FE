@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Container, Description } from '../../components/CommonStyles'
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
-import SecondaryButton from '../../components/SecondaryButton'
+import { Container, Description } from '@/components/CommonStyles'
+import Logo from '@/components/Logo'
+import Button from '@/components/Button'
+import SecondaryButton from '@/components/SecondaryButton'
 import { InputWrap } from '../SignUp/SignUp02/SignUpForm.style'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Wrapper } from '../Login/Login.style'
-import MenuBar from '../../components/menuBar/MenuBar'
+import MenuBar from '@/components/menuBar/MenuBar'
 
 const IdWrap = styled.div`
   width: 100%;
@@ -32,6 +32,16 @@ const FindIDSuccess = () => {
     navigate('/login'); // 로그인 페이지로 이동
   };
 
+  const FindIDResult = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:not(:last-child){
+      margin-bottom: 0.8rem;
+    }
+  `
+
   return (
     <Wrapper>
       <Container>
@@ -42,8 +52,10 @@ const FindIDSuccess = () => {
         <IdWrap>
           {foundIDs.map((item, index) => (
             <InputWrap key={index}>
+              <FindIDResult>
               <Description>아이디</Description>
               <Description>{item.memberID}</Description>
+              </FindIDResult>
             </InputWrap>
           ))}
         </IdWrap>

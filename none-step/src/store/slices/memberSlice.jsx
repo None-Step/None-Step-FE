@@ -23,8 +23,11 @@ const memberSlice = createSlice({
     updateMemberInfo: (state, action) => {
       return { ...state, ...action.payload };
     },
+    updateNickname: (state, action) => {
+      state.memberNickName = action.payload;
+    },
   },
 });
 
-export const { login, logout, updateMemberInfo } = memberSlice.actions;
+export const { login, logout, updateMemberInfo, updateNickname } = memberSlice.actions;
 export default memberSlice.reducer;
