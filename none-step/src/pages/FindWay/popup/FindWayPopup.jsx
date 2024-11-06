@@ -9,7 +9,8 @@ import Close from '@/assets/img/Close.svg';
 import { theme } from '@/styles/Theme';
 import axiosInstance from '@/apis/axiosInstance';
 import BookmarkPathModal from '../modal/BookmarkPathModal';
-import { PopupContainer,
+import {
+  PopupContainer,
   CloseButton,
   TabContainer,
   Tab,
@@ -33,8 +34,10 @@ import { PopupContainer,
   SubwayRouteInfo,
   TabContent,
   RouteOverview,
-  LaneName, } from './FindWayPopup.style';
-
+  LaneName,
+  Italic,
+  Copyright,
+} from './FindWayPopup.style';
 
 // 호선 색상을 가져오기
 const getLineColor = (lineName, region) => {
@@ -487,6 +490,9 @@ const FindWayPopup = ({
                 );
               })}
             </StationList>
+            <Copyright>
+              powered by <Italic>www.ODsay.com</Italic>
+            </Copyright>
           </SubwayRouteInfo>
         ) : (
           <RouteDetail>이용 가능한 지하철 경로가 없습니다.</RouteDetail>
