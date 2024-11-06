@@ -79,10 +79,15 @@ export const SearchIcon = (props) => (
     </SVGWrapper>
 );
 
-export const MapComponents = styled.div`
-    display: grid;
+export const MapItemsWrapper = styled.div`
+    position: relative;
     width: 100%;
     max-width: 600px;
+`;
+
+export const MapItemsContainer = styled.div`
+    display: grid;
+    margin: 0 10px;
 `;
 
 // 현재 위치 다시 불러오기
@@ -95,7 +100,6 @@ export const Reload = styled.div`
     align-items: center;
     width: 40px;
     height: 40px;
-    margin-right: 10px;
     background-color: ${(props) => props.theme.colors.white};
     border-radius: 40px;
     box-shadow: ${(props) => props.theme.colors.shadow200};
