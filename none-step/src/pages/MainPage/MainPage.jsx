@@ -598,7 +598,7 @@ const MainPage = () => {
                                         <span>
                                             {rainy === "강수없음"
                                                 ? "강수없음"
-                                                : `${rainy}mm`}
+                                                : rainy}
                                         </span>
                                     </div>
                                     <div className="wind">
